@@ -8,6 +8,18 @@ For each of these entries we need some code, an explanation, and suggestions on 
 int i=N, array[N];
 for( ; i>=0; i--) array[i]=i;
 ```
+C does not check that pointers are valid. The above example writes into `array[10]` which is outside the array bounds. This can cause memory corruption because that memory location is probably being used for something else.
+
+## Insufficient memory allocation 
+```C
+struct User {
+   char name[100];
+};
+typedef struct User user_t;
+
+user_t* user = (user_t*) malloc(sizeof(user));
+```
+In the above example, we allocate enough bytes to hold a pointer to a user struct.
 
 ## Using uninitialized variables
 ```C
