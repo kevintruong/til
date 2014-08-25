@@ -1,8 +1,7 @@
-#What common mistakes do C programmers make?
-For each of these entries we need some code, an explanation, and suggestions on how to avoid the mistake.
+What common mistakes do C programmers make?
 
 # Memory mistakes
-# String constants are constant
+## String constants are constant
 ```C
 char array[] = "Hi!"; // array contains a mutable copy
 strcpy(array, "OK");
@@ -11,13 +10,18 @@ char* ptr = "Can't change me" // ptr points to some immutable memory
 strcpy(ptr, "Will not work");
 
 
-## Array boundaries
+## Buffer overflow/ underflow
 ```C
 #define N (10)
 int i=N, array[N];
 for( ; i>=0; i--) array[i]=i;
 ```
 C does not check that pointers are valid. The above example writes into `array[10]` which is outside the array bounds. This can cause memory corruption because that memory location is probably being used for something else.
+In practice, this can be harder to spot because the overflow/underflow may occur in a library call e.g.
+```C
+gets(array); // Let's hope the input is shorter than my array!
+```
+
 
 ## Returning pointers to automatic variables
 ```C
