@@ -2,6 +2,15 @@
 For each of these entries we need some code, an explanation, and suggestions on how to avoid the mistake.
 
 # Memory mistakes
+# String constants are constant
+```C
+char array[] = "Hi!"; // array contains a mutable copy
+strcpy(array, "OK");
+
+char* ptr = "Can't change me" // ptr points to some immutable memory
+strcpy(ptr, "Will not work");
+
+
 ## Array boundaries
 ```C
 #define N (10)
@@ -10,6 +19,17 @@ for( ; i>=0; i--) array[i]=i;
 ```
 C does not check that pointers are valid. The above example writes into `array[10]` which is outside the array bounds. This can cause memory corruption because that memory location is probably being used for something else.
 
+## Returning pointers to automatic variables
+```C
+ int* f() {
+     int result = 42;
+     static int imok;
+     return &imok; // OK - static variables are not on the stack
+     return &result; // Not OK
+  }
+```
+Automatic variables are bound to stack memory only for the lifetime of the function.
+After the function returns it is an error to continue to use the memory.
 ## Insufficient memory allocation 
 ```C
 struct User {
@@ -36,6 +56,9 @@ void myfunct() {
    char array[10];
    char *p = malloc(10);
 ```
+Automatic (temporary variables) are not automatically initialized to zero.
+Heap allocations using malloc are not automatically initialized to zero.
+
 ## Double-free
 ```C
   char *p = malloc(10);
@@ -72,7 +95,12 @@ int answer = 3; // Will print out the answer.
 if(answer=42) { printf("I've solved the answer! It's %d", answer);}
 ```
 
-## Undeclared Functions
+## Undeclared or incorrectly prototyped functions
+```C
+time_t start = time();
+```
+The system function 'time' actually takes a parameter (the pointer to some memory that can receive the time_t structure. The compiler did not catch this error because the programmer did not provide a valid function prototype by including `time.h`
+
 ## Extra Semicolons
 ```C
 for(int i = 0; i < 5; i++) ; printf("I'm printed once");
