@@ -8,7 +8,7 @@ strcpy(array, "OK");
 
 char* ptr = "Can't change me" // ptr points to some immutable memory
 strcpy(ptr, "Will not work");
-
+```
 
 ## Buffer overflow/ underflow
 ```C
