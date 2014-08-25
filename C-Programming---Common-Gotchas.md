@@ -6,7 +6,7 @@ What common mistakes do C programmers make?
 char array[] = "Hi!"; // array contains a mutable copy
 strcpy(array, "OK");
 
-char* ptr = "Can't change me" // ptr points to some immutable memory
+char* ptr = "Can't change me"; // ptr points to some immutable memory
 strcpy(ptr, "Will not work");
 ```
 
