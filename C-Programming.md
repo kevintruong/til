@@ -37,7 +37,7 @@ char* ptr2;
 ```
 
 ## How do you use a pointer to read/write some memory?
-if 'p' is a pointer then user "*p" to write to the memory location(s) pointed to by p.
+if 'p' is a pointer then use "*p" to write to the memory address(es) pointed to by p.
 *ptr = 0; // Writes some memory. The number of bytes written depends on the pointer type.
 
 ## What is pointer arithmetic?
@@ -48,18 +48,48 @@ ptr +=2; ptr now points to the 'l'
 ```
 
 If an int is 4 bytes then ptr+1 points to 4 bytes after whatever ptr is pointing at.
-
+```C
+char *ptr = "ABCDEFGH";
+int *bna = int (int *)ptr;
+bna +=1; // Would cause iterate by one integer space (i.e 4 bytes on some systems)
+ptr = (char*) bra;
+printf("%s",ptr);
+/* Notice how only 'EFGH' is printed. Why is that? Well as mentioned above, when performing 'bna+=1' we are increasing the **integer** pointer by 1, (translates to 4 bytes on most systems) which is equivalent to 4 characters (each character is only 1 byte)*/
+return 0;
+```
 ## What is a void pointer?
-A pointer without a type. You can think of this as raw pointer, or just a memory address. You cannot directly read or write to it because the void type does not have a size.
+A pointer without a type. (Very similar to a void variable) You can think of this as raw pointer, or just a memory address. You cannot directly read or write to it because the void type does not have a size.
+
+Usually used when you're not sure about the datatype you will be deal with, or when you're interfacing C code with other programming languages.
 
 
 ## Does printf call write or does write call printf?
-Ans: printf calls write. Printf includes an internal buffer so, to increase performance printf may not call write everytime you call printf. printf is a C library function. write is a system call.
+printf calls write. Printf includes an internal buffer so, to increase performance printf may not call write everytime you call printf. printf is a C library function. write is a system call and as we know system calls are expensive. On the other hand printf uses a buffer which suites our needs better at that point
 
 ## How do you print out pointer values? integers? strings?
 Use format specifiers "%p" for pointers, "%d" for integers and "%s" for Strings.
-(Todo: add link for more information / more examples here) 
+(Todo: add link for more information / more examples here)
+ ```C
+int *ptr=malloc(sizeof(int));
+*ptr=10;
+printf("%p\n",ptr); //prints the address pointed to by the pointer
+printf("%p\n",&ptr); /*prints the address of pointer -- extremely useful
+when dealing with double pointers*/
+printf("%d",*ptr); //prints the integer content of ptr
+return 0;
+ ```
+char *str=malloc(256*sizeof(char));
+*str="Hello there!";
+printf("%p\n",str); //prints the address pointed to by the pointer
+when dealing with double pointers*/
+printf("%s",str); //notice how we don't need to include the asterisk (*) here -- [that's because strings are essentially pointers that link the chars together](https://www.cs.bu.edu/teaching/c/string/intro/)
+return 0;
+ ```
 
+ ```C
+int num1=10;
+printf("%d",num1); //prints num1
+ ```
 ## How would you make standard out be saved to a file?
 Simplest way: run your program and use shell redirection
 e.g.
@@ -168,5 +198,4 @@ Declares an alias for a types. Often used with structs to reduce the visual clut
 
 typedef float real; // abstract the actual type used. In the future we could change this typed and recompile with doubles.
 typedef struct link link_t;  //With structs, include the keyword 'struct' as part of the original types
-
 
