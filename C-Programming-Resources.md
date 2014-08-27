@@ -1,8 +1,9 @@
-# External resources:
+# Some resources:
 * [C for C++/Java Programmers](http://www.ccs.neu.edu/course/com3620/parent/C-for-Java-C++/c-for-c++-alt.html)
 * [C Tutorial by Brian Kernighan](http://www.lysator.liu.se/c/bwk-tutor.html)
 * [c faq](http://c-faq.com/)
 * Add your favorite resources here
+
 Internal resource:
 * See the crash-course to C Programming below.
 * See the [[C Gotchas wiki page|C-Programming---Common-Gotchas]].
