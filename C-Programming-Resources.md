@@ -86,7 +86,8 @@ char* f2() {
     char p[] = "Hello";
     return p;
 } // Incorrect!
-// An array p is created on the stack for the collect size to hold H,e,l,l,o,\0 (6) bytes.
+// An array p is created on the stack for the correct size to hold 
+// H,e,l,l,o, and a null byte i.e. (6) bytes.
 // This array is stored on the stack and is invalid after we return from s2.
 
 char* f3() {
