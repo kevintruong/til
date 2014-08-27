@@ -96,7 +96,7 @@ printf("%s",str); //notice how we don't need to include the asterisk (*) -- stri
 return 0;
  ```
 
-[Strings & Pointer @ BU](https://www.cs.bu.edu/teaching/c/string/intro/)
+[Strings as Pointers & Arrays @ BU](https://www.cs.bu.edu/teaching/c/string/intro/)
 
 ## How would you make standard out be saved to a file?
 Simplest way: run your program and use shell redirection
@@ -113,9 +113,36 @@ See [[http://angrave.github.io/sysassets/chapter1.html]]
 char a[] = "Hello";
 char* b = "Hello";
 
+Example 
+
+```C
+	/*Hypothesis: 'a' can only be written to using 'strcpy',
+	while 'b' would be read & write capable
+	(however the memory address would change at writing)*/
+	char a[] = "Hello";
+	char* b = "Hello";
+	printf("Initializing A...\n-------------------\n");
+	printf("%p\n",a);
+	printf("%s\n",a);
+	printf("Initializing B...\n-------------------\n");
+	printf("%p\n",b);
+	printf("%s\n",b);
+
+	
+	strcpy(a,"World");/*Only possible by using strcpy but would reserve the address*/
+	printf("\nAfter changing 'A' to %s...\n-------------------\n",a);
+	printf("%p\n",a);
+	printf("%s\n",a);
+	
+	b="World";
+	printf("\nAfter changing 'B' to %s...\n-------------------\n",b);
+	printf("%p\n",b);
+	printf("%s\n",b);
+	return 0;
+```
 
 ## sizeof() returns the number of bytes. So using above code, what is sizeof(a) and sizeof(b)?
-sizeof(a): a is an array. Returns the numbef of bytes required for the entire array (6)
+sizeof(a): a is an array. Returns the number of bytes required for the entire array (5 chars + EOF = 6)
 sizeof(b): Same as sizeof(char*). Returns the number bytes required for a pointer (e.g. 4 or 8)
 
 ## Which of the following code is incorrect or correct and why?
