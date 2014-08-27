@@ -1,13 +1,14 @@
-# Some resources:
+# Want a quick introduction to C?
+* Keep reading for the quick crash-course to C Programming below
+* Then see the [[C Gotchas wiki page|C-Programming---Common-Gotchas]].
+* Kick back relax with [Lawrence's intro videos](http://angrave.github.io/sysassets)
+
+# External resources
 * [C for C++/Java Programmers](http://www.ccs.neu.edu/course/com3620/parent/C-for-Java-C++/c-for-c++-alt.html)
 * [C Tutorial by Brian Kernighan](http://www.lysator.liu.se/c/bwk-tutor.html)
 * [c faq](http://c-faq.com/)
 * Add your favorite resources here
 
-Internal resource:
-* See the crash-course to C Programming below.
-* See the [[C Gotchas wiki page|C-Programming---Common-Gotchas]].
-* [Lawrence's intro videos](http://angrave.github.io/sysassets)
 
 # Crash Course Intro to C
 
