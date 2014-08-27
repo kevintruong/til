@@ -2,6 +2,7 @@
 * Keep reading for the quick crash-course to C Programming below
 * Then see the [[C Gotchas wiki page|C-Programming---Common-Gotchas]].
 * Kick back relax with [Lawrence's intro videos](http://angrave.github.io/sysassets)
+* Or watch some old CS241 slides [[CS241 Old Slides|https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/past-lectures/]]
 
 # External resources
 * [C for C++/Java Programmers](http://www.ccs.neu.edu/course/com3620/parent/C-for-Java-C++/c-for-c++-alt.html)
