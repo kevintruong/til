@@ -44,13 +44,13 @@ if 'p' is a pointer then user "*p" to write to the memory location(s) pointed to
 You can add an integer to a pointer. However the pointer type is used to determine how much to increment the pointer. For char pointers this is trivial because characters are always one byte:
 ```C
 char *ptr = "Hello"; // ptr holds the memory location of 'H'
-ptr +=2; ptr now points to the 'l"
+ptr +=2; ptr now points to the 'l'
 ```
 
 If an int is 4 bytes then ptr+1 points to 4 bytes after whatever ptr is pointing at.
 
 ## What is a void pointer?
-A pointer without a type. You can think of this as raw pointer, or just a memory address. You can directly read or write to it because the void type does not have a size.
+A pointer without a type. You can think of this as raw pointer, or just a memory address. You cannot directly read or write to it because the void type does not have a size.
 
 
 ## Does printf call write or does write call printf?
