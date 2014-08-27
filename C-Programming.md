@@ -149,11 +149,15 @@ How do you unallocate memory on the heap?
 Use free!
 
 What is double free? How can you avoid?What is a dangling pointer? How do you avoid?
+```C
 free(p);
 free(p); // Oops!
+```
 
 Fix:
+```C
 p = NULL;
+```
 
 ## What is an example of buffer overflow?
 Famous example: Heart Bleed (performed a memcpy into a buffer that was of insufficient size).
