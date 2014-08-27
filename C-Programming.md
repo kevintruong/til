@@ -82,10 +82,10 @@ char *str=malloc(256*sizeof(char));
 *str="Hello there!";
 printf("%p\n",str); //prints the address pointed to by the pointer
 when dealing with double pointers*/
-printf("%s",str); //notice how we don't need to include the asterisk (*) here -- [that's because strings are essentially pointers that link the chars together](https://www.cs.bu.edu/teaching/c/string/intro/)
+printf("%s",str); //notice how we don't need to include the asterisk (*) -- strings are essentially sort of pointers in C
 return 0;
  ```
-
+[Strings & Pointer @ BU](https://www.cs.bu.edu/teaching/c/string/intro/)
  ```C
 int num1=10;
 printf("%d",num1); //prints num1
@@ -198,4 +198,3 @@ Declares an alias for a types. Often used with structs to reduce the visual clut
 
 typedef float real; // abstract the actual type used. In the future we could change this typed and recompile with doubles.
 typedef struct link link_t;  //With structs, include the keyword 'struct' as part of the original types
-
