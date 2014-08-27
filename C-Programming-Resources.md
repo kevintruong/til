@@ -10,6 +10,8 @@ Internal resource:
 
 # Crash Course Intro to C
 
+*Warning new page* Please fix typos and formatting mistakes for me and add useful links too.*
+
 ## How do you write a complete hello world program in C?
 ```C
 #include <stdio.h>
@@ -113,18 +115,24 @@ Typically used with cast and a sizeof. e.g. enough space to hold 10 integers
 int* space = (int*) malloc(sizeof(int) * 10);
 ```
 
-##What's wrong with this code?
+## What's wrong with this string copy code?
+
 ```C
 void mystrcpy(char*dest, char* src) { 
   // void means no return value   
   while( *src ) { dest = src; src ++; dest++; }  
 }
 ```
-In the above code it simply changes the dest pointer to point to source string.Also the nul bytes is not copied.
+In the above code it simply changes the dest pointer to point to source string. Also the nul bytes is not copied. Here's a better version - 
 ```
   while( *src ) { *dest = *src; src ++; dest++; } 
   *dest = *src;
 ```
+Note it's also usual to see the following kind of implementation, which does everything inside the expression test, including copying the nul byte.
+```C
+  while( (*dest++ = *src++ )) ;
+
+
 ## How do you write a strcpy replacement?
 // Use strlen+1 to find the nul byte...
 char* mystrdup(char*source) {
