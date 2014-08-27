@@ -69,6 +69,14 @@ printf calls write. Printf includes an internal buffer so, to increase performan
 ## How do you print out pointer values? integers? strings?
 Use format specifiers "%p" for pointers, "%d" for integers and "%s" for Strings.
 (Todo: add link for more information / more examples here)
+
+Example of integer:
+ ```C
+int num1=10;
+printf("%d",num1); //prints num1
+ ```
+
+Example of integer pointer:
  ```C
 int *ptr=malloc(sizeof(int));
 *ptr=10;
@@ -78,6 +86,8 @@ when dealing with double pointers*/
 printf("%d",*ptr); //prints the integer content of ptr
 return 0;
  ```
+Example of string:
+ ```C
 char *str=malloc(256*sizeof(char));
 *str="Hello there!";
 printf("%p\n",str); //prints the address pointed to by the pointer
@@ -85,11 +95,9 @@ when dealing with double pointers*/
 printf("%s",str); //notice how we don't need to include the asterisk (*) -- strings are essentially sort of pointers in C
 return 0;
  ```
+
 [Strings & Pointer @ BU](https://www.cs.bu.edu/teaching/c/string/intro/)
- ```C
-int num1=10;
-printf("%d",num1); //prints num1
- ```
+
 ## How would you make standard out be saved to a file?
 Simplest way: run your program and use shell redirection
 e.g.
