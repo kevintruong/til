@@ -63,8 +63,8 @@ A pointer without a type (very similar to a void variable). You can think of thi
 This is often used when either a datatype you're dealing with is unknown or when you're interfacing C code with other programming languages.
 
 
-## Does printf call write or does write call printf?
-printf calls write. Printf includes an internal buffer so, to increase performance printf may not call write everytime you call printf. printf is a C library function. write is a system call and as we know system calls are expensive. On the other hand printf uses a buffer which suites our needs better at that point
+## Does `printf` call write or does write call `printf`?
+`printf` calls `write`. `printf` includes an internal buffer so, to increase performance `printf` may not call `write` everytime you call `printf`. `printf` is a C library function. `write` is a system call and as we know system calls are expensive. On the other hand printf uses a buffer which suites our needs better at that point
 
 ## How do you print out pointer values? integers? strings?
 Use format specifiers "%p" for pointers, "%d" for integers and "%s" for Strings.
