@@ -116,9 +116,8 @@ char* b = "Hello";
 Example 
 
 ```C
-	/*Hypothesis: 'a' can only be written to using 'strcpy',
-	while 'b' would be read & write capable
-	(however the memory address would change at writing)*/
+	/*Hypothesis: 'a' read & written to (written to using 'strcpy'),
+	while 'b' would be read only (writing is 'possible' -- however the memory address would change at writing)*/
 	char a[] = "Hello";
 	char* b = "Hello";
 	printf("Initializing A...\n-------------------\n");
