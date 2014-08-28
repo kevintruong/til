@@ -81,7 +81,7 @@ Example of integer pointer:
 int *ptr=malloc(sizeof(int));
 *ptr=10;
 printf("%p\n",ptr); //prints the address pointed to by the pointer
-printf("%p\n",&ptr); //prints the address of pointer -- extremely useful
+printf("%p\n",&ptr); /*prints the address of pointer -- extremely useful
 when dealing with double pointers*/
 printf("%d",*ptr); //prints the integer content of ptr
 return 0;
@@ -90,7 +90,7 @@ Example of string:
  ```C
 char *str=malloc(256*sizeof(char));
 *str="Hello there!";
-printf("%p\n",str); //prints the address pointed to by the pointer
+printf("%p\n",str); /*prints the address pointed to by the pointer -- extremely useful
 when dealing with double pointers*/
 printf("%s",str); //notice how we don't need to include the asterisk (*) -- strings are essentially sort of pointers in C
 return 0;
