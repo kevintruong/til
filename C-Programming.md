@@ -24,13 +24,13 @@ int main() {
 }
 ```
 ## Why do we #include stdio.h?
-We're lazy! We don't want declare the printf function. It's already done for us inside the file 'stdio.h'. The #include includes the text of the file as part of our file to be compiled.
+We're lazy! We don't want to declare the printf function. It's already done for us inside the file 'stdio.h'. The #include includes the text of the file as part of our file to be compiled.
 
 ## How are C strings represented?
-Just characters in memory. The end of the string includes a NUL (0) byte. So "ABC" requires four(4) bytes. The only way to find out how long a C string is, is to keep reading memory until you find the nul byte.
+As characters in memory. The end of the string includes a NUL (0) byte. So "ABC" requires four(4) bytes. The only way to find out the length of a C string is to keep reading memory until you find the NUL byte.
 
 ## How do you declare a pointer? 
-Pointers refer to memory address. The type of the pointer is useful - it tells the compiler how many bytes need to be read/written.
+A pointer refers to a memory address. The type of the pointer is useful - it tells the compiler how many bytes need to be read/written.
 ```
 int* ptr1;
 char* ptr2;
@@ -58,9 +58,9 @@ printf("%s",ptr);
 return 0;
 ```
 ## What is a void pointer?
-A pointer without a type. (Very similar to a void variable) You can think of this as raw pointer, or just a memory address. You cannot directly read or write to it because the void type does not have a size.
+A pointer without a type (very similar to a void variable). You can think of this as a raw pointer, or just a memory address. You cannot directly read or write to it because the void type does not have a size.
 
-Usually used when you're not sure about the datatype you will be deal with, or when you're interfacing C code with other programming languages.
+This is often used when either a datatype you're dealing with is unknown or when you're interfacing C code with other programming languages.
 
 
 ## Does printf call write or does write call printf?
