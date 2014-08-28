@@ -44,7 +44,7 @@ if 'p' is a pointer then use "*p" to write to the memory address(es) pointed to 
 You can add an integer to a pointer. However the pointer type is used to determine how much to increment the pointer. For char pointers this is trivial because characters are always one byte:
 ```C
 char *ptr = "Hello"; // ptr holds the memory location of 'H'
-ptr +=2; ptr now points to the 'l'
+ptr +=2; //ptr now points to the 'l'
 ```
 
 If an int is 4 bytes then ptr+1 points to 4 bytes after whatever ptr is pointing at.
@@ -52,7 +52,7 @@ If an int is 4 bytes then ptr+1 points to 4 bytes after whatever ptr is pointing
 char *ptr = "ABCDEFGH";
 int *bna = int (int *)ptr;
 bna +=1; // Would cause iterate by one integer space (i.e 4 bytes on some systems)
-ptr = (char*) bra;
+ptr = (char*) bna;
 printf("%s",ptr);
 /* Notice how only 'EFGH' is printed. Why is that? Well as mentioned above, when performing 'bna+=1' we are increasing the **integer** pointer by 1, (translates to 4 bytes on most systems) which is equivalent to 4 characters (each character is only 1 byte)*/
 return 0;
@@ -81,7 +81,7 @@ Example of integer pointer:
 int *ptr=malloc(sizeof(int));
 *ptr=10;
 printf("%p\n",ptr); //prints the address pointed to by the pointer
-printf("%p\n",&ptr); /*prints the address of pointer -- extremely useful
+printf("%p\n",&ptr); //prints the address of pointer -- extremely useful
 when dealing with double pointers*/
 printf("%d",*ptr); //prints the integer content of ptr
 return 0;
