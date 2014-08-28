@@ -88,11 +88,10 @@ return 0;
  ```
 Example of string:
  ```C
-char *str=malloc(256*sizeof(char));
-*str="Hello there!";
-printf("%p\n",str); /*prints the address pointed to by the pointer -- extremely useful
-when dealing with double pointers*/
-printf("%s",str); //notice how we don't need to include the asterisk (*) -- strings are essentially sort of pointers in C
+char *str = (char *) malloc(256*sizeof(char));
+strcpy(str, "Hello there!");
+printf("%p\n", str); // print the address in the heap
+printf("%s", str);
 return 0;
  ```
 
