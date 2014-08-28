@@ -23,8 +23,8 @@ int main() {
   return 0; 
 }
 ```
-## Why do we #include stdio.h?
-We're lazy! We don't want to declare the printf function. It's already done for us inside the file 'stdio.h'. The #include includes the text of the file as part of our file to be compiled.
+## Why do we use '`#include stdio.h`'?
+We're lazy! We don't want to declare the `printf` function. It's already done for us inside the file '`stdio.h`'. The #include includes the text of the file as part of our file to be compiled.
 
 ## How are C strings represented?
 As characters in memory. The end of the string includes a NUL (0) byte. So "ABC" requires four(4) bytes. The only way to find out the length of a C string is to keep reading memory until you find the NUL byte.
