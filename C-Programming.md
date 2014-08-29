@@ -44,7 +44,7 @@ if 'p' is a pointer then use "*p" to write to the memory address(es) pointed to 
 You can add an integer to a pointer. However the pointer type is used to determine how much to increment the pointer. For char pointers this is trivial because characters are always one byte:
 ```C
 char *ptr = "Hello"; // ptr holds the memory location of 'H'
-ptr +=2; //ptr now points to the 'l'
+ptr +=2; //ptr now points to the first'l'
 ```
 
 If an int is 4 bytes then ptr+1 points to 4 bytes after whatever ptr is pointing at.
