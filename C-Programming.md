@@ -78,7 +78,7 @@ printf("%d",num1); //prints num1
 
 Example of integer pointer:
  ```C
-int *ptr=malloc(sizeof(int));
+int *ptr=(int*)malloc(sizeof(int));
 *ptr=10;
 printf("%p\n",ptr); //prints the address pointed to by the pointer
 printf("%p\n",&ptr); /*prints the address of pointer -- extremely useful
