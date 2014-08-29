@@ -68,7 +68,7 @@ This is often used when either a datatype you're dealing with is unknown or when
 
 ## How do you print out pointer values? integers? strings?
 Use format specifiers "%p" for pointers, "%d" for integers and "%s" for Strings.
-(Todo: add link for more information / more examples here)
+A full list of all of the format specifiers is found [here](http://www.cplusplus.com/reference/cstdio/printf/)
 
 Example of integer:
  ```C
