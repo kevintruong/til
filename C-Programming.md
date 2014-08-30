@@ -50,7 +50,7 @@ ptr +=2; //ptr now points to the first'l'
 If an int is 4 bytes then ptr+1 points to 4 bytes after whatever ptr is pointing at.
 ```C
 char *ptr = "ABCDEFGH";
-int *bna = int (int *)ptr;
+int *bna = (int *)ptr;
 bna +=1; // Would cause iterate by one integer space (i.e 4 bytes on some systems)
 ptr = (char*) bna;
 printf("%s",ptr);
