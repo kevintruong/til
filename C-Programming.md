@@ -78,13 +78,13 @@ Use format specifiers "%p" for pointers, "%d" for integers and "%s" for Strings.
 A full list of all of the format specifiers is found [here](http://www.cplusplus.com/reference/cstdio/printf/)
 
 Example of integer:
- ```C
+```C
 int num1=10;
 printf("%d",num1); //prints num1
- ```
+```
 
 Example of integer pointer:
- ```C
+```C
 int *ptr=(int*)malloc(sizeof(int));
 *ptr=10;
 printf("%p\n",ptr); //prints the address pointed to by the pointer
@@ -92,15 +92,15 @@ printf("%p\n",&ptr); /*prints the address of pointer -- extremely useful
 when dealing with double pointers*/
 printf("%d",*ptr); //prints the integer content of ptr
 return 0;
- ```
+```
 Example of string:
- ```C
+```C
 char *str = (char *) malloc(256*sizeof(char));
 strcpy(str, "Hello there!");
 printf("%p\n", str); // print the address in the heap
 printf("%s", str);
 return 0;
- ```
+```
 
 [Strings as Pointers & Arrays @ BU](https://www.cs.bu.edu/teaching/c/string/intro/)
 
@@ -185,7 +185,7 @@ shell: man -S2 open  or man -S3 printf
 ## How do you allocate memory on the heap?
 Use malloc. There's also realloc and calloc.
 Typically used with cast and a sizeof. e.g. enough space to hold 10 integers
-```
+```C
 int* space = (int*) malloc(sizeof(int) * 10);
 ```
 
@@ -204,11 +204,11 @@ In the above code it simply changes the dest pointer to point to source string. 
 ```
 Note it's also usual to see the following kind of implementation, which does everything inside the expression test, including copying the nul byte.
 ```C
-  while( (*dest++ = *src++ )) ;
-
+  while( (*dest++ = *src++ )) {};
+```
 
 ## How do you write a strcpy replacement?
-// Use strlen+1 to find the nul byte...
+// Use strlen+1 to find the zero byte... 
 char* mystrdup(char*source) {
    char* p = (char*) malloc ( strlen(source)+1 );
    strcpy(p,source);
