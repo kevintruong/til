@@ -59,4 +59,4 @@ if( child_id > 0) { // We have a child! Get their exit code
   exit(123);
 }
 Can I make the child process execute another program?
-Yes. Use `exec` however short corld answer, it' also possible to take over the program.
+Yes. Use `exec` after forking. [[http://man7.org/linux/man-pages/man3/exec.3.html]]
