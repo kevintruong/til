@@ -3,7 +3,18 @@ This wiki is being built by students at UIUC.
 
 Rather than requiring a book this semester, we will build own set of resources here.
 
-We need pages on 
+
+## Week 1
+* [[C Programming]]
+* [[C Gotchas wiki page|C-Programming---Common-Gotchas]]
+
+## Week 2
+* [[Fun with forks]]
+
+## Other content
+
+Call to action --
+We need pages or examples on 
 * Process Memory Layout for a single-threaded process (code, bss, data, heap, stack, args, env)
 * Process Control (fork, exec, wait, pid, ppid,exit examples)
 * File Control (open,seek,close,dup, stat examples)
