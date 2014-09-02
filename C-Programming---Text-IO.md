@@ -36,7 +36,8 @@ example,
 int* data = (int*) malloc(sizeof(int));
 char* line = "v 10";
 char type;
-sscanf(line,"%c %d", &type, &data); // oops!
+// Good practice: Check scanf parsed the line and read two values:
+int ok = 2 == sscanf(line,"%c %d", &type, &data); // pointer error
 ```
 We wanted to write the character value into c and the integer value into the malloc'd memory.
 However we passed the address of the pointer, not what the pointer is pointing to. So scanf will change the pointer. i.e. the pointer will now point to address 10 so this code will later fail e.g. when free(data) is called.
@@ -72,8 +73,10 @@ One of the advantages of `getline` is that will automatically (re-) allocate a b
 ```C
 // ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 
-char* buffer = NULL; /* These will be changed by getline
+ /* set buffer and size to 0; they will be changed by getline*/
+char* buffer = NULL;
 size_t size = 0;
+
 ssize_t chars = getline(&buffer, &size, stdin);
 
 // Discard newline character if it is present,
