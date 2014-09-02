@@ -106,7 +106,22 @@ int main(int argc, char**argv) {
 
 
 ## What is the silliest fork example?
-The amazing apparent-O(N) _sleepsort_ most be a strong contender here (first published on 4chan 2011 [[https://dis.4chan.org/read/prog/1295544154]] ). A version of this awful sorting algorithm is shown below.
+A slightly silly example is shown below. What will it print? Try it with multiple arguments to your program.
+```C
+#include <unistd.h>
+#include <stdio.h>
+int main(int argc, char**argv) {
+  pid_t id;
+  int status; 
+  while(--argc && (id=fork())) {
+    waitpid(id,&status,0); /* Wait for child*/
+  }
+  printf("%d:%s\n",argc, argv[argc]);
+  return 0;
+}
+```
+
+The amazing parallel apparent-O(N) _sleepsort_ is today's silly winner. First published on 4chan 2011 [[https://dis.4chan.org/read/prog/1295544154]]. A version of this awful but amusing sorting algorithm is shown below.
 ```C
 int main(int c, char **v)
 {
