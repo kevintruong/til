@@ -1,11 +1,13 @@
-## How do print something out in C to the console? 
-Use `printf`. The first parameter is a format string that includes placeholders for the data to be printed. Common format specifiers are `%s` treat the argument as a c string pointer, keep printing all characters until the NULL-character is reached; `%d` print the argument as an integer; `%p` print the argument as a memory address.
+## How do I print strings, ints, chars to the standard output stream? 
+Use `printf`. The first parameter is a format string that includes placeholders for the data to be printed. Common format specifiers are `%s` treat the argument as a c string pointer, keep printing all characters until the NULL-character is reached; `%d` print the argument as an integer; `%p` print the argument as a memory address. 
+
 A simple example is shown below:
 ```C
 char *name = ... ; int score = ...;
 printf("Hello %s, your result is %d\n", name, score);
 printf("Debug: The string and int are stored at: %p and %p\n", name, &score );
-// name already is a char pointers. We use "&" to get the address of the int variable
+// name already is a char pointer and points to the start of the array. 
+// We need "&" to get the address of the int variable
 ```
 
 By default, for performance, `printf` does not actually write anything out (by calling write) until its buffer is full or a newline is printed. 
