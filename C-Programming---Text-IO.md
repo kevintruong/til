@@ -47,7 +47,7 @@ The following code is vulnerable to buffer overflow. It assumes or trusts that t
 char buf[10];
 gets(buf); // Remember the array name means the first byte of the array
 ``` 
-gets is now deprecated and will be removed in future versions of the C standard. Programs should use fgets or getline instead. 
+`gets` is deprecated and will be removed in future versions of the C standard. Programs should use `fgets` or `getline` instead. 
 
 `char * fgets ( char * str, int num, FILE * stream); `
 `ssize_t getline(char **lineptr, size_t *n, FILE *stream);`
@@ -58,14 +58,27 @@ char buffer[10];
 char* result =  fgets(result, sizeof(buffer), stdin);
 ```
 The result is NULL if there was an error or the end of the file is reached.
-Note fgets copies the newline into the buffer, which you may want to discard-
+Note, unlike `gets`,  `fgets` copies the newline into the buffer, which you may want to discard-
+```C
+if( ! result) { return; /* no data - don't read the buffer contents */}
+
+int i= strlen(buffer) -1;
+if(buffer[i] == '\n') buffer[i] = '\0'
 ```
-int len= strlen(buffer);
-for(; len>=0 ; len--) {
-  if (buffer[len] == '\n')  {
-     buffer[len] = '\0';  /* Truncate */ 
-     break;
-  }
-}
+
+## How do I use `getline`?
+One of the advantages of `getline` is that will automatically (re-) allocate a buffer on the heap of sufficient size.
+
+```C
+// ssize_t getline(char **lineptr, size_t *n, FILE *stream);
+
+char* buffer = NULL; /* These will be changed by getline
+size_t size = 0;
+ssize_t chars = getline(&buffer, &size, stdin);
+
+// Discard newline character if it is present,
+if(chars >0 && buffer[chars -1] =='\n') buffer[chars-1] = '\0';
+
+// Later... don't forget to free the buffer!
+free(buffer);
 ```
-One of the advantages of getline is that will automatically (re-) allocate a buffer of sufficient size.
