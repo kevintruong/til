@@ -208,6 +208,7 @@ Note it's also usual to see the following kind of implementation, which does eve
 ```
 
 ## How do you write a strcpy replacement?
+```C
 // Use strlen+1 to find the zero byte... 
 char* mystrdup(char*source) {
    char* p = (char*) malloc ( strlen(source)+1 );
@@ -216,18 +217,24 @@ char* mystrdup(char*source) {
 }
 ```
 
-How do you unallocate memory on the heap?
+## How do you unallocate memory on the heap?
 Use free!
 
-What is double free? How can you avoid?What is a dangling pointer? How do you avoid?
+## What is double free error? How can you avoid? What is a dangling pointer? How do you avoid?
+A double free error is when you accidentally attempt to free the same allocation twice.
 ```C
+int* p = malloc(sizeof(int));
 free(p);
-free(p); // Oops!
+*p = '123; // Oops! - Dangling pointer!
+free(p); // Oops! - Double free!
 ```
+
+The fix is firstly to write correct programs! Secondly, it's good programming hygiene to reset pointers
+once the memory has been freed. This ensures the pointer cant be used incorrectly without the program crashing.
 
 Fix:
 ```C
-p = NULL;
+p = NULL; // Now you can't use this pointer by mistake
 ```
 
 ## What is an example of buffer overflow?
