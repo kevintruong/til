@@ -72,18 +72,34 @@ if( child_id > 0) {
   // start calculation
   exit(123);
 }
+```
+
 ## Can I make the child process execute another program?
 Yes. Use one of the `exec` functions after forking. [[http://man7.org/linux/man-pages/man3/exec.3.html]]
 ```C
 #include <unistd.h>
 #include <sys/types.h> 
 #include <sys/wait.h>
+#include <stdlib.h>
 
-pid_t child = fork();
-if(child == -1) return;
-if(child) {
-  int status;
-  waitpid(child , &status ,0);
+int main(int argc, char**argv) {
+  pid_t child = fork();
+  if(child == -1) return;
+  if(child) { /* I have a child! */
+    int status;
+    waitpid(child , &status ,0);
+    return EXIT_SUCCESS;
+
+  } else { /* I am the child */
+    // Other versions of exec pass in arguments as arrays
+    // Remember first arg is the program name
+    // Last arg must be a char pointer to NULL
+
+    execl("/bin/ls", "ls","-alh", (char*)NULL );
+
+    // If we get to this line, something went wrong!
+    perror("exec failed!");
+  }
 }
 ```
 
