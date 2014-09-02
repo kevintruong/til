@@ -177,10 +177,11 @@ char* f4() {
 } // OK
 The array is static meaning it exists for the lifetime of the process.
 
-How do you look up information C library calls and system calls?
+## How do you look up information C library calls and system calls?
 Use the man pages. Note the man pages are organized into sections. Section 2 = System calls. System 3 = C libraries.
 Web: Google "man7 open"
 shell: man -S2 open  or man -S3 printf
+
 ## How do you allocate memory on the heap?
 Use malloc. There's also realloc and calloc.
 Typically used with cast and a sizeof. e.g. enough space to hold 10 integers
@@ -235,6 +236,11 @@ Simple example: implement a strcpy and forget to add one to strlen, when determi
 
 ## What is 'typedef' and how do you use it? 
 Declares an alias for a types. Often used with structs to reduce the visual clutter of having to write 'struct' as part of the type.
+```C
+typedef float real; 
+// abstract the actual type used. 
+// In the future we could change this typed and recompile with doubles.
 
-typedef float real; // abstract the actual type used. In the future we could change this typed and recompile with doubles.
-typedef struct link link_t;  //With structs, include the keyword 'struct' as part of the original types
+typedef struct link link_t; 
+//With structs, include the keyword 'struct' as part of the original types
+```
