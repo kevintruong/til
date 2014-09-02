@@ -12,7 +12,7 @@
 * Add your favorite resources here
 
 
-# Crash Course Intro to C
+# Crash course intro to C
 
 *Warning new page* Please fix typos and formatting mistakes for me and add useful links too.*
 
