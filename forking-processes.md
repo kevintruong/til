@@ -46,6 +46,13 @@ if( id > 0 )
 }
 ```
 
+## What is a fork bomb ?
+A 'fork bomb' is when you attempt to create an infinite number of processes. A simple example is shown below:
+```
+while( 1 ) fork();
+```
+This will often bring a system to a near-standstill as it attempts to allocate CPU time and memory to a very large number of processes that are ready to run. Comment: System administrators don't like fork-bombs and may set upper limits on the number of processes each user can have or may revoke login rights because it creates a disturbance in the force for other users' programs. You can also limit the number of child processes created by using `setrlimit()`.
+
 ## How does the parent process wait for the child to finish?
 Use `waitpid` (or `wait`).
 
@@ -73,6 +80,21 @@ if(child == -1) return;
 if(child) {
   int status;
   waitpid(child , &status ,0);
+}
+```
+
+
+
+## What is the silliest fork example?
+The amazing apparent-O(N) _sleepsort_ most be a strong contender here (first published on 4chan 2011 [[https://dis.4chan.org/read/prog/1295544154]] ). A version of this awful sorting algorithm is shown below.
+```C
+int main(int c, char **v)
+{
+        while (--c > 1 && !fork());
+        int val  = atoi(v[c]);
+        sleep(val);
+        printf("%d\n", val);
+        return 0;
 }
 ```
 
