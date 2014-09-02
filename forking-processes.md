@@ -133,6 +133,18 @@ int main(int c, char **v)
 }
 ```
 
+## What is different in the child process than the parent process?
+The key differences include:
+* The process id returned by `getpid()`. The parent process id returned by `getppid()`.
+* The parent is notified via a signal when the child process finishes but not vice versa.
+* The child does not inherit pending signals or timer alarms.
+For a complete list see the [[fork man page|http://man7.org/linux/man-pages/man2/fork.2.html]]
+
+# Do child processes share open filehandles?
+Yes! In fact both processes use the same underlying kernel file descriptor. For example if one process rewinds the random access position back to the beginning of the file, then both processes are affected.
+
+Both child and parent should `close` (or `fclose`) their file descriptors or file handle respectively.
+
 ## How can I find out more?
 Read the man pages!
 * [[fork|http://man7.org/linux/man-pages/man2/fork.2.html]]
