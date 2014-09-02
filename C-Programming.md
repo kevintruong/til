@@ -225,7 +225,9 @@ A double free error is when you accidentally attempt to free the same allocation
 ```C
 int* p = malloc(sizeof(int));
 free(p);
-*p = '123; // Oops! - Dangling pointer!
+
+*p = 123; // Oops! - Dangling pointer! Writing to memory we don't own anymore
+
 free(p); // Oops! - Double free!
 ```
 
