@@ -41,7 +41,7 @@ sscanf(line,"%c %d", &type, &data); // oops!
 We wanted to write the character value into c and the integer value into the malloc'd memory.
 However we passed the address of the pointer, not what the pointer is pointing to. So scanf will change the pointer. i.e. the pointer will now point to address 10 so this code will later fail e.g. when free(data) is called.
  
-## Why is gets dangerous? What should I use intead.
+## Why is `gets` dangerous? What should I use instead?
 The following code is vulnerable to buffer overflow. It assumes or trusts that the input line will be no more than 10 characters, including the terminating byte.
 ```
 char buf[10];
