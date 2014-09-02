@@ -115,67 +115,73 @@ cat output.txt
 ```
 More complicated way: close(1) and then use open to re-open the file descriptor.
 See [[http://angrave.github.io/sysassets/chapter1.html]]
-## What's the difference between a and b? Give an example of something you can do with a but not b
-char a[] = "Hello";
-char* b = "Hello";
-
+## What's the difference between a pointer and an array? Give an example of something you can do with one but not the other.
+```
+char ary[] = "Hello";
+char* ptr = "Hello";
+```
 Example 
 
+The array name is means the first byte of the array. Both `ary` and `ptr` can be printed out:
 ```C
-	/*Hypothesis: 'a' read & written to (written to using 'strcpy'),
-	while 'b' would be read only (writing is 'possible' -- however the memory address would change at writing)*/
-	char a[] = "Hello";
-	char* b = "Hello";
-	printf("Initializing A...\n-------------------\n");
-	printf("%p\n",a);
-	printf("%s\n",a);
-	printf("Initializing B...\n-------------------\n");
-	printf("%p\n",b);
-	printf("%s\n",b);
+char ary[] = "Hello";
+char* ptr = "Hello";
+// Print out address and contents
+printf("%p : %s\n",ary,ary);
+printf("%p : %s\n",ptr,ptr);
+```
+The array is mutable, so we can change its contents (be careful not to write bytes beyond the end of the array though). Fortunately 'World' is no longer than 'Hello"
 
-	
-	strcpy(a,"World");/*Only possible by using strcpy but would reserve the address*/
-	printf("\nAfter changing 'A' to %s...\n-------------------\n",a);
-	printf("%p\n",a);
-	printf("%s\n",a);
-	
-	b="World";
-	printf("\nAfter changing 'B' to %s...\n-------------------\n",b);
-	printf("%p\n",b);
-	printf("%s\n",b);
-	return 0;
+The char pointer `ptr` points to some read only memory, so we cannot change those contents.
+```
+strcpy(ary,"World"); // OK
+strcpy(ptr,"World"); // NOT OK - Segmentation fault (crashes)
+
+```
+We can, however, unlike the array, we change `ptr` to point to another piece of memory,
+```
+ptr = "World"; // OK!
+ptr = ary; // OK!
+ary = (..anything..) ; // WONT COMPILE
+// ary is doomed to always refer to the original array.
+printf("%p : %s\n",ptr,ptr);
+strcpy(ptr,"World"); // OK because now ptr is pointing to mutable memory (the array)
 ```
 
-## sizeof() returns the number of bytes. So using above code, what is sizeof(a) and sizeof(b)?
-sizeof(a): a is an array. Returns the number of bytes required for the entire array (5 chars + EOF = 6)
-sizeof(b): Same as sizeof(char*). Returns the number bytes required for a pointer (e.g. 4 or 8)
+## `sizeof()` returns the number of bytes. So using above code, what is sizeof(ary) and sizeof(ptr)?
+`sizeof(ary)`: `ary` is an array. Returns the number of bytes required for the entire array (5 chars + zero byte = 6 bytes)
+`sizeof(ptr)`: Same as sizeof(char*). Returns the number bytes required for a pointer (e.g. 4 or 8 for a 32 bit or 64 bit machine)
 
 ## Which of the following code is incorrect or correct and why?
-```
+```C
 int* f1(int *p) {
     *p = 42;
     return p;
-} // This code is correct
+} // This code is correct;
+```
 
+```C
 char* f2() {
     char p[] = "Hello";
     return p;
 } // Incorrect!
-// An array p is created on the stack for the correct size to hold 
-// H,e,l,l,o, and a null byte i.e. (6) bytes.
-// This array is stored on the stack and is invalid after we return from s2.
+```
+Explanation: An array p is created on the stack for the correct size to hold H,e,l,l,o, and a null byte i.e. (6) bytes. This array is stored on the stack and is invalid after we return from f2.
+```
 
+```C
 char* f3() {
     char* p = "Hello";
     return p;
 } // OK
-// p is a pointer. It holds the address of the string constant. The string constant is unchange and valid even after f3 returns.
+```
+Explanation: p is a pointer. It holds the address of the string constant. The string constant is unchanged and valid even after f3 returns.
 
 char* f4() {
     static char p[] = "Hello";
     return p;
 } // OK
-The array is static meaning it exists for the lifetime of the process.
+The array is static meaning it exists for the lifetime of the process (static variables are not on the heap or the stack).
 
 ## How do you look up information C library calls and system calls?
 Use the man pages. Note the man pages are organized into sections. Section 2 = System calls. System 3 = C libraries.
