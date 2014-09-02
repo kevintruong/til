@@ -53,6 +53,10 @@ while( 1 ) fork();
 ```
 This will often bring a system to a near-standstill as it attempts to allocate CPU time and memory to a very large number of processes that are ready to run. Comment: System administrators don't like fork-bombs and may set upper limits on the number of processes each user can have or may revoke login rights because it creates a disturbance in the force for other users' programs. You can also limit the number of child processes created by using `setrlimit()`.
 
+fork bombs are not necessarily malicious - they occasionally occur due to student oding errors.
+
+Angrave suggests that the Matrix trilogy, where the machine and man finally work together to defeat the multiplying Agent-Smith, was a cinematic plot based on a AI-driven fork-bomb.
+
 ## How does the parent process wait for the child to finish?
 Use `waitpid` (or `wait`).
 
