@@ -58,3 +58,5 @@ if( child_id > 0) { // We have a child! Get their exit code
   // start calculation
   exit(123);
 }
+Can I make the child process execute another program?
+Yes. Use `exec` however short corld answer, it' also possible to take over the program.
