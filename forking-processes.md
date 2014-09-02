@@ -2,7 +2,6 @@
 
 fork clones the current process to create a new process. It creates a new process (the child process) by duplicating the state of the existing process with a few minor differences (discussed below). The child process does not start from main. Instead it returns from fork() just as the parent process does.
 
-
 ## What is the simplest fork() example?
 Here's a very simple example...
 ```C
@@ -30,14 +29,31 @@ When fork() is executed the entire process memory is duplicated including the bu
 
 ## How do you write code that is different for the parent and child process?
 
-Use the return value of fork(). The child process knows its parent - the original process that was duplicated -  by calling getppid() (note the double p) - so does not need any additional return information form fork(). The parent process however can only find out the id of the child process from the return value of fork:
+Check the return value of `fork()`. Return value -1= failed; 0= in child process; positive = in parent process (and the return value is the child process id).  Here's one way to remember which is which:
+
+The child process get find its parent - the original process that was duplicated -  by calling getppid() - so does not need any additional return information from `fork()`. The parent process however can only find out the id of the new child process from the return value of fork:
 ```C
-int id = fork();
-if( id== -1) exit(1); // fork failed 
+pid id = fork();
+if( id == -1) exit(1); // fork failed 
 if( id > 0 )
 { 
 \\ I'm the original parent and I just created a child process with id 'id'
-} else {
-\\I must be the newly made child process, that looks almost identical to the parent getppid()
+\\ Use waitpid to wait for the child to finish
+} else { returned zero
+\\I must be the newly made child process
 }
 
+## How does the parent process wait for the child to finish?
+Use `waitpid` (or `wait`).
+
+```C
+pid_t child_id = fork();
+if( child_id == -1) { /* .... */}
+if( child_id > 0) { // We have a child! Get their exit code
+  int status; 
+  waitpid( id, &status, 0 );
+  // code not shown to get exit status from child
+} else { // In child ...
+  // start calculation
+  exit(123);
+}
