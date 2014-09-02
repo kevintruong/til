@@ -9,7 +9,7 @@ Rather than requiring a book this semester, we will build own set of resources h
 * [[C Gotchas wiki page|C-Programming---Common-Gotchas]]
 
 ## Week 2
-* [[Fun with forks]]
+* [[forking processes]]
 
 ## Other content
 
