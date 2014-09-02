@@ -42,6 +42,7 @@ if( id > 0 )
 } else { returned zero
 \\I must be the newly made child process
 }
+```
 
 ## How does the parent process wait for the child to finish?
 Use `waitpid` (or `wait`).
@@ -51,7 +52,7 @@ pid_t child_id = fork();
 if( child_id == -1) { /* .... */}
 if( child_id > 0) { // We have a child! Get their exit code
   int status; 
-  waitpid( id, &status, 0 );
+  waitpid( child_id, &status, 0 );
   // code not shown to get exit status from child
 } else { // In child ...
   // start calculation
