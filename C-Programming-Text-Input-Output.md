@@ -84,7 +84,7 @@ if(chars >0 && buffer[chars -1] =='\n') buffer[chars-1] = '\0';
 
 // Read another line.
 // The existing buffer will be re-used, or, if necessary,
-// It will can be `free`'d and a new larger buffer will `malloc`'d
+// It will be `free`'d and a new larger buffer will `malloc`'d
 chars = getline(&buffer, &size, stdin);
 
 // Later... don't forget to free the buffer!
