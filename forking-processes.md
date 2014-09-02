@@ -7,7 +7,8 @@ Here's a very simple example...
 ```C
 printf("I'm printed once!\n");
 fork();
-// Now there are two processes running, and each process will print out the next line.
+// Now there are two processes running
+// and each process will print out the next line.
 printf("You see this line twice!\n");
 ```
 
@@ -37,10 +38,11 @@ pid id = fork();
 if( id == -1) exit(1); // fork failed 
 if( id > 0 )
 { 
-\\ I'm the original parent and I just created a child process with id 'id'
-\\ Use waitpid to wait for the child to finish
-} else { returned zero
-\\I must be the newly made child process
+// I'm the original parent and 
+// I just created a child process with id 'id'
+// Use waitpid to wait for the child to finish
+} else { // returned zero
+// I must be the newly made child process
 }
 ```
 
@@ -50,7 +52,8 @@ Use `waitpid` (or `wait`).
 ```C
 pid_t child_id = fork();
 if( child_id == -1) { perror("fork"); exit(EXIT_FAILURE);}
-if( child_id > 0) { // We have a child! Get their exit code
+if( child_id > 0) { 
+  // We have a child! Get their exit code
   int status; 
   waitpid( child_id, &status, 0 );
   // code not shown to get exit status from child
@@ -68,7 +71,8 @@ Yes. Use one of the `exec` functions after forking. [[http://man7.org/linux/man-
 pid_t child = fork();
 if(child == -1) return;
 if(child) {
-  waitpid(child , status ,0);
+  int status;
+  waitpid(child , &status ,0);
 }
 ```
 
