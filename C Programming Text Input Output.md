@@ -49,7 +49,8 @@ scanf("%s",buffer);
 ```
 You can include an optional integer to specify how many characters EXCLUDING the terminating byte:
 ```C
-scanf("%9c", buffer); // reads upto 9 charactes from input
+char buffer[10];
+scanf("%9s", buffer); // reads upto 9 charactes from input (leave room for the 10th byte to be the terminating byte)
 ```
 
 ## Why is `gets` dangerous? What should I use instead?
