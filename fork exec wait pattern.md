@@ -20,7 +20,7 @@ int main() {
 The process id is different. In the child calling `getppid()` (notice the two 'p's) will give the same result as calling getpid() in the parent.
 
 ## How do I wait for my child to finish?
-Use `waitpid` or `wait`). The parent process will pause until `wait` (or `waitpid`) returns. Note this explanation glosses over the restarting discussion.
+Use `waitpid` or `wait`. The parent process will pause until `wait` (or `waitpid`) returns. Note this explanation glosses over the restarting discussion.
 
 ## Can I find out the exit value of my child?
 You can find the lowest 8 bits of the child's exit value (the return value of `main()` or value included in `exit()`): Use the macros (see `wait`/`waitpid` man page) and the `wait` or `waitpid` call
