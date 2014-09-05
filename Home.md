@@ -9,6 +9,7 @@ Rather than requiring a book this semester, we will build own set of resources h
 * [[C Gotchas wiki page|C-Programming---Common-Gotchas]]
 
 ## Week 2
+* [[C Programming Text Input Output]]
 * [[forking processes]]
 * [[fork exec wait kill]]
 
