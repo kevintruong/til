@@ -11,16 +11,6 @@ int main() {
 }
 ```
 What does the following program do and how does it work?
-```C
-int main(int c, char **v)
-{
-  while (--c > 1 && !fork());
-  int val  = atoi(v[c]);
-  sleep(val);
-  printf("%d\n", val);
-  return 0;
-}
-```
 
 ## What does the child inherit from the parent?
 * Open filehandles. If the parent later seeks, say, to the back to the beginning of the file then this will affect the child too (and vice versa).
@@ -31,20 +21,20 @@ int main(int c, char **v)
 The process id is different. In the child calling `getppid()` (notice the two 'p's) will give the same result as calling getpid() in the parent.
 
 ## How do I wait for my child to finish?
-Use waitpid (or wait)
-
-
+Use `waitpid` or `wait`). The parent process will pause until `wait` (or `waitpid`) returns. Note this explanation glosses over the restarting discussion.
 
 
 ## Can I find out the exit value of my child?
-You can find the lowest 8 bits of the child's exit value (the return value of `main()` or value included in `exit()`).
-Use the macros (see wait/waitpid man page) and the waitpid call
+You can find the lowest 8 bits of the child's exit value (the return value of `main()` or value included in `exit()`): Use the macros (see `wait`/`waitpid` man page) and the `wait` or `waitpid` call
 ```C
 int status;
-pid_t pid = waitpid(child, &status, 0);
-if(pid != -1 && WIFEXITED(status) {
-   int low8bits = WEXITSTATUS ( status );
-   printf("Process %d returned %d" , low8bits);
+pid_t child = fork();
+if(fork>0) {
+  pid_t pid = waitpid(child, &status, 0);
+  if(pid != -1 && WIFEXITED(status) {
+     int low8bits = WEXITSTATUS ( status );
+     printf("Process %d returned %d" , low8bits);
+  }
 }
 ```
 
