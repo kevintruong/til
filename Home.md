@@ -10,6 +10,7 @@ Rather than requiring a book this semester, we will build own set of resources h
 
 ## Week 2
 * [[forking processes]]
+* [[fork exec wait kill]]
 
 ## Other content
 
