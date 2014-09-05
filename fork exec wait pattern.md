@@ -65,7 +65,7 @@ A long running program could create many zombies by continually creating process
 
 ## What would be effect of too many zombies?
 
-## Eventually there would be insufficient space in the kernel process table to create a new processes. Thus `fork()` would fail and would make the system difficult / impossible to use.
+Eventually there would be insufficient space in the kernel process table to create a new processes. Thus `fork()` would fail and could make the system difficult / impossible to use - for example just logging in requires a new process!
 
 ## What does the system do to help prevent zombies?
 Once a process completes, any of its children will be assigned to "init" - the first process with pid of 1. Thus these children would see getppid() return a value of 1. The init process automatically waits for all of its children, thus removing zombies from the system.
@@ -76,19 +76,22 @@ waitpid(child, &status,0); // Clean up and wait for my child process to finish.
 
 ## How can I asynchronously wait for my child using SIGCHLD?
 
-The parent gets the signal SIGCHLD when a child completes
+The parent gets the signal SIGCHLD when a child completes, so the signal handler can wait on the process.
 ```C
+pid_t child;
+
 void cleanup(int signal) {
   int status;
-  waitpid((pid_t)-1, &status, 0);
+  waitpid(child, &status, 0);
   write(1,"cleanup!\n",9);
 }
 int main() {
    signal(SIGCHLD, cleanup); // or better - sigaction
-   pid_t child = fork();
+   child = fork();
    if(child == -1 ) { exit(EXIT_FAILURE);}
-   if( child ==0 ) { /* You are the child!*/
-     // Do background stuff e.g. exec   
+
+   if( child ==0 ) { /* I am the child!*/
+     // Do background stuff e.g. call exec   
    } else { /* I'm the parent! */
       sleep(4); // so we can see the cleanup
       puts("Done");
