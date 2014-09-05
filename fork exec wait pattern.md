@@ -70,15 +70,19 @@ Eventually there would be insufficient space in the kernel process table to crea
 ## What does the system do to help prevent zombies?
 Once a process completes, any of its children will be assigned to "init" - the first process with pid of 1. Thus these children would see getppid() return a value of 1. The init process automatically waits for all of its children, thus removing zombies from the system.
 
-## How do I prevent zombies?
+## How do I prevent zombies? (Warning: Simplified answer)
 Wait on your child!
 ```C
 waitpid(child, &status,0); // Clean up and wait for my child process to finish.
 ```
+Note we assume that the only reason to get a SIGCHLD event is that a child has finished (this is not quite true - see man page for more details).
+
+A robust implementation would also check for interrupted status and include the above in a loop.
+Read on for a discussion of a more robust implementation.
 
 ## How can I asynchronously wait for my child using SIGCHLD?
 
-The parent gets the signal SIGCHLD when a child completes, so the signal handler can wait on the process.
+The parent gets the signal SIGCHLD when a child completes, so the signal handler can wait on the process. A slightly simplified version is shown below.
 ```C
 pid_t child;
 
@@ -88,6 +92,7 @@ void cleanup(int signal) {
   write(1,"cleanup!\n",9);
 }
 int main() {
+   // Register signal handler BEFORE the child can finish
    signal(SIGCHLD, cleanup); // or better - sigaction
    child = fork();
    if(child == -1 ) { exit(EXIT_FAILURE);}
@@ -100,4 +105,16 @@ int main() {
    }
    return 0;
 } 
+```
+
+The above example however misses a couple of subtle points:
+* More than one child may have finished but the parent will only get one SIGCHLD signal (signals are not queued)
+* SIGCHLD signals can be sent for other reasons (e.g. a child process is temporarily stopped)
+
+A more robust code to reap zombies is shown below.
+```C
+void cleanup(int signal) {
+  int status;
+  while (waitpid((pid_t)(-1), 0, WNOHANG) > 0) {}
+}
 ```
