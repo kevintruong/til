@@ -118,3 +118,20 @@ void cleanup(int signal) {
   while (waitpid((pid_t)(-1), 0, WNOHANG) > 0) {}
 }
 ```
+## How do I kill/stop my child?
+Send a signal to the child using `kill` 
+```C
+kill(child, SIGUSR1); // Send a user-defined signal
+kill(child, SIGTERM); // Terminate the child process (the child cannot prevent this)
+kill(child, SIGINT); // Equivalent to CTRL-C (by default closes the process)
+```
+
+There is also a kill command available in the shell
+e.g. get a list of running processes and then terminate process 45 and process 46
+```
+ps
+kill -l 
+kill -9 45
+kill -s TERM 46
+```
+
