@@ -72,7 +72,9 @@ Once a process completes, any of its children will be assigned to "init" - the f
 
 ## How do I prevent zombies?
 Wait on your child!
+```C
 waitpid(child, &status,0); // Clean up and wait for my child process to finish.
+```
 
 ## How can I asynchronously wait for my child using SIGCHLD?
 
@@ -94,7 +96,7 @@ int main() {
      // Do background stuff e.g. call exec   
    } else { /* I'm the parent! */
       sleep(4); // so we can see the cleanup
-      puts("Done");
+      puts("Parent is done");
    }
    return 0;
 } 
