@@ -61,13 +61,17 @@ gets(buf); // Remember the array name means the first byte of the array
 ``` 
 `gets` is deprecated and will be removed in future versions of the C standard. Programs should use `fgets` or `getline` instead. 
 
-`char * fgets ( char * str, int num, FILE * stream); `
-`ssize_t getline(char **lineptr, size_t *n, FILE *stream);`
+Where each have the following structure respectively:
+``` 
+char * fgets ( char * str, int num, FILE * stream); 
+
+ssize_t getline(char **lineptr, size_t *n, FILE *stream);
+```
 
 Here's a simple, safe way to read a single line. Lines longer than 9 characters will be truncated:
 ```C
 char buffer[10];
-char* result =  fgets(result, sizeof(buffer), stdin);
+char* result =  fgets(buffer, sizeof(buffer), stdin);
 ```
 The result is NULL if there was an error or the end of the file is reached.
 Note, unlike `gets`,  `fgets` copies the newline into the buffer, which you may want to discard-
