@@ -9,6 +9,7 @@
 * [C for C++/Java Programmers](http://www.ccs.neu.edu/course/com3620/parent/C-for-Java-C++/c-for-c++-alt.html)
 * [C Tutorial by Brian Kernighan](http://www.lysator.liu.se/c/bwk-tutor.html)
 * [c faq](http://c-faq.com/)
+* [C Bootcamp](http://gribblelab.org/CBootCamp/index.html)
 * Add your favorite resources here
 
 
