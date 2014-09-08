@@ -24,7 +24,7 @@ int main() {
    return 0;
 }
 ```
-The `printf` line _is_ executed only once however notice that the printed contents is not flushed to standard out (there's no newline printed, we didn't called `fflush`, or change the buffering mode).
+The `printf` line _is_ executed only once however notice that the printed contents is not flushed to standard out (there's no newline printed, we didn't call `fflush`, or change the buffering mode).
 The output text is therefore in still in process memory waiting to be sent.
 When `fork()` is executed the entire process memory is duplicated including the buffer. Thus the child process starts with a non-empty output buffer which will be flushed when the program exits.
 
