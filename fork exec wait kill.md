@@ -15,7 +15,7 @@ int main() {
 There's no error checking in the above code (we assume close,open,chdir etc works as expected).
 * open: will use the lowest available file descriptor (i.e. 1) ; so standard out now goes to the log file.
 * chdir : Change the current directory to /usr/include
-* execl : Replace the program image with /bin/ls and call it's main() method
+* execl : Replace the program image with /bin/ls and call its main() method
 * perror : We don't expect to get here - if we did then exec failed.
 
 ## What does the child inherit from the parent?
