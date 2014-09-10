@@ -1,5 +1,5 @@
 Welcome to Angrave's crowd-sourced System Programming wiki!
-This wiki is being built by students at UIUC.
+This wiki is being built by students and faculty from UIUC.
 
 Rather than requiring a book this semester, we will build own set of resources here.
 
