@@ -12,6 +12,7 @@ Rather than requiring a book this semester, we will build own set of resources h
 * [[C Programming Text Input Output]]
 * [[forking processes]]
 * [[fork exec wait kill]]
+* For fun: [[Smashing the stack example]]
 
 ## Other content
 
