@@ -86,6 +86,7 @@ Suppose our current heap size is 64K, though not all of it is in use because som
 
 If a new malloc request for 2KB is executed (`malloc(2048)`), where should `malloc` reserve the memory? It could use the last 2KB hole (which happens to be the perfect size!) or it could split one of the other two free holes. These choices represent different placement strategies.
 
+Whichever hole is chosen, the allocator will need to split the hole into two: The newly allocated space (which will be returned to the program) and a smaller hole (if there is spare space left over).
 
 A perfect-fit strategy finds the smallest hole that is of sufficient size (at least 2KB):
 
@@ -103,4 +104,15 @@ A first-fit strategy finds the first available hole that is of sufficient size (
 ---|---|---|---|---|---|---|---
 
 
+## What is fragmentation?
+In the example below, of the 64KB of heap memory 17KB is allocated and 47Kb is free. However the largest available block is only 30KB because our available unallocated heap memory is fragmented into smaller pieces. 
+
+## What affect do placement strategies have on fragmentation.
+Different strategies affect the fragmentation of heap memory in non-obvious ways, which only are discovered by mathematical analysis or careful simulations under real-world conditions (for example simulating the memory allocation requests of a database or webserver).
+For example, best-fit at first glance appears to be a great choice however, suppose we could not find a perfectly-sized hole then this placement creates many tiny unusable holes, leading to high fragmentation.
+
+## 
 ## What are the challenges of writing a good allocator?
+* Minimize fragmentation (i.e. maximize memory utilization)
+* High performance
+
