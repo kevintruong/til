@@ -16,7 +16,7 @@ By calling `sbrk` the C library can increase the size of the heap as your progra
 On typical architectures, the heap is part of the `Data segment` and starts just above the code and global variables. 
 
 ## Do programs need to call brk or sbrk?
-Not typically. Instead we call {\tt malloc},{\tt calloc},{\tt realloc} and {\tt free} which are part of the C library. The internal implementation of these functions will call {\tt sbrk} when additional heap memory is required.
+Not typically (though calling `sbrk(0)` can be interesting because it tells you where your heap currently ends). Instead programs use `malloc,calloc,realloc` and `free` which are part of the C library. The internal implementation of these functions will call `sbrk` when additional heap memory is required.
 
 ## What is calloc?
 Unlike `malloc`, `calloc` initializes memory contents to zero and also takes two arguments (the number of items and the size in bytes of each item). A naive but readable implementation of calloc looks like this-
@@ -35,17 +35,25 @@ void *calloc(size_t n, size_t size)
 	return result; 
 }
 ```
-Programmers often use `calloc` rather than explicitly calling memset after malloc.
-e.g. 
+An advanced discussion of these limitations is [[here|http://locklessinc.com/articles/calloc/]]
+
+Programmers often use `calloc` rather than explicitly calling memset after malloc, to set the memory contents to zero. Note `calloc(x,y)` is identical to `calloc(y,x)`
+
 ```C
-link_t link = calloc(1, sizeof(link_t) ); // Can assume link's memory is zero. 
+// Ensure our memory is initialized to zero
+link_t* link  = malloc(256);
+memset(link, 0, 256); // Assumes malloc returned a valid address!
+
+link_t link = calloc(1, 256);
 ```
 
-An advanced discussion of these limitations is [[here|http://locklessinc.com/articles/calloc/]]
+```C
+## Why doesn't malloc initial memory to zero?
+Performance.
 
 ## What is realloc and when would you use it?
 `realloc` allows you to resize an existing memory allocation. Using realloc you can request an existing allocation 
-(todo)
+(todo - example)
 
 ## How important is that memory allocation is fast?
 Very! Allocating and de-allocating heap memory is a common operation in most applications.
@@ -69,6 +77,27 @@ If this allocator was used in a typical program, the process would quickly exhau
 Instead we need an allocator that can efficiently use heap space and only ask for more memory when necessary.
 
 ## What are placement strategies?
+During program execution memory is allocated ande de-allocated (freed), so there will be gaps (holes) in the heap memory that can be re-used for future memory requests. The memory allocator needs to keep track of which parts of the heap are currently allocated and which are parts are available.
+
+Suppose our current heap size is 64K, though not all of it is in use because some earlier malloc'd memory has already been freed by the program- 
+
+16 KB free | 12 KB allocated | 30 KB free | 4 KB allocated | 2 KB free 
+---|---|---|---|---
+
+If a new malloc request for 2KB is executed (`malloc(2048)`), where should `malloc` reserve the memory? It could use the last 2KB hole (which happens to be the perfect size!) or it could split one of the other two free holes. These choices represent different placement strategies.
+
+
+A perfect-fit strategy finds the smallest hole that is of sufficient size:
+16 KB free | 12 KB allocated | 30 KB free | 4 KB allocated | 2KB HERE!
+---|---|---|---|---|---
+
+A worst-fit strategy finds the largest hole that is of sufficient size:
+16 KB free | 12 KB allocated | 2KB HERE!| 28 KB free | 4 KB allocated | 2 KB free 
+---|---|---|---|---|---
+
+A first-fit strategy finds the first available hole that is of sufficient size:
+2KB HERE! | 14 KB free | 12 KB allocated | 30 KB free | 4 KB allocated | 2 KB free 
+---|---|---|---|---|---
 
 
 ## What are the challenges of writing a good allocator?
