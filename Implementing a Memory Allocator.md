@@ -1,5 +1,4 @@
 
-
 A memory allocator needs to keep track of which bytes are currently allocated and which are which are available for use. This page introduces some of the implementation and conceptual details of building an allocator i.e. the actual code that implements malloc and free.
 
 ## This page talks about links of blocks - do I malloc memory for them instead?
@@ -68,12 +67,13 @@ Inserting at the beginning creates a LIFO (last-in-first-out) policy: The most r
 Inserting in address order  ("Address ordered policy") inserts freed blocks so that the blocks are visited in increasing address order. This policy required more time to free a block because the boundary tags (size data) must be used to find the next and previous unallocated blocks however there is less fragmentation.
 
 # Case study: Buddy Allocator (an example of a segregated list)
-Todo .
+* See [[http://books.google.com/books?id=0uHME7EfjQEC&printsec=frontcover#v=onepage&q&f=false]] (goto page 85 or search for 'buddy')
+
 See the powerpoint 
 
-[[https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx]] (powerpoint)
-[[https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx.pdf]] (pdf)
+* [[https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx]] (powerpoint)
+* [[https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx.pdf]] (pdf)
 and 
-[[http://en.wikipedia.org/wiki/Buddy_memory_allocation]]
+* [[http://en.wikipedia.org/wiki/Buddy_memory_allocation]]
 # Other allocators
 There are many other allocation schemes. For example [[SLUB|http://en.wikipedia.org/wiki/SLUB_%28software%29]] (wikipedia) - one of three allocators used internally by the Linux Kernel.
