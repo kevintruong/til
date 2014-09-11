@@ -92,12 +92,12 @@ A perfect-fit strategy finds the smallest hole that is of sufficient size (at le
 16KB free | 10KB allocated | 1KB free | 1KB allocated | 30KB free | 4KB allocated | 2KB HERE!
 ---|---|---|---|---|---|---|---
 
-A worst-fit strategy finds the largest hole that is of sufficient size:
+A worst-fit strategy finds the largest hole that is of sufficient size (so break the 30KB hole into two):
 
 16KB free | 10KB allocated | 1KB free | 1KB allocated | 2KB HERE!| 28KB free | 4KB allocated | 2KB free 
 ---|---|---|---|---|---|---|---
 
-A first-fit strategy finds the first available hole that is of sufficient size:
+A first-fit strategy finds the first available hole that is of sufficient size (break the 16KB hole into two):
 
 2KB HERE! | 14KB free | 10KB allocated | 1KB free | 1KB allocated | 30KB free | 4KB allocated | 2KB free 
 ---|---|---|---|---|---|---|---
