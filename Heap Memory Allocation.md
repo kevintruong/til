@@ -88,14 +88,17 @@ If a new malloc request for 2KB is executed (`malloc(2048)`), where should `mall
 
 
 A perfect-fit strategy finds the smallest hole that is of sufficient size:
+
 16 KB free | 12 KB allocated | 30 KB free | 4 KB allocated | 2KB HERE!
 ---|---|---|---|---|---
 
 A worst-fit strategy finds the largest hole that is of sufficient size:
+
 16 KB free | 12 KB allocated | 2KB HERE!| 28 KB free | 4 KB allocated | 2 KB free 
 ---|---|---|---|---|---
 
 A first-fit strategy finds the first available hole that is of sufficient size:
+
 2KB HERE! | 14 KB free | 12 KB allocated | 30 KB free | 4 KB allocated | 2 KB free 
 ---|---|---|---|---|---
 
