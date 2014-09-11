@@ -1,5 +1,4 @@
-Sorry - this page is still under construction. 
-For now, so please also refer to  [[https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures]]
+
 
 A memory allocator needs to keep track of which bytes are currently allocated and which are which are available for use. This page introduces some of the implementation and conceptual details of building an allocator i.e. the actual code that implements malloc and free.
 
@@ -26,10 +25,10 @@ When a free block is found it may be larger than the space we need. If so, we wi
 
 There are two simple ways to store if a block is in use or available. Either store it as a byte in the header information along with the tail. An alternative is to encode it as the lowest bit in the size!
 Thus size information would be limited to only even values:
-
+```
 isallocated = (*p) & 1;
 realsize = (*p) & ~1;  // mask out the lowest bit
-
+```
 
 ## Implementing free
 When `free` is called we need to re-apply the offset to get back to the 'real' start of the block i.e. to where we stored the size information.
@@ -70,7 +69,11 @@ Inserting in address order  ("Address ordered policy") inserts freed blocks so t
 
 # Case study: Buddy Allocator (an example of a segregated list)
 Todo .
-See the ppt and 
+See the powerpoint 
+
+[[https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx]] (powerpoint)
+[[https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx.pdf]] (pdf)
+and 
 [[http://en.wikipedia.org/wiki/Buddy_memory_allocation]]
 # Other allocators
 There are many other allocation schemes. For example [[SLUB|http://en.wikipedia.org/wiki/SLUB_%28software%29]] (wikipedia) - one of three allocators used internally by the Linux Kernel.
