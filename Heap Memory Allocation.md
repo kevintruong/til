@@ -28,7 +28,8 @@ void *calloc(size_t n, size_t size)
 	
 	if (!result) return NULL;
 	
-// If we're using new memory pages just allocated from the system with sbrk
+// If we're using new memory pages 
+// just allocated from the system by calling sbrk
 // then they will be zero so zero-ing out is unnecessary,
 
 	memset(result, 0, total);
@@ -75,7 +76,8 @@ Very! Allocating and de-allocating heap memory is a common operation in most app
 
 ```C
 void* malloc(size_t size)
-// Ask the system for more bytes by extending the heap space. sbrk Returns -1 on failure
+// Ask the system for more bytes by extending the heap space. 
+// sbrk Returns -1 on failure
    void *p = sbrk(size); 
    if(p == (void*) -1) return NULL; // No space left
    return p;
@@ -124,8 +126,12 @@ In the example below, of the 64KB of heap memory 17KB is allocated and 47Kb is f
 Different strategies affect the fragmentation of heap memory in non-obvious ways, which only are discovered by mathematical analysis or careful simulations under real-world conditions (for example simulating the memory allocation requests of a database or webserver).
 For example, best-fit at first glance appears to be a great choice however, suppose we could not find a perfectly-sized hole then this placement creates many tiny unusable holes, leading to high fragmentation.
 
-## 
+ 
 ## What are the challenges of writing a good allocator?
 * Minimize fragmentation (i.e. maximize memory utilization)
 * High performance
+Also,the allocator doesn't know the program's memory allocation requests in advance. Even if we did, this is the [[http://en.wikipedia.org/wiki/Knapsack_problem|Knapsack problem]] (wikipedia) which is known to be NP hard.
 
+
+## How do you implement a memory allocator?
+Good question. We need a page on that.
