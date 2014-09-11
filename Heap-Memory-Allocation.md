@@ -136,16 +136,26 @@ A first-fit strategy finds the first available hole that is of sufficient size (
 ## What is fragmentation?
 In the example below, of the 64KB of heap memory 17KB is allocated and 47Kb is free. However the largest available block is only 30KB because our available unallocated heap memory is fragmented into smaller pieces. 
 
-## What affect do placement strategies have on fragmentation.
+## What affect do placement strategies have on fragmentation and performance?
 Different strategies affect the fragmentation of heap memory in non-obvious ways, which only are discovered by mathematical analysis or careful simulations under real-world conditions (for example simulating the memory allocation requests of a database or webserver).
 For example, best-fit at first glance appears to be a great choice however, suppose we could not find a perfectly-sized hole then this placement creates many tiny unusable holes, leading to high fragmentation.
 
+First fit has the advantage that it will not evaluate all possible placements and therefore be faster. 
+
+In practice next-fit is a common placement strategy.
  
-## What are the challenges of writing a good allocator?
-* Minimize fragmentation (i.e. maximize memory utilization)
-* High performance
-Also,the allocator doesn't know the program's memory allocation requests in advance. Even if we did, this is the [[http://en.wikipedia.org/wiki/Knapsack_problem|Knapsack problem]] (wikipedia) which is known to be NP hard.
+## What are the challenges of writing a heap allocator?
+The main challenges are,
+* Need to minimize fragmentation (i.e. maximize memory utilization)
+* Need high performance
+* Fiddly implementation (lots of pointer manipulation using linked lists and pointer arithmetic)
+
+Some additional comments:
+
+Both fragmentation and performance depend on the application allocation profile, which can be evaluated but not predicted and in practice, under-specifics usage conditions, a special-purpose allocator can often out-perform a general purpose implementation.
+
+The allocator doesn't know the program's memory allocation requests in advance. Even if we did, this is the [[http://en.wikipedia.org/wiki/Knapsack_problem|Knapsack problem]] (wikipedia) which is known to be NP hard!
 
 
 ## How do you implement a memory allocator?
-Good question. We need a page on that.
+Good question. We need a wiki page on that.
