@@ -155,15 +155,20 @@ A first-fit strategy finds the first available hole that is of sufficient size (
 
 
 ## What is fragmentation?
-In the example below, of the 64KB of heap memory 17KB is allocated and 47Kb is free. However the largest available block is only 30KB because our available unallocated heap memory is fragmented into smaller pieces. 
+In the example below, of the 64KB of heap memory, 17KB is allocated, and 47KB is free. However the largest available block is only 30KB because our available unallocated heap memory is fragmented into smaller pieces. 
+
+ `16KB free` | 10KB allocated | 1KB free | 1KB allocated | 30KB free | 4KB allocated | 2KB free 
+---|---|---|---|---|---|---
 
 ## What affect do placement strategies have on fragmentation and performance?
 Different strategies affect the fragmentation of heap memory in non-obvious ways, which only are discovered by mathematical analysis or careful simulations under real-world conditions (for example simulating the memory allocation requests of a database or webserver).
-For example, best-fit at first glance appears to be a great choice however, suppose we could not find a perfectly-sized hole then this placement creates many tiny unusable holes, leading to high fragmentation.
+For example, best-fit at first glance appears to be an excellent strategy however, if we can not find a perfectly-sized hole then this placement creates many tiny unusable holes, leading to high fragmentation. It also requires a scan of all possible holes.
 
 First fit has the advantage that it will not evaluate all possible placements and therefore be faster. 
 
-In practice next-fit is a common placement strategy.
+Since Worst-fit targets the largest unallocated space, it is a poor choice if large allocations are required.
+
+In practice first-fit and next-fit (which is not discussed here) are often common placement strategy. Hybrid approaches and many other alternatives exist (see implementing a memory allocator page).
  
 ## What are the challenges of writing a heap allocator?
 The main challenges are,
