@@ -1,11 +1,11 @@
 ## What happens when I call malloc?
-`malloc` is a C library call and is used to reserve a contiguous block of memory. Unlike stack memory, the memory remains allocated until `free` is called with the same pointer. There is also `calloc` and `realloc` which are discussed below.
+The function `malloc` is a C library call and is used to reserve a contiguous block of memory. Unlike stack memory, the memory remains allocated until `free` is called with the same pointer. There is also `calloc` and `realloc` which are discussed below.
 
 ## Can malloc fail?
-If malloc fails to reserve any more memory then it returns NULL. Robust programs should check the return value. If your code assumes malloc succeeds and it does not, then your program will likely crash (segfault) when it tries to write to address 0.
+If `malloc` fails to reserve any more memory then it returns `NULL`. Robust programs should check the return value. If your code assumes `malloc` succeeds and it does not, then your program will likely crash (segfault) when it tries to write to address 0.
 
 ## Where is the heap and how big is it? 
-The heap is part of the process memory and it has not a fixed size. Heap memory allocation is performed by the C library when you call malloc (calloc, realloc) and free.
+The heap is part of the process memory and it has not a fixed size. Heap memory allocation is performed by the C library when you call `malloc` (`calloc`, `realloc`) and `free`.
 
 First a quick review on process memory: A process is a running instance of your program. Each program has it's own address space. For example on a 32 bit machine your process gas about 4 billion addresses to play with, however not all of these are valid or even mapped to actual physical memory (RAM). Inside the process's memory you will find the executable code, space for the stack, environment variables, global (static) variables and the heap.
 
@@ -17,7 +17,7 @@ On typical architectures, the heap is part of the `Data segment` and starts just
 Not typically (though calling `sbrk(0)` can be interesting because it tells you where your heap currently ends). Instead programs use `malloc,calloc,realloc` and `free` which are part of the C library. The internal implementation of these functions will call `sbrk` when additional heap memory is required.
 
 ## What is calloc?
-Unlike `malloc`, `calloc` initializes memory contents to zero and also takes two arguments (the number of items and the size in bytes of each item). A naive but readable implementation of calloc looks like this-
+Unlike `malloc`, `calloc` initializes memory contents to zero and also takes two arguments (the number of items and the size in bytes of each item). A naive but readable implementation of `calloc` looks like this-
 ```C
 void *calloc(size_t n, size_t size)
 {
@@ -64,7 +64,18 @@ char*ptr2 = malloc(308); // Contents might now contain existing data and is prob
 Performance! We want malloc to be as fast as possible. Zeroing out memory may be unnecessary.
 
 ## What is realloc and when would you use it?
-`realloc` allows you to resize an existing memory allocation that was previously allocated on the heap (via malloc,calloc or realloc). The most common use of realloc is to resize memory used to hold an array of values.
+`realloc` allows you to resize an existing memory allocation that was previously allocated on the heap (via malloc,calloc or realloc). The most common use of realloc is to resize memory used to hold an array of values.A naive but readable version of realloc is suggested below
+```C
+void * realloc(void * ptr, size_t newsize) {
+  // Simple implementation always reserves more memory
+  // and has no error checking
+  void* result = malloc(size); 
+  size_t oldsize =  ... (depends on allocator's internal data structure)
+  if(ptr) memcpy(result, ptr, oldsize);
+  free(ptr);
+  return result;
+}
+```
 An INCORRECT use of realloc is shown below:
 ```C
 int* array = malloc(sizeof(int) * 2);
@@ -80,8 +91,10 @@ Secondly realloc may need to move the existing contents of the memory to a new l
 array = realloc(array, 3*sizeof(int));
 // If array is copied to a new location then old allocation will be freed.
 ```
-A robust version would also check for a NULL return value. Note realloc can be used to grow and shrink allocations.
-[[http://man7.org/linux/man-pages/man3/malloc.3.html]]
+A robust version would also check for a `NULL` return value. Note `realloc` can be used to grow and shrink allocations. 
+
+## Where can I read more?
+See the man page! [[http://man7.org/linux/man-pages/man3/malloc.3.html]]
 
 ## How important is that memory allocation is fast?
 Very! Allocating and de-allocating heap memory is a common operation in most applications.
