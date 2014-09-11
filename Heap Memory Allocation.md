@@ -7,16 +7,18 @@
 If malloc fails to reserve any more memory then it returns NULL. Robust programs should check the return value. If your code assumes malloc succeeds and it does not, then your program will likely crash (segfault) when it tries to write to address 0.
 
 ## Where is the heap and how big is it? 
-A process is a running instance of your program. Each program has it's own address space. For example on a 32 bit machine your process gas about 4 billion addresses to play with, however not all of these are valid or even mapped to actual physical memory (RAM). Inside the process's memory you will find the executable code, space for the stack, environment variables, global (static) variables and the heap.
+The heap is part of the process memory and it has not a fixed size. Heap memory allocation is performed by the C library when you call malloc (calloc, realloc) and free.
 
-By calling `sbrk` the C library can increase the size of the heap as your program demands more heap memory. As the heap and stack (one for each thread) need to grow, we put them at opposite ends of the address space. So the heap will grows upwards and the stack grows downwards. If we write a multi-threaded program (more about that later) we will need multiple stacks (one per thread) but there's only ever one heap.
+First a quick review on process memory: A process is a running instance of your program. Each program has it's own address space. For example on a 32 bit machine your process gas about 4 billion addresses to play with, however not all of these are valid or even mapped to actual physical memory (RAM). Inside the process's memory you will find the executable code, space for the stack, environment variables, global (static) variables and the heap.
 
-On typical architectures, the heap is part of the `Data segment` and starts just above the code and global variables: 
+By calling `sbrk` the C library can increase the size of the heap as your program demands more heap memory. As the heap and stack (one for each thread) need to grow, we put them at opposite ends of the address space. So for typical architectures the heap will grows upwards and the stack grows downwards. If we write a multi-threaded program (more about that later) we will need multiple stacks (one per thread) but there's only ever one heap.
 
-Do programs need to call brk or sbrk?
+On typical architectures, the heap is part of the `Data segment` and starts just above the code and global variables. 
+
+## Do programs need to call brk or sbrk?
 Not typically. Instead we call {\tt malloc},{\tt calloc},{\tt realloc} and {\tt free} which are part of the C library. The internal implementation of these functions will call {\tt sbrk} when additional heap memory is required.
 
-What is calloc?
+## What is calloc?
 Unlike `malloc`, `calloc` initializes memory contents to zero and also takes two arguments (the number of items and the size in bytes of each item). A naive but readable implementation of calloc looks like this-
 ```C
 void *calloc(size_t n, size_t size)
@@ -41,13 +43,14 @@ link_t link = calloc(1, sizeof(link_t) ); // Can assume link's memory is zero.
 
 An advanced discussion of these limitations is [[here|http://locklessinc.com/articles/calloc/]]
 
-What is realloc and when would you use it?
+## What is realloc and when would you use it?
 `realloc` allows you to resize an existing memory allocation. Using realloc you can request an existing allocation 
+(todo)
 
-How important is that memory allocation is fast?
+## How important is that memory allocation is fast?
 Very! Allocating and de-allocating heap memory is a common operation in most applications.
 
-What is the silliest malloc and free implementation and what is wrong with it?
+## What is the silliest malloc and free implementation and what is wrong with it?
 
 ```C
 void* malloc(size_t size)
@@ -65,3 +68,7 @@ The above implementation suffers from two major drawbacks:
 If this allocator was used in a typical program, the process would quickly exhaust all available memory.
 Instead we need an allocator that can efficiently use heap space and only ask for more memory when necessary.
 
+## What are placement strategies?
+
+
+## What are the challenges of writing a good allocator?
