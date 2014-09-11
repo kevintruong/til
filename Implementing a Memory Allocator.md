@@ -1,13 +1,14 @@
-A memory allocator needs to keep track of which bytes are currently allocated and which are which are available for use. This page discusses some of the implementation and conceptual details of building an allocator i.e. the actual code that implements malloc and free.
-
 Sorry - this page is still under construction. 
-For now, please refer to  [[https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures]]
+For now, so please also refer to  [[https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures]]
 
-FYI: Though conceptually we are thinking about creating links in a linked lists, we don't need to "malloc memory" to create the linked lists! Instead we are writing integers and pointers into memory that we control so that we can later consistent hop from one address to the next.
+A memory allocator needs to keep track of which bytes are currently allocated and which are which are available for use. This page introduces some of the implementation and conceptual details of building an allocator i.e. the actual code that implements malloc and free.
+
+## This page talks about links of blocks - do I malloc memory for them instead??
+Though conceptually we are thinking about creating links in a linked lists, we don't need to "malloc memory" to create the linked lists! Instead we are writing integers and pointers into memory that we already control so that we can later consistent hop from one address to the next. This internal information represents some overhead. So even if we had requested 1024 KB of contiguous memory from the system, we will not be able to provide all of it to the running program.
 
 ## 
 We can think of our heap memory as a list of blocks where each block is either allocated or unallocated.
-Rather than storing an explicit list of pointers we store information about the block's size as part of the block. Thus there is a list of free blocks, but it is in the form of block size information that we store as part of each block.
+Rather than storing an explicit list of pointers we store information about the block's size _as part of the block_. Thus there is a conceptually a list of free blocks, but it is implicit; i.e. in the form of block size information that we store as part of each block 
 
 We could navigate from one block to the next block just by adding the block's size. For example if you have a pointer 'p' that points to the start of a block, then `next_block`  with be at `((char*)p) +  *(size_t*) p`, if you are storing the size of the blocks in bytes. The cast to char* ensures that pointer arithmetic is calculated in bytes. The cast to `size_t*` ensures the memory at p is read as a size value and would be necessarily if p was a `void*` or `char*` type.
 
