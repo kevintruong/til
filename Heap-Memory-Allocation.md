@@ -46,10 +46,23 @@ memset(link, 0, 256); // Assumes malloc returned a valid address!
 
 link_t link = calloc(1, 256);
 ```
+## Why is the memory that is first returned by sbrk initialized to zero?
+If the operating system did not zero out contents of physical RAM it might be possible for one process to learn about the memory of another process that had previously used the memory. This would be a security leak.
+
+Unfortunately this means that for `malloc` requests before any memory has been freed and simple programs (which end up using newly reserved memory from the system) the memory is _often_ zero. Then programmers mistaken write C programs that assume malloc'd memory will _always_ be zero.
 
 ```C
-## Why doesn't malloc initial memory to zero?
-Performance.
+char* ptr = malloc(300);
+// contents is probably zero because we get brand new memory
+// so beginner programs appear to work!
+// strcpy(ptr, "Some data); // work with the data
+free(ptr);
+// later
+char*ptr2 = malloc(308); // Contents might now contain existing data and is probably not zero
+```
+
+## Why doesn't malloc always initialize memory to zero?
+Performance! We want malloc to be as fast as possible. Zeroing out memory may be unnecessary.
 
 ## What is realloc and when would you use it?
 `realloc` allows you to resize an existing memory allocation. Using realloc you can request an existing allocation 
