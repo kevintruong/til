@@ -14,6 +14,9 @@ Rather than requiring a book this semester, we will build own set of resources h
 * [[fork exec wait kill]]
 * For fun: [[Smashing the stack example]]
 
+## Week 3
+* [[Heap Memory Introduction]]
+* [[Implementing a Memory Allocator]]
 ## Other content
 
 Call to action --
