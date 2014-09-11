@@ -81,26 +81,26 @@ During program execution memory is allocated ande de-allocated (freed), so there
 
 Suppose our current heap size is 64K, though not all of it is in use because some earlier malloc'd memory has already been freed by the program- 
 
-16 KB free | 12 KB allocated | 30 KB free | 4 KB allocated | 2 KB free 
----|---|---|---|---
+16 KB free | 10 KB allocated | 1 KB free | 1 KB allocated | 30 KB free | 4 KB allocated | 2 KB free 
+---|---|---|---|---|---|---
 
 If a new malloc request for 2KB is executed (`malloc(2048)`), where should `malloc` reserve the memory? It could use the last 2KB hole (which happens to be the perfect size!) or it could split one of the other two free holes. These choices represent different placement strategies.
 
 
-A perfect-fit strategy finds the smallest hole that is of sufficient size:
+A perfect-fit strategy finds the smallest hole that is of sufficient size (at least 2KB):
 
-16 KB free | 12 KB allocated | 30 KB free | 4 KB allocated | 2KB HERE!
----|---|---|---|---|---
+16 KB free | 10 KB allocated | 1 KB free | 1 KB allocated | 30 KB free | 4 KB allocated | 2KB HERE!
+---|---|---|---|---|---|---|---
 
 A worst-fit strategy finds the largest hole that is of sufficient size:
 
-16 KB free | 12 KB allocated | 2KB HERE!| 28 KB free | 4 KB allocated | 2 KB free 
----|---|---|---|---|---
+16 KB free | 10 KB allocated | 1 KB free | 1 KB allocated | 2KB HERE!| 28 KB free | 4 KB allocated | 2 KB free 
+---|---|---|---|---|---|---|---
 
 A first-fit strategy finds the first available hole that is of sufficient size:
 
-2KB HERE! | 14 KB free | 12 KB allocated | 30 KB free | 4 KB allocated | 2 KB free 
----|---|---|---|---|---
+2KB HERE! | 14 KB free | 10 KB allocated | 1 KB free | 1 KB allocated | 30 KB free | 4 KB allocated | 2 KB free 
+---|---|---|---|---|---|---|---
 
 
 ## What are the challenges of writing a good allocator?
