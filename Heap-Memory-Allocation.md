@@ -1,7 +1,5 @@
-## Under constuction!
-
 ## What happens when I call malloc?
-`malloc` is a C library call and is used to reserve a contiguous block of memory. Unlike stack memory, the memory remains allocated (yours to play with) until free is called with the same pointer. There is also `calloc` and `realloc` which we'll talk about later.
+`malloc` is a C library call and is used to reserve a contiguous block of memory. Unlike stack memory, the memory remains allocated until `free` is called with the same pointer. There is also `calloc` and `realloc` which are discussed below.
 
 ## Can malloc fail?
 If malloc fails to reserve any more memory then it returns NULL. Robust programs should check the return value. If your code assumes malloc succeeds and it does not, then your program will likely crash (segfault) when it tries to write to address 0.
@@ -66,8 +64,24 @@ char*ptr2 = malloc(308); // Contents might now contain existing data and is prob
 Performance! We want malloc to be as fast as possible. Zeroing out memory may be unnecessary.
 
 ## What is realloc and when would you use it?
-`realloc` allows you to resize an existing memory allocation. Using realloc you can request an existing allocation 
-(todo - example)
+`realloc` allows you to resize an existing memory allocation that was previously allocated on the heap (via malloc,calloc or realloc). The most common use of realloc is to resize memory used to hold an array of values.
+An INCORRECT use of realloc is shown below:
+```C
+int* array = malloc(sizeof(int) * 2);
+array[0] = 10; array[1]; = 20;
+// Ooops need a bigger array - so use realloc..
+realloc (array, 3); // ERRORS!
+array[2] = 30; 
+```
+
+The above code contains two mistakes. Firstly we needed 3*sizeof(int) bytes not 3 bytes.
+Secondly realloc may need to move the existing contents of the memory to a new location. For example, there may not be sufficient space because the neighboring bytes are already allocated. A correct use of realloc is shown below.
+```C
+array = realloc(array, 3*sizeof(int));
+// If array is copied to a new location then old allocation will be freed.
+```
+A robust version would also check for a NULL return value. Note realloc can be used to grow and shrink allocations.
+[[http://man7.org/linux/man-pages/man3/malloc.3.html]]
 
 ## How important is that memory allocation is fast?
 Very! Allocating and de-allocating heap memory is a common operation in most applications.
