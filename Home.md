@@ -17,6 +17,7 @@ Rather than requiring a book this semester, we will build own set of resources h
 ## Week 3
 * [[Heap Memory Introduction]]
 * [[Implementing a Memory Allocator]]
+
 ## Other content
 
 Call to action --
