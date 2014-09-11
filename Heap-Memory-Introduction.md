@@ -185,3 +185,4 @@ The allocator doesn't know the program's memory allocation requests in advance. 
 
 ## How do you implement a memory allocator?
 Good question. We need a wiki page on that.
+[[Implementing a Memory Allocator]]
