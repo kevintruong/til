@@ -15,6 +15,14 @@ On typical architectures, the heap is part of the `Data segment` and starts just
 
 ## Do programs need to call brk or sbrk?
 Not typically (though calling `sbrk(0)` can be interesting because it tells you where your heap currently ends). Instead programs use `malloc,calloc,realloc` and `free` which are part of the C library. The internal implementation of these functions will call `sbrk` when additional heap memory is required.
+```C
+void* top_of_heap = sbrk(0);
+malloc(16384);
+void* top_of_heap2 = sbrk(0);
+printf("The top of heap went from %p to %p \n", top_of_heap, top_of_heap2);
+```
+Example output: `The top of heap went from 0x4000 to 0xa000`
+
 
 ## What is calloc?
 Unlike `malloc`, `calloc` initializes memory contents to zero and also takes two arguments (the number of items and the size in bytes of each item). A naive but readable implementation of `calloc` looks like this-
