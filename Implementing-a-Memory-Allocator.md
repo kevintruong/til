@@ -6,7 +6,7 @@ A memory allocator needs to keep track of which bytes are currently allocated an
 ## This page talks about links of blocks - do I malloc memory for them instead??
 Though conceptually we are thinking about creating links in a linked lists, we don't need to "malloc memory" to create the linked lists! Instead we are writing integers and pointers into memory that we already control so that we can later consistent hop from one address to the next. This internal information represents some overhead. So even if we had requested 1024 KB of contiguous memory from the system, we will not be able to provide all of it to the running program.
 
-## 
+## Thinking in blocks
 We can think of our heap memory as a list of blocks where each block is either allocated or unallocated.
 Rather than storing an explicit list of pointers we store information about the block's size _as part of the block_. Thus there is a conceptually a list of free blocks, but it is implicit; i.e. in the form of block size information that we store as part of each block 
 
@@ -17,7 +17,7 @@ The calling program never sees these values; they are internal to the implementa
 As an example, suppose your allocator is asked to reserve 80 bytes (`malloc(80)`) and requires 8 bytes of internal header data. The allocator would need to find an unallocated space of at least 88 bytes. After updating the heap data it would return a pointer to the block. However the returned pointer does not point to the start of the block because that's where the internal size data is stored! Instead we would return the start of the block + 8 bytes.
 In the implementation, remember that pointer arithmetic depends on type. For example, `p += 8` adds `sizeof(p)*8` not necessarily 8 bytes!
 
-### Implementing malloc
+## Implementing malloc
 The simplest implementation uses first fit. Start at the first block,if it exists, and iterate until a block that represents unallocated space of at least the required size is found.
 
 If no block is found then it's time to call `sbrk()` again to extend the size of the heap. A fast implementation might extend it a significant amount so that we will not need to request more heap memory in the near future.
@@ -31,7 +31,7 @@ isallocated = (*p) & 1;
 realsize = (*p) & ~1;  // mask out the lowest bit
 
 
-### Implementing free
+## Implementing free
 When `free` is called we need to re-apply the offset to get back to the 'real' start of the block i.e. to where we stored the size information.
 
 A naive implementation would simply mark the block as unused. If we storing the block allocation status in the lowest size bit, then we just need to clear the bit:
