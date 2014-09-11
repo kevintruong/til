@@ -1,4 +1,3 @@
-
 A memory allocator needs to keep track of which bytes are currently allocated and which are which are available for use. This page introduces some of the implementation and conceptual details of building an allocator i.e. the actual code that implements malloc and free.
 
 ## This page talks about links of blocks - do I malloc memory for them instead?
@@ -22,8 +21,8 @@ If no block is found then it's time to call `sbrk()` again to extend the size of
 
 When a free block is found it may be larger than the space we need. If so, we will create two entries in our implicit list. The first entry is the allocated block, the second entry is the remaining space.
 
-There are two simple ways to store if a block is in use or available. Either store it as a byte in the header information along with the tail. An alternative is to encode it as the lowest bit in the size!
-Thus size information would be limited to only even values:
+There are two simple ways to store if a block is in use or available. Either store it as a byte in the header information along with the size. An alternative is to encode it as the lowest bit in the size!
+Thus block size information would be limited to only even values:
 ```
 isallocated = (*p) & 1;
 realsize = (*p) & ~1;  // mask out the lowest bit
