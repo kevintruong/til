@@ -84,10 +84,13 @@ Inserting in address order  ("Address ordered policy") inserts freed blocks so t
 
 A segregated allocator is one that divides the heap into different areas that are handled by different sub-allocators dependent on the size of the allocation request. Sizes are grouped into classes (e.g. powers of two) and each size is handled by a different sub-allocator and each size maintains its own free list.
 
-A well known allocator of this type is the buddy allocator. We'll discuss the binary buddy allocator which splits allocation into blocks of size 2^n (n=1,2,3,...) times some base unit number of bytes but others exist (e.g. Fibonacci split). The basic concept is simple: If there are no free blocks of size 2^n go to the next level and steal that block and split it into two. If two neighboring blocks of the same size become unallocated they can be coalesced back together into a single large block of twice the size. 
+A well known allocator of this type is the buddy allocator. We'll discuss the binary buddy allocator which splits allocation into blocks of size 2^n (n=1,2,3,...) times some base unit number of bytes but others exist (e.g. Fibonacci split - can you see why it's named?). The basic concept is simple: If there are no free blocks of size 2^n go to the next level and steal that block and split it into two. If two neighboring blocks of the same size become unallocated they can be coalesced back together into a single large block of twice the size. 
+
+Buddy allocators are fast because the neighboring blocks to coalesce with can be calculated from the freed block's address, rather than traversing the size tags. Ultimate performance often requires a small amount of assembler code to use a specialized CPU instruction to find the lowest non-zero bit. 
+
+The main disadvantage of the Buddy allocator is that they suffer from internal fragmentation because allocations are rounded up to the nearest block size. For example, a 68 byte allocation will require a 128 byte block.
 
 
-Buddy allocators can be very fast (and ultimate performance would include assembly to makes use of an CPU instruction to find the lowest non-zero bit). However they suffer from internal fragmentation because allocations are rounded up to the nearest block size. For example, a 68 byte allocation will require a 128 byte block.
 
 ### Further Reading and References
 * See [[Foundations of Software Technology and Theoretical Computer Science 1999 proceedings|http://books.google.com/books?id=0uHME7EfjQEC&lpg=PP1&pg=PA85#v=onepage&q&f=false]] (Google books,page 85)
