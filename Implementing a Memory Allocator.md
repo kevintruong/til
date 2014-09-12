@@ -15,21 +15,22 @@ As an example, suppose your allocator is asked to reserve 80 bytes (`malloc(80)`
 In the implementation, remember that pointer arithmetic depends on type. For example, `p += 8` adds `sizeof(p)*8` not necessarily 8 bytes!
 
 ## Implementing malloc
-The simplest implementation uses first fit. Start at the first block,if it exists, and iterate until a block that represents unallocated space of at least the required size is found.
+The simplest implementation uses first fit: Start at the first block,assuming it exists, and iterate until a block that represents unallocated space of sufficient size is found, or we've checked all the blocks.
 
-If no block is found then it's time to call `sbrk()` again to extend the size of the heap. A fast implementation might extend it a significant amount so that we will not need to request more heap memory in the near future.
+If no suitable block is found then it's time to call `sbrk()` again to sufficiently extend the size of the heap. A fast implementation might extend it a significant amount so that we will not need to request more heap memory in the near future.
 
 When a free block is found it may be larger than the space we need. If so, we will create two entries in our implicit list. The first entry is the allocated block, the second entry is the remaining space.
 
 There are two simple ways to store if a block is in use or available. Either store it as a byte in the header information along with the size. An alternative is to encode it as the lowest bit in the size!
 Thus block size information would be limited to only even values:
 ```
+// Assumes p is a reasonable pointer type e.g. size_t*
 isallocated = (*p) & 1;
 realsize = (*p) & ~1;  // mask out the lowest bit
 ```
 
 ## Implementing free
-When `free` is called we need to re-apply the offset to get back to the 'real' start of the block i.e. to where we stored the size information.
+When `free` is called we need to re-apply the offset to get back to the 'real' start of the block (remember we didn't give the user a pointer to the actual start of the block?) i.e. to where we stored the size information.
 
 A naive implementation would simply mark the block as unused. If we storing the block allocation status in the lowest size bit, then we just need to clear the bit:
 ```C
@@ -43,8 +44,8 @@ To be able to coalesce a free block with a previous free block we will also need
 (Hey world - an open source licensed diagram of the above would be nice)
 
 ## Performance
-With the above description it's possible to build a memory allocator. It's main advantage is simplicity - at least simple compared to other allocators.
-Allocating memory is a worst-case linear time operation (search linked lists for a sufficiently large free block) and De-allocation is constant time (no more than 3 blocks will need to be coalesced into a single block). Using this allocator it is possible to experiment with different placement strategies.
+With the above description it's possible to build a memory allocator. It's main advantage is simplicity - at least simple compared to other allocators!
+Allocating memory is a worst-case linear time operation (search linked lists for a sufficiently large free block) and de-allocation is constant time (no more than 3 blocks will need to be coalesced into a single block). Using this allocator it is possible to experiment with different placement strategies. For example, you could start searching from you last freed a block, or where you last allocated from. If you do store pointers to blocks, you need to be very careful that they always remain valid (e.g. when coalescing blocks or other malloc or free calls that change the heap structure)
 
 ## Explicit Free Lists Allocators
 
