@@ -90,7 +90,7 @@ A well known allocator of this type is the buddy allocator. We'll discuss the bi
 Buddy allocators can be very fast (and ultimate performance would include assembly to makes use of an CPU instruction to find the lowest non-zero bit). However they suffer from internal fragmentation because allocations are rounded up to the nearest block size. For example, a 68 byte allocation will require a 128 byte block.
 
 
-* See [[http://books.google.com/books?id=0uHME7EfjQEC&lpg=PP1&pg=PA85#v=onepage&q&f=false]] (page 85)
+* See [[Foundations of Software Technology and Theoretical Computer Science 1999 proceedings|http://books.google.com/books?id=0uHME7EfjQEC&lpg=PP1&pg=PA85#v=onepage&q&f=false]] (Google books,page 85)
 
 See the powerpoint -
 
