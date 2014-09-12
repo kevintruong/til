@@ -89,13 +89,11 @@ A well known allocator of this type is the buddy allocator. We'll discuss the bi
 
 Buddy allocators can be very fast (and ultimate performance would include assembly to makes use of an CPU instruction to find the lowest non-zero bit). However they suffer from internal fragmentation because allocations are rounded up to the nearest block size. For example, a 68 byte allocation will require a 128 byte block.
 
-
+### Further Reading and References
 * See [[Foundations of Software Technology and Theoretical Computer Science 1999 proceedings|http://books.google.com/books?id=0uHME7EfjQEC&lpg=PP1&pg=PA85#v=onepage&q&f=false]] (Google books,page 85)
-
-See the powerpoint -
-
-* ThanksForTheMemory UIUC lecture Slides [[pptx|https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx]] [[pdf|https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx.pdf]]
+* ThanksForTheMemory UIUC lecture Slides ([[pptx|https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx]]) ([[pdf|https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx.pdf]])
 and 
 * [[http://en.wikipedia.org/wiki/Buddy_memory_allocation]]
+
 # Other allocators
 There are many other allocation schemes. For example [[SLUB|http://en.wikipedia.org/wiki/SLUB_%28software%29]] (wikipedia) - one of three allocators used internally by the Linux Kernel.
