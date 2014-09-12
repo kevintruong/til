@@ -19,6 +19,7 @@ Rather than requiring a book this semester, we will build own set of resources h
 * [[Heap Memory Introduction]]
 * [[Implementing a Memory Allocator]]
 * [[Threads Introduction to pthreads]]
+
 ## Other content
 
 Call to action --
