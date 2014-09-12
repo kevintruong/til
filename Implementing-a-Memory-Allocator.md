@@ -29,6 +29,18 @@ isallocated = (*p) & 1;
 realsize = (*p) & ~1;  // mask out the lowest bit
 ```
 
+## Rounding up and natural alignment considerations
+Many architectures expect multi-byte primitives read to be aligned to some mutliple of 2^n. For example it's not common to require 4 byte types to aligned to 4 byte boundaries (and 8 byte types on 8 byte boundaries). If primitives are not stored on a reasonable boundary (for example starting at an odd address) then the performance can significantly impacted because it may require two memory read requests instead of one. On some architectures the program can crash due to a bus error.
+http://en.wikipedia.org/wiki/Bus_error#Unaligned_access
+As malloc does not know how the user will use the allocated memory (array of doubles? array of chars?), the pointer returned to the program needs to be aligned for the worst case, which is architecture dependent.
+
+From glibc documentation, the glibc malloc uses the following heuristic:
+"    The block that malloc gives you is guaranteed to be aligned so that it can hold any type of data. On GNU systems, the address is always a multiple of eight on most systems, and a multiple of 16 on 64-bit systems."
+
+Secondly, if you decide to model the heap in units of 64 bytes, how do you ensure that you get enough units?
+The attempt `int units = (bytesneeded + overhead) / 64` will clearly be off by one for most requests!
+
+
 ## Implementing free
 When `free` is called we need to re-apply the offset to get back to the 'real' start of the block (remember we didn't give the user a pointer to the actual start of the block?) i.e. to where we stored the size information.
 
