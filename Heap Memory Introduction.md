@@ -178,7 +178,7 @@ The main challenges are,
 
 Some additional comments:
 
-Both fragmentation and performance depend on the application allocation profile, which can be evaluated but not predicted and in practice, under-specifics usage conditions, a special-purpose allocator can often out-perform a general purpose implementation.
+Both fragmentation and performance depend on the application allocation profile, which can be evaluated but not predicted and in practice, under-specific usage conditions, a special-purpose allocator can often out-perform a general purpose implementation.
 
 The allocator doesn't know the program's memory allocation requests in advance. Even if we did, this is the [[http://en.wikipedia.org/wiki/Knapsack_problem|Knapsack problem]] (wikipedia) which is known to be NP hard!
 
