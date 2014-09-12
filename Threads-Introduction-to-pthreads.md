@@ -30,13 +30,20 @@ The argument `void *(*start_routine) (void *)` is difficult to read! It means a 
 Here's the simplest example:
 ```C
 void* busy(void*ptr) {
+/   / ptr will point to "Hi"
     puts("Hello World);
     return NULL;
 }
 int main() {
     pthread_t id;
-    pthread_create(& id, NULL, busy, NULL );
+    pthread_create(& id, NULL, busy, "Hi" );
     while(1) {} // Loop forever
 }
 ```
-
+If we want to wait for our thread to finish use pthread_join
+```C
+void* result;
+pthread_join(id, &result);
+```
+In the above example, `result` will be `null` because the busy function returned `null`.
+We need to pass the address-of result because pthread_join will be writing into the contents of our pointer.
