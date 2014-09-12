@@ -51,9 +51,9 @@ Allocating memory is a worst-case linear time operation (search linked lists for
 
 Better performance can be achieved by implementing an explicit doubly-linked-list of free nodes i.e. we can immediately traverse to the next free block and the previous free block. This can halve the search time because the linked list only includes unallocated blocks.
 
-A second advantage is that we now have some control over the ordering the linked list. For example when a block is freed, we could choose to insert it into the beginning of the linked-list, rather than always between its neighbors. This is discussed below
+A second advantage is that we now have some control over the ordering the linked list. For example when a block is freed, we could choose to insert it into the beginning of the linked-list, rather than always between its neighbors. This is discussed below.
 
-Where do we store the pointers of our linked list? A simple trick is realize that the block itself is not being used, so we can store the next and previous pointers as part of the block.
+Where do we store the pointers of our linked list? A simple trick is realize that the block itself is not being used, so we can store the next and previous pointers as part of the block (though now you have to ensure that the free blocks are always sufficiently large to hold two pointers).
 
 We still need to implement Boundary Tags (i.e. an implicit list using sizes), so that we can correctly free blocks and coalesce them with their two neighbors. Thus explicit free lists require more code and complexity.
 
