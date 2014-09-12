@@ -7,7 +7,7 @@ Rather than requiring a book this semester, we will build own set of resources h
 ## Week 1
 * [[C Programming]]
 * [[C Gotchas wiki page|C-Programming---Common-Gotchas]]
-* [[Glossary of basic terms|Glossary]]
+* [[Informal Glossary of basic terms|Informal Glossary]]
 
 ## Week 2
 * [[C Programming Text Input Output]]
