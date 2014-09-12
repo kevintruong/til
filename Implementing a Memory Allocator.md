@@ -67,6 +67,13 @@ Inserting at the beginning creates a LIFO (last-in-first-out) policy: The most r
 Inserting in address order  ("Address ordered policy") inserts freed blocks so that the blocks are visited in increasing address order. This policy required more time to free a block because the boundary tags (size data) must be used to find the next and previous unallocated blocks however there is less fragmentation.
 
 # Case study: Buddy Allocator (an example of a segregated list)
+
+A segregated allocator is one that divides the heap into different areas that are handled by different sub-allocators dependent on the size of the allocation request. Sizes are grouped into classes (e.g. powers of two) and each size is handled by a different sub-allocator and each size maintains its own free list.
+
+A well known allocator of this type is the buddy allocator. We'll discuss the binary buddy allocator which splits allocation into blocks of size 2^n (n=1,2,3,...) times some base unit number of bytes but others exist (e.g. Fibonacci split). The basic concept is simple: If there are no free blocks of size 2^n go to the next level and steal that block and split it into two. If two neighboring blocks of the same size become unallocated they can be coalesced back together into a single large block of twice the size. 
+
+
+Buddy allocators can be very fast (and optimal performance requires bitwise operations in assembler that are not directly available in C). However they suffer from internal fragmentation because allocations are rounded up to the nearest block size. For example, a 68 byte allocation will require a 128 byte block.
 * See [[http://books.google.com/books?id=0uHME7EfjQEC&printsec=frontcover#v=onepage&q&f=false]] (goto page 85 or search for 'buddy')
 
 See the powerpoint 
