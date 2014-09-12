@@ -1,7 +1,8 @@
 ## What is the kernel?
 The kernel is central part of the operating system that manages processes, resources (including memory) and hardware input-output devices. User programs interact with the kernel by making system calls.
+
 Learn more:
-http://en.wikipedia.org/wiki/Kernel_%28operating_system%29
+[[http://en.wikipedia.org/wiki/Kernel_%28operating_system%29]]
 
 ## What is a process?
 
