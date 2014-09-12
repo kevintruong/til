@@ -94,8 +94,7 @@ Buddy allocators can be very fast (and ultimate performance would include assemb
 
 See the powerpoint -
 
-* [[https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx]] (powerpoint)
-* [[https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx.pdf]] (pdf)
+* ThanksForTheMemory UIUC lecture Slides [[pptx|https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx]] [[pdf|https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx.pdf]]
 and 
 * [[http://en.wikipedia.org/wiki/Buddy_memory_allocation]]
 # Other allocators
