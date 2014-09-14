@@ -5,7 +5,7 @@ Feel free to add anything that you found helpful in debugging C programs includi
 ### Most Common Errors
 
 @todo: add some common error messages in system programming with examples, causes, and common debugging approaches.
-#### Segmentation fault
+
 ### GDB
 
 Introduction: http://www.cs.cmu.edu/~gilpin/tutorial/
