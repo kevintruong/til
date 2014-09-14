@@ -2,11 +2,21 @@
 
 Feel free to add anything that you found helpful in debugging C programs including but not limited to, debugger usage, recognizing common error types, gotchas, and effective googling tips.
 
+### Should I ask a question on Piazza?
+Here are a few things you should try/check for before asking on Piazza - you'll usually get a meaningful response faster this way.
+0. Am I running on EWS? (You should be.)
+1. Did I check the man pages for the failing command(s)? (Eg. To check for forgotten includes)
+2. Are all my includes good?
+3. Are there any silly errors near the bug that I can see just by looking at the code? (E.g. a + instead of a - etc.)
+4. Did I spend at least 15 minutes Googling the error?
+5. Did I try commenting out parts of the code bit by bit to find out precisely where the error occurs?
+6. Did I commit my code to SVN in case the TAs need more context?
+7. Did I include the console/GDB/Valgrind output + code surrounding the bug in my Piazza post?
+
 ### Most Common Errors
 
 @todo: add some common error messages in system programming with examples, causes, and common debugging approaches.
 #### Segmentation fault
-
 ### GDB
 
 Introduction: http://www.cs.cmu.edu/~gilpin/tutorial/
