@@ -1,5 +1,7 @@
 ## The Hitchhiker's Guide to Debugging C Programs
 
+Feel free to add anything that you found helpful in debugging C programs including but not limited to, debugger usage, recognizing common error types, gotchas, and effective googling tips.
+
 ### Most Common Errors
 
 @todo: add some common error messages in system programming with examples, causes, and common debugging approaches.
