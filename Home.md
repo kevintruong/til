@@ -22,7 +22,7 @@ Rather than requiring a book this semester, we will build own set of resources h
 
 ## Other content
 
-* [[Debugging a C Program]]
+* [[Debugging C Programs]]
 
 Call to action --
 We need pages or examples on 
