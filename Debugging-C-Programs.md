@@ -58,7 +58,7 @@ $ Cat ZVQ� $
 (gdb) l
 1	#include <stdio.h>
 2	int main() {
-3	    char bad_string[3] = {'c', 'a', 't'};
+3	    char bad_string[3] = {'C', 'a', 't'};
 4	    printf("%s", bad_string);
 5	}
 (gdb) b 4
