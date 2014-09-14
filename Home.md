@@ -22,6 +22,8 @@ Rather than requiring a book this semester, we will build own set of resources h
 
 ## Other content
 
+* [[Debugging]]
+
 Call to action --
 We need pages or examples on 
 * Process Memory Layout for a single-threaded process (code, bss, data, heap, stack, args, env)
