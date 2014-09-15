@@ -152,17 +152,22 @@ Time | Thread 1 | Thread 2| Comments
 
 
 
-12. What are condition variables, semaphores, mutexes?
+## What are condition variables, semaphores, mutexes?
+These are synchronization locks that are used to prevent race conditions and ensure proper synchronization between threads running in the same program. In addition these locks are conceptually identical to the primitives used inside the kernel.
 
 
+## Are there any advantages of using threads over forking processes?
+Yes! Sharing information between threads is easy because threads (of the same process) live inside the same virtual memory space.
+Also, creating a thread is significantly faster than creating(forking) a process.
 
-13. Advantages of threads over forking processes?
+## Are there any dis-advantages of using threads over forking processes?
+Yes! No- isolation! As threads live inside the same process, one thread has access to the same virtual memory as the other threads. A single thread can terminate the entire process (e.g. by trying to read address zero).
 
+## Can you fork a process with multiple threads?
+Yes! If you fork a process with 8 threads, you now have two processes each with their 8 threads.
 
-
-
-14.  Can you fork a process with multiple threads?
-
-
-
-15. Examples of why you might fork processes
+## Are there other reasons where `fork` might be preferable to creating a thread.
+Creating separate processes is useful 
+* When more security is desired (for example, Chrome browser uses different processes for different tabs)
+* When running an existing and complete program then a new process is required (e.g. starting 'gcc')
+ 
