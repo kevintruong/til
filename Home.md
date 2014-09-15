@@ -18,7 +18,10 @@ Rather than requiring a book this semester, we will build own set of resources h
 ## Week 3
 * [[Heap Memory Introduction]]
 * [[Implementing a Memory Allocator]]
-* [[Threads Introduction to pthreads]]
+* [[Threads Introduction to pthreads|Pthreads Part 1]]
+
+## Week 4
+* [[Pthreads Part 2]]
 
 ## Other content
 
