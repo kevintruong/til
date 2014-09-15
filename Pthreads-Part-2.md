@@ -1,10 +1,8 @@
-Under construction!
-
 ## How do I create a pthread?
-See [[Pthreads Part 1]] which introduces pthread_create and pthread_join
+See [[Pthreads Part 1]] which introduces `pthread_create` and `pthread_join`
 
-## If I call pthread_create twice how many stacks does my process have.
-Your process will contain three stacks - one for each thread. The first thread is created when the process starts and you created two more.
+## If I call `pthread_create` twice how many stacks does my process have?
+Your process will contain three stacks - one for each thread. The first thread is created when the process starts and you created two more. Actually there can more stacks than this but let's ignore that complication for now. The important idea is that each thread requires a stack because the stack contains automatic variables and the old CPU PC register so that it can back to executing the calling function after the function is finished.
 
 ## What does `pthread_cancel` do?
 Stops a thread. Note the thread may not actually be stopped immediately. For example it can be terminated when the thread makes an operating system call (e.g. `write`).
@@ -12,7 +10,7 @@ Stops a thread. Note the thread may not actually be stopped immediately. For exa
 In practice `pthread_cancel` is rarely used because it does not give a thread an opportunity to clean up after itself (for example, it may have opened some files.
 An alternative implementation is to use a boolean (int) variable whose value is used to inform other threads that they should finish and clean up.
 
-## What is the difference between exit() and pthread_exit()?
+## What is the difference between `exit` and `pthread_exit`?
 `exit(42)` exits the entire process and sets the processes exit value.  This is equivalent to `return 42` in the main method. All threads inside the process are stopped.
 
 `pthread_exit(void*)` only stops the calling thread i.e. the thread never returns after calling `pthread_exit`. The pthread library will automatically finish the process if there are no other threads running. `pthread_exit(...)` is equivalent to returning from the thread's function; both finish the thread and also set the return value (void* pointer) for the thread.
@@ -171,3 +169,8 @@ Creating separate processes is useful
 * When more security is desired (for example, Chrome browser uses different processes for different tabs)
 * When running an existing and complete program then a new process is required (e.g. starting 'gcc')
  
+## How can I find out more?
+See the complete example in the man page - 
+[[http://man7.org/linux/man-pages/man3/pthread_create.3.html]]
+And the pthread reference guide -
+[[pthread guide| http://man7.org/linux/man-pages/man7/pthreads.7.html]]
