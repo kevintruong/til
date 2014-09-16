@@ -41,7 +41,7 @@ int main() {
 Alternatively, we join on each thread (i.e. wait for it to finish) before we return from main (or call exit).
 ```C
 int main() {
-  pthread_t tid1,tid2
+  pthread_t tid1,tid2;
   pthread_create(&tid1, NULL,  myfunc, "Jabberwocky");
   pthread_create(&tid2, NULL,  myfunc, "Vorpel");
   // wait for both threads to finish :
@@ -72,7 +72,7 @@ Yes. However you need to be very careful about the lifetime of stack variables.
 ```
 pthread start_threads() {
   int start = 42;
-  pthread_t tid
+  pthread_t tid;
   pthread_create(&tid, 0, myfunc, &start); // ERROR!
   return tid;
 }
@@ -85,7 +85,7 @@ The following code is valid because the lifetime of the stack variable is longer
 void start_threads() {
   int start = 42;
   void*result;
-  pthread_t tid
+  pthread_t tid;
   pthread_create(&tid, 0, myfunc, &start); // OK - start will be valid!
   pthread_join(tid, &result);
 }
