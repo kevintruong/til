@@ -18,7 +18,7 @@ An alternative implementation is to use a boolean (int) variable whose value is 
 Calling `pthread_exit` in the the `main` thread is a common way for simple programs to ensure that all threads finish. For example, in the following program, the  `myfunc` threads will probably not have time to get started.
 ```C
 int main() {
-  pthread_t tid1,tid2
+  pthread_t tid1,tid2;
   pthread_create(&tid1, NULL,  myfunc, "Jabberwocky");
   pthread_create(&tid2, NULL,  myfunc, "Vorpel");
   exit(42); //or return 42;
