@@ -29,7 +29,7 @@ int main() {
 The next two programs will wait for the new threads to finish-
 ```C
 int main() {
-  pthread_t tid1,tid2
+  pthread_t tid1,tid2;
   pthread_create(&tid1, NULL,  myfunc, "Jabberwocky");
   pthread_create(&tid2, NULL,  myfunc, "Vorpel");
   pthread_exit(NULL); 
