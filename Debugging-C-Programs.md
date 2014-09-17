@@ -75,17 +75,3 @@ Breakpoint 1, main () at main.c:4
 Here, by using the `x` command with parameters `16xb`, we can see that starting at memory address `0x7fff5fbff9c` (value of `bad_string`), printf would actually see the following sequence of bytes as a string because we provided a malformed string without a null terminator.
 
 ```0x43 0x61 0x74 0xe0 0xf9 0xbf 0x5f 0xff 0x7f 0x00```
-
-## Appendix
-
-### Ask before asking a question
-
-Here are a few things you should try/check for before asking on Piazza - you'll usually get a meaningful response faster this way.
-
-0. Am I running on EWS?
-1. Did I check the man pages?
-2. Are all my includes good?
-3. Did I google the error message?
-4. Did I try commenting out parts of the code bit by bit to find out precisely where the error occurs?
-5. Did I commit my code to SVN in case the TAs need more context?
-6. Did I include the console/GDB/Valgrind output + code surrounding the bug in my Piazza post?
