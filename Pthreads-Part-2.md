@@ -67,7 +67,7 @@ Note the pthread_exit version creates thread zombies, however this is not a long
 
 ## What happens if you don't call `pthread_join`?
 Finished threads will continue to consume resources. Eventually, if enough threads are created, `pthread_create` will fail.
-In practice, this is only an issue for long-runnning processes but is not an issue for simple, short-lived processes as all thread resources are automatically freed when the process exists.
+In practice, this is only an issue for long-runnning processes but is not an issue for simple, short-lived processes as all thread resources are automatically freed when the process exits.
 
 
 ## Can you pass pointers to stack variables from one thread to another?
