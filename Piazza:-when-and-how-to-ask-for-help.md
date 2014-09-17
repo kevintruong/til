@@ -7,6 +7,8 @@ TAs and student assistants get a ton of questions. Some are well-researched, and
 - **Did I check the man pages?**
 - Have I included everything the man page tells me?
 - Have I searched for similar questions/followups on Piazza?
+- Have I read the MP/DS specification completely?
+- Have I watched all of the videos?
 - Did I Google the error message (and a few permutations thereof if necessary)?
 - Did I try commenting out parts of the code bit by bit to find out precisely where the error occurs?
 - Did I commit my code to SVN in case the TAs need more context?
