@@ -29,9 +29,13 @@ The argument `void *(*start_routine) (void *)` is difficult to read! It means a 
 
 Here's the simplest example:
 ```C
+#include <stdio.h>
+#include <pthread.h>
+// remember to set compilation option -pthread
+
 void* busy(void*ptr) {
 // ptr will point to "Hi"
-    puts("Hello World);
+    puts("Hello World");
     return NULL;
 }
 int main() {
