@@ -17,8 +17,8 @@ To use pthreads you will need to include `pthread.h` AND you need to compile wit
 
 To create a thread use the function `pthread_create`. This function takes four arguments:
 ```C
-       int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
-                          void *(*start_routine) (void *), void *arg);
+int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
+                   void *(*start_routine) (void *), void *arg);
 ```
 * The first is a pointer to a variable that will hold the id of the newly created thread.
 * The second is a pointer to attributes that we can use to tweak and tune some of the advanced features of pthreads.
