@@ -1,5 +1,5 @@
 ## What is a thread?
-A thread is short for 'thread-of-execution'. It represents the sequence of instructions that the CPU has (and will) execute. To remember how to return from function calls, and to store the values of automatic variablesand  parameters a thread uses a stack.
+A thread is short for 'thread-of-execution'. It represents the sequence of instructions that the CPU has (and will) execute. To remember how to return from function calls, and to store the values of automatic variables and  parameters a thread uses a stack.
 
 ## How does the thread's stack work?
 Your main function (and other functions you might call) have automatic variables. We will store them in memory using a stack and keep track of how large the stack is by using a simple pointer (the "stack pointer"). If the thread calls another function, we move our stack pointer down, so that we have more space for parameters and automatic variables. Once it returns from a function, we can move the stack pointer back up to its previous value. We keep a copy of the old stack pointer value - on the stack! This is why returning from a function is very quick - it's easy to 'free' the memory used by automatic variables - we just need to change the stack pointer.
@@ -33,7 +33,7 @@ Here's the simplest example:
 #include <pthread.h>
 // remember to set compilation option -pthread
 
-void* busy(void*ptr) {
+void* busy(void* ptr) {
 // ptr will point to "Hi"
     puts("Hello World");
     return NULL;
