@@ -7,4 +7,4 @@ TAs and student assistants get a ton of questions. Some are well-researched, and
 4. Did I google the error message (and a few permutations thereof if necessary)?
 5. Did I try commenting out parts of the code bit by bit to find out precisely where the error occurs?
 6. Did I commit my code to SVN in case the TAs need more context?
-7.Did I include the console/GDB/Valgrind output + code surrounding the bug in my Piazza post?
+7. Did I include the console/GDB/Valgrind output + code surrounding the bug in my Piazza post?
