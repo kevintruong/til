@@ -70,6 +70,10 @@ Finished threads will continue to consume resources. Eventually, if enough threa
 In practice, this is only an issue for long-runnning processes but is not an issue for simple, short-lived processes as all thread resources are automatically freed when the process exits.
 
 
+## Should I use `pthread_exit` or `pthread_join`?
+Both `pthread_exit` and `pthread_join` will let the other threads finish on their own (even if called in the main thread). However, only `pthread_join` will return to you when the other threads finish. `pthread_exit` does not wait and will immediately end your thread and give you no chance to continue executing.
+
+
 ## Can you pass pointers to stack variables from one thread to another?
 Yes. However you need to be very careful about the lifetime of stack variables.
 ```
