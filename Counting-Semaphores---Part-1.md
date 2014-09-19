@@ -5,6 +5,18 @@ An analogy is a count of the cookies in a cookie jar (or gold coins in the treas
 
 In short, `post` increments and immediately returns whereas `wait` will wait if the count is zero. Before returning it will decrement count.
 
+## How do I create a semaphore?
+First decide if the initial value should be zero or some other value (e.g. the number of remaining spaces in an array).
+Unlike pthread mutex there are not shortcuts to creating a semaphore - use 'sem_init'
+```C
+sem_t s;
+int main() {
+  sem_init( &s , 0, 10);
+  sem_wait(&s); // Could do this 10 times without blocking
+  sem_post(&s); // Announce that we've finished (and one more resource item is available; increment count)
+  sem_destroy(&s); // release resources of the semaphore
+```
+
 ## Can I call wait and post from different threads?
 Yes! Unlike a mutex, the increment and decrement can be from different threads.
 
@@ -16,6 +28,8 @@ Yes - though the overhead of a semaphore is greater. To use a semaphore:
 
 ## Can I use sem_post inside a signal handler?
 Yes! `sem_post` is one a handful of functions that can be correctly used inside a signal handler.
+This means we can release a waiting thread which can now make all of the calls that we were not
+allowed to call inside the signal handler itself (e.g. printf).
 
 ```C
 #include <stdio.h>
