@@ -23,6 +23,7 @@ Rather than requiring a book this semester, we will build our own set of resourc
 ## Week 4
 * [[Pthreads Part 2]]
 * [[Introduction to Mutex Lock|Mutex-Locks-Part-1]]
+* [[Introduction to Counting Semaphores|Counting-Semaphores---Part-1]]
 
 ## Other content
 
