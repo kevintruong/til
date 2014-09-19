@@ -29,9 +29,9 @@ Yes - though the overhead of a semaphore is greater. To use a semaphore:
 * Replace `...unlock` with `sem_post`
 
 ## Can I use sem_post inside a signal handler?
-Yes! `sem_post` is one a handful of functions that can be correctly used inside a signal handler.
+Yes! `sem_post` is one of a handful of functions that can be correctly used inside a signal handler.
 This means we can release a waiting thread which can now make all of the calls that we were not
-allowed to call inside the signal handler itself (e.g. printf).
+allowed to call inside the signal handler itself (e.g. `printf`).
 
 ```C
 #include <stdio.h>
@@ -44,7 +44,7 @@ sem_t s;
 
 void handler(int signal)
 {
-    sem_post(&s);
+    sem_post(&s); /* Release the Kraken! */
 }
 
 void *singsong(void *param)
