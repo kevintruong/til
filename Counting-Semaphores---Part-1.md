@@ -69,3 +69,9 @@ int main()
 ```
 Note robust programs do not use `signal()` in a multi-threaded program ("The effects of signal() in a multithreaded process are unspecified." - the signal man page); a more correct program will need to use `sigaction`.
 
+## How do I find out more?
+Play using a real linux system! (9/19/14: Linux-In-the-Browser project is missing semaphore.h - this will be fixed in the next update). Read the man pages:
+* [[sem_init|http://man7.org/linux/man-pages/man3/sem_init.3.html]]
+* [[sem_wait|http://man7.org/linux/man-pages/man3/sem_wait.3.html]]
+* [[sem_post|http://man7.org/linux/man-pages/man3/sem_post.3.html]]
+* [[sem_destroy|http://man7.org/linux/man-pages/man3/sem_destroy.3.html]]
