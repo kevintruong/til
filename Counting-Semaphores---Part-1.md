@@ -60,12 +60,12 @@ int main()
        perror("Could not create unnamed semaphore");
        return 1;
     }
-    signal(SIGINT, handler);
+    signal(SIGINT, handler); // Too simple! See note below
 
     pthread_t tid;
     pthread_create(&tid, NULL, singsong, NULL);
     pthread_exit(NULL); /* Process will exit when there are no more threads */
 }
 ```
-
+Note robust programs do not use `signal()` in a multi-threaded program ("The effects of signal() in a multithreaded process are unspecified." - the signal man page); a more correct program will need to use `sigaction`.
 
