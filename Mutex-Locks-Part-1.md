@@ -8,13 +8,13 @@ Possibly. Incrementing a variable (`i++`) is performed in three individual steps
 #include <pthread.h>
 // Compile with -pthread
 
-int sum = 0;
+int sum = 0; //shared
 
 void* countgold(void* param)
 {
-    int i;
+    int i; //local to each thread
     for (i = 0; i < 10000000; i++) {
-	sum += 1;
+        sum += 1;
     }
     return NULL;
 }
