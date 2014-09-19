@@ -119,7 +119,7 @@ In the code above, the thread gets the lock to the counting house before enterin
 ```
     for (i = 0; i < 10000000; i++) {
         pthread_mutex_lock(&m);
-	sum += 1;
+        sum += 1;
         pthread_mutex_unlock(&m);
     }
     return NULL;
