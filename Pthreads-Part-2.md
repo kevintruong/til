@@ -71,7 +71,7 @@ In practice, this is only an issue for long-runnning processes but is not an iss
 
 
 ## Should I use `pthread_exit` or `pthread_join`?
-Both `pthread_exit` and `pthread_join` will let the other threads finish on their own (even if called in the main thread). However, only `pthread_join` will return to you when the other threads finish. `pthread_exit` does not wait and will immediately end your thread and give you no chance to continue executing.
+Both `pthread_exit` and `pthread_join` will let the other threads finish on their own (even if called in the main thread). However, only `pthread_join` will return to you when the specified thread finishes. `pthread_exit` does not wait and will immediately end your thread and give you no chance to continue executing.
 
 
 ## Can you pass pointers to stack variables from one thread to another?
