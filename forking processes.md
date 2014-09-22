@@ -1,10 +1,10 @@
 ## A word of warning ##
-Process forking is a very powerful (and very dangerous) tool. If you mess up and cause a fork bomb (explained later on this page), *you can bring down the entire system*. To reduce the chances of this, limit your maximum number of processes to a small number e.g
+Process forking is a very powerful (and very dangerous) tool. If you mess up and cause a fork bomb (explained later on this page), **you can bring down the entire system**. To reduce the chances of this, limit your maximum number of processes to a small number e.g
  40 by typing "ulimit -u 40" into a command line.
 
-When testing fork() code, ensure that you have either root and/or physical access to the machine involved. If you must work on fork () code remotely, remember that *kill -9 -1* will save you in the event of an emergency.
+When testing fork() code, ensure that you have either root and/or physical access to the machine involved. If you must work on fork () code remotely, remember that **kill -9 -1** will save you in the event of an emergency.
 
-TL;DR: Fork can be *extremely* dangerous. *You have been warned.*
+TL;DR: Fork can be **extremely** dangerous if you aren't prepared for it. **You have been warned.**
 
 ## What does fork do?
 
