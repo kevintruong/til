@@ -1,3 +1,11 @@
+## A word of warning ##
+Process forking is a very powerful (and very dangerous) tool. If you mess up and cause a fork bomb (explained later on this page), *you can bring down the entire system*. To reduce the chances of this, limit your maximum number of processes to a small number e.g
+ 40 by typing "ulimit -u 40" into a command line.
+
+When testing fork() code, ensure that you have either root and/or physical access to the machine involved. If you must work on fork () code remotely, remember that *kill -9 -1* will save you in the event of an emergency.
+
+TL;DR: Fork can be *extremely* dangerous. *You have been warned.*
+
 ## What does fork do?
 
 The `fork` system call clones the current process to create a new process. It creates a new process (the child process) by duplicating the state of the existing process with a few minor differences (discussed below). The child process does not start from main. Instead it returns from `fork()` just as the parent process does.
