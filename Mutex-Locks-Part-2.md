@@ -57,7 +57,35 @@ Version 3 is thread-safe (we have ensured mutual exclusion for all of the critic
 
 The latter point can be fixed using counting semaphores.
 
-## A simple but incorrect mutex lock implementation
+The implementation assumes a single stack.  A more general purpose version might include the mutex as part of the memory struct and use pthread_mutex_init to initialize the mutex. For example,
+
+```
+struct stack {
+  int count;
+  pthread_mutex_t m; 
+  double* values;
+};
+typedef struct stack stack_t
+
+stack_t* stack_create(int capacity) {
+  stack_t* result = malloc( sizeof(stack_t) );
+  result -> values = malloc( sizeof(double) * values );
+  pthread_mutex_init(& result->m, NULL);
+  return result;
+}
+void stack_destroy(stack_t*s) {
+  free(s->values);
+  pthread_mutex_destroy(& s->m);
+  free(s);
+}
+```
+## When can I destroy the mutex?
+You can only destroy an unlocked mutex
+
+## Can I copy a pthread_mutex_t to a new memory locaton?
+No, copying the bytes of the mutex to a new memory location and then using the copy is _not_ supported.
+
+## What would a simple implementation of a mutex look like?
 
 A simple (but incorrect!) suggestion is shown below. The `unlock` function simply unlocks the mutex and returns. The lock function first checks to see if the lock is already locked. If it is currently locked, it will keep checking again until another thread has unlocked the mutex.
 ```
@@ -76,10 +104,8 @@ Version 1 uses 'busy-waiting' (unnecessarily wasting CPU resources) however this
 
 
 
-
-
-
-
-
-## Gotcha
-Early returns. F
+## Mutex Gotcha
+* Not unlocking a mutex (due to say an early return during an error condition)
+* Resource leak (not calling mutex_destroy)
+* Using an unitialized mutex (or using a mutex that has already been destroyed)
+* Locking a mutex twice on a thread (without unlocking first)
