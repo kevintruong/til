@@ -51,9 +51,23 @@ int count;
 double values[count];
 pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
 
-void push(double v) { pthread_mutex_lock(&m); values[count++] = v; pthread_mutex_unlock(&m); }
-double pop() { pthread_mutex_lock(&m); double v= values[--count]; pthread_mutex_unlock(&m); return v;}
-int is_empty() { pthread_mutex_lock(&m); int result= count == 0; pthread_mutex_unlock(&m);return result; }
+void push(double v) { 
+  pthread_mutex_lock(&m); 
+  values[count++] = v;
+  pthread_mutex_unlock(&m);
+}
+double pop() {
+  pthread_mutex_lock(&m);
+  double v= values[--count];
+  pthread_mutex_unlock(&m);
+  return v;
+}
+int is_empty() {
+  pthread_mutex_lock(&m);
+  int result= count == 0;
+  pthread_mutex_unlock(&m);
+  return result;
+}
 ```
 Version 3 is thread-safe (we have ensured mutual exclusion for all of the critical sections) however there are two points of note:
 * `is_empty` is thread-safe but its result may already be out-of date i.e. the stack may no longer be empty by the time the thread gets the result!
@@ -139,8 +153,106 @@ Version 1 uses 'busy-waiting' (unnecessarily wasting CPU resources) however this
 
 Footnote: We could reduce the CPU overhead a little by calling `pthread_yield` inside the loop (this suggests to the operating system that the thread does not the CPU for a while, so the CPU may be assigned to threads that are waiting to run) but does not fix the race-condition. We need a better implementation - can you work how to prevent the race-condition?
 
+## How can I force my threads to wait if the stack is empty or full?
+Use counting semaphores! Use a counting semaphore to keep track of how many spaces remain and another semaphore to keep to track the number of items in the stack. We will call these two semaphores 'sremain' and 'sitems'. Remember `sem_wait` will wait if the semeaphore's count has been decremented to zero (by another thread calling sem_post).
+
+```C
+// Sketch #1
+
+Need code to initialize sitems to zero
+Need code to initialize sremain to 10
+
+double pop() {
+  // Wait until there's at least one item
+  sem_wait(&sitems);
+  ...
+
+double push(double v) {
+  // Wait until there's at least one space
+  sem_wait(&sremain);
+  ...
+```
+Sketch #2  has implemented the `post` too early. Another thread waiting in push can erroneously attempt to write into a full stack (and similarly a thread waiting in the pop() is allowed to continue too early).
+
+```
+// Sketch #2 (Error!)
+double pop() {
+  // Wait until there's at least one item
+  sem_wait(&sitems);
+  sem_post(&sremain); // error! wakes up pushing() thread too early
+  return values[--count];
+
+double push(double v) {
+  // Wait until there's at least one space
+  sem_wait(&sremain);
+  sem_post(&sitems); // error! wakes up a popping() thread too early
+  values[count++] = v;
+}
+```
+
+Sketch 3 implements the correct semaphore logic but can see the error?
+```
+// Sketch #3 (Error!)
+double pop() {
+  // Wait until there's at least one item
+  sem_wait(&sitems);
+  double v= values[--count];
+  sem_post(&sremain);
+  return v;
+}
+
+double push(double v) {
+  // Wait until there's at least one space
+  sem_wait(&sremain);
+  values[count++] = v;
+  sem_post(&sitems); 
+}
+```
+Sketch 3 correctly enforces buffer full and buffer empty conditions using semaphores. However there is no mutual exclusion: Two threads can be in the critical section at the same time, which would corrupt the data structure (or least lead to data loss). The fix is to also use a mutex around the critical section:
+
+```
+// Simple single stack - see above example on how to convert this into a multiple stacks.
+// Also a robust POSIX implementation would check for EINTR and error codes.
+
+// PTHREAD_MUTEX_INITIALIZER for statics (use pthread_mutex_init() for stack/heap memory)
+
+pthread_mutex_t m= PTHREAD_MUTEX_INITIALIZER; 
+int count = 0;
+double values[10];
+sem_t sitems, sremain;
+
+void init() {
+  sem_init(&sitems,0,0);
+  sem_init(&sremains,0,10); // 10 spaces
+}
+
+double pop() {
+  // Wait until there's at least one item
+  sem_wait(&sitems);
+
+  pthread_mutex_lock(&m); // CRITICAL SECTION
+  double v= values[--count];
+  pthread_mutex_unlock(&m);
+
+  sem_post(&sremain); // Hey world, there's at least one space
+  return v;
+}
+
+double push(double v) {
+  // Wait until there's at least one space
+  sem_wait(&sremain);
+
+  pthread_mutex_lock(&m); // CRITICAL SECTION
+  values[count++] = v;
+  pthread_mutex_unlock(&m);
+
+  sem_post(&sitems); // Hey world, there's at least one item
+}
+```
+
 
 ## Mutex Gotchas
+* Locking/unlocking the wrong mutex (due to a silly typo)
 * Not unlocking a mutex (due to say an early return during an error condition)
 * Resource leak (not calling mutex_destroy)
 * Using an unitialized mutex (or using a mutex that has already been destroyed)
