@@ -63,13 +63,14 @@ The latter point can be fixed using counting semaphores.
 
 The implementation assumes a single stack.  A more general purpose version might include the mutex as part of the memory struct and use pthread_mutex_init to initialize the mutex. For example,
 
-```
+```C
+// Support for multiple stacks (each one has a mutex)
 struct stack {
   int count;
   pthread_mutex_t m; 
   double* values;
 };
-typedef struct stack stack_t
+typedef struct stack stack_t;
 
 stack_t* stack_create(int capacity) {
   stack_t* result = malloc( sizeof(stack_t) );
@@ -82,10 +83,36 @@ void stack_destroy(stack_t*s) {
   pthread_mutex_destroy(& s->m);
   free(s);
 }
-void push(stack_t*s, double v) { pthread_mutex_lock(&s->m); s->values[(s->count)++] = v; pthread_mutex_unlock(&s->m); }
-double pop(stack_t*s) { pthread_mutex_lock(&s->m); double v= s->values[-- (s->count)]; pthread_mutex_unlock(&s->m); return v;}
-int is_empty(stack_t*s) { pthread_mutex_lock(&s->m); int result= s->count == 0; pthread_mutex_unlock(&s->m);return result; }
+// Warning no underflow or overflow checks!
 
+void push(stack_t*s, double v) { 
+  pthread_mutex_lock(&s->m); 
+  s->values[(s->count)++] = v; 
+  pthread_mutex_unlock(&s->m); }
+
+double pop(stack_t*s) { 
+  pthread_mutex_lock(&s->m); 
+  double v= s->values[-- (s->count)]; 
+  pthread_mutex_unlock(&s->m); 
+return v;}
+
+int is_empty(stack_t*s) { 
+  pthread_mutex_lock(&s->m); 
+  int result= s->count == 0; 
+  pthread_mutex_unlock(&s->m);
+  return result;
+}
+```
+Example use:
+```C
+int main() {
+    stack_t* s1 = stack_create(10 /* Max capacity*/);
+    stack_t* s2 = stack_create(10);
+    push(s1, 3.141);
+    push(s2, pop(s1) );
+    stack_destroy(s2);
+    stack_destroy(s1);
+}
 ```
 ## When can I destroy the mutex?
 You can only destroy an unlocked mutex
@@ -96,7 +123,7 @@ No, copying the bytes of the mutex to a new memory location and then using the c
 ## What would a simple implementation of a mutex look like?
 
 A simple (but incorrect!) suggestion is shown below. The `unlock` function simply unlocks the mutex and returns. The lock function first checks to see if the lock is already locked. If it is currently locked, it will keep checking again until another thread has unlocked the mutex.
-```
+```C
 // Version 1 (Incorrect!)
 
 void lock(mutex_t* m) {
@@ -110,10 +137,10 @@ void unlock(mutex_t*m) {
 ```
 Version 1 uses 'busy-waiting' (unnecessarily wasting CPU resources) however this is a more serious problem: We have a race-condition! If two threads both called `lock` concurrently it is possible that both threads would read 'm_locked' as zero. Thus both threads would believe they have exclusive access to the lock and both threads will continue. Ooops!
 
-We could reduce the CPU overhead a little by calling `pthread_yield` inside the loop (this suggests to the operating system that the thread does not the CPU for a while, so the CPU may be assigned to threads that are waiting to run) but does not fix the race-condition. We need a better implementation - can you work out one?
+Footnote: We could reduce the CPU overhead a little by calling `pthread_yield` inside the loop (this suggests to the operating system that the thread does not the CPU for a while, so the CPU may be assigned to threads that are waiting to run) but does not fix the race-condition. We need a better implementation - can you work how to prevent the race-condition?
 
 
-## Mutex Gotcha
+## Mutex Gotchas
 * Not unlocking a mutex (due to say an early return during an error condition)
 * Resource leak (not calling mutex_destroy)
 * Using an unitialized mutex (or using a mutex that has already been destroyed)
