@@ -23,7 +23,7 @@ To turn this into a thread-safe data structure we need to identify the _critical
 While `push` (and `pop`) is executing, the datastructure is an inconsistent state (for example the count may not have been written to, so may still contain the original value). By wrapping these methods with a mutex we can ensure that only one thread at a time can update (or read) the stack.
 
 A candidate 'solution' is shown below. Is it correct? If not, how will it fail?
-```
+```C
 // An attempt at a thread-safe stack (version 2)
 int count;
 double values[count];
@@ -45,7 +45,7 @@ The fix is simple in this case - use the same mutex lock for both the push and p
 The code has a second error; `is_empty` returns after the comparison and will not unlock the mutex. However the error would not be spotted immediately. For example, suppose one thread calls `is_empty` and a second thread later calls `push`. This thread would mysteriously stop. Using debugger you can discover that the thread is stuck at the lock() method inside the `push` method because the lock was never unlocked by the earlier `is_empty` call. Thus an oversight in one thread led to problems much later in time in an arbitrary other thread.
 
 A better version is shown below - 
-```
+```C
 // An attempt at a thread-safe stack (version 3)
 int count;
 double values[count];
