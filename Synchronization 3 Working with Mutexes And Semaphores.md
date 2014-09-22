@@ -93,6 +93,7 @@ A simple (but incorrect!) suggestion is shown below. The `unlock` function simpl
 
 void lock(mutex_t* m) {
   while(m->locked) { /*Locked? Nevermind - just loop and check again!*/ }
+
   m->locked = 1;
 }
 void unlock(mutex_t*m) {
@@ -101,7 +102,7 @@ void unlock(mutex_t*m) {
 ```
 Version 1 uses 'busy-waiting' (unnecessarily wasting CPU resources) however this is a more serious problem: We have a race-condition! If two threads both called `lock` concurrently it is possible that both threads would read 'm_locked' as zero. Thus both threads would believe they have exclusive access to the lock and both threads will continue. Ooops!
 
-
+We could reduce the CPU overhead a little by calling `pthread_yield` inside the loop (this tells the system that the thread wishes to give up the CPU for a short while, so the CPU can be assigned to others that are waiting to run) but does not fix the race-condition.
 
 
 ## Mutex Gotcha
