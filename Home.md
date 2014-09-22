@@ -25,6 +25,10 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[Introduction to Mutex Lock|Mutex-Locks-Part-1]]
 * [[Introduction to Counting Semaphores|Counting-Semaphores---Part-1]]
 
+## Week 5
+* [[Mutex-Locks-Part-2]]
+* [[Counting-Semaphores-Part-2]]
+
 ## Other content
 
 * [[Debugging C Programs]]
