@@ -1,14 +1,18 @@
 ## What is an atomic operation?
-Todo
+To paraphrase Wikipedia, "An operation (or set of operations) is atomic or uninterruptible if it appears to the rest of the system to occur instantaneously."
+Without locks, only simple CPU instructions ("read this byte from memory") are atomic (indivisible). 
+
+Incrementing a variable (`i++`) is not atomic because it requires three distinct steps: Copying the bit pattern from memory into the CPU; performing a calculation using the CPU's registers; copying the bit pattern back to memory. During this increment sequence, another thread or process can still read the old value and other writes to the same memory would also be over-written when the increment sequence completes.
+
 
 ## How do I use mutex lock to make my data-structure thread-safe?
-Here's a simple data structure (a stack) that is not thread safe:
+Note, this is just an introduction - writing high-performance thread-safe data-structures requires it's own book! Here's a simple data structure (a stack) that is not thread safe:
 ```C
-// A stack (version 1)
+// A simple fixed-sized stack (version 1)
 int count;
 double values[count];
 
-void push() { values[count++] = values; }
+void push(double v) { values[count++] = v; }
 double pop() { return values[--count]; }
 int is_empty() { return count == 0; }
 ```
@@ -47,7 +51,7 @@ int count;
 double values[count];
 pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
 
-void push() { pthread_mutex_lock(&m); values[count++] = values; pthread_mutex_unlock(&m); }
+void push(double v) { pthread_mutex_lock(&m); values[count++] = v; pthread_mutex_unlock(&m); }
 double pop() { pthread_mutex_lock(&m); double v= values[--count]; pthread_mutex_unlock(&m); return v;}
 int is_empty() { pthread_mutex_lock(&m); int result= count == 0; pthread_mutex_unlock(&m);return result; }
 ```
@@ -78,6 +82,10 @@ void stack_destroy(stack_t*s) {
   pthread_mutex_destroy(& s->m);
   free(s);
 }
+void push(stack_t*s, double v) { pthread_mutex_lock(&s->m); s->values[(s->count)++] = v; pthread_mutex_unlock(&s->m); }
+double pop(stack_t*s) { pthread_mutex_lock(&s->m); double v= s->values[-- (s->count)]; pthread_mutex_unlock(&s->m); return v;}
+int is_empty(stack_t*s) { pthread_mutex_lock(&s->m); int result= s->count == 0; pthread_mutex_unlock(&s->m);return result; }
+
 ```
 ## When can I destroy the mutex?
 You can only destroy an unlocked mutex
