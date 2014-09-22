@@ -26,7 +26,7 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[Introduction to Counting Semaphores|Synchronization 2 Counting Semaphores]]
 
 ## Week 5
-* [[Using Mutexes and Semaphores | Synchronization 3 Thread-safe Data Structures]]
+* [[Using Mutexes and Semaphores | Synchronization 3 Working with Mutexes And Semaphores]]
 
 ## Other content
 
@@ -35,11 +35,8 @@ Rather than requiring a book this semester, we will build our own set of resourc
 Call to action --
 We need pages or examples on 
 * Process Memory Layout for a single-threaded process (code, bss, data, heap, stack, args, env)
-* Process Control (fork, exec, wait, pid, ppid,exit examples)
 * File Control (open,seek,close,dup, stat examples)
 * IPC (pipes)
-* pThreads (pthread_exit, pthread_join)
-* Deadlock (conditions, Peterson,Dekker's alg etc)
 * Synchronization primitives (mutex, counting semaphore, condition variable + examples of each)
 * Synchronization concepts (Philosophers, Reader-Writer, Producer-Consumer)
 * Signals
