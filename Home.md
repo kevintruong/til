@@ -22,12 +22,11 @@ Rather than requiring a book this semester, we will build our own set of resourc
 
 ## Week 4
 * [[Pthreads Part 2]]
-* [[Introduction to Mutex Lock|Mutex-Locks-Part-1]]
-* [[Introduction to Counting Semaphores|Counting-Semaphores---Part-1]]
+* [[Introduction to Mutex Lock|Synchronization 1 Mutex Locks]]
+* [[Introduction to Counting Semaphores|Synchronization 2 Counting Semaphores]]
 
 ## Week 5
-* [[Mutex-Locks-Part-2]]
-* [[Counting-Semaphores-Part-2]]
+* [[Using Mutexes and Semaphores | Synchronization 3 Thread-safe Data Structures]]
 
 ## Other content
 
