@@ -149,9 +149,11 @@ void unlock(mutex_t*m) {
   m->locked = 0;
 }
 ```
-Version 1 uses 'busy-waiting' (unnecessarily wasting CPU resources) however this is a more serious problem: We have a race-condition! If two threads both called `lock` concurrently it is possible that both threads would read 'm_locked' as zero. Thus both threads would believe they have exclusive access to the lock and both threads will continue. Ooops!
+Version 1 uses 'busy-waiting' (unnecessarily wasting CPU resources) however there is a more serious problem: We have a race-condition! 
 
-Footnote: We could reduce the CPU overhead a little by calling `pthread_yield` inside the loop (this suggests to the operating system that the thread does not the CPU for a while, so the CPU may be assigned to threads that are waiting to run) but does not fix the race-condition. We need a better implementation - can you work how to prevent the race-condition?
+If two threads both called `lock` concurrently it is possible that both threads would read 'm_locked' as zero. Thus both threads would believe they have exclusive access to the lock and both threads will continue. Ooops!
+
+We might attempt to reduce the CPU overhead a little by calling `pthread_yield()` inside the loop  - pthread_yield suggests to the operating system that the thread does not the CPU for a short while, so the CPU may be assigned to threads that are waiting to run. But does not fix the race-condition. We need a better implementation - can you work how to prevent the race-condition?
 
 ## How can I force my threads to wait if the stack is empty or full?
 Use counting semaphores! Use a counting semaphore to keep track of how many spaces remain and another semaphore to keep to track the number of items in the stack. We will call these two semaphores 'sremain' and 'sitems'. Remember `sem_wait` will wait if the semeaphore's count has been decremented to zero (by another thread calling sem_post).
