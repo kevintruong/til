@@ -190,7 +190,7 @@ double push(double v) {
 }
 ```
 
-Sketch 3 implements the correct semaphore logic but can see the error?
+Sketch 3 implements the correct semaphore logic but can you spot the error?
 ```
 // Sketch #3 (Error!)
 double pop() {
@@ -208,11 +208,11 @@ double push(double v) {
   sem_post(&sitems); 
 }
 ```
-Sketch 3 correctly enforces buffer full and buffer empty conditions using semaphores. However there is no mutual exclusion: Two threads can be in the critical section at the same time, which would corrupt the data structure (or least lead to data loss). The fix is to also use a mutex around the critical section:
+Sketch 3 correctly enforces buffer full and buffer empty conditions using semaphores. However there is no _mutual exclusion_: Two threads can be in the _critical section_ at the same time, which would corrupt the data structure (or least lead to data loss). The fix is to wrap a mutex around the critical section:
 
 ```
 // Simple single stack - see above example on how to convert this into a multiple stacks.
-// Also a robust POSIX implementation would check for EINTR and error codes.
+// Also a robust POSIX implementation would check for EINTR and error codes of sem_wait.
 
 // PTHREAD_MUTEX_INITIALIZER for statics (use pthread_mutex_init() for stack/heap memory)
 
@@ -248,6 +248,7 @@ double push(double v) {
 
   sem_post(&sitems); // Hey world, there's at least one item
 }
+// Note a robust solution will need to check sem_wait's result for EINTR (more about this later)
 ```
 
 
