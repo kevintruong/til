@@ -212,7 +212,7 @@ double push(double v) {
 ```
 Sketch 3 correctly enforces buffer full and buffer empty conditions using semaphores. However there is no _mutual exclusion_: Two threads can be in the _critical section_ at the same time, which would corrupt the data structure (or least lead to data loss). The fix is to wrap a mutex around the critical section:
 
-```
+```C
 // Simple single stack - see above example on how to convert this into a multiple stacks.
 // Also a robust POSIX implementation would check for EINTR and error codes of sem_wait.
 
@@ -254,9 +254,10 @@ double push(double v) {
 ```
 
 
-## Mutex Gotchas
+## What are the common Mutex Gotchas
 * Locking/unlocking the wrong mutex (due to a silly typo)
 * Not unlocking a mutex (due to say an early return during an error condition)
-* Resource leak (not calling mutex_destroy)
+* Resource leak (not calling `pthread_mutex_destroy`)
 * Using an unitialized mutex (or using a mutex that has already been destroyed)
 * Locking a mutex twice on a thread (without unlocking first)
+* Deadlock and Priority Inversion (we will talk about these later)
