@@ -183,7 +183,7 @@ double pop() {
   sem_wait(&sitems);
   sem_post(&sremain); // error! wakes up pushing() thread too early
   return values[--count];
-
+}
 double push(double v) {
   // Wait until there's at least one space
   sem_wait(&sremain);
