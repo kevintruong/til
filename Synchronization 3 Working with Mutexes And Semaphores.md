@@ -1,8 +1,8 @@
 ## What is an atomic operation?
 To paraphrase Wikipedia, "An operation (or set of operations) is atomic or uninterruptible if it appears to the rest of the system to occur instantaneously."
-Without locks, only simple CPU instructions ("read this byte from memory") are atomic (indivisible). 
+Without locks, only simple CPU instructions ("read this byte from memory") are atomic (indivisible). On a single CPU system one could temporarily disable interrupts (so a sequence of operations cannot be interrupted) but in practice atomicity is achieved by using synchronization primitives, typically a mutex lock.
 
-Incrementing a variable (`i++`) is not atomic because it requires three distinct steps: Copying the bit pattern from memory into the CPU; performing a calculation using the CPU's registers; copying the bit pattern back to memory. During this increment sequence, another thread or process can still read the old value and other writes to the same memory would also be over-written when the increment sequence completes.
+Incrementing a variable (`i++`) is _not_ atomic because it requires three distinct steps: Copying the bit pattern from memory into the CPU; performing a calculation using the CPU's registers; copying the bit pattern back to memory. During this increment sequence, another thread or process can still read the old value and other writes to the same memory would also be over-written when the increment sequence completes.
 
 
 ## How do I use mutex lock to make my data-structure thread-safe?
