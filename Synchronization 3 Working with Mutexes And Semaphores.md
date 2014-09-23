@@ -254,7 +254,7 @@ double push(double v) {
 ```
 
 
-## What are the common Mutex Gotchas
+## What are the common Mutex Gotchas?
 * Locking/unlocking the wrong mutex (due to a silly typo)
 * Not unlocking a mutex (due to say an early return during an error condition)
 * Resource leak (not calling `pthread_mutex_destroy`)
