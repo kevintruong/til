@@ -1,4 +1,4 @@
-## What is the critical section problem?
+## What is the Critical Section Problem?
 
 As already discussed [here] (todo link), there are critical parts of our code that can only be executed by one thread at a time. We describe this requirement as 'mutual exclusion'; only one thread (or process) may have access to the shared resource.
 
@@ -106,4 +106,40 @@ Time | Turn | Thread #1 | Thread #2
 3| 2 | // Do Critical Section stuff | if your flag is raised, wait until my turn(TRUE!) 
 4| 2 | // Do Critical Section stuff | // Do Critical Section stuff - OOPS 
 
-The fix is to always wait until the other thread's flag is lowered.
+What is Peterson's solution
+Peterson published his novel and surprisingly simple solution in a 2 page paper in 1981. A version of his algorithm is shown below that uses a shared variable 'turn' - 
+
+```
+\\ Candidate #5
+raise my flag
+turn = myid
+wait until your flag is lowered or turn is yourid
+// Do Critical Section stuff
+lower my flag
+```
+
+This solution satisfies Mutual Exclusion, Bounded Wait and Progress. If thread #2 has set turn to 2 and is currently inside the critical section. Thread #1 arrives, _sets the turn back to 1_ and now waits until thread 2 lowers the flag.
+
+
+Todo: Link to Peterson's original article pdf
+
+## Was Peterson's solution the first solution?
+
+No. Todo; Discuss Dekkers Algorithm
+```
+raise my flag
+while(your flag is raised) :
+   if it's your turn to win :
+     lower my flag
+     wait while your turn
+     raise my flag
+// Do Critical Section stuff
+set your turn to win
+lower my flag
+```
+
+## Can I implement Peterson's algorithm in C?
+Yes but it may not work! CPUs and compilers can re-order statements. On some multi-core architectures CPUs may use stale data stored in their local cache.
+
+## How do we implement Critical Section Problem on modern hardware!
+Good question. Next lecture...
