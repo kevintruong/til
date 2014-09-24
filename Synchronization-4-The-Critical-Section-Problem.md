@@ -84,5 +84,26 @@ With these ideas in mind let's examine another solution that uses a turn-based f
 
 ## Turn and Flag solutions
 
+Is the following a correct solution to CSP?
+```
+\\ Candidate #4
+raise my flag
+if your flag is raised, wait until my turn
+// Do Critical Section stuff
+turn = yourid
+lower my flag
+```
+One instructor and another CS faculty member initially thought so! However analyzing these solutions are tricky. Even peer-reviewed papers on this specific subject contain incorrect solutions! At first glance it appears to satisfy Mutual Exclusion, Bounded Wait and Progress: The turn-based flag is only used in the event of a tie (so Progress and Bounded Wait is allowed) and mutual exclusion appears to be satisfied. However.... Perhaps you can find a counter-example?
 
+Candidate #4 fails because a thread does not wait until the other thread lowers their flag. After some thought (or inspiration) the following scenario can be created to demonstrate how Mutual Exclusion is not satisfied.
 
+Imagine the first thread runs this code twice (so the the turn flag now points to the second thread). While the first thread is still inside the Critical Section, the second thread arrives. The second thread can immediately continue into the Critical Section!
+
+Time | Turn | Thread #1 | Thread #2
+-----|------|-----------|----------
+1| 2 | raise my flag | 
+2| 2 | if your flag is raised, wait until my turn | raise my flag  
+3| 2 | // Do Critical Section stuff | if your flag is raised, wait until my turn(TRUE!) 
+4| 2 | // Do Critical Section stuff | // Do Critical Section stuff - OOPS 
+
+The fix is to always wait until the other thread's flag is lowered.
