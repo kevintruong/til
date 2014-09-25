@@ -27,6 +27,7 @@ Rather than requiring a book this semester, we will build our own set of resourc
 
 ## Week 5
 * [[Using Mutexes and Semaphores | Synchronization 3 Working with Mutexes And Semaphores]]
+* [[The Critical Section Problem | Synchronization-4-The-Critical-Section-Problem]]
 
 ## Other content
 
