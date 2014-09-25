@@ -71,16 +71,16 @@ wait until my turn is myid
 // Do Critical Section stuff
 turn = yourid
 ```
-Candidate #3 satisfies mutual exclusion (each thread or process gets exclusive access to the Critical Section), however both threads/processes must take a strict turn-based approach to using the critical section. For example, if thread 1 wishes to read a hashtable every millisecond but another thread writes to a hashtable every second, then the reading thread would have to wait another 999ms before being able to read from the hashtable again. This 'solution' is not effective, because our threads should be able to make progress if no other thread is currently in the critical section.
+Candidate #3 satisfies mutual exclusion (each thread or process gets exclusive access to the Critical Section), however both threads/processes must take a strict turn-based approach to using the critical section. For example, if thread 1 wishes to read a hashtable every millisecond but another thread writes to a hashtable every second, then the reading thread would have to wait another 999ms before being able to read from the hashtable again. This 'solution' is not effective, because our threads should be able to make progress and enter the critical section if no other thread is currently in the critical section.
 
 ## Desired properties for solutions to the Critical Section Problem?
 There are three main desirable properties that we desire in a solution the critical section problem
 * Mutual Exclusion - the thread/process gets exclusive access; others must wait until it exits the critical section.
-* Bounded Wait - if the thread/process has to wait, then it should only have to wait for a finite, bounded amount of time (infinite waiting times are not allowed!)
+* Bounded Wait - if the thread/process has to wait, then it should only have to wait for a finite,  amount of time (infinite waiting times are not allowed!). The exact definition of bounded wait is that there is an upper (non-infinite) bound on the number of times any other process can enter its critical section before the given process enters.
 * Progress - if no thread/process is inside the critical section, then the thread/process should be able to proceed (make progress) without having to wait.
 
 
-With these ideas in mind let's examine another solution that uses a turn-based flag only if two threads both required access at the same time.
+With these ideas in mind let's examine another candidate solution that uses a turn-based flag only if two threads both required access at the same time.
 
 ## Turn and Flag solutions
 
