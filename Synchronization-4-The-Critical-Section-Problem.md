@@ -1,6 +1,6 @@
 ## What is the Critical Section Problem?
 
-As already discussed [here] (todo link), there are critical parts of our code that can only be executed by one thread at a time. We describe this requirement as 'mutual exclusion'; only one thread (or process) may have access to the shared resource.
+As already discussed [[Synchronization-3-Working-with-Mutexes-And-Semaphores]], there are critical parts of our code that can only be executed by one thread at a time. We describe this requirement as 'mutual exclusion'; only one thread (or process) may have access to the shared resource.
 
 In multi-threaded programs we can wrap a critical section with mutex lock and unlock calls:
 
@@ -26,7 +26,7 @@ Time | Thread 1 | Thread 2
 Ooops! There is a race condition. In the unfortunate case both threads checked the lock and read a false value and so were able to continue. 
 
 ## Candidate solutions to the critical section problem.
-To simplify the discussion we imagine only two threads. Note the arguments work for both threads and processes and the classic CS literature discusses these problem in terms of two processes that need exclusive access (i.e. mutual exclusion) to access a shared resource.
+To simplify the discussion we consider only two threads. Note these arguments work for threads and processes and the classic CS literature discusses these problem in terms of two processes that need exclusive access (i.e. mutual exclusion) to a critical section or shared resource.
 
 Remember that the psuedo-code outlined below is part of a larger program; the thread or process will typically need to enter the critical section many times during the lifetime of the process. So imagine each example as wrapped inside a loop where for a random amount of time the thread or process is working on something else.
 
@@ -122,6 +122,7 @@ This solution satisfies Mutual Exclusion, Bounded Wait and Progress. If thread #
 
 
 Todo: Link to Peterson's original article pdf
+[[G. L. Peterson: "Myths About the Mutual Exclusion Problem", Information Processing Letters 12(3) 1981, 115–116|http://dl.acm.org/citation.cfm?id=945527]]
 
 ## Was Peterson's solution the first solution?
 
