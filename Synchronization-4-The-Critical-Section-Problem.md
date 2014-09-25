@@ -139,8 +139,11 @@ set your turn to win
 lower my flag
 ```
 
-## Can I implement Peterson's algorithm in C?
-Yes but it may not work! CPUs and compilers can re-order statements. On some multi-core architectures CPUs may use stale data stored in their local cache.
+## Can I implement Peterson's algorithm in C or assembler?
+Yes - and it is used today in production for specific mobile processors: Peterson's algorithm is used to implement low-level Linux Kernel locks for the Tegra mobile processor (a system-on-chip ARM process and GPU core by Nvidia)
+https://android.googlesource.com/kernel/tegra.git/+/android-tegra-3.10/arch/arm/mach-tegra/sleep.S#58
 
-## How do we implement Critical Section Problem on modern hardware!
+However in general, CPUs and C compilers can re-order CPU instructions or use CPU-core-specific local cache values that are stale if another core updates the shared variables. Thus a simple pseudo-code to C implementation is too naive for most platforms.
+
+## How do we implement Critical Section Problem on hardware?
 Good question. Next lecture...
