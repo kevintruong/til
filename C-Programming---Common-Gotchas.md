@@ -81,6 +81,16 @@ It is an error to free the same block of memory twice.
 ```
 Pointers to freed memory should not be used. A defensive programming practice is to set pointers to null as soon as the memory is freed.
 
+It is a good idea to turn free into the following snippet that automatically sets the freed variable to null right after:(vim - ultisnips)  
+```Vim
+snippet free "free(something)" b
+free(${1});
+$1 = NULL;
+${2}
+endsnippet
+```
+
+
 # Logic and Program flow mistakes
 ## Forgetting break
 ```C
