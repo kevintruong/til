@@ -54,11 +54,10 @@ while( count < 10 ){
 }
 pthread_mutex_unlock(&m);
 
-//later 
-pthread_cond_destroy(&cv,); 
-```
+//later clean up with pthread_cond_destroy(&cv); and mutex_destroy 
 
-An another thread can increment count:
+
+// In another thread increment count:
 while(1) {
   pthread_mutex_lock(&m);
   count ++;
@@ -68,7 +67,54 @@ while(1) {
   pthread_mutex_unlock(&m);
 }
 ```
-U
+## Implementing counting semaphores
+* We can implement a counting semaphore using condition variables.
+* Each semaphore needs a count, a condition variable and a mutex
+```C
+typedef struct sem_t {
+  int count; 
+  pthread_mutex_t m;
+  pthread_condition_t cv;
 
+} sem_t;
+```
+
+Implement sem_init to initialize the mutex and condition variable
+```C
+sem_init(sem_t *s, int pshared, int value) {
+  // Ignore pshared for now
+  s->count = value;
+  pthread_mutex_init(& s->m, NULL);
+  pthread_condition_init( & s->cv, NULL);
+}
+```
+
+Our implementation of sem_post needs to increment the count.
+We will also wake up any threads sleeping inside the condition variable.
+Notice we lock and unlock the mutex so only one thread can be inside the critical section at a time.
+```C
+sem_post(sem_t*s) {
+  pthread_mutex_lock(& s->m);
+  s->count ++;
+  pthread_mutex_signal( s->cv); /* See note */
+
+  pthread_mutex_unlock(& s->m);
+}
+```
+
+Our implementation of sem_wait may need to sleep if the semaphore's count is zero.
+Just like `sem_post` we wrap the critical section using the lock (so only one thread can be executing our code at a time). Notice if the thread does need to wait then the mutex will be unlocked, allowing another thread to enter sem_post and waken us from our sleep!
+
+Notice that even if a thread is woken up, before it returns from  `pthread_cond_wait` it must re-acquire the lock, so it will have to wait a little bit more (e.g. until sem_post finishes). 
+```C
+sem_wait(sem_t*s) {
+  pthread_mutex_lock(& s->m);
+  while( s->count ==0) {
+      pthread_cond_wait( &s->cv, &s->m); /*unlock mutex, wait, relock mutex*/
+  }
+  s->count --;
+  pthread_mutex_unlock(& s->m);
+}
+```
 
 
