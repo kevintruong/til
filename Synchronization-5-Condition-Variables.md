@@ -1,8 +1,9 @@
 ## Warm up
-
+Name these properties!
 * "Only one process(/thread) can be in the CS at a time"
 * "If waiting, then another process can only enter the CS a finite number of times" 
 * "If no other process is in the CS then the process can immediately enter the CS"
+
 See [[Synchronization-4-The-Critical-Section-Problem]] for answers.
 
 ## What is the 'exchange instruction' ?
@@ -99,7 +100,7 @@ Notice we lock and unlock the mutex so only one thread can be inside the critica
 sem_post(sem_t*s) {
   pthread_mutex_lock(& s->m);
   s->count ++;
-  pthread_mutex_signal( s->cv); /* See note */
+  pthread_cond_signal( s->cv); /* See note */
   /* A woken thread must acquire the lock, so it will also have to wait until we call unlock*/
 
   pthread_mutex_unlock(& s->m);
@@ -119,12 +120,12 @@ sem_wait(sem_t*s) {
   pthread_mutex_unlock(& s->m);
 }
 ```
-Wait `sem_post` keeps calling `pthread_mutex_signal` won't that break sem_wait? 
-Answer: No! We can't get past the loop until the count is non-zero. In practice this means `sem_post` would unnecessary call `pthread_mutex_signal` even if there are no waiting threads. A more efficient implementation would only call `pthread_mutex_signal` when necessary i.e.
+Wait `sem_post` keeps calling `pthread_cond_signal` won't that break sem_wait? 
+Answer: No! We can't get past the loop until the count is non-zero. In practice this means `sem_post` would unnecessary call `pthread_cond_signal` even if there are no waiting threads. A more efficient implementation would only call `pthread_cond_signal` when necessary i.e.
 ```C
   /* Did we increment from zero to one- time to signal a thread sleeping inside sem_post */
   if(s->count ==1) /* Wake up one waiting thread!*/
-     pthread_mutex_signal( s->cv);
+     pthread_cond_signal(&s->cv);
 ``` 
 
 ## Other semaphore considerations
