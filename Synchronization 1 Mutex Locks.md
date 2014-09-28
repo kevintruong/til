@@ -57,9 +57,9 @@ m = PTHREAD_MUTEX_INITIALIZER is equivalent to the more general purpose
 
 ```C
 pthread_mutex_t* lock = malloc(size_of (pthread_mutex_t) ); 
-pthread_init(lock , NULL);
+pthread_mutex_init(lock , NULL);
 //later
-pthread_destroy(lock);
+pthread_mutex_destroy(lock);
 free(lock);
 ```
 
