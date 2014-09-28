@@ -140,7 +140,7 @@ This process runs a slower because we lock and unlock the mutex a million times,
 }
 ```
 ## How do I find out more?
-Play! Read the man page!
+[Play!](http://angrave.github.io/sys) Read the man page!
 * [[http://linux.die.net/man/3/pthread_mutex_lock]]
 * [[http://linux.die.net/man/3/pthread_mutex_unlock]]
 * [[http://linux.die.net/man/3/pthread_mutex_init]]
