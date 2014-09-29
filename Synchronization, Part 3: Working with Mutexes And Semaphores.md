@@ -71,7 +71,7 @@ int is_empty() {
 ```
 Version 3 is thread-safe (we have ensured mutual exclusion for all of the critical sections) however there are two points of note:
 * `is_empty` is thread-safe but its result may already be out-of date i.e. the stack may no longer be empty by the time the thread gets the result!
-* There is no protection against underflow (popping on an empty stack) or overflow (pushing onto a an already-full stack)
+* There is no protection against underflow (popping on an empty stack) or overflow (pushing onto an already-full stack)
 
 The latter point can be fixed using counting semaphores.
 
