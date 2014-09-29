@@ -90,22 +90,23 @@ A complete example is shown below
 ```
 #include <stdio.h>
 #include <pthread.h>
+
 // Compile with -pthread
 // Create a mutex this ready to be locked!
 pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
 
 int sum = 0;
 
-void *countgold(void *param)
-{
+void *countgold(void *param) {
     int i;
-//Same thread that locks the mutex must unlock it
-//Critical section is just 'sum+=1'
-//However locking and unlocking a million times
-//has significant overhead in this simple answer
-//
+    //Same thread that locks the mutex must unlock it
+    //Critical section is just 'sum+=1'
+    //However locking and unlocking a million times
+    //has significant overhead in this simple answer
+    
     pthread_mutex_lock(&m);
-// Other threads that call lock will have to wait until we call unlock
+
+    // Other threads that call lock will have to wait until we call unlock
 
     for (i = 0; i < 10000000; i++) {
 	sum += 1;
