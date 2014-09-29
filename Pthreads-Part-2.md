@@ -10,7 +10,7 @@ Threads must belong to a process. In addition, unlike processes, threads within 
 ## What does `pthread_cancel` do?
 Stops a thread. Note the thread may not actually be stopped immediately. For example it can be terminated when the thread makes an operating system call (e.g. `write`).
 
-In practice `pthread_cancel` is rarely used because it does not give a thread an opportunity to clean up after itself (for example, it may have opened some files.
+In practice `pthread_cancel` is rarely used because it does not give a thread an opportunity to clean up after itself (for example, it may have opened some files).
 An alternative implementation is to use a boolean (int) variable whose value is used to inform other threads that they should finish and clean up.
 
 ## What is the difference between `exit` and `pthread_exit`?
