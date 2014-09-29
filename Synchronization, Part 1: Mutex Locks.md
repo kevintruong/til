@@ -86,7 +86,7 @@ There is a small overhead amount of overhead of calling `pthread_mutex_lock` and
 
 ## Simplest complete example?
 A complete example is shown below
-```
+```C
 #include <stdio.h>
 #include <pthread.h>
 
@@ -117,7 +117,7 @@ void *countgold(void *param) {
 ```
 
 In the code above, the thread gets the lock to the counting house before entering. The critical section is only the `sum+=1` so the following version is also correct but slower - 
-```
+```C
     for (i = 0; i < 10000000; i++) {
         pthread_mutex_lock(&m);
         sum += 1;
@@ -127,7 +127,7 @@ In the code above, the thread gets the lock to the counting house before enterin
 }
 ```
 This process runs a slower because we lock and unlock the mutex a million times, which is expensive - at least compared with incrementing a variable. (And in this simple example we didn't really need threads - we could have added up twice!)  A faster multi-thread example would be to add one million using an automatic(local) variable and only then adding it to a shared total after the calculation loop has finished:
-```
+```C
     int local = 0;
     for (i = 0; i < 10000000; i++) {
        local += 1;
