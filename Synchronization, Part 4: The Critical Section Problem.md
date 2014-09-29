@@ -121,7 +121,7 @@ lower my flag
 This solution satisfies Mutual Exclusion, Bounded Wait and Progress. If thread #2 has set turn to 2 and is currently inside the critical section. Thread #1 arrives, _sets the turn back to 1_ and now waits until thread 2 lowers the flag.
 
 
-Todo: Link to Peterson's original article pdf
+Link to Peterson's original article pdf:
 [[G. L. Peterson: "Myths About the Mutual Exclusion Problem", Information Processing Letters 12(3) 1981, 115–116|http://dl.acm.org/citation.cfm?id=945527]]
 
 ## Was Peterson's solution the first solution?
