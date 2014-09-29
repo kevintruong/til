@@ -55,8 +55,8 @@ Candidate #2 satisfies mutual exclusion - it is impossible for two threads to be
 
 Time | Thread 1 | Thread 2
 -----|----------|---------
-1 | raise flag |
-2 | | raise flag  | 
+1 | raise flag
+2 | | raise flag
 3 | wait ... | wait ...
 Ooops both threads / processes are now waiting for the other one to lower their flags. Neither one will enter the critical section as both are now stuck forever!
 
