@@ -2,7 +2,7 @@
 See [[Pthreads Part 1]] which introduces `pthread_create` and `pthread_join`
 
 ## If I call `pthread_create` twice how many stacks does my process have?
-Your process will contain three stacks - one for each thread. The first thread is created when the process starts and you created two more. Actually there can more stacks than this but let's ignore that complication for now. The important idea is that each thread requires a stack because the stack contains automatic variables and the old CPU PC register so that it can back to executing the calling function after the function is finished.
+Your process will contain three stacks - one for each thread. The first thread is created when the process starts and you created two more. Actually there can be more stacks than this but let's ignore that complication for now. The important idea is that each thread requires a stack because the stack contains automatic variables and the old CPU PC register so that it can back to executing the calling function after the function is finished.
 
 ## What is the difference between a process and a thread?
 Threads must belong to a process. In addition, unlike processes, threads within the same process can share automatic variables.
