@@ -10,8 +10,7 @@ Possibly. Incrementing a variable (`i++`) is performed in three individual steps
 
 int sum = 0; //shared
 
-void* countgold(void* param)
-{
+void *countgold(void *param) {
     int i; //local to each thread
     for (i = 0; i < 10000000; i++) {
         sum += 1;
@@ -19,12 +18,12 @@ void* countgold(void* param)
     return NULL;
 }
 
-int main()
-{
+int main() {
     pthread_t tid1, tid2;
     pthread_create(&tid1, NULL, countgold, NULL);
     pthread_create(&tid2, NULL, countgold, NULL);
-//Wait for both threads to finish:
+    
+    //Wait for both threads to finish:
     pthread_join(tid1, NULL);
     pthread_join(tid2, NULL);
     
@@ -99,6 +98,7 @@ int sum = 0;
 
 void *countgold(void *param) {
     int i;
+    
     //Same thread that locks the mutex must unlock it
     //Critical section is just 'sum+=1'
     //However locking and unlocking a million times
