@@ -1,7 +1,7 @@
 A memory allocator needs to keep track of which bytes are currently allocated and which are which are available for use. This page introduces the implementation and conceptual details of building an allocator i.e. the actual code that implements malloc and free.
 
 ## This page talks about links of blocks - do I malloc memory for them instead?
-Though conceptually we are thinking about creating linked lists and lists of blocks, we don't need to "malloc memory" to create them! Instead we are writing integers and pointers into memory that we already control so that we can later consistent hop from one address to the next. This internal information represents some overhead. So even if we had requested 1024 KB of contiguous memory from the system, we will not be able to provide all of it to the running program.
+Though conceptually we are thinking about creating linked lists and lists of blocks, we don't need to "malloc memory" to create them! Instead we are writing integers and pointers into memory that we already control so that we can later consistently hop from one address to the next. This internal information represents some overhead. So even if we had requested 1024 KB of contiguous memory from the system, we will not be able to provide all of it to the running program.
 
 ## Thinking in blocks
 We can think of our heap memory as a list of blocks where each block is either allocated or unallocated.
