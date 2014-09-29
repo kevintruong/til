@@ -9,7 +9,7 @@ pthread_mutex_lock() - one thread allowed at a time! (others will have to wait h
 ... Do Critical Section stuff here!
 pthread_mutex_unlock() - let other waiting threads continue
 ```
-How would we implement these lock and unlock calls? Can we create algorithm that assures mutual exclusion. An incorrect implementation is shown below, 
+How would we implement these lock and unlock calls? Can we create an algorithm that assures mutual exclusion? An incorrect implementation is shown below, 
 ```C
 pthread_mutex_lock(p_mutex_t* m)     { while(m->lock) {}; m->lock = 1;}
 pthread_mutex_unlock(p_mutex_t* m)   { m->lock = 0; }
