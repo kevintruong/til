@@ -32,7 +32,7 @@ lock = 0;
 ## What does `pthread_cond_wait` do?
 Wait performs three actions:
 * unlock the mutex
-* waits (sleeps until `pthread_cond_signa`l is called on the same condition variable)
+* waits (sleeps until `pthread_cond_signal` is called on the same condition variable)
 * locks the mutex
 
 ## Why do spurious wakes exist?
