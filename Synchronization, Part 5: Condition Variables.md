@@ -9,11 +9,13 @@ See [[Synchronization-4-The-Critical-Section-Problem]] for answers.
 ## What is the 'exchange instruction' ?
 The exchange instruction ('XCHG') is an atomic CPU instruction that exchanges the contents of a register with a memory location. This can be used as a basis to implement a simple mutex lock.
 ```C
-// Psuedo-C-code for a simple busy-waiting mutex 
+// *Psuedo-C-cod*e for a simple busy-waiting mutex 
 // that uses an atomic exchange function
 int lock = 0; // initialization
 
 // To enter the critical section you need to read a lock value of zero. 
+// 'xchg' function doesn't exist, but imagine this function is built on the atomic XCHG CPU function
+// i.e. it writes '1' into the lock variable and returns the previous contents of the memory
 while( xchg( 1, &lock) ) {/*spin spin spin*/}
 /* Do Critical Section stuff*/
 lock = 0;
