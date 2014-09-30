@@ -9,7 +9,7 @@ See [[Synchronization-4-The-Critical-Section-Problem]] for answers.
 ## What is the 'exchange instruction' ?
 The exchange instruction ('XCHG') is an atomic CPU instruction that exchanges the contents of a register with a memory location. This can be used as a basis to implement a simple mutex lock.
 ```C
-// *Psuedo-C-cod*e for a simple busy-waiting mutex 
+// *Pseudo-C-code* for a simple busy-waiting mutex 
 // that uses an atomic exchange function
 int lock = 0; // initialization
 
