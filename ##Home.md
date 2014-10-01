@@ -5,34 +5,34 @@ Rather than requiring a book this semester, we will build our own set of resourc
 
 
 ## Week 1
-* [[C Programming]]
-* [[C Gotchas wiki page|C-Programming---Common-Gotchas]]
+* [[C Programming|C Programming, Part 1:  Introduction]]
+* [[C Programming, Part 3: Common Gotchas]]
 * [[Informal Glossary of basic terms|Informal Glossary]]
 
 ## Week 2
-* [[C Programming Text Input Output]]
-* [[forking processes]]
-* [[fork exec wait kill]]
-* For fun: [[Smashing the stack example]]
+* [[C Programming, Part 2: Text Input And Output]]
+* [[Forking, Part 1: Introduction]]
+* [[Forking, Part 2: Fork, Exec, Wait Kill]]
 
 ## Week 3
-* [[Heap Memory Introduction]]
-* [[Implementing a Memory Allocator]]
-* [[Threads Introduction to pthreads|Pthreads Part 1]]
+* [[Memory, Part 1: Heap Memory Introduction]]
+* [[Memory, Part 2: Implementing a Memory Allocator]]
+* [[Memory, Part 3: Smashing the Stack Example]]
+* [[Pthreads, Part 1: Introduction]]
 
 ## Week 4
-* [[Pthreads Part 2]]
-* [[Introduction to Mutex Lock|Synchronization 1 Mutex Locks]]
-* [[Introduction to Counting Semaphores|Synchronization 2 Counting Semaphores]]
+* [[Pthreads, Part 2: Usage in Practice]]
+* [[Synchronization, Part 1: Mutex Locks]]
+* [[Synchronization, Part 2: Counting Semaphores]]
 
 ## Week 5
-* [[Using Mutexes and Semaphores | Synchronization 3 Working with Mutexes And Semaphores]]
-* [[The Critical Section Problem | Synchronization-4-The-Critical-Section-Problem]]
-* [[Condition Variables | Synchronization 5 Condition Variables]]
+* [[Synchronization, Part 3: Working with Mutexes And Semaphores]]
+* [[Synchronization, Part 4: The Critical Section Problem]]
+* [[Synchronization, Part 5: Condition Variables]]
 
 ## Other content
 
-* [[Debugging C Programs]]
+* [[C Programming, Part 4: Debugging]]
 
 Call to action --
 We need pages or examples on 
@@ -44,4 +44,18 @@ We need pages or examples on
 * Signals
 * Scheduling
 * Virtual Memory (paging, mmap)
+
+#Example Markdown
+#Informal Glossary
+#Piazza: When And How to Ask For Help
+
+
+
+
+
+
+
+
+
+
 
