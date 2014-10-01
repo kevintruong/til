@@ -4,7 +4,7 @@ Name these properties!
 * "If waiting, then another process can only enter the CS a finite number of times" 
 * "If no other process is in the CS then the process can immediately enter the CS"
 
-See [[Synchronization-4-The-Critical-Section-Problem]] for answers.
+See [[Synchronization, Part 4: The Critical Section Problem]] for answers.
 
 ## What is the 'exchange instruction' ?
 The exchange instruction ('XCHG') is an atomic CPU instruction that exchanges the contents of a register with a memory location. This can be used as a basis to implement a simple mutex lock.
