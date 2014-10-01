@@ -33,25 +33,25 @@ lock = 0;
 
 ## What does `pthread_cond_wait` do?
 Wait performs three actions:
-* unlock the mutex
+* unlock the mutex and atomically...
 * waits (sleeps until `pthread_cond_signal` is called on the same condition variable)
-* locks the mutex
+* Before returning, locks the mutex
 
 ## (Advanced topic) Why do Condition Variables also need a mutex?
-Condition variables need a mutex for three reasons. The simplest to understand is that it prevents an early wakeup message (`signal` or `broadcast` functions) from being 'lost.' Imagine the following sequence of events (time runs down the page) where the condition is satisfied just before cond_wait is called:
+Condition variables need a mutex for three reasons. The simplest to understand is that it prevents an early wakeup message (`signal` or `broadcast` functions) from being 'lost.' Imagine the following sequence of events (time runs down the page) where the condition is satisfied _just before _`pthread_cond_wait` is called. In this example the wake-up signal is lost!
 
 Thread 1                 | Thread 2
 -------------------------|---------
-`while( answer != 42) {` |
-                         | `answer=42`
-                         | `p_c_signal(cv)`
+`while( answer < 42) {` |
+                         | `answer++`
+                         | `p_cond_signal(cv)`
 `p_cond_wait(cv,m) `     |
 
-If both threads had locked a mutex, the signal can not be sent until after p_cond_wait(cv,m) is called.
+If both threads had locked a mutex, the signal can not be sent until _after_ `pthread_cond_wait(cv,m)` is called (which then internally unlocks the mutex)
 
-A second common reason is that updating the condition (`answer` variable) requires mutual exclusion.
+A second common reason is that updating the program state (`answer` variable) typically requires mutual exclusion - for example multiple threads may be updating the value of `answer`.
 
-A third reason is to satisfy real-time scheduling concerns that high priority threads. In a time-critical application, the waiting thread with the highest priority should be allowed to continue first. To satisfy this requirement the mutex must also be locked before calling `pthread_cond_signal` or `pthread_cond_broadcast` . For the curious, a longer and historical discussion is [[here|https://groups.google.com/forum/?hl=ky#!msg/comp.programming.threads/wEUgPq541v8/ZByyyS8acqMJ]].
+A third and subtle reason is to satisfy real-time scheduling concerns which we only outline here: In a time-critical application, the waiting thread with the _highest priority_ should be allowed to continue first. To satisfy this requirement the mutex must also be locked before calling `pthread_cond_signal` or `pthread_cond_broadcast` . For the curious, a longer and historical discussion is [[here|https://groups.google.com/forum/?hl=ky#!msg/comp.programming.threads/wEUgPq541v8/ZByyyS8acqMJ]].
 
 ## Why do spurious wakes exist?
 For performance. On multi-CPU systems it is possible that a race-condition could cause a wake-up (signal) request to be unnoticed. The kernel may not detect this lost wake-up call but can detect when it might occur. To avoid the potential lost signal the thread is woken up so that the program code can test the condition again.
