@@ -41,23 +41,27 @@ Our second attempt suffers from a race condition - imagine if two threads both c
 
 <table><tr><td>
 <pre>read() {
+  lock(&m);
   while(writing) {
-    cond_wait(&cv,&m);
+    pthread_cond_wait(&cv,&m);
   }
   reading++;
   // do read stuff
   reading--;
   pthread_cond_signal(&cv);
+  unlock(&m);
 </pre>
 </td><td>
 <pre>write() {
+  lock(&m)
   while(reading || writing) {
-    cond_wait(&cv,&m);
+    pthread_cond_wait(&cv,&m);
   }
   writing++;
   // do write stuff
   writing --;
   pthread_cond_signal(&cv);
+  unlock(&m);
 </pre></td></tr></table>
 
 A discussion of this solution will appear in Part 8
