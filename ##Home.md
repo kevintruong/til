@@ -7,7 +7,8 @@ Rather than requiring a book this semester, we will build our own set of resourc
 ## Week 1
 * [[C Programming|C Programming, Part 1:  Introduction]]
 * [[C Programming, Part 3: Common Gotchas]]
-* [[Informal Glossary of basic terms|Informal Glossary]]
+* [[Informal Glossary of basic terms|#Informal Glossary]]
+* [[#Piazza: When And How to Ask For Help]]
 
 ## Week 2
 * [[C Programming, Part 2: Text Input And Output]]
@@ -33,21 +34,7 @@ Rather than requiring a book this semester, we will build our own set of resourc
 ## Other content
 
 * [[C Programming, Part 4: Debugging]]
-
-Call to action --
-We need pages or examples on 
-* Process Memory Layout for a single-threaded process (code, bss, data, heap, stack, args, env)
-* File Control (open,seek,close,dup, stat examples)
-* IPC (pipes)
-* Synchronization primitives (mutex, counting semaphore, condition variable + examples of each)
-* Synchronization concepts (Philosophers, Reader-Writer, Producer-Consumer)
-* Signals
-* Scheduling
-* Virtual Memory (paging, mmap)
-
-#Example Markdown
-#Informal Glossary
-#Piazza: When And How to Ask For Help
+* [[#Example Markdown]]
 
 
 
