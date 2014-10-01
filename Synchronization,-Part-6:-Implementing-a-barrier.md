@@ -11,10 +11,10 @@ double data[256][8192]
 3 Threads do second calculation (use and change values in data)
 ```
 
-The thread argument has four main parts-
+The thread function has four main parts-
 ```C
 void* calc(void*arg) {
-  /* Do my part of the first calcuation */
+  /* Do my part of the first calculation */
   /* Am I the last thread to finish? If so wake up all the other threads! */
   /* Otherwise wait until the other threads has finished part one */
   /* Do my part of the second calculation */
@@ -32,7 +32,7 @@ int main() {
         pthread_create( &ids[i], NULL , calc, (void*) i );
 ```
   
-Note, we will never de-reference this pointer value - we will just cast it straight back to an integer:
+Note, we will never this pointer value as an actual memory location - we will just cast it straight back to an integer:
 ```C
 void* calc( void* ptr) {
 // Thread 0 will work on columns 0..15, thread 1 on rows 16..31
@@ -41,8 +41,8 @@ void* calc( void* ptr) {
   for(x = start; x<end;x++) for(y=0; y <8192;y++) { /* do calc #1 */ }
 ```
 
-After calculation 1 completes we need wait (unless we are the last thread!).
-So keep track of the number of threads that have arrived:
+After calculation 1 completes we need to wait for the slower threads (unless we are the last thread!).
+So keep track of the number of threads that have arrived at our barrier aka 'checkpoint':
 ```C
 // Global: 
 int remain = N;
