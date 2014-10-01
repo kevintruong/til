@@ -71,7 +71,7 @@ main() {
   pthread_cond_init(&cv, NULL);
 ```
 
-We will use the mutex to ensure that only one thread modifies remain at a time.
+We will use the mutex to ensure that only one thread modifies `remain` at a time.
 The last arriving thread needs to wake up all sleeping threads - so we will need `pthread_cond_broadcast(&cv)`
 
 ```C
@@ -81,6 +81,7 @@ if(remain ==0) { pthread_cond_broadcast(&cv); }
 else {
   while(remain != 0) { pthread_cond_wait(&cv, &m) }
 }
+pthread_mutex_unlock(&m);
 ```
-When a thread enters cond_sleep it releases the mutex and sleeps. At some point in the future it will be awoken. Before returning it must wait until it can lock the mutex. Notice that even if a sleeping thread wakes up early, it wil check the while loop condition and re-enter wait if necessary.
+When a thread enters `pthread_cond_wait` it releases the mutex and sleeps. At some point in the future it will be awoken. Once we bring a thread back from its sleep, before returning it must wait until it can lock the mutex. Notice that even if a sleeping thread wakes up early, it wil check the while loop condition and re-enter wait if necessary.
 
