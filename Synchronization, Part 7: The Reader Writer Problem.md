@@ -19,7 +19,7 @@ An incorrect attempt is shown below ("lock" is a shorthand for `pthread_mutex_lo
   unlock(m)
 </pre></td></tr></table>
 
-At least our first attempt does not suffer from data corruption (readers must wait while a writer is writing and vice versa). However readers must also wait for other readers. So let's try another implementation..
+At least our first attempt does not suffer from data corruption (readers must wait while a writer is writing and vice versa)! However readers must also wait for other readers. So let's try another implementation..
 
 Attempt #2:
 <table><tr><td>
@@ -37,31 +37,31 @@ Attempt #2:
   writing = 0;
 </pre></td></tr></table>
 
-Our second attempt suffers from a race condition - imagine if two threads both called `read` and `write` (or both called write) at the same time. Both threads would be able to proceed! Secondly, we can have mutliple readers and multiple writers, so lets keep track of the total number of readers or writers. Which brings us to attempt #3,
+Our second attempt suffers from a race condition - imagine if two threads both called `read` and `write` (or both called write) at the same time. Both threads would be able to proceed! Secondly, we can have multiple readers and multiple writers, so lets keep track of the total number of readers or writers. Which brings us to attempt #3,
 
 <table><tr><td>
 <pre>read() {
-  lock(&m);
-  while(writing) {
+  lock(&m)
+  while(writers) {
     pthread_cond_wait(&cv,&m);
   }
-  reading++;
+  readers++
   // do read stuff
-  reading--;
-  pthread_cond_signal(&cv);
-  unlock(&m);
+  readers--
+  pthread_cond_signal(&cv)
+  unlock(&m)
 </pre>
 </td><td>
 <pre>write() {
   lock(&m)
-  while(reading || writing) {
+  while(readers || writers) {
     pthread_cond_wait(&cv,&m)
   }
-  writing++
+  writers++
   // do write stuff
-  writing --
+  writers --
   pthread_cond_signal(&cv)
   unlock(&m)
 </pre></td></tr></table>
 
-This solution might appear to work when lightly tested however it suffers from several drawbacks which we will discuss in the next section.
+This solution might appear to work when lightly tested however it suffers from several drawbacks  - can you see them? We will discuss these in a future section.
