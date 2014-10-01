@@ -29,13 +29,29 @@ lock = 0;
 
 * Occasionally a waiting thread may appear to wake up for no reason (this is called a _spurious wake_)! This is not an issue because you always use `wait` inside a loop that tests a condition that must be true to continue.
 
-* Threads sleeping inside a condition variable are woken up calling pthread_cond_broadcast (wake up all) or pthread_cond_signal (wake up one). Note despite the function name, this has nothing to do with POSIX `signal`s!
+* Threads sleeping inside a condition variable are woken up calling `pthread_cond_broadcast` (wake up all) or `pthread_cond_signal` (wake up one). Note despite the function name, this has nothing to do with POSIX `signal`s!
 
 ## What does `pthread_cond_wait` do?
 Wait performs three actions:
 * unlock the mutex
 * waits (sleeps until `pthread_cond_signal` is called on the same condition variable)
 * locks the mutex
+
+## (Advanced topic) Why do Condition Variables also need a mutex?
+Condition variables need a mutex for three reasons. The simplest to understand is that it prevents an early wakeup message (`signal` or `broadcast` functions) from being 'lost.' Imagine the following sequence of events (time runs down the page) where the condition is satisfied just before cond_wait is called:
+
+Thread 1                 | Thread 2
+-------------------------|---------
+`while( answer != 42) {` |
+                         | `answer=42`
+                         | `p_c_signal(cv)`
+`p_cond_wait(cv,m) `     |
+
+If both threads had locked a mutex, the signal can not be sent until after p_cond_wait(cv,m) is called.
+
+A second common reason is that updating the condition (`answer` variable) requires mutual exclusion.
+
+A third reason is to satisfy real-time scheduling concerns that high priority threads. In a time-critical application, the waiting thread with the highest priority should be allowed to continue first. To satisfy this requirement the mutex must also be locked before calling `pthread_cond_signal` or `pthread_cond_broadcast` . For the curious, a longer and historical discussion is [[here|https://groups.google.com/forum/?hl=ky#!msg/comp.programming.threads/wEUgPq541v8/ZByyyS8acqMJ]].
 
 ## Why do spurious wakes exist?
 For performance. On multi-CPU systems it is possible that a race-condition could cause a wake-up (signal) request to be unnoticed. The kernel may not detect this lost wake-up call but can detect when it might occur. To avoid the potential lost signal the thread is woken up so that the program code can test the condition again.
