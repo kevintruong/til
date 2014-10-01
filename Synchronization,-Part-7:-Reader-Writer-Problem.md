@@ -4,7 +4,7 @@ Imagine you had a key-value map data structure which is used by many threads. Mu
 
 The is an example of the _Reader Writer Problem_  Namely how can we efficiently synchronize multiple readers and writers such that multiple readers can read together but a writer gets exclusive access?
 
-An incorrect attempt is shown below (lock is a simple pthread_mutex_lock):
+An incorrect attempt is shown below ("lock" is a shorthand for `pthread_mutex_lock`):
 
 <table><tr><td>
 <pre>read()
@@ -13,7 +13,7 @@ An incorrect attempt is shown below (lock is a simple pthread_mutex_lock):
   unlock(m)
 </pre>
 </td><td>
-<pre>write
+<pre>write()
   lock(m)
   // do read stuff
   unlock(m)
@@ -55,13 +55,13 @@ Our second attempt suffers from a race condition - imagine if two threads both c
 <pre>write() {
   lock(&m)
   while(reading || writing) {
-    pthread_cond_wait(&cv,&m);
+    pthread_cond_wait(&cv,&m)
   }
-  writing++;
+  writing++
   // do write stuff
-  writing --;
-  pthread_cond_signal(&cv);
-  unlock(&m);
+  writing --
+  pthread_cond_signal(&cv)
+  unlock(&m)
 </pre></td></tr></table>
 
-A discussion of this solution will appear in Part 8
+This solution might appear to work when lightly tested however it suffers from several drawbacks which we will discuss in the next section.
