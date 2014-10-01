@@ -23,19 +23,37 @@ At least our first attempt does not suffer from data corruption (readers must wa
 
 Attempt #2:
 <table><tr><td>
-<pre>read()
+<pre>read() {
   while(writing) {/*spin*/}
   reading = 1;
   // do read stuff
   reading = 0;
 </pre>
 </td><td>
-<pre>write
+<pre>write() {
   while(reading || writing) {/*spin*/}
   writing = 1;
   // do write stuff
   writing = 0;
 </pre></td></tr></table>
 
+Our second attempt suffers from a race condition - imagine if two threads both called `read` and `write` (or both called write) at the same time. Both threads would be able to proceed! Secondly, we can have mutliple readers and multiple writers, so lets keep track of the total number of readers or writers. Which brings us to attempt #3,
 
-Under construction
+<table><tr><td>
+<pre>read() {
+  while(writing) {cond_wait(&cv,&m);}
+  reading++;
+  // do read stuff
+  reading--;
+  pthread_cond_signal(&cv);
+</pre>
+</td><td>
+<pre>write() {
+  while(reading || writing) {cond_wait(&cv,&m);}
+  writing++;
+  // do write stuff
+  writing --;
+  pthread_cond_signal(&cv);
+</pre></td></tr></table>
+
+A discussion of this solution will appear in Part 8
