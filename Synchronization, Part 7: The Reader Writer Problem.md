@@ -25,16 +25,16 @@ Attempt #2:
 <table><tr><td>
 <pre>read() {
   while(writing) {/*spin*/}
-  reading = 1;
+  reading = 1
   // do read stuff
-  reading = 0;
+  reading = 0
 </pre>
 </td><td>
 <pre>write() {
   while(reading || writing) {/*spin*/}
-  writing = 1;
+  writing = 1
   // do write stuff
-  writing = 0;
+  writing = 0
 </pre></td></tr></table>
 
 Our second attempt suffers from a race condition - imagine if two threads both called `read` and `write` (or both called write) at the same time. Both threads would be able to proceed! Secondly, we can have multiple readers and multiple writers, so lets keep track of the total number of readers or writers. Which brings us to attempt #3,
@@ -43,7 +43,7 @@ Our second attempt suffers from a race condition - imagine if two threads both c
 <pre>read() {
   lock(&m)
   while(writers) {
-    pthread_cond_wait(&cv,&m);
+    pthread_cond_wait(&cv,&m)
   }
   readers++
   // do read stuff
