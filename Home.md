@@ -31,6 +31,11 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[Synchronization, Part 4: The Critical Section Problem]]
 * [[Synchronization, Part 5: Condition Variables]]
 
+## Week 6
+* [[Synchronization, Part 6: Implementing a barrier]]
+
+
+
 ## Other content
 
 * [[C Programming, Part 4: Debugging]]
