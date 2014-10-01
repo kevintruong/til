@@ -41,7 +41,9 @@ Our second attempt suffers from a race condition - imagine if two threads both c
 
 <table><tr><td>
 <pre>read() {
-  while(writing) {cond_wait(&cv,&m);}
+  while(writing) {
+    cond_wait(&cv,&m);
+  }
   reading++;
   // do read stuff
   reading--;
@@ -49,7 +51,9 @@ Our second attempt suffers from a race condition - imagine if two threads both c
 </pre>
 </td><td>
 <pre>write() {
-  while(reading || writing) {cond_wait(&cv,&m);}
+  while(reading || writing) {
+    cond_wait(&cv,&m);
+  }
   writing++;
   // do write stuff
   writing --;
