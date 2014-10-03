@@ -33,7 +33,7 @@ Rather than requiring a book this semester, we will build our own set of resourc
 
 ## Week 6
 * [[Synchronization, Part 6: Implementing a barrier]]
-* [[Synchronization, Part 7: Reader Writer Problem]]
+* [[Synchronization, Part 7: The Reader Writer Problem]]
 
 
 ## Other content
