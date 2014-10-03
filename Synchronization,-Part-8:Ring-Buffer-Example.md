@@ -1,4 +1,3 @@
-
 # Under construction
 ## What is a ring buffer?
 A ring buffer is a simple typically fixed-sized storage mechanism where contiguous memory is treated as if it is circular, and two index counters keep track of the current beginning and end of the queue. 
@@ -26,14 +25,14 @@ void* dequeue() { /* Remove one item to the end of the queue*/
 It's very tempting to write the enqueue or dequeue method in the following compact form (N is the capacity of the buffer e.g. 16):
 ```C
 void enqueue(void* value)
-  buffer[ (in++) % N ] = value;
+  b[ (in++) % N ] = value;
 }
 ```
-This method would appear to work (pass simple tests etc) but contains a subtle bug. With enough enqueue operations (a bit more than two billion) the int value of `in` will overflow and become negative! The modulo (or 'remainder') operator `%` preserves the sign. Thus you might end up writing into `buffer[-14]`  for example! 
+This method would appear to work (pass simple tests etc) but contains a subtle bug. With enough enqueue operations (a bit more than two billion) the int value of `in` will overflow and become negative! The modulo (or 'remainder') operator `%` preserves the sign. Thus you might end up writing into `b[-14]`  for example! 
 
 A compact form is correct uses bit masking provided N is 2^x (16,32,64,...)
 ```C
-buffer[ (in++) & (N-1) ] = value;
+b[ (in++) & (N-1) ] = value;
 ```
 
 This buffer does not yet prevent buffer underflow or overflow. For that, we'll turn to our multi-threaded attempt that will block a thread until there is space or there is at least one item to remove.
@@ -42,7 +41,10 @@ This buffer does not yet prevent buffer underflow or overflow. For that, we'll t
 
 The following code is an incorrect implementation. What will happen? Will `enqueue` and/or `dequeue` block? Is mutual exclusion satisfied? Can the buffer underflow? Can the buffer overflow?
 
-<table><tr><th>Initialization and global vars</th><th>enqueue</th><th>dequeue</th></tr>
+<table><tr><th>Initialization and global vars</th>
+
+</tr>
+<tr><th>enqueue</th><th>dequeue</th></tr>
 <tr><td><pre>
 p_m_t lock
 sem_t s1,s2
@@ -57,7 +59,7 @@ sem_init(&s2,0,0)
  p_m_lock(&lock)
  sem_wait( &s1 )
  
- buffer[ (in++) & (N-1) ] = value;
+ b[ (in++) & (N-1) ] = value;
 
  sem_post(&s1)
  p_m_unlock(&lock)
@@ -66,8 +68,8 @@ sem_init(&s2,0,0)
 <td>
 <pre>void* dequeue(){
   p_m_lock(&lock)
-  sem_wdait(&s2)
-  void * result = buffer[(out++) & 15 ]
+  sem_wait(&s2)
+  void * result = b[(out++) & 15]
   sem_post(&s2)
   p_m_unlock(&lock)
   return resul;
