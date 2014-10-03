@@ -50,10 +50,11 @@ void* b[16]
 int in=0,out=0
 p_m_t lock
 sem_t s1,s2
-p_m_init(&lock,NULL)
-sem_init(&s1,0,16)
-sem_init(&s2,0,0)
-</pre></td><td>
+void init() { 
+ p_m_init(&lock,NULL)
+ sem_init(&s1,0,16)
+ sem_init(&s2,0,0)
+}</pre></td><td>
 
 <pre>enqueue(void*value){
 
@@ -99,9 +100,10 @@ void* b[16]
 int in=0,out=0
 p_m_t lock
 sem_t s1,s2
-sem_init(&s1,0,16)
-sem_init(&s2,0,0)
-</pre></td><td>
+void init(){
+ sem_init(&s1,0,16)
+ sem_init(&s2,0,0)
+}</pre></td><td>
 
 <pre>enqueue(void*value){
 
@@ -140,10 +142,10 @@ void* b[16]
 int in=0,out=0
 p_m_t lock = PTHREAD_MUTEX_INITIALIZER;
 sem_t s1,s2
-
-sem_init(&s1,0,0)
-sem_init(&s2,0,16)
-</pre></td><td>
+void init() {
+  sem_init(&s1,0,0)
+  sem_init(&s2,0,16)
+}</pre></td><td>
 
 <pre>enqueue(void*value){
 
