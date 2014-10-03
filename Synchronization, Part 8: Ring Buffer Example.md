@@ -126,6 +126,9 @@ void* dequeue(){
 * The code does not satisfy Mutual Exclusion; two threads can modify `in` or `out` at the same time! The code appears to use  mutex lock. Unfortunately the lock was never initialized with `pthread_mutex_init()` or `PTHREAD_MUTEX_INITIALIZER` - so the lock may not work (`pthread_mutex_lock` may simply do nothing)
 
 ## Correct implementation of a ring buffer
+The pseudo-code (`pthread_mutex` shortened to `p_m` etc) is shown below.
+A real implementation would need to guard against early returns from `sem_wait` due to POSIX signals.
+
 ```C
 void* b[16]
 int in=0,out=0
