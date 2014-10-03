@@ -43,9 +43,7 @@ This buffer does not yet prevent buffer underflow or overflow. For that, we'll t
 The following code is an incorrect implementation. What will happen? Will `enqueue` and/or `dequeue` block? Is mutual exclusion satisfied? Can the buffer underflow? Can the buffer overflow?
 For clarity `pthread_mutex` is shortened to `p_m` and we assume sem_wait cannot be interrupted.
 
-<table><tr><th>Initialization and global vars</th>
-<th>enqueue</th><th>dequeue</th></tr>
-<tr><td><pre>
+```C
 void* b[16]
 int in=0,out=0
 p_m_t lock
@@ -54,9 +52,9 @@ void init() {
  p_m_init(&lock,NULL)
  sem_init(&s1,0,16)
  sem_init(&s2,0,0)
-}</pre></td><td>
+}
 
-<pre>enqueue(void*value){
+enqueue(void*value){
 
  p_m_lock(&lock)
 
@@ -68,20 +66,17 @@ void init() {
  // Hint: Increment. Will wake up a waiting thread 
  sem_post(&s1) 
  p_m_unlock(&lock)
-</pre>
-</td>
-<td>
-<pre>void* dequeue(){
+
+void* dequeue(){
   p_m_lock(&lock)
   sem_wait(&s2)
   void * result = b[(out++) & 15]
   sem_post(&s2)
   p_m_unlock(&lock)
   return result
-}</pre>
-</td>
-</table>
-### Analysis
+}
+```
+## Analysis
 Before reading on, see how many mistakes you can find. Then determine what would happen if threads called the enqueue and dequeue methods.
 
 * The enqueue method waits and posts on the same semaphore (s1) and similarly with equeue and (s2) i.e. we decrement the value and then immediately increment the value, so by the end of the function the semaphore value is unchanged! 
@@ -93,9 +88,7 @@ Before reading on, see how many mistakes you can find. Then determine what would
 The following code is an incorrect implementation. What will happen? Will `enqueue` and/or `dequeue` block? Is mutual exclusion satisfied? Can the buffer underflow? Can the buffer overflow?
 For clarity `pthread_mutex` is shortened to `p_m` and we assume sem_wait cannot be interrupted.
 
-<table><tr><th>Initialization and global vars</th>
-<th>enqueue</th><th>dequeue</th></tr>
-<tr><td><pre>
+```C
 void* b[16]
 int in=0,out=0
 p_m_t lock
@@ -103,9 +96,9 @@ sem_t s1,s2
 void init(){
  sem_init(&s1,0,16)
  sem_init(&s2,0,0)
-}</pre></td><td>
+}
 
-<pre>enqueue(void*value){
+enqueue(void*value){
 
  sem_wait( &s2 )
  p_m_lock(&lock)
@@ -114,10 +107,8 @@ void init(){
 
  p_m_unlock(&lock)
  sem_post(&s1)
-</pre>
-</td>
-<td>
-<pre>void* dequeue(){
+}
+
 void* dequeue(){
   sem_wait(&s1)
   p_m_lock(&lock)
@@ -126,18 +117,16 @@ void* dequeue(){
   sem_post(&s2)
 
   return result;
-}</pre>
-</td>
-</table>
+}
+```
+
 ### Analysis
 * The initial value of s2 is 0. Thus enqueue will block on the first call to sem_wait even though the buffer is empty!
 * The initial value of s1 is 0. Thus dequeue will not block on the first call to sem_wait even though the buffer is empty - oops Underflow! The dequeue method will return invalid data.
 * The code does not satisfy Mutual Exclusion; two threads can modify `in` or `out` at the same time! The code appears to use  mutex lock. Unfortunately the lock was never initialized with `pthread_mutex_init()` or `PTHREAD_MUTEX_INITIALIZER` - so the lock may not work (`pthread_mutex_lock` may simply do nothing)
 
 ## Correct implementation of a ring buffer
-<table><tr><th>Initialization and global vars</th><th>enqueue</th><th>dequeue</th></tr>
-<tr><td><pre>
-//Globals:
+```C
 void* b[16]
 int in=0,out=0
 p_m_t lock = PTHREAD_MUTEX_INITIALIZER;
@@ -145,9 +134,9 @@ sem_t s1,s2
 void init() {
   sem_init(&s1,0,0)
   sem_init(&s2,0,16)
-}</pre></td><td>
+}
 
-<pre>enqueue(void*value){
+enqueue(void*value){
 
  sem_wait( &s2 )
  p_m_lock(&lock)
@@ -156,10 +145,8 @@ void init() {
 
  p_m_unlock(&lock)
  sem_post(&s1)
-</pre>
-</td>
-<td>
-<pre>void* dequeue(){
+}
+
 void* dequeue(){
   sem_wait(&s1)
   p_m_lock(&lock)
@@ -168,7 +155,4 @@ void* dequeue(){
   sem_post(&s2)
 
   return result;
-}</pre>
-</td>
-</table>
-
+}
