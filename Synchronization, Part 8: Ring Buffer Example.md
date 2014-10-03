@@ -44,16 +44,15 @@ The following code is an incorrect implementation. What will happen? Will `enque
 For clarity `pthread_mutex` is shortened to `p_m` and we assume sem_wait cannot be interrupted.
 
 <table><tr><th>Initialization and global vars</th>
-
-</tr>
-<tr><th>enqueue</th><th>dequeue</th></tr>
+<th>enqueue</th><th>dequeue</th></tr>
 <tr><td><pre>
+void* b[16]
+int in=0,out=0
 p_m_t lock
 sem_t s1,s2
 p_m_init(&lock,NULL)
 sem_init(&s1,0,16)
 sem_init(&s2,0,0)
-// + original code to initializer in,out,b
 </pre></td><td>
 
 <pre>enqueue(void*value){
@@ -94,15 +93,14 @@ The following code is an incorrect implementation. What will happen? Will `enque
 For clarity `pthread_mutex` is shortened to `p_m` and we assume sem_wait cannot be interrupted.
 
 <table><tr><th>Initialization and global vars</th>
-
-</tr>
-<tr><th>enqueue</th><th>dequeue</th></tr>
+<th>enqueue</th><th>dequeue</th></tr>
 <tr><td><pre>
+void* b[16]
+int in=0,out=0
 p_m_t lock
 sem_t s1,s2
 sem_init(&s1,0,16)
 sem_init(&s2,0,0)
-// + original code to initialize in,out,b
 </pre></td><td>
 
 <pre>enqueue(void*value){
@@ -135,18 +133,16 @@ void* dequeue(){
 * The code does not satisfy Mutual Exclusion; two threads can modify `in` or `out` at the same time! The code appears to use  mutex lock. Unfortunately the lock was never initialized with `pthread_mutex_init()` or `PTHREAD_MUTEX_INITIALIZER` - so the lock may not work (`pthread_mutex_lock` may simply do nothing)
 
 ## Correct implementation of a ring buffer
-<table><tr><th>Initialization and global vars</th>
-
-</tr>
-<tr><th>enqueue</th><th>dequeue</th></tr>
+<table><tr><th>Initialization and global vars</th><th>enqueue</th><th>dequeue</th></tr>
 <tr><td><pre>
 //Globals:
+void* b[16]
+int in=0,out=0
 p_m_t lock = PTHREAD_MUTEX_INITIALIZER;
-sem_t s1,s2;
+sem_t s1,s2
 
 sem_init(&s1,0,0)
 sem_init(&s2,0,16)
-// + original code to initialize in,out,b
 </pre></td><td>
 
 <pre>enqueue(void*value){
@@ -173,5 +169,4 @@ void* dequeue(){
 }</pre>
 </td>
 </table>
-
 
