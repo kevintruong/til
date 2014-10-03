@@ -4,7 +4,7 @@ Name these properties!
 * "If waiting, then another process can only enter the CS a finite number of times" 
 * "If no other process is in the CS then the process can immediately enter the CS"
 
-See [[Synchronization-4-The-Critical-Section-Problem]] for answers.
+See [[Synchronization, Part 4: The Critical Section Problem]] for answers.
 
 ## What is the 'exchange instruction' ?
 The exchange instruction ('XCHG') is an atomic CPU instruction that exchanges the contents of a register with a memory location. This can be used as a basis to implement a simple mutex lock.
@@ -103,11 +103,13 @@ typedef struct sem_t {
 
 Implement `sem_init` to initialize the mutex and condition variable
 ```C
-sem_init(sem_t *s, int pshared, int value) {
-  // Ignore pshared for now
+int sem_init(sem_t *s, int pshared, int value) {
+  if(pshared) { errno = ENOSYS /* 'Not implemented'*/; return -1;}
+
   s->count = value;
   pthread_mutex_init(& s->m, NULL);
   pthread_condition_init( & s->cv, NULL);
+  return 0;
 }
 ```
 
@@ -147,6 +149,6 @@ Answer: No! We can't get past the loop until the count is non-zero. In practice 
 ``` 
 
 ## Other semaphore considerations
-* Real semaphores implementation include a queue to ensure fairness e.g. wake up the longest sleeping thread.
-* Also, an advanced use of sem_init allows semaphores to be shared across processes. Our implementation only works for threads inside the same process.
+* Real semaphores implementation include a queue and scheduling concerns to ensure fairness and priority e.g. wake up the highest-priority longest sleeping thread.
+* Also, an advanced use of `sem_init` allows semaphores to be shared across processes. Our implementation only works for threads inside the same process.
 

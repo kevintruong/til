@@ -1,6 +1,6 @@
 ## What is the Critical Section Problem?
 
-As already discussed in [[Synchronization-3-Working-with-Mutexes-And-Semaphores]], there are critical parts of our code that can only be executed by one thread at a time. We describe this requirement as 'mutual exclusion'; only one thread (or process) may have access to the shared resource.
+As already discussed in [[Synchronization, Part 3: Working with Mutexes And Semaphores]], there are critical parts of our code that can only be executed by one thread at a time. We describe this requirement as 'mutual exclusion'; only one thread (or process) may have access to the shared resource.
 
 In multi-threaded programs we can wrap a critical section with mutex lock and unlock calls:
 
