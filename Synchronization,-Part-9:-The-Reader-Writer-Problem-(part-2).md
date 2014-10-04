@@ -72,4 +72,7 @@ write(){
   unlock(&m);
 ```
 
-Todo : Discuss this candidate
+## Starvation
+The previous implementation suffers from starvation. If readers are constantly arriving then a writer will never be able to proceed ('reading' never reduces to zero). This is known as starvation and would be discovered under heavy loads. Our fix is to implement a bounded-wait for the writer. If a writer arrives they will still need to wait for existing readers however future readers must be placed in a holding pen and wait for the writer to finish. The 'holding pen' can be implemented using a variable and a condition variable (so that we can wake up the threads once the writer has finished).
+
+Todo: code
