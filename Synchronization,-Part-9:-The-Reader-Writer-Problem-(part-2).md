@@ -96,8 +96,14 @@ And incoming readers will not be allowed to continue while writer is nonzero. No
 ```C
 read() {
   lock()
-  while(writer) cond_wait(&cv,&m)
-  while(writing) cond_wait(&cv,&m)
+  // readers that arrive *after* the writer arrived will have to wait here!
+  while(writer)
+     cond_wait(&cv,&m)
+
+  // readers that arrive while there is an active writer
+  // will also wait.
+  while(writing) 
+     cond_wait(&cv,&m)
   reading++
   unlock
   ...
