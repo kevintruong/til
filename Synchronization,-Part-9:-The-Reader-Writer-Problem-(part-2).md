@@ -109,3 +109,38 @@ read() {
   ...
 }
 ```
+
+## Candidate solution #4
+```C
+reader(){
+  mutex_lock(&m)
+  while (writers)
+    cond_wait(&turn, &m)
+  while (writing)
+    cond_wait(&turn, &m)
+  reading++
+  unlock(&m)
+
+  // perform reading here
+
+  lock(&m)
+  reading--
+  cond_broadcast(&turn)
+  unlock(&m)
+}
+
+writer(){
+  lock(&m)  
+  writers++  
+  while (reading || writing)   
+    cond_wait(&turn, &m)  
+  writing++  
+  unlock(&m)  
+  // perform writing here  
+  lock(&m)  
+  writing--  
+  writers--  
+  cond_broadcast(&turn)  
+  unlock(&m)  
+}
+```
