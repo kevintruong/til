@@ -1,4 +1,3 @@
-# Under construction
 ## What is a ring buffer?
 A ring buffer is a simple, usually fixed-sized, storage mechanism where contiguous memory is treated as if it is circular, and two index counters keep track of the current beginning and end of the queue. As  array indexing is not circular, the index counters must wrap around to zero when moved past the end of the array.
 As data is added (enqueued) to the front of the queue or removed (dequeued) from tail of the queue, the current items in the buffer form a train that appears to circle the track
