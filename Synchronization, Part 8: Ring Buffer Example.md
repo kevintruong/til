@@ -127,35 +127,58 @@ void* dequeue(){
 
 ## Correct implementation of a ring buffer
 The pseudo-code (`pthread_mutex` shortened to `p_m` etc) is shown below.
-A real implementation would need to guard against early returns from `sem_wait` due to POSIX signals.
+
+As the mutex lock is stored in global (static) memory it can be initialized with  `PTHREAD_MUTEX_INITIALIZER`.If we had allocated space for the mutex on the heap, then we would have used `pthread_mutex_init(ptr, NULL)`
 
 ```C
-void* b[16]
+#include <pthread.h>
+#include <semaphore.h>
+// N must be 2^i
+#define N (16)
+
+void* b[N]
 int in=0,out=0
-p_m_t lock = PTHREAD_MUTEX_INITIALIZER;
-sem_t s1,s2
+p_m_t lock = PTHREAD_MUTEX_INITIALIZER
+sem_t countsem, spacesem
+
 void init() {
-  sem_init(&s1,0,0)
-  sem_init(&s2,0,16)
+  sem_init(&countsem,0,0)
+  sem_init(&spacesem,0,16)
 }
 
+The enqueue method is shown below. Notice,
+* The lock is only held during the critical section (access to the data structure).
+* A complete implementation would need to guard against early returns from `sem_wait` due to POSIX signals.
+
+```C
 enqueue(void*value){
+ // wait if there is no space left:
+ sem_wait( &spacesem )
 
- sem_wait( &s2 )
  p_m_lock(&lock)
-
  b[ (in++) & (N-1) ] = value
-
  p_m_unlock(&lock)
- sem_post(&s1)
-}
 
+ // increment the count of the number of items
+ sem_post(&countsem)
+}
+```
+The `dequeue` implementation is shown below. Notice the symmetry of the synchronization calls to `enqueue`. In both cases the functions first wait if the count of spaces or count of items is zero.
+```C
 void* dequeue(){
-  sem_wait(&s1)
-  p_m_lock(&lock)
-  void * result = b[(out++) & 15]
-  p_m_unlock(&lock)
-  sem_post(&s2)
+  // Wait if there are no items in the buffer
+  sem_wait(&countsem)
 
-  return result;
+  p_m_lock(&lock)
+  void* result = b[(out++) & (N-1)]
+  p_m_unlock(&lock)
+
+  // Increment the count of the number of spaces
+  sem_post(&spacesem)
+
+  return result
 }
+## Food for thought
+* What would happen if  the order of  `pthread_mutex_unlock` and `sem_post` calls were swapped?
+* What would happen if the order of `sem_wait` and `pthread_mutex_lock` calls were swapper
+
