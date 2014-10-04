@@ -43,8 +43,8 @@ read(){
  unlock(&m)
 ```
 Does this mean that a writer and read could read and write at the same time? No! First of all, remember cond_wait requires the thread re-acquire the  mutex lock before returning. Thus only one thread can be executing code inside the critical section (marked with **) at a time!
-
-read(){
+```C
+ read(){
  lock(&m);
 **  while (writing)
 **    cond_wait(&turn, &m)
@@ -55,7 +55,7 @@ read(){
 **  reading--
 **  cond_signal(&turn)
   unlock(&m)
-</pre>
+```
 
 
 Writers must wait for everyone. Mutual exclusion is assured by the lock. 
