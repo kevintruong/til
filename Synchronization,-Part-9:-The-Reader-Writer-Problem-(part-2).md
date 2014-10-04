@@ -19,13 +19,13 @@ Implementation #3 below ensures that a reader will enter the cond_wait if there 
 read(){
  lock(&m)
  while (writing)
-    cond_wait(&turn, &m)
+    cond_wait(&cv, &m)
  reading++;
 
 /* Read here! */
 
  reading--
- cond_signal(&turn)
+ cond_signal(&cv)
  unlock(&m)
 ```
 However only one reader a time can read because candidate #3 did not unlock the mutex. A better version unlocks before reading :
@@ -33,13 +33,13 @@ However only one reader a time can read because candidate #3 did not unlock the 
 read(){
  lock(&m);
  while (writing)
-    cond_wait(&turn, &m)
+    cond_wait(&cv, &m)
  reading++;
  unlock(&m)
 /* Read here! */
  lock(&m)
  reading--
- cond_signal(&turn)
+ cond_signal(&cv)
  unlock(&m)
 ```
 Does this mean that a writer and read could read and write at the same time? No! First of all, remember cond_wait requires the thread re-acquire the  mutex lock before returning. Thus only one thread can be executing code inside the critical section (marked with **) at a time!
@@ -47,13 +47,13 @@ Does this mean that a writer and read could read and write at the same time? No!
  read(){
  lock(&m);
 **  while (writing)
-**    cond_wait(&turn, &m)
+**    cond_wait(&cv, &m)
 **  reading++;
  unlock(&m)
 /* Read here! */
  lock(&m)
 **  reading--
-**  cond_signal(&turn)
+**  cond_signal(&cv)
   unlock(&m)
 ```
 
@@ -63,12 +63,12 @@ Writers must wait for everyone. Mutual exclusion is assured by the lock.
 write(){
  lock(&m);
 **   while (reading || writing)
-**     cond_wait(&turn, &m);
+**     cond_wait(&cv, &m);
 **   writing++;
 **
 ** /* Write here! */
 **  writing--;
-**  cond_signal(&turn);
+**  cond_signal(&cv);
   unlock(&m);
 ```
 
@@ -92,16 +92,14 @@ write() {
 }
 ```
 
-And incoming readers will not be allowed to continue while writer is nonzero
+And incoming readers will not be allowed to continue while writer is nonzero. Notice 'writer' indicates a writer has arrived, while 'reading' and 'writing' counters indicate there is an _active_ reader or writer.
 ```C
 read() {
   lock()
-  while(writer) cond_wait
-  ...
-  while(writing) cond_wait
+  while(writer) cond_wait(&cv,&m)
+  while(writing) cond_wait(&cv,&m)
   reading++
   unlock
   ...
 }
 ```
-  
