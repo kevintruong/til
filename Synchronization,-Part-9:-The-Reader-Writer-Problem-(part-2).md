@@ -72,7 +72,36 @@ write(){
   unlock(&m);
 ```
 
-## Starvation
-The previous implementation suffers from starvation. If readers are constantly arriving then a writer will never be able to proceed ('reading' never reduces to zero). This is known as starvation and would be discovered under heavy loads. Our fix is to implement a bounded-wait for the writer. If a writer arrives they will still need to wait for existing readers however future readers must be placed in a holding pen and wait for the writer to finish. The 'holding pen' can be implemented using a variable and a condition variable (so that we can wake up the threads once the writer has finished).
+Candidate #3 above also uses `pthread_cond_signal` ; this will only wake up one thread. For example, if many readers are waiting for the writer to complete then only one sleeping reader will be awoken from their slumber. The reader and writer should use `cond_broadcast` so that all threads should wake up and check their while-loop condition.
 
-Todo: code
+
+## Starving writers
+Candidate #3 above suffers from starvation. If readers are constantly arriving then a writer will never be able to proceed (the 'reading' count never reduces to zero). This is known as *starvation* and would be discovered under heavy loads. Our fix is to implement a bounded-wait for the writer. If a writer arrives they will still need to wait for existing readers however future readers must be placed in a "holding pen" and wait for the writer to finish. The "holding pen" can be implemented using a variable and a condition variable (so that we can wake up the threads once the writer has finished).
+
+Our plan is that when a writer arrives, and before waiting for current readers to finish, register our intent to write (by incrementing a counter 'writer'). Sketched below - 
+
+```C
+write() {
+  lock()
+  writer++
+
+  while(reading | writing)
+     cond_wait
+  unlock()
+  ...
+}
+```
+
+And incoming readers will not be allowed to continue while writer is nonzero
+```C
+read() {
+  lock()
+  while(writer) cond_wait
+  ...
+  while(writing) cond_wait
+  reading++
+  unlock
+  ...
+}
+```
+  
