@@ -111,6 +111,10 @@ read() {
 ```
 
 ## Candidate solution #4
+Below is our first working solution to the Reader-Writer problem. 
+Note if you continue to read about the "Reader Writer problem" then you will discover that we solved the "Second Reader Writer problem" by giving writers preferential access to the lock. This solution is not optimal. However it satisfies our original problem (N active readers, single active writer, avoids starvation of the writer if there is a constant stream of readers). 
+
+Can you identify two improvements? Is any of the code superfluous? For example, how would you improve the code so that we only woke up readers or one writer? 
 ```C
 reader(){
   mutex_lock(&m)
