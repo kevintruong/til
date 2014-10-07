@@ -25,9 +25,18 @@ Two students need a pen and paper:
 Live is _not_ deadlock-
 
 Consider the following 'solution'
-* The students will put down one hold resource if they are unable to pick up the other resource within 10 seconds. This solution avoids deadlock however it may suffer from livelock.
+* The students will put down one held resource if they are unable to pick up the other resource within 10 seconds. This solution avoids deadlock however it may suffer from livelock.
 
-Under construction...
+Livelock occurs when a process continues to execute but is unable to make progress.
+In practice Livelock may occur because the programmer has taken steps to avoid deadlock. In the above example, in a busy system, the student will continually release the first resource because they are never able to obtain the second resource. The system is not deadlock (the student process is still executing) however it's not making any progress either.
+
+## Dining Philosophers
+
+The Dining Philosophers problem is a classic synchronization problem. Imagine I invite N (let's say 5) philosophers to a meal. We will sit them at a table with 5 chopsticks (one between each philosopher). A philosopher alternates between eating and thinking. To eat the philosopher must pick up the two chop-sticks either side of their position. However these chopsticks are shared with his neighbor.
+
+Is is possible to design an efficient solution such that all philosophers get to eat? Or, will some philosophers starve, never obtaining a second chopstick? Or will all of them deadlock? For example, imagine each guest picks up the chopstick on their left and then waits for the chopstick on their right to be free. Oops - our philosophers have deadlocked!
+
+
 
 
 
