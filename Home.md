@@ -34,7 +34,12 @@ Rather than requiring a book this semester, we will build our own set of resourc
 ## Week 6
 * [[Synchronization, Part 6: Implementing a barrier]]
 * [[Synchronization, Part 7: The Reader Writer Problem]]
+* [[Synchronization, Part 8: Ring Buffer Example]]
+* [[Synchronization, Part 9: The Reader Writer Problem (part 2)]]
 
+## Week 7
+* [[Deadlock, Part 1: Resource Allocation Graph]]
+* [[Deadlock, Part 2: Deadlock Conditions]]
 
 ## Other content
 
