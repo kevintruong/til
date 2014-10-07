@@ -4,9 +4,7 @@ A resource allocation graph tracks which resource is held by which process and w
 
 If there is a cycle in the Resource Allocation Graph then the processes will deadlock. For example, if process 1 holds resource A, process 2 holds resource B and process 1 is waiting for B and process 2 is waiting for A, then process 1 and 2 process will be deadlocked.
 
-Here's another example, that shows Processes A,B acquiring resources A,B while process C is waiting ro resource X-
-
-
+Here's another example, that shows Processes 1 and2  acquiring resources 1 and 2 while process 3 is waiting to acquire both resources. In this example there is no deadlock because there is no circular dependency.
 
 ![ResourceAllocationGraph-Ex1.png](https://raw.githubusercontent.com/wiki/angrave/SystemProgramming/ResourceAllocationGraph-Ex1.png)
 
