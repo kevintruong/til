@@ -34,6 +34,8 @@ In practice Livelock may occur because the programmer has taken steps to avoid d
 
 The Dining Philosophers problem is a classic synchronization problem. Imagine I invite N (let's say 5) philosophers to a meal. We will sit them at a table with 5 chopsticks (one between each philosopher). A philosopher alternates between eating and thinking. To eat the philosopher must pick up the two chop-sticks either side of their position. However these chopsticks are shared with his neighbor.
 
+![5DiningPhilosophers](https://raw.githubusercontent.com/wiki/angrave/SystemProgramming/5DiningPhilosophers.png)
+
 Is is possible to design an efficient solution such that all philosophers get to eat? Or, will some philosophers starve, never obtaining a second chopstick? Or will all of them deadlock? For example, imagine each guest picks up the chopstick on their left and then waits for the chopstick on their right to be free. Oops - our philosophers have deadlocked!
 
 
