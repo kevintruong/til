@@ -8,7 +8,6 @@ Here's another example, that shows Processes 1 and2  acquiring resources 1 and 2
 
 ![ResourceAllocationGraph-Ex1.png](https://raw.githubusercontent.com/wiki/angrave/SystemProgramming/ResourceAllocationGraph-Ex1.png)
 
-In addition, if there are other processes waiting for resource A and/or resource B then they will also be deadlocked.
 
 
 Todo: More complicated example
