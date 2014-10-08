@@ -65,7 +65,7 @@ enqueue(void*value){
  // Hint: Increment. Will wake up a waiting thread 
  sem_post(&s1) 
  p_m_unlock(&lock)
-
+}
 void* dequeue(){
   p_m_lock(&lock)
   sem_wait(&s2)
