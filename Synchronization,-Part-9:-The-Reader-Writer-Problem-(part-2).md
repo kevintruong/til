@@ -10,7 +10,7 @@ See [[Synchronization,-Part-7:-The-Reader-Writer-Problem]] for part 1
 Candidate solutions 1 and 2 are discussed in [[part 1|Synchronization,-Part-7:-The-Reader-Writer-Problem]].
 
 
-In the code below for clarity `lock` and `cond_wait` are shortened to `pthread_mutex_lock` and `pthread_cond_wait` etc.
+In the code below for clarity `lock` and `cond_wait` are shortened versions `pthread_mutex_lock` and `pthread_cond_wait` etc. respectively
 
 Also remember that `pthread_cond_wait` performs *Three* actions. Firstly it atomically unlocks the mutex and then sleeps (until it is woken by `pthread_cond_signal` or `pthread_cond_broadcast`). Thirdly the awoken thread must re-acquire the mutex lock before returning. Thus only one thread can actually be running inside the critical section defined by the lock and unlock() methods.
 
