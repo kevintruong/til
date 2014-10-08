@@ -32,7 +32,7 @@ int main() {
         pthread_create( &ids[i], NULL , calc, (void*) i );
 ```
   
-Note, we will never this pointer value as an actual memory location - we will just cast it straight back to an integer:
+Note, we will never dereference this pointer value as an actual memory location - we will just cast it straight back to an integer:
 ```C
 void* calc( void* ptr) {
 // Thread 0 will work on columns 0..15, thread 1 on rows 16..31
