@@ -22,7 +22,7 @@ Two students need a pen and paper:
 
 
 ## Livelock
-Live is _not_ deadlock-
+Livelock is _not_ deadlock-
 
 Consider the following 'solution'
 * The students will put down one held resource if they are unable to pick up the other resource within 10 seconds. This solution avoids deadlock however it may suffer from livelock.
