@@ -15,7 +15,7 @@ An incorrect attempt is shown below ("lock" is a shorthand for `pthread_mutex_lo
 </td><td>
 <pre>write()
   lock(m)
-  // do read stuff
+  // do write stuff
   unlock(m)
 </pre></td></tr></table>
 
