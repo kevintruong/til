@@ -144,6 +144,7 @@ void init() {
   sem_init(&countsem,0,0)
   sem_init(&spacesem,0,16)
 }
+```
 
 The enqueue method is shown below. Notice,
 * The lock is only held during the critical section (access to the data structure).
@@ -162,7 +163,9 @@ enqueue(void*value){
  sem_post(&countsem)
 }
 ```
+
 The `dequeue` implementation is shown below. Notice the symmetry of the synchronization calls to `enqueue`. In both cases the functions first wait if the count of spaces or count of items is zero.
+
 ```C
 void* dequeue(){
   // Wait if there are no items in the buffer
@@ -177,6 +180,8 @@ void* dequeue(){
 
   return result
 }
+```
+
 ## Food for thought
 * What would happen if  the order of  `pthread_mutex_unlock` and `sem_post` calls were swapped?
 * What would happen if the order of `sem_wait` and `pthread_mutex_lock` calls were swapper
