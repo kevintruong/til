@@ -52,4 +52,4 @@ pthread_join(id, &result);
 In the above example, `result` will be `null` because the busy function returned `null`.
 We need to pass the address-of result because `pthread_join` will be writing into the contents of our pointer.
 
-See [[Pthreads Part 2]]
+See [[Pthreads Part 2]](https://github.com/angrave/SystemProgramming/wiki/Pthreads%2C-Part-2%3A-Usage-in-Practice)
