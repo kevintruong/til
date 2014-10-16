@@ -40,6 +40,7 @@ Rather than requiring a book this semester, we will build our own set of resourc
 ## Week 7
 * [[Deadlock, Part 1: Resource Allocation Graph]]
 * [[Deadlock, Part 2: Deadlock Conditions]]
+
 ## Week 8
 * Todo Analysis of Dining Philosophers
 * [[Virtual-Memory,-Part-1:-Introduction-to-Virtual-Memory]]
