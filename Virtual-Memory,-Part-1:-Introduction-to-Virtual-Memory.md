@@ -57,7 +57,7 @@ VirtualAddress = 11110000111111110000000010101010 (binary)
                  |_Index1_||        ||          | 10 bit Directory index
                            |_Index2_||          | 10 bit Sub-table index
                                      |__________| 12 bit offset (passed directly to RAM)
-
+```
 In the above scheme, determining the frame number requires two memory reads: The topmost 10 bits are used in a directory of page tables. If 2 bytes are used for each entry, we only need 2KB to store this entire directory. Each subtable will point to physical frames (i.e. required 4 bytes to store the 20 bits). However, for processes with only small memory needs, we only need to specify entries for low memory address (for the heap and program code) and high memory addresses (for the stack). Each subtable is 1024 entries x 4 bytes i.e. 4KB for each subtable. Thus the total memory overhead for our multi-level page table has shrunk from 4MB (for the single level) to 10KB!
 
 Do page tables make memory access slower? (And what's a TLB)
