@@ -41,4 +41,46 @@ For a 64 bit machine with 4KB pages, each entry needs 52 bits. Let's round up to
 
 In 64 bit architectures memory addresses are sparse, so we need a mechanism to reduce the page table size, given that most of the entries will never be used.
 
+## What is the offset and how is it used?
+Remember our page table maps pages to frames, but each page is block of contiguous addresses. How do we calculate which particular byte to use inside a particular frame? The solution is to re-use the lowest bits of the virtual memory address directly. For example, suppose our process is reading the following address-
+```VirtualAddress = 11110000111100001111000010101010 (binary)```
+
+On a machine with page size 256 Bytes, then the lowest 8 bits (10101010) will be used as the offset.
+The remaining upper bits will be the page number (111100001111000011110000).
+
+
 ## Multi-level page tables
+Multi-level pages are one solution to the page table size issue for 64 bit architectures. We'll look at the simplest implementation - a two level page table. Each table is a list of pointers that point to the next level of tables, not all sub-tables need to exist. An example, two level page table for a 32 bit architecture is shown below-
+
+```
+VirtualAddress = 11110000111111110000000010101010 (binary)
+                 |_Index1_||        ||          | 10 bit Directory index
+                           |_Index2_||          | 10 bit Sub-table index
+                                     |__________| 12 bit offset (passed directly to RAM)
+
+In the above scheme, determining the frame number requires two memory reads: The topmost 10 bits are used in a directory of page tables. If 2 bytes are used for each entry, we only need 2KB to store this entire directory. Each subtable will point to physical frames (i.e. required 4 bytes to store the 20 bits). However, for processes with only small memory needs, we only need to specify entries for low memory address (for the heap and program code) and high memory addresses (for the stack). Each subtable is 1024 entries x 4 bytes i.e. 4KB for each subtable. Thus the total memory overhead for our multi-level page table has shrunk from 4MB (for the single level) to 10KB!
+
+Do page tables make memory access slower? (And what's a TLB)
+
+Yes - Significantly ! (And thanks to clever hardware, usually no...)
+Compared to reading or writing memory directly.
+For a single page table, our machine is now twice as slow! (Two memory accesses are required)
+For a two-level page table, memory access is now three times as slow. (Three memory accesses are required)
+
+To overcome this overhead the MMU includes an associative cache of recently-used  virtual-page-to-frame lookups. This cache is called the TLB ("translation lookaside buffer"). Everytime a virtual address needs to be translated into a physical memory location, the TLB is queried in parallel to the page table. For most memory accesses of most programs, there is a significant chance that the TLB has cached the results. However if a program does not have good cache coherence (for example is reading from random memory locations of mamny different pages) then the TLB will not have the result cache and now the MMU must use the much slower page table to determine the physical frame.
+
+Can frames be shared between processes?
+Yes! In addition to storing the frame number, the page table can be used to store whether a process can write or only read a particular frame. Read only frames can then be safely shared between multiple processes. For example, the C-library instruction code can be shared between all processes that dynamically load the code into the process memory. Each process can only read that memory.
+
+In addition, processes can share a page with a child process using the `mmap` system call.
+
+## What else is stored in the page table and why?
+
+### Dirty bit
+Todo
+
+### Execution bit.  
+The execution bit defines whether bytes in a page can be executes as CPU instructions. By disabling a page, it prevents code that is maliciously stored in the process memory (e.g. by stack overflow) from being easily executed. (further reading: http://en.wikipedia.org/wiki/NX_bit#Hardware_background)
+```
+
+
