@@ -64,7 +64,7 @@ int main() {
     fclose(f);
 ```
 For writing to files this is unnecessary - just use `fopen` which does the same as `open` and `fdopen`
-However for pipes, we already have a file descriptor
+However for pipes, we already have a file descriptor - so this is great time to use `fdopen`!
 
 Here's a complete example using pipes that almost works! Can you spot the error? Hint: The parent never prints anything!
 
@@ -97,7 +97,7 @@ to:       fprintf(writer,"Score %d\n",10+10);
 ```
 
 So do we need to `fflush` too?
-Yes, if you want your bytes to be sent to the pipe immediately! At the beginning of this course we assumed that file streams are _line buffered_ i.e. the C library will flush its buffer everytime you send a newline character. This is only true for terminal streams - for other filestreams the C library attempts to improve performance by only flushing when it's internal buffer is full.
+Yes, if you want your bytes to be sent to the pipe immediately! At the beginning of this course we assumed that file streams are always _line buffered_ i.e. the C library will flush its buffer everytime you send a newline character. Actually this is only true for terminal streams - for other filestreams the C library attempts to improve performance by only flushing when it's internal buffer is full or the file is closed.
 
 
 ## When do I need two pipes?
