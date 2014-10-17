@@ -90,7 +90,7 @@ int main() {
     return 0;
 }
 ```
-Note the (unnamed) pipe resource will disappear once both the child and parent have exited. In the above example the child will send the bytes and the parent will receive the bytes from the pipe. However noe nd-of-line character is ever sent, so fscanf will continue to ask for bytes because it is waiting for the end of the line i.e. it will wait forever! The fix is to ensure we send a newline character, so that fscanf will return.
+Note the (unnamed) pipe resource will disappear once both the child and parent have exited. In the above example the child will send the bytes and the parent will receive the bytes from the pipe. However, no end-of-line character is ever sent, so `fscanf` will continue to ask for bytes because it is waiting for the end of the line i.e. it will wait forever! The fix is to ensure we send a newline character, so that `fscanf` will return.
 ```C
 change:   fprintf(writer,"Score %d",10+10);
 to:       fprintf(writer,"Score %d\n",10+10);
