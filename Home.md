@@ -42,11 +42,14 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[Deadlock, Part 2: Deadlock Conditions]]
 
 ## Week 8
-* Todo Analysis of Dining Philosophers
+* Todo Analysis of Dining Philosophers (for now see the discussion section handout)
+** Breaking Circular Wait. Using a global mutex to break hold-and-wait
+** Beware of starvation if all philosophers hold their left chopstick and try+release their right chopstick
 * [[Virtual Memory, Part 1: Introduction to Virtual Memory]]
 * [[Pipes, Part 1: Introduction to pipes]]
 * [[Pipes, Part 2: Pipe programming secrets]]
 * [[Files, Part 1: Working with files]]
+
 ## Other content
 
 * [[C Programming, Part 4: Debugging]]
