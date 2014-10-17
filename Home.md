@@ -46,7 +46,7 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[Virtual Memory, Part 1: Introduction to Virtual Memory]]
 * [[Pipes, Part 1: Introduction to pipes]]
 * [[Pipes, Part 2: Pipe programming secrets]]
-
+* [[Files, Part 1: Working with files]]
 ## Other content
 
 * [[C Programming, Part 4: Debugging]]
