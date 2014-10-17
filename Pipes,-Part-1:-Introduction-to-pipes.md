@@ -47,7 +47,7 @@ Todo : `fdopen` example
 If you need to send data to and from a child, then two pipes are required (one for each direction).
 Otherwise the child would attempt to read its own data intended for the parent (and vice versa)
 
-## Closing pipes gotcas
+## Closing pipes gotchas
 Todo
 ## The lifetime of pipes
 Todo
