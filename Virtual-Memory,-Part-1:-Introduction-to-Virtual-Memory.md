@@ -7,7 +7,7 @@ In modern systems, this is no longer the case. Instead each process is isolated;
 The Memory Management Unit is part of the CPU. It converts a virtual memory address into a physical address. The MMU may also interrupt the CPU if there is currently no mapping from a particular virtual address to a physical address or if the current CPU instruction attempts to write to location that the process only has read-access.
 
 ## So how do we convert a virtual address into a physical address.
-Imagine you had a 32 bit machine. Pointers can hold 32 bits i.e. they can address 2^32 different locations i.e. 4GB of memory (we will following the standard convertion of one address can hold one byte).
+Imagine you had a 32 bit machine. Pointers can hold 32 bits i.e. they can address 2^32 different locations i.e. 4GB of memory (we will following the standard convention of one address can hold one byte).
 
 Imagine we had a large table - here's the clever part - stored in memory! For every possible address (all 4 billion of them) we will store the 'real' i.e. physical address. Each physical address will need 4 bytes (to hold the 32 bits).
 This scheme would require 16 billion bytes to store all of entries. Oops - our lookup scheme would consume all of the memory that we could possibly buy for our 4GB machine.
@@ -67,7 +67,7 @@ Compared to reading or writing memory directly.
 For a single page table, our machine is now twice as slow! (Two memory accesses are required)
 For a two-level page table, memory access is now three times as slow. (Three memory accesses are required)
 
-To overcome this overhead the MMU includes an associative cache of recently-used  virtual-page-to-frame lookups. This cache is called the TLB ("translation lookaside buffer"). Everytime a virtual address needs to be translated into a physical memory location, the TLB is queried in parallel to the page table. For most memory accesses of most programs, there is a significant chance that the TLB has cached the results. However if a program does not have good cache coherence (for example is reading from random memory locations of mamny different pages) then the TLB will not have the result cache and now the MMU must use the much slower page table to determine the physical frame.
+To overcome this overhead the MMU includes an associative cache of recently-used  virtual-page-to-frame lookups. This cache is called the TLB ("translation lookaside buffer"). Everytime a virtual address needs to be translated into a physical memory location, the TLB is queried in parallel to the page table. For most memory accesses of most programs, there is a significant chance that the TLB has cached the results. However if a program does not have good cache coherence (for example is reading from random memory locations of many different pages) then the TLB will not have the result cache and now the MMU must use the much slower page table to determine the physical frame.
 
 Can frames be shared between processes?
 Yes! In addition to storing the frame number, the page table can be used to store whether a process can write or only read a particular frame. Read only frames can then be safely shared between multiple processes. For example, the C-library instruction code can be shared between all processes that dynamically load the code into the process memory. Each process can only read that memory.
@@ -79,8 +79,8 @@ In addition, processes can share a page with a child process using the `mmap` sy
 ### Dirty bit
 Todo
 
-### Execution bit.  
-The execution bit defines whether bytes in a page can be executes as CPU instructions. By disabling a page, it prevents code that is maliciously stored in the process memory (e.g. by stack overflow) from being easily executed. (further reading: http://en.wikipedia.org/wiki/NX_bit#Hardware_background)
+### Execution bit
+The execution bit defines whether bytes in a page can be executed as CPU instructions. By disabling a page, it prevents code that is maliciously stored in the process memory (e.g. by stack overflow) from being easily executed. (further reading: http://en.wikipedia.org/wiki/NX_bit#Hardware_background)
 ```
 
 
