@@ -82,3 +82,4 @@ int main() {
 }
 ```
 
+See [[Pipes, Part 2: Pipe programming secrets]]
