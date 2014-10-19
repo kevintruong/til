@@ -1,4 +1,3 @@
-
 We've already seen open and fopen (todo link here) so let's look at some more advanced concepts.
 
 #How do I tell how large a file is?
@@ -12,9 +11,10 @@ long pos = ftell(f);
 This tells us the current position in the file in bytes - i.e. the length of the file!
 
 `fseek` can also be used to set the absolute position.
+```C
 fseek(f,0,SEEK_SET); // Move to the start of the file 
 fseek(f,posn,SEEK_SET);  // Move to 'posn' in the file.
-
+```
 All future reads and writes in the parent or child processes will be honor this position.
 Note writing or reading from the file will change the current position.
 
