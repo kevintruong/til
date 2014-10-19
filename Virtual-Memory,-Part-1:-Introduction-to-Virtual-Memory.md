@@ -77,10 +77,10 @@ In addition, processes can share a page with a child process using the `mmap` sy
 ## What else is stored in the page table and why?
 
 ### Dirty bit
-Todo
+http://en.wikipedia.org/wiki/Page_table#Page_table_data
+> The dirty bit allows for a performance optimization. A page on disk that is paged in to physical memory, then read from, and subsequently paged out again does not need to be written back to disk, since the page hasn't changed. However, if the page was written to after it's paged in, its dirty bit will be set, indicating that the page must be written back to the backing store. This strategy requires that the backing store retain a copy of the page after it is paged in to memory. When a dirty bit is not used, the backing store need only be as large as the instantaneous total size of all paged-out pages at any moment. When a dirty bit is used, at all times some pages will exist in both physical memory and the backing store.
 
 ### Execution bit
 The execution bit defines whether bytes in a page can be executed as CPU instructions. By disabling a page, it prevents code that is maliciously stored in the process memory (e.g. by stack overflow) from being easily executed. (further reading: http://en.wikipedia.org/wiki/NX_bit#Hardware_background)
 ```
-
 
