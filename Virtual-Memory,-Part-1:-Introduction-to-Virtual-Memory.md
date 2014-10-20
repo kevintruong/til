@@ -24,7 +24,7 @@ Answer: 2^32 address / 2^12 = 2^20 pages.
 
 Remember that 2^10 is 1024, so 2^20 is a bit more than one million.
 
-For a 64 bit machine, 2^64 / 2^12 = 2^52, which is roughly 10^5 pages.
+For a 64 bit machine, 2^64 / 2^12 = 2^52, which is roughly 10^15 pages.
 ## What is frame?
 A frame (or sometimes called a 'page frame') is block of physical memory or RAM (=Random Access Memory)
 A frame is the same size of virtual page; so there will be the same number of them in the addressable space of the machine.
