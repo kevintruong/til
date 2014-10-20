@@ -18,6 +18,7 @@ void* dequeue() { /* Remove one item to the end of the queue.*/
   void* result = buffer[out];
   out ++;
   if(out == 16) out = 0;
+  return result;
 }
 ```
 
