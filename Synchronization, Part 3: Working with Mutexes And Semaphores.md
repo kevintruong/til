@@ -79,12 +79,11 @@ The implementation assumes a single stack.  A more general purpose version might
 
 ```C
 // Support for multiple stacks (each one has a mutex)
-struct stack {
+typedef struct stack {
   int count;
   pthread_mutex_t m; 
   double* values;
-};
-typedef struct stack stack_t;
+} stack_t;
 
 stack_t* stack_create(int capacity) {
   stack_t* result = malloc( sizeof(stack_t) );
