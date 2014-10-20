@@ -184,5 +184,5 @@ void* dequeue(){
 
 ## Food for thought
 * What would happen if  the order of  `pthread_mutex_unlock` and `sem_post` calls were swapped?
-* What would happen if the order of `sem_wait` and `pthread_mutex_lock` calls were swapper
+* What would happen if the order of `sem_wait` and `pthread_mutex_lock` calls were swapped?
 
