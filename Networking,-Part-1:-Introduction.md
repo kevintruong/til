@@ -37,7 +37,7 @@ A typical use case for UDP is when receiving up to date data is more important t
 ## What is TCP? When is it used?
 TCP is a connection-based protocol that is built on top of IPv4 and IPv6 (and therefore can be described as "TCP/IP" or "TCP over IP"). TCP creates a _pipe_ between two machines and abstracts away the low level packet-nature of the Internet: Thus, under most conditions, bytes sent from one machine will eventually arrive at the other end without duplication or data loss. 
 
-TCP will invisibly manage resending packets, ignoring duplicate packets, re-arranging out-of-order packets and changing the rate at which packets are sent.
+TCP will automatically manage resending packets, ignoring duplicate packets, re-arranging out-of-order packets and changing the rate at which packets are sent.
 
 Most services on the Internet today (e.g. a web service) use TCP because it hides the complexity of lower, packet-level nature of the Internet.
 
