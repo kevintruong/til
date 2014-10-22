@@ -89,6 +89,7 @@ or, if the result value needs to be used later...
 while(( -1 == (result=systemcall(...))) && (errno == EINTR) ) { /* repeat! */}
 ```
 
+On Linux,calling `read` and `write` to a local disk will normally not return with EINTR (instead the function is automatically restarted for you). However, calling `read` and `write` on a file descriptor that corresponds to a network stream _can_ return with EINTR.
 
 ## Which system calls may be interrupted and need to be wrapped?
 Use man the page! The man page includes a list of errors (i.e. errno values) that may be set by the system call. A rule of thumb is 'slow' (blocking) calls (e.g. writing to a socket) may be interrupted but fast non-blocking calls (e.g. pthread_mutex_lock) will not.
