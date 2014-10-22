@@ -82,8 +82,8 @@ while(( -1 == (result=systemcall(...))) && (errno == EINTR) ) { /* repeat! */}
 Use man the page! The man page includes a list of errors (i.e. errno values) that may be set by the system call. A rule of thumb is 'slow' (blocking) calls (e.g. writing to a socket) may be interrupted but fast non-blocking calls (e.g. pthread_mutex_lock) will not.
 
 From the linux signal 7 man page.
-```
-If a signal handler is invoked while a system call or library function call is blocked, then either:
+
+"If a signal handler is invoked while a system call or library function call is blocked, then either:
 * the call is automatically restarted after the signal handler returns; or
 * the call fails with the error EINTR.
 Which of these two behaviors occurs depends on the interface and whether or not the signal handler was established using the SA_RESTART flag (see sigaction(2)). The details vary across UNIX systems; below, the details for Linux.
@@ -91,6 +91,7 @@ Which of these two behaviors occurs depends on the interface and whether or not 
 If a blocked call to one of the following interfaces is interrupted by a signal handler, then the call will be automatically restarted after the signal handler returns if the SA_RESTART flag was used; otherwise the call will fail with the error EINTR:
 
 * read(2), readv(2), write(2), writev(2), and ioctl(2) calls on "slow" devices. A "slow" device is one where the I/O call may block for an indefinite time, for example, a terminal, pipe, or socket. (A disk is not a slow device according to this definition.) If an I/O call on a slow device has already transferred some data by the time it is interrupted by a signal handler, then the call will return a success status (normally, the number of bytes transferred).
-```
+"
+
 Note, it is easy to believe that setting 'SA_RESTART' flag is sufficient to make this whole problem dissappear. Unfortunately that's not true: there are still system calls that may return early and set `EINTR`
 
