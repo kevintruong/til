@@ -7,15 +7,15 @@ When a system call fails it will typically return -1 to indicate an error and se
 ## What about multiple threads?
 Each thread has it's own copy of `errno`. This is very useful; otherwise an error in one thread would interfere with the error status of another thread.
 
-## When is errno reset to zero?
+## When is `errno` reset to zero?
 It's not unless you specifically reset it to zero!  When system calls are successful they do _not_ reset the value of `errno`.
 
 This means you should only rely on the value of errno if you know a system call has failed (e.g. it returned -1).
 
-## What are the gotchas and best practices of using errno?
+## What are the gotchas and best practices of using `errno`?
 Be careful when complex error handling use of library calls or system calls that may change the value of `errno`. In practice it's safer to copy the value of errno into a int variable:
 ```C
-// Unsafe - the first fprintf may change the value of errno!!
+// Unsafe - the first fprintf may change the value of errno before we use it!
 if( -1 == sem_wait(&s)) {
    fprintf(stderr,"An error occurred!");
    fprintf(stderr,"The error value is %d\n",errno);
@@ -81,11 +81,14 @@ This interruption can be detected by checking the return value and if `errno` is
 ```C
 while(( -1 == systemcall(...)) && (errno == EINTR) ) { /* repeat! */}
 ```
+Be careful to write ==EINTR, not =EINTR ?
 
 or, if the result value needs to be used later...
+
 ```C
 while(( -1 == (result=systemcall(...))) && (errno == EINTR) ) { /* repeat! */}
 ```
+
 
 ## Which system calls may be interrupted and need to be wrapped?
 Use man the page! The man page includes a list of errors (i.e. errno values) that may be set by the system call. A rule of thumb is 'slow' (blocking) calls (e.g. writing to a socket) may be interrupted but fast non-blocking calls (e.g. pthread_mutex_lock) will not.
