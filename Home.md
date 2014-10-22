@@ -50,6 +50,10 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[Pipes, Part 2: Pipe programming secrets]]
 * [[Files, Part 1: Working with files]]
 
+## Week 9
+* [[ POSIX Error handling]]
+* [[ Networking, Part 1: Introduction]]
+
 ## Other content
 
 * [[C Programming, Part 4: Debugging]]
