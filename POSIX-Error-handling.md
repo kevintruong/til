@@ -33,22 +33,31 @@ In a similar vein, if your signal handler makes any system or library calls, the
 ```C
 void handler(int signal) {
    int errno_saved = errno;
-   // do stuff that might change errno
+
+   // make system calls that might change errno
 
    errno = errno_saved;
 }
 ```
+
 ## How can you print out the string message associated with a particular error number?
 
 Use `strerror` to get a short (English) description of the error value.
-
 ```C
 char* mesg = strerror(errno);
 fprintf(stderr, "An error occurred (errno=%d): %s",errno, mesg);
 ```
+## How are perror and strerror related?
+
+In previous pages we've used perror to print out the error to standard error. Using `strerror`, we can now write a simple implementation of `perror`:
+```C
+void perror(char* what) {
+   fprintf(stderr, "%s:%d\n", what, strerror( errno ) );
+}
+```
 
 ## What are the gotchas of using strerror?
-strerror is not threadsafe. In other words, two threads cannot call it at the same time!
+Unfortunately `strerror` is not threadsafe. In other words, two threads cannot call it at the same time!
 
 There are two workarounds: Firstly we can use a mutex lock to define a critical section and a local buffer. The same mutex should be used by all threads in all places that call `strerror`
 ```C
