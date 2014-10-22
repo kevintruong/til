@@ -1,3 +1,4 @@
+Caveat: It should be obvious that  page is *not* a complete description of IP, UDP or TCP! Instead it is a short introduction and is sufficient so that we can build upon these concepts in later lectures.
 
 ## What is "IP4" "IP6"?
 The following is the "30 second" introduction to internet protocol (IP) - which is the primary way to send packets ("datagrams") of information from one machine to another.
