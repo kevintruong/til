@@ -12,7 +12,7 @@ struct addrinfo {
     char            *ai_canonname;
     struct addrinfo *ai_next;
 };
-```C
+```
 
 It's very easy to use. For example, suppose you wanted to find out the IP address of a webserver at www.bbc.com
 
