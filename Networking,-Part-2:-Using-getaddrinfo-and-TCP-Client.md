@@ -1,3 +1,5 @@
+# Under construction!!
+
 ## How do I use getaddrinfo to convert the hostname into an IP address?
 
 The function getaddrinfo can convert a human readable domain name (e.g. `www.illinois.edu`) into an IPv4 and IPv6 address. In fact it will return a linked-list of addrinfo structs:
@@ -59,16 +61,41 @@ Finally the connect call attempts the connection to the remote machine. We pass 
 connect(sockfd, p->ai_addr, p->ai_addrlen)
 ```
 
-## How do I free the memory allocated for the linked-list of addrinfo structs
+## How do I free the memory allocated for the linked-list of addrinfo structs?
 
 As part of the clean up code call `freeaddrinfo` on the top-most `addrinfo` struct:
 ```C
 void freeaddrinfo(struct addrinfo *ai);
 ```
 
-## But I've seen code examples that use gethostbyname!?
+## If getaddrinfo fails can I use `strerror` to print out the error?
+No. Error handling with `getaddrinfo` is a little different:
+*  The return value _is_ the error code (i.e. don't use `errno`)
+* Use `gai_strerror` to get the equivalent short English error text:
 
-The old gethostbyname is the old way convert a host name into an IP address. The port address still needs to be manually set using htons function. It's much easier to write code to support IPv4 AND IPv6 using the newer getaddrinfo, which does all of the heavy lifting for you.
+```C
+int result = getaddrinfo(...);
+if(result) { 
+   char* mesg = gai_strerror(result); 
+   ...
+}
+```
+
+## Can I request only IPv4 or IPv6 connection? TCP only?
+Yes! Use the addrinfo structure that is passed into `getaddrinfo` to define the kind of connection you'd like.
+
+For example, to specify stream-based protocols over IPv6:
+```C
+struct addrinfo hints;
+memset(hints,0,sizeof(hints));
+
+hints.ai_family = AF_INET6; // Only want IPv6 (use AF_INET for IPv4)
+hints.ai_socktype = SOCK_STREAM; // Only want stream-based connection
+```
+
+## What about code examples that use gethostbyname!?
+
+The old gethostbyname is deprecated; it's the old way convert a host name into an IP address. The port address still needs to be manually set using htons function. It's much easier to write code to support IPv4 AND IPv6 using the newer `getaddrinfo`
 
 ## Is it that easy!?
 Yes and no. It's easy to create a simple TCP client - however network communications offers many different levels of abstraction and several attributes and options that can be set at each level of abstraction (for example we haven't talked about `setsockopt` which can manipulate options for the socket).
