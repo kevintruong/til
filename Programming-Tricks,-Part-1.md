@@ -1,20 +1,21 @@
 ## Use `cat` as your IDE
-Who needs an editor? IDE? We can just use `cat`
-You've seen `cat` being used to read the contents of files but it can also be used to simple echo back the output from standard-input stream
+Who needs an editor? IDE? We can just use `cat`!
+You've seen `cat` being used to read the contents of files but it can also be used to read the  standard-input and send it back to standard output.
 ```
 >cat
 HELLO
 HELLO
 ```
+To finish reading from the input stream close the input stream by pressing `CTRL`-D
 
-Let's use cat to send standard input to a file. We will use '>' to redirect output to a file:
+Let's use `cat` to send standard input to a file. We will use '>' to redirect its output to a file:
 ```
 >cat > myprog.c
 #include <stdio.h>
 int main() {printf("Hi!");return 0;}
 ```
 (Be careful! Deletes and undos are not allowed...)
-To tell the cat process the file has finished we need to close the input stream by pressing `CTRL`-D
+Press `CTRL`-D when finished.
 
 ## Edit your code with perl regular expressions (aka remember pie)
 A useful trick if you have several files to change is to use regular expressions.
