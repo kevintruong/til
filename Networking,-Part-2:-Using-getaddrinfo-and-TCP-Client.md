@@ -16,7 +16,7 @@ struct addrinfo {
 };
 ```
 
-It's very easy to use. For example, suppose you wanted to find out the IP address of a webserver at www.bbc.com
+It's very easy to use. For example, suppose you wanted to find out the numeric IPv4 address of a webserver at www.bbc.com. We do this in two stages. First use getaddrinfo to build a linked-list of possible connections. Secondly use `getnameinfo` to convert the binary address into a readable form.
 
 ```C
 #include <stdio.h>
@@ -24,28 +24,43 @@ It's very easy to use. For example, suppose you wanted to find out the IP addres
 #include <sys/socket.h>
 #include <netdb.h>
 
-struct addrinfo hints, *infoptr;
-
-// Unlike heap & stack variables global variables are automatically zeroed
-// So no need to use memset here
+struct addrinfo hints, *infoptr; // So no need to use memset global variables
 
 int main() {
+  hints.ai_family = AF_INET; // AF_INET means IPv4 only addresses
+
   int result = getaddrinfo("www.bbc.com", NULL, &hints, &infoptr)
   if (result) {
     fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(result));
     exit(1);
   }
+
   struct addrinfo *p;
+  char host[256],service[256];
+
   for(p = infoptr; p != NULL; p = p->ai_next) {
-      printf("socktype:%d protocol:%d\n",p->ai_socktype,p->ai_protocol);
+
+    getnameinfo(p->ai_addr,p->ai_addrlen, host, sizeof(host), service,sizeof(service),NI_NUMERICHOST );
+    puts(host);
   }
-  freeaddrinfo(infoptr);
   return 0;
 }
 ```
+Typical output:
+```
+212.58.244.70
+212.58.244.71
+```
+
+## How is www.cs.illinois.edu converted into an IP address?
+
+Magic! No seriously, a system called "DNS" (Domain Name Service) is used. If a machine does not hold the answer locally then it sends a UDP packet to a local DNS server. This server in turn may query other upstream DNS servers. 
+## Is DNS secure?
+
+DNS by itself is fast but not secure. DNS requests are not encrypted and susceptible to 'man-in-the-middle' attacks. For example, a coffee shop internet connection could easily subvert your DNS requests and send back different IP addresses for a particular domain
 
 ## How do I connect to a TCP server (e.g. web server?)
-
+TODO
 There are three basic system calls you need to connect to a remote machine:
 ```
 getaddrinfo -- Determine the remote addresses of a remote host
