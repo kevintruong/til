@@ -53,7 +53,7 @@ Rather than requiring a book this semester, we will build our own set of resourc
 ## Week 9
 * [[ POSIX Error handling]]
 * [[ Networking, Part 1: Introduction]]
-
+* [[ Programming Tricks, Part 1 ]]
 ## Other content
 
 * [[C Programming, Part 4: Debugging]]
