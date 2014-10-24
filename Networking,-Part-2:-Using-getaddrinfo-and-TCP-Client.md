@@ -35,6 +35,7 @@ int main() {
   }
   return 0;
 }
+```
 
 ## How do I connect to a TCP server (e.g. web server?)
 
