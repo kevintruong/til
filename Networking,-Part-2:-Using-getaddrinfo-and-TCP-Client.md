@@ -1,4 +1,4 @@
-## How do I use getaddrinfo to lookup the address of a particular machine?
+## How do I use getaddrinfo to convert the hostname into an IP address?
 
 The function getaddrinfo can convert a human readable domain name (e.g. `www.illinois.edu`) into an IPv4 and IPv6 address. In fact it will return a linked-list of addrinfo structs:
 ```C
@@ -22,6 +22,7 @@ It's very easy to use. For example, suppose you wanted to find out the IP addres
 #include <netdb.h>
 
 struct addrinfo hints, *infoptr;
+// Unlike heap & staack variables global variables are automatically zeroed
 
 int main() {
   int result = getaddrinfo("www.bbc.com", NULL, &hints, &infoptr)
@@ -33,6 +34,7 @@ int main() {
   for(p = infoptr; p != NULL; p = p->ai_next) {
       printf("socktype:%d protocol:%d\n",p->ai_socktype,p->ai_protocol);
   }
+  freeaddrinfo(infoptr);
   return 0;
 }
 ```
@@ -41,15 +43,16 @@ int main() {
 
 There are three basic system calls you need to connect to a remote machine:
 ```C
-socket
 getaddrinfo
+socket
 connect
 ```
+The `getaddrinfo` call if successful, creates a linked-list of `addrinfo` structs and sets the given pointer to point to the first one.
+
+
 The socket call creates an outgoing socket and returns a descriptor (sometimes called a 'file descriptor') that can be used with `read` and `write` etc.In this sense it is the network analog of `open` that opens a file stream - except that we haven't connected the socket to anything yet!
 
-The `getaddrinfo` call if successful creates at least one `addrinfo` struct and sets the given pointer to point to the result. Note the result is actually a linked-list of addrinfo structs!
-
-
+Finally the connect call attempts the connection to the remote machine.
 
 ## How do I free the memory allocated for the linked-list of addrinfo structs
 
