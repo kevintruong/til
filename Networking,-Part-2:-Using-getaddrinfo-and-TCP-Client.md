@@ -19,12 +19,15 @@ struct addrinfo {
 It's very easy to use. For example, suppose you wanted to find out the IP address of a webserver at www.bbc.com
 
 ```C
+#include <stdio.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
 
 struct addrinfo hints, *infoptr;
-// Unlike heap & staack variables global variables are automatically zeroed
+
+// Unlike heap & stack variables global variables are automatically zeroed
+// So no need to use memset here
 
 int main() {
   int result = getaddrinfo("www.bbc.com", NULL, &hints, &infoptr)
@@ -44,10 +47,10 @@ int main() {
 ## How do I connect to a TCP server (e.g. web server?)
 
 There are three basic system calls you need to connect to a remote machine:
-```C
-getaddrinfo
-socket
-connect
+```
+getaddrinfo -- Determine the remote addresses of a remote host
+socket  -- Create a socket
+connect  -- Connect to the remote host using the socket and address information
 ```
 The `getaddrinfo` call if successful, creates a linked-list of `addrinfo` structs and sets the given pointer to point to the first one.
 
