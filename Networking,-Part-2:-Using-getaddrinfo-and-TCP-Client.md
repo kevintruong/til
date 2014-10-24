@@ -52,7 +52,12 @@ The `getaddrinfo` call if successful, creates a linked-list of `addrinfo` struct
 
 The socket call creates an outgoing socket and returns a descriptor (sometimes called a 'file descriptor') that can be used with `read` and `write` etc.In this sense it is the network analog of `open` that opens a file stream - except that we haven't connected the socket to anything yet!
 
-Finally the connect call attempts the connection to the remote machine.
+Finally the connect call attempts the connection to the remote machine. We pass the original socket descriptor and also the socket address information which is stored inside the addrinfo structure. There are different kinds of socket address structures (e.g. IPv4 vs IPv6) which can require more memory. So in addition to passing the pointer, the size of the structure is also passed:
+
+```C
+// Pull out the socket address info from the addrinfo struct:
+connect(sockfd, p->ai_addr, p->ai_addrlen)
+```
 
 ## How do I free the memory allocated for the linked-list of addrinfo structs
 
