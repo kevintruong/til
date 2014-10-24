@@ -53,13 +53,17 @@ The `getaddrinfo` call if successful creates at least one `addrinfo` struct and 
 
 ## How do I free the memory allocated for the linked-list of addrinfo structs
 
-Call `freeaddrinfo` on the top-most `addrinfo` struct.
+As part of the clean up code call `freeaddrinfo` on the top-most `addrinfo` struct:
+```C
 void freeaddrinfo(struct addrinfo *ai);
+```
 
 ## But I've seen code examples that use gethostbyname!?
 
 The old gethostbyname is the old way convert a host name into an IP address. The port address still needs to be manually set using htons function. It's much easier to write code to support IPv4 AND IPv6 using the newer getaddrinfo, which does all of the heavy lifting for you.
 
-More information
-http://www.beej.us/guide/bgnet/output/html/multipage/getaddrinfoman.html
+## Is it that easy!?
+Yes and no. It's easy to create a simple TCP client - however network communications offers many different levels of abstraction and several attributes and options that can be set at each level of abstraction (for example we haven't talked about `setsockopt` which can manipulate options for the socket).
+For more information see
+[[http://www.beej.us/guide/bgnet/output/html/multipage/getaddrinfoman.html]]
 
