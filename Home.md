@@ -55,6 +55,7 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[ Networking, Part 1: Introduction]]
 * [[ Networking, Part 2: Using getaddrinfo and TCP Client ]]
 * [[ Programming Tricks, Part 1 ]]
+
 ## Other content
 
 * [[C Programming, Part 4: Debugging]]
