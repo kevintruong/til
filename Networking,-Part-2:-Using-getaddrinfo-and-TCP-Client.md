@@ -31,7 +31,7 @@ int main() {
   }
   struct addrinfo *p;
   for(p = infoptr; p != NULL; p = p->ai_next) {
-     puts(p->ai_canonname);
+      printf("socktype:%d protocol:%d\n",p->ai_socktype,p->ai_protocol);
   }
   return 0;
 }
