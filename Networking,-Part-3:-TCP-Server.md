@@ -1,4 +1,13 @@
-## What is `ntohs` and when is it used?
+## What is `htons` and when is it used?
+
+Integers can be represented in least significant byte first or most-significant byte first. Either approach is reasonable as long as the machine itself is internally consistent. For network communications we need to standardize on agreed format.
+
+htons(xyz) returns the 16 bit unsigned integer 'short' value xyz in network byte order.
+htonl(xyz) returns the 32 bit unsigned integer 'long' value xyz in network byte order.
+
+These functions are read as 'network to host'; the inverse functions (ntohs, ntohl) convert network ordered byte values to host-ordeded ordering. So does host mean little-endian or big-endian? The answer is - it depends! It depends on the actual architecture of the host running the code. If the architecture happens to be the same as network ordering then the result of these functions is just the argument. For x86 machines, the host and network ordering is different.
+
+Summary: Anytime you read or write the low level C network structures (e.g. port and address information), remember to use the above functions to ensure correct conversion to/from a machine format.
 
 ## What are the 'big 4' network calls used to create a server?
 
@@ -36,6 +45,23 @@ Not specifying SOCK_STREAM requirement for getaddrinfo
 Not being able to re-use an existing port
 Not initializing the unused struct entries.
 
-Note, ports are per machine- not per process or per user. In other words,  you cannot use port 1234 while another user is using that port.
+Note, ports are per machine- not per process or per user. In other words,  you cannot use port 1234 while another process is using that port. Worse, ports are by default 'tied up' after a process has finished.
+
 
 ## Server code example
+{
+    struct sockaddr_in * result_addr = (struct sockaddr_in*) result->ai_addr;
+    printf("Listening on file descriptor %d, port %d\n", sock_fd, ntohs(result_addr->sin_port));
+
+    printf("Waiting for connection...\n");
+    int client_fd = accept(sock_fd, NULL, NULL);
+    printf("Connection made: client_fd=%d\n", client_fd);
+
+    char buffer[1000];
+    int len = read(client_fd, buffer, 999);
+    buffer[len] = '\0';
+
+    printf("Read %d chars\n", len);
+    printf("===\n");
+    printf("%s\n", buffer);
+}
