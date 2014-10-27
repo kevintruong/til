@@ -1,4 +1,4 @@
-## Complete TCP Client Example
+## Complete Simple TCP Client Example
 
 ```C
 #include <stdio.h>
@@ -16,8 +16,8 @@ int main(int argc, char** argv)
 
 	struct addrinfo hints, *result;
 	memset(&hints, 0, sizeof(struct addrinfo));
-	hints.ai_family = AF_INET;
-	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_family = AF_INET; /* IPv4 only */
+	hints.ai_socktype = SOCK_STREAM; /* TCP */
 
 	s = getaddrinfo("www.illinois.edu", "80", &hints, &result);
 	if (s != 0) {
