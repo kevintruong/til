@@ -49,7 +49,7 @@ Note, ports are per machine- not per process or per user. In other words,  you c
 
 
 ## Server code example
-A complete simple server example is shown below.
+A working simple server example is shown below. Note this example is incomplete - for example it does not close either socket descriptor, or free up memory created by `getaddrinfo`
 ```C
 
 #include <string.h>
@@ -109,3 +109,16 @@ int main(int argc, char** argv)
 }
 ```
 
+## Why can't my server re-use the port?
+
+By default a port is not immediately released when the socket is closed instead the port enters a "TIMED-WAIT" state. This can lead to significant confusion during development because the timeout can make valid networking code appear to fail.
+
+ To be able to immediately re-use a port, specify `SO_REUSEPORT` before binding to the port.
+```C
+int optval = 1;
+setsockopt(sfd, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof(optval));
+
+bind(....
+```
+
+A long stackoverflow discussion of `SO_REUSEPORT` is [[ here|http://stackoverflow.com/questions/14388706/socket-options-so-reuseaddr-and-so-reuseport-how-do-they-differ-do-they-mean-t ]].
