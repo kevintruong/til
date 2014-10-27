@@ -56,18 +56,13 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[ Networking, Part 2: Using getaddrinfo and TCP Client ]]
 * [[ Programming Tricks, Part 1 ]]
 
+## Week 10
+* [[ Networking, Part 3: TCP Server ]]
+
+
 ## Other content
 
 * [[C Programming, Part 4: Debugging]]
 * [[#Example Markdown]]
-
-
-
-
-
-
-
-
-
 
 
