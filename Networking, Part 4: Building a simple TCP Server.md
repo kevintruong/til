@@ -121,4 +121,4 @@ setsockopt(sfd, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof(optval));
 bind(....
 ```
 
-A long stackoverflow discussion of `SO_REUSEPORT` is [[ here|http://stackoverflow.com/questions/14388706/socket-options-so-reuseaddr-and-so-reuseport-how-do-they-differ-do-they-mean-t ]].
+An extended stackoverflow introductory discussion of `SO_REUSEPORT` is [[ here|http://stackoverflow.com/questions/14388706/socket-options-so-reuseaddr-and-so-reuseport-how-do-they-differ-do-they-mean-t ]].
