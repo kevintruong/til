@@ -11,12 +11,15 @@ Conceptually the source and destination addresses can be split into two: a netwo
 
 A newer packet protocol "IPv6" solves many of the limitations of IPv4 (e.g. makes routing tables simpler and 128 bit addresses) however less than 5% of web traffic is IPv6 based.
 
-A machine can have a IPv6 address and a IPv4 address.
+A machine can have an IPv6 address and an IPv4 address.
 
-## There's no place like 127.0.0.1!
+## "There's no place like 127.0.0.1"!
 A special IPv4 address is `127.0.0.1` also known as localhost. Packets sent to 127.0.0.1 will never leave the machine; the address is specified to be the same machine.
 
 Notice that the 32 bits address is split into 4 octets i.e. each number in the dot notation can be 0-255 inclusive. However IPv4 addresses can also be written as an integer.
+
+## ... and ... "There's no place like 0:0:0:0:0:0:0:1?"
+The 128bit localhost address in IPv6 is `0:0:0:0:0:0:0:1` which can be written in its shortened form, `::1`
 
 ## What is a port?
 To send a datagram (packet) to a host on the Internet using IPv4 (or IPv6) you need to specify the host address and a port. The port is an unsigned 16 bit number (i.e. the maximum port number is 65535).
