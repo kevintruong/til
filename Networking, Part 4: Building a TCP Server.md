@@ -2,12 +2,12 @@
 
 Integers can be represented in least significant byte first or most-significant byte first. Either approach is reasonable as long as the machine itself is internally consistent. For network communications we need to standardize on agreed format.
 
-htons(xyz) returns the 16 bit unsigned integer 'short' value xyz in network byte order.
-htonl(xyz) returns the 32 bit unsigned integer 'long' value xyz in network byte order.
+`htons(xyz)` returns the 16 bit unsigned integer 'short' value xyz in network byte order.
+`htonl(xyz)` returns the 32 bit unsigned integer 'long' value xyz in network byte order.
 
-These functions are read as 'network to host'; the inverse functions (ntohs, ntohl) convert network ordered byte values to host-ordeded ordering. So does host mean little-endian or big-endian? The answer is - it depends! It depends on the actual architecture of the host running the code. If the architecture happens to be the same as network ordering then the result of these functions is just the argument. For x86 machines, the host and network ordering is different.
+These functions are read as 'network to host'; the inverse functions (ntohs, ntohl) convert network ordered byte values to host-ordeded ordering. So does host mean little-endian or big-endian? The answer is - it depends! It depends on the actual architecture of the host running the code. If the architecture happens to be the same as network ordering then the result of these functions is just the argument. For x86 machines, the host and network ordering _is_ different.
 
-Summary: Anytime you read or write the low level C network structures (e.g. port and address information), remember to use the above functions to ensure correct conversion to/from a machine format.
+Summary: Anytime you read or write the low level C network structures (e.g. port and address information), remember to use the above functions to ensure correct conversion to/from a machine format. Otherwise the displayed or specified value may be incorrect.
 
 ## What are the 'big 4' network calls used to create a server?
 
@@ -15,7 +15,7 @@ The four system calls required to create a TCP server are: `socket`, `bind` `lis
 
 The port information (used by bind) can be set manually (many older IPv4-only C code examples do this), or be created using `getaddrinfo`
 
-We also see examplesof setsockopt later too.
+We also see examples of setsockopt later too.
 
 ## What is the purpose of calling `socket`?
 
