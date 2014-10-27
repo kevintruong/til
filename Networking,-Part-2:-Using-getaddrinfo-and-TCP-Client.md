@@ -1,8 +1,6 @@
-# Under construction!!
+## How do I use `getaddrinfo` to convert the hostname into an IP address?
 
-## How do I use getaddrinfo to convert the hostname into an IP address?
-
-The function getaddrinfo can convert a human readable domain name (e.g. `www.illinois.edu`) into an IPv4 and IPv6 address. In fact it will return a linked-list of addrinfo structs:
+The function `getaddrinfo` can convert a human readable domain name (e.g. `www.illinois.edu`) into an IPv4 and IPv6 address. In fact it will return a linked-list of addrinfo structs:
 ```C
 struct addrinfo {
     int              ai_flags;
@@ -111,9 +109,9 @@ hints.ai_family = AF_INET6; // Only want IPv6 (use AF_INET for IPv4)
 hints.ai_socktype = SOCK_STREAM; // Only want stream-based connection
 ```
 
-## What about code examples that use gethostbyname!?
+## What about code examples that use `gethostbyname`?
 
-The old gethostbyname is deprecated; it's the old way convert a host name into an IP address. The port address still needs to be manually set using htons function. It's much easier to write code to support IPv4 AND IPv6 using the newer `getaddrinfo`
+The old function `gethostbyname` is deprecated; it's the old way convert a host name into an IP address. The port address still needs to be manually set using htons function. It's much easier to write code to support IPv4 AND IPv6 using the newer `getaddrinfo`
 
 ## Is it that easy!?
 Yes and no. It's easy to create a simple TCP client - however network communications offers many different levels of abstraction and several attributes and options that can be set at each level of abstraction (for example we haven't talked about `setsockopt` which can manipulate options for the socket).
