@@ -7,7 +7,7 @@ Integers can be represented in least significant byte first or most-significant 
 
 These functions are read as 'network to host'; the inverse functions (ntohs, ntohl) convert network ordered byte values to host-ordeded ordering. So does host mean little-endian or big-endian? The answer is - it depends! It depends on the actual architecture of the host running the code. If the architecture happens to be the same as network ordering then the result of these functions is just the argument. For x86 machines, the host and network ordering _is_ different.
 
-Summary: Anytime you read or write the low level C network structures (e.g. port and address information), remember to use the above functions to ensure correct conversion to/from a machine format. Otherwise the displayed or specified value may be incorrect.
+Summary: Whenever you read or write the low level C network structures (e.g. port and address information), remember to use the above functions to ensure correct conversion to/from a machine format. Otherwise the displayed or specified value may be incorrect.
 
 ## What are the 'big 4' network calls used to create a server?
 
@@ -49,19 +49,63 @@ Note, ports are per machine- not per process or per user. In other words,  you c
 
 
 ## Server code example
+A complete server example is shown below.
+```C
 {
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+
+int main(int argc, char** argv)
+{
+	int s;
+	int sock_fd = socket(AF_INET, SOCK_STREAM, 0);
+
+	struct addrinfo hints, *result;
+	memset(&hints, 0, sizeof(struct addrinfo));
+	hints.ai_family = AF_INET;
+	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_flags = AI_PASSIVE;
+
+	s = getaddrinfo("127.0.0.1", "1235", &hints, &result);
+	if (s != 0) {
+	        fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(s));
+        	exit(1);
+	}
+
+	if ( bind(sock_fd, result->ai_addr, result->ai_addrlen) != 0 )
+	{
+		perror("bind()");
+		exit(1);
+	}
+
+	if ( listen(sock_fd, 10) != 0 )
+	{
+		perror("listen()");
+		exit(1);
+	}
+	
     struct sockaddr_in * result_addr = (struct sockaddr_in*) result->ai_addr;
     printf("Listening on file descriptor %d, port %d\n", sock_fd, ntohs(result_addr->sin_port));
+        //inet_ntoa(result_addr->sin_addr),
 
-    printf("Waiting for connection...\n");
-    int client_fd = accept(sock_fd, NULL, NULL);
-    printf("Connection made: client_fd=%d\n", client_fd);
+	printf("Waiting for connection...\n");
+	int client_fd = accept(sock_fd, NULL, NULL);
+	printf("Connection made: client_fd=%d\n", client_fd);
 
-    char buffer[1000];
-    int len = read(client_fd, buffer, 999);
-    buffer[len] = '\0';
+	char buffer[1000];
+	int len = read(client_fd, buffer, 999);
+	buffer[len] = '\0';
 
-    printf("Read %d chars\n", len);
-    printf("===\n");
-    printf("%s\n", buffer);
+	printf("Read %d chars\n", len);
+	printf("===\n");
+	printf("%s\n", buffer);
+
+    return 0;
+}
 }
