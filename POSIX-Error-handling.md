@@ -52,7 +52,7 @@ fprintf(stderr, "An error occurred (errno=%d): %s",errno, mesg);
 In previous pages we've used perror to print out the error to standard error. Using `strerror`, we can now write a simple implementation of `perror`:
 ```C
 void perror(char* what) {
-   fprintf(stderr, "%s:%d\n", what, strerror( errno ) );
+   fprintf(stderr, "%s: %s\n", what, strerror( errno ) );
 }
 ```
 
