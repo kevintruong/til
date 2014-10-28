@@ -42,7 +42,7 @@ void handler(int signal) {
 
 ## How can you print out the string message associated with a particular error number?
 
-Use `strerror` to get a short (English) description of the error value.
+Use `strerror` to get a short (English) description of the error value (make sure to #include <string.h>)
 ```C
 char* mesg = strerror(errno);
 fprintf(stderr, "An error occurred (errno=%d): %s",errno, mesg);
