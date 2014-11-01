@@ -60,7 +60,7 @@ Rather than requiring a book this semester, we will build our own set of resourc
 ## Week 10
 * [[ Networking, Part 4: Building a simple TCP Server ]]
 * [[ Networking, Part 5: Reusing ports ]]
-
+* [[ Scheduling, Part 1: Scheduling Processes ]]
 ## Other content
 
 * [[C Programming, Part 4: Debugging]]
