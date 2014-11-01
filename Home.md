@@ -56,9 +56,10 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[ Networking, Part 2: Using getaddrinfo ]]
 * [[ Networking, Part 3: Building a simple TCP Client ]]
 * [[ Programming Tricks, Part 1 ]]
+
 ## Week 10
 * [[ Networking, Part 4: Building a simple TCP Server ]]
-
+* [[ Networking, Part 5: Reusing ports ]]
 
 ## Other content
 
