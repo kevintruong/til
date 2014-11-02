@@ -42,7 +42,7 @@ Check the return value of `fork()`. Return value -1= failed; 0= in child process
 
 The child process get find its parent - the original process that was duplicated -  by calling getppid() - so does not need any additional return information from `fork()`. The parent process however can only find out the id of the new child process from the return value of `fork`:
 ```C
-pid id = fork();
+pid_t id = fork();
 if( id == -1) exit(1); // fork failed 
 if( id > 0 )
 { 
