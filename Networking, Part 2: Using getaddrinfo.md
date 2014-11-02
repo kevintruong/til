@@ -18,6 +18,7 @@ It's very easy to use. For example, suppose you wanted to find out the numeric I
 
 ```C
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
