@@ -63,7 +63,7 @@ There are two workarounds: Firstly we can use a mutex lock to define a critical 
 ```C
 pthread_mutex_lock(&m);
 char* result = strerror(errno);
-char* message = malloc(strlen(mesg+1));
+char* message = malloc(strlen(mesg)+1);
 strcpy(message, result);
 pthread_mutex_unlock(&m);
 fprintf(stderr, "An error occurred (errno=%d): %s",errno, message);
