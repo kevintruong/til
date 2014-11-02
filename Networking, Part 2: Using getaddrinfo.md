@@ -27,7 +27,7 @@ struct addrinfo hints, *infoptr; // So no need to use memset global variables
 int main() {
   hints.ai_family = AF_INET; // AF_INET means IPv4 only addresses
 
-  int result = getaddrinfo("www.bbc.com", NULL, &hints, &infoptr)
+  int result = getaddrinfo("www.bbc.com", NULL, &hints, &infoptr);
   if (result) {
     fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(result));
     exit(1);
