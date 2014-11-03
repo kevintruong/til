@@ -67,6 +67,6 @@ A partial fix is to wrap every argument with `()` and also the whole expression 
 ```C
 #define min(a,b) (  (a) < (b) ?(a):(b) )
 ```
-However this is still _not_ a function! For example can you see why `min(i++,10)` might implement i once or twice!?
+However this is still _not_ a function! For example can you see why `min(i++,10)` might increment i once or twice!?
 
 
