@@ -42,6 +42,8 @@ int main() {
     getnameinfo(p->ai_addr,p->ai_addrlen, host, sizeof(host), service,sizeof(service),NI_NUMERICHOST );
     puts(host);
   }
+
+  freeaddrinfo(infoptr);
   return 0;
 }
 ```
