@@ -5,7 +5,7 @@ Integers can be represented in least significant byte first or most-significant 
 `htons(xyz)` returns the 16 bit unsigned integer 'short' value xyz in network byte order.
 `htonl(xyz)` returns the 32 bit unsigned integer 'long' value xyz in network byte order.
 
-These functions are read as 'network to host'; the inverse functions (ntohs, ntohl) convert network ordered byte values to host-ordered ordering. So, is host-ordering  little-endian or big-endian? The answer is - it depends on your machine! It depends on the actual architecture of the host running the code. If the architecture happens to be the same as network ordering then the result of these functions is just the argument. For x86 machines, the host and network ordering _is_ different.
+These functions are read as 'host to network'; the inverse functions (ntohs, ntohl) convert network ordered byte values to host-ordered ordering. So, is host-ordering  little-endian or big-endian? The answer is - it depends on your machine! It depends on the actual architecture of the host running the code. If the architecture happens to be the same as network ordering then the result of these functions is just the argument. For x86 machines, the host and network ordering _is_ different.
 
 Summary: Whenever you read or write the low level C network structures (e.g. port and address information), remember to use the above functions to ensure correct conversion to/from a machine format. Otherwise the displayed or specified value may be incorrect.
 
