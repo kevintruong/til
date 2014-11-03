@@ -39,11 +39,11 @@ Note the `accept` call returns a new file descriptor. This file descriptor is sp
 
 ## What are the gotchas of creating a TCP-server?
 
-Using the socket descriptor of the passive server socket (described above)
-Not specifying SOCK_STREAM requirement for getaddrinfo
-Not being able to re-use an existing port.
-Not initializing the unused struct entries
-The `bind` call will fail if the port is currently in use
++ Using the socket descriptor of the passive server socket (described above)
++ Not specifying SOCK_STREAM requirement for getaddrinfo
++ Not being able to re-use an existing port.
++ Not initializing the unused struct entries
++ The `bind` call will fail if the port is currently in use
 
 Note, ports are per machine- not per process or per user. In other words,  you cannot use port 1234 while another process is using that port. Worse, ports are by default 'tied up' after a process has finished.
 
