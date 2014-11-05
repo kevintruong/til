@@ -17,6 +17,9 @@ int main() {
     if(p>0) {
         /* I have a child therefore I am the parent*/
         write(fd[1],"Hi Child!",9);
+
+        /*don't forget your child*/
+        wait(NULL);
     }else {
         char buf;
         int bytesread;
