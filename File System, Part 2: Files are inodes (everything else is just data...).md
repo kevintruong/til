@@ -146,7 +146,7 @@ clean_up_r1:
 ```
 Whether this is a good thing or not has led to long rigorous debates that have generally helped system programmers stay warm during the cold winter months. Are there alternatives? Yes! For example using conditional logic, breaking out of do-while loops and writing secondary functions that perform the innermost work. However all choices are problematic and cumbersome as we re-attempting to shoe-horn in exception handling in a language that has no inbuilt support for it.
 
-## What are the gotcha's of using readdir? For example to recursively searching directories?
+## What are the gotcha's of using readdir? For example to recursively search directories?
 There are two main gotchas and one consideration:
 The `readdir` function returns "." (current directory) and ".." (parent directory). If you are looking for sub-directories, you need to explicitly exclude these directories.
 
