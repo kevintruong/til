@@ -160,7 +160,7 @@ See the man page of readdir for more details.
 ## How I do determine if a directory entry is a directory?
 Ans: Use `S_ISDIR` to check the mode bits stored in the stat structure
 
-To check if a file is regular file use S_ISREG (not S_ISFILE)
+And to check if a file is regular file use `S_ISREG`,
 
 ```C
    struct stat s;
