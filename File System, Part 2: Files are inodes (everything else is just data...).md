@@ -4,6 +4,7 @@ It is common to think of the file name as the 'actual' file. It's not! Instead c
 
 ## So... How do we implement a directory?
 A directory is just a mapping of names to inode numbers.
+POISX provides a small set of functions to read the filename and inode number for each entry (see below)
 
 ## How can I find the inode number of a file?
 From a shell, use `ls` with the `-i` option
@@ -97,7 +98,7 @@ int main(int argc, char**argv) {
     struct dirent* dp;
     DIR* dirp = opendir(argv[1]);
     while ((dp = readdir(dirp)) != NULL) {
-        puts(dp->d_name);
+        printf("%s %d\n", dp-> d_name, dp-> d_ino );
     }
 
     closedir(dirp);
