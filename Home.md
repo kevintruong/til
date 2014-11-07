@@ -64,6 +64,7 @@ Rather than requiring a book this semester, we will build our own set of resourc
 
 ## Week 11
 * [[ File System, Part 1: Introduction ]]
+* [[ File System, Part 1: Files are inodes (everything else is just data...) ]]
 
 ## Other content
 
