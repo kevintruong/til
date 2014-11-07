@@ -21,6 +21,7 @@ Example: a/b/../c/./
 - Step 3: cd .. (in a, because .. represents 'parent folder')
 - Step 4: cd c (in a/c)
 - Step 5: cd . (in a/c, because . represents 'current folder')
+
 Thus, this path can be simplified to a/c
 
 ## Why make disk blocks the same size as memory pages?
