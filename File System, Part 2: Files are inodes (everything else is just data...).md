@@ -155,4 +155,20 @@ For many applications it's reasonable to check the current directory first befor
 
 One final note of caution: `readdir` is not thread-safe! For multi-threaded searches use `readdir_r` which requires the caller to pass in the address of an existing dirent struct.
 
-See the man page for more details.
+See the man page of readdir for more details.
+
+## How I do determine if a directory entry is a directory?
+Ans: Use `S_ISDIR` to check the mode bits stored in the stat structure
+
+To check if a file is regular file use S_ISREG (not S_ISFILE)
+
+```C
+   struct stat s;
+   if( 0 == stat(name, &s) ) {
+      printf("%s ", name);
+      if( S_ISDIR( s.st_mode ) ) puts("is a directory");
+      if( S_ISREG( s.st_mode ) ) puts("is a regular file");
+   } else {
+      perror("stat failed - are you sure I can read this file's meta data?");
+   }
+```
