@@ -10,7 +10,7 @@
 ## What are absolute and relative paths?
 Absolute paths are paths that start from the 'root node' of your directory tree. Relative paths are paths that start from your current position in the tree.
 
-## What is an example of a relative path? What about an absolute path?
+## What are some examples of relative and absolute paths?
 If you start in your home directory ("~" for short), then "Desktop/cs241" would be a relative path. Its absolute path counterpart might be something like "/Users/[yourname]/Desktop/cs241".
 
 ## How do I simplify a/b/../c/./
