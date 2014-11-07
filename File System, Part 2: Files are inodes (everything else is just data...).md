@@ -2,11 +2,8 @@ Big idea: Forget names of files: The 'inode' is the file.
 
 It is common to think of the file name as the 'actual' file. It's not! Instead consider the inode as the file. The inode holds the meta-information (last accessed, ownership, size) and points to the disk blocks used to hold the file contents.
 
-So... How do we implement a directory?
+## So... How do we implement a directory?
 A directory is just a mapping of names to inode numbers.
-
-
-
 
 ## How can I find the inode number of a file?
 From a shell, use `ls` with the `-i` option
@@ -148,9 +145,12 @@ clean_up_r1:
 }
 Whether this is a good thing or not has led to long rigorous debates that have generally helped system programmers stay warm during the long Winter months. Are there alternatives? Yes! For example using conditional logic, breaking out of do-while loops and writing secondary functions that perform the innermost work. However all choices are problematic and cumbersome as we re-attempting to shoe-horn in exception handling in a language that has no inbuilt support for it.
 
-## What are the gotcha's of recursively searching directories?
+## What are the gotcha's of using readdir to recursively searching directories?
 There are two gotchas:
 The `readdir` function returns "." (current directory) and ".." (parent directory). If you are looking for sub-directories, you need to explicitly exclude these directories.
 
-Secondly, 
-WORK IN PROGRESS
+For many applications it's reasonable to check the current directory first before recursively searching sub-directories. This can be achieved by storing the results in a linked list, or resetting the directory struct to restart from the beginning.
+
+One final note of caution: `readdir` is not thread-safe! For multi-threaded searches use `readdir_r` which requires the caller to pass in the address of an existing dirent struct.
+
+See the man page for more details.
