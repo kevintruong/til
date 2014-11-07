@@ -62,6 +62,9 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[ Networking, Part 5: Reusing ports ]]
 * [[ Scheduling, Part 1: Scheduling Processes ]]
 
+## Week 11
+* [[ File System, Part 1: Introduction ]]
+
 ## Other content
 
 * [[C Programming, Part 4: Debugging]]
