@@ -66,6 +66,7 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[ File System, Part 1: Introduction ]]
 * [[ File System, Part 2: Files are inodes (everything else is just data...) ]]
 * [[ File System, Part 3: Permissions ]]
+
 ## Other content
 
 * [[C Programming, Part 4: Debugging]]
