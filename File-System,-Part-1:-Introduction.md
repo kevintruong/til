@@ -1,9 +1,7 @@
 
+# This page is under construction!
+
 ## Design a file system! What are your design goals?
-
-
-
-
 
 
 ## What is  `"."` 	`".."` `"..."` ?
