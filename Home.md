@@ -67,6 +67,9 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[ File System, Part 2: Files are inodes (everything else is just data...) ]]
 * [[ File System, Part 3: Permissions ]]
 
+## Week 12
+* [[ File System, Part 4: Working with directories ]]
+
 ## Other content
 
 * [[C Programming, Part 4: Debugging]]
