@@ -82,8 +82,8 @@ When a directory's sticky bit is set only the file's owner, the directory's owne
 A common use of the sticky bit is for the shared and writable `/tmp` directory.
 
 
-## Why do shell and script programs start with `#!/usr/bin/env python` ?
-For portability.
+## Why do shell and script programs start with `\#!/usr/bin/env python` ?
+Ans: For portability!
 While it is possible to write the fully qualified path to a python or perl interpreter, this approach is not portable because you may have installed python in a different directory than I.
 ```
 #!/usr/bin/python
