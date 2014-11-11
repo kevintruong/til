@@ -84,12 +84,12 @@ A common use of the sticky bit is for the shared and writable `/tmp` directory.
 
 ## Why do shell and script programs start with `#!/usr/bin/env python` ?
 For portability.
-While it is possible to write the fully qualified path to a python or perl interpretter, this approach is not portable because you may have installed python in a different directory than I.
-`
+While it is possible to write the fully qualified path to a python or perl interpreter, this approach is not portable because you may have installed python in a different directory than I.
+```
 #!/usr/bin/python
-`
+```
 To overcome this use the `env` utility is used to find and execute the program on the user's path.
-The env utility itself has historically been stored in /usr/bin - so it must be specified with an absolute path.
+The env utility itself has historically been stored in `/usr/bin` - so it must be specified with an absolute path.
 
 
 ## How do I make 'hidden' files i.e. not listed by "ls"? How do I list them?
