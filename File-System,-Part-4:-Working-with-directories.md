@@ -142,12 +142,11 @@ Suppose you created your own directory in /tmp and then set the permissions so t
 mkdir /tmp/mystuff
 chmod 700 /tmp/mystuff
 ```
-There is a window of opportunity between when the directory is created and when it's permissions are changed.
-If between these two lines, another user replaced `mystuff` with a hardlink to an existing file or directory owned by the second user, then they would be able to read and control the contents of the `mystuff` directory. Oh no - our secrets are no longer secret!
+There is a window of opportunity between when the directory is created and when it's permissions are changed. This leads to several vulnerabilities that are based on a race condition (where an attacker modifies the directory in some way before the privileges are removed). Some examples include:
 
-However in this specific example the `/tmp` directory has the sticky bit set, so other users may not delete the `mystuff` directory, so the simple attack described above is impossible.
+Another user replaces `mystuff` with a hardlink to an existing file or directory owned by the second user, then they would be able to read and control the contents of the `mystuff` directory. Oh no - our secrets are no longer secret!
 
-A better version is to atomically create the directory with the correct permissions from its inception - 
+However in this specific example the `/tmp` directory has the sticky bit set, so other users may not delete the `mystuff` directory, and the simple attack scenario described above is impossible. This does not mean that creating the directory and then later making the directory private is secure! A better version is to atomically create the directory with the correct permissions from its inception - 
 ```
 mkdir -m 700 /tmp/mystuff
 ```
@@ -159,7 +158,22 @@ mkdir -p d1/d2/d3
 Will automatically create d1 and d2 if they don't exist.
 
 ## My default umask 022; what does this mean?
-Todo
 
+The umask *subtracts* (reduces) permission bits from 777 and is used when new files and new directories are created by open,mkdir etc. Thus `022` (octal) means that group and other privileges will not include the writable bit . Each process (including the shell) has a current umask value. When forking, the child inherits the parent's umask value.
 
+For example, by setting the umask to 077 in the shell, ensures that future file and directory creation will only be accessible to the current user,
+```
+umask 077
+mkdir secretdir
+```
+
+As a code example, suppose a new file is created with `open()` and mode bits `666` (write and read bits for user,group and other):
+```C
+open("myfile", O_CREAT ,  S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH)
+```
+If umask is octal 022, then the permissions of the created file will be 0666 & ~022
+ie.
+```C
+           S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
+```
 
