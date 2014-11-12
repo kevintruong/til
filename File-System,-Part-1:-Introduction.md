@@ -26,15 +26,21 @@ Thus, this path can be simplified to a/c
 
 ## Why make disk blocks the same size as memory pages?
 
-
 ## What information do we want to store for each file?
 
 ## What are the traditional permissions: user – group – other permissions for a file?
 
 ## What are the the 3 permission bits for a regular file for each role?
+* Read (most significant bit)  
+* Write (2nd bit)  
+* Execute (least significant bit)
 
 ## What do "644" "755" mean?
+These are examples of permissions in octal format (base 8). Each octal digit corresponds to a different role (user, group, world).
 
+We can read permissions in octal format as follows:  
+* 644 - R/W user permissions, R group permissions, R world permissions  
+* 755 - R/W/X user permissions, R/X group permissions, R/X world permissions
 
 
 ## What is an inode? Which of the above items is stored in the inode?
