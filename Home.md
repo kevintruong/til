@@ -71,8 +71,8 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[ File System, Part 4: Working with directories ]]
 * [[ File System, Part 5: Virtual file systems ]]
 * [[ File System, Part 6: Reliable (Fault tolerant) Filesystems ]]
-
-
+* [[ File System, Part 6: Reliable (Fault tolerant) Filesystems ]]
+* [[ File-System,-Part-6:-Reliable-(Fault-tolerant)--Filesystems ]]
 ## Other content
 
 * [[C Programming, Part 4: Debugging]]
