@@ -98,3 +98,29 @@ cat /proc/meminfo | grep Swap
 
 cd /proc/self
 echo $$; cd /proc/12345; cat maps
+
+## How do I mount a disk image?
+Suppose you had download a bootable linux disk image...
+```
+wget http://cosmos.cites.illinois.edu/pub/archlinux/iso/2014.11.01/archlinux-2014.11.01-dual.iso
+```
+Before putting the filesystem on a CD, we can mount the file as a filesystem and explore its contents. Note, mount requires root access, so let's run it using sudo
+```
+mkdir arch
+mount -o loop archlinux-2014.11.01-dual.iso ./arch
+cd arch
+```
+Before the mount command, the arch directory is new and obviously empty. After mounting, the contents of `arch/` will be drawn from the files and directories stored in the filesystem stored inside the `archlinux-2014.11.01-dual.iso` file.
+The `loop` option is required because we want to mount a regular file not a block device such as a physical disk. 
+
+The loop option wraps the original file as a block device - in this example we will find out below that the file system is provided under `/dev/loop0` : We can check the filesystem type and mount options by running the mount command without any parameters. We will pipe the output into `grep` so that we only see the relevant output line(s) that contain 'arch'
+```
+mount | grep arch
+/home/demo/archlinux-2014.11.01-dual.iso on /home/demo/arch type iso9660 (rw,loop=/dev/loop0)
+```
+The iso9660 filesystem is a read-only filesystem originally designed for optical storage media (i.e. CDRoms). Attempting to change the contents of the filesystem will fail
+```
+touch arch/nocando
+touch: cannot touch `/home/demo/arch/nocando': Read-only file system
+```
+
