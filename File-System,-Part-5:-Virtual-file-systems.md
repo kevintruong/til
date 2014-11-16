@@ -1,8 +1,8 @@
 ## How can I copy bytes from one file to another?
 Use  the versatile `dd` command. For example, the following command copies 1mb of data from the file `/dev/urandom` to the file `/dev/null`. The data is copied as 1024 blocks of blocksize 1024 bytes.
-
+`
 dd if=/dev/urandom of=/dev/null bs=1k count=1024
-
+`
 Both the input and output files in the example above are virtual - they don't exist on a disk. Instead they are part of the `dev` filesystem, which is virtual filesystem provided by the kernel.
 The virtual file `/dev/urandom` provides an infinite stream of random bytes, while the virtal file `/dev/null` ignores all bytes written to it. A common use of `/dev/null` is to discard the output of a command,
 ```
