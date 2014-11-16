@@ -25,6 +25,7 @@ Example: a/b/../c/./
 Thus, this path can be simplified to a/c
 
 ## Why make disk blocks the same size as memory pages?
+To support virtual memory, so we can page stuff in and out of memory.
 
 ## What information do we want to store for each file?
 * Filename
