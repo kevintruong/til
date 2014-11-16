@@ -84,7 +84,8 @@ _In a Unix-style file system, an index node, informally referred to as an inode,
 ## How does inode store the file contents?
 ![](http://upload.wikimedia.org/wikipedia/commons/a/a2/Ext2-inode.gif)  
 
-Image source: http://en.wikipedia.org/wiki/Ext2 
+Image source: http://en.wikipedia.org/wiki/Ext2  
+"All problems in computer science can be solved by another level of indirection" - David Wheeler
 ## How many pointers can you store in each indirection table? 
 As a worked example, suppose we divide the disk into 4KB blocks and we want to address upto 2^32 blocks.
 
