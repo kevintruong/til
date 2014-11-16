@@ -63,7 +63,12 @@ Use `ls -l`
 
 ## What is sudo?
 Use `sudo` to become the admin on the machine.
-Todo...
+e.g. Normally (unless explicitly specified in the '/etc/fstab' file, you need root access to mount a filesystem). `sudo` can be used to temporarily run a command as root (provided the user has sudo privileges)
+
+```
+sudo mount /dev/sda2 /stuff/mydisk
+sudo adduser fred
+```
 
 ## How do I change ownership of a file?
 Use `chown username filename`
@@ -73,17 +78,23 @@ Use `chown username filename`
 `chmod(const char *path, mode_t mode);`
 
 ## Why are some files 'setuid' what does this mean? ?
-set-user-ID-on-execution/set-group-ID-on-execution
+The set-user-ID-on-execution bit changes the user associated with the process when the file is run. This is typically used for commands that need to run as root but are executed by non-root users. An example of this is `sudo`
+
+The set-group-ID-on-execution changes the group under which the process is run.
 
 ## Why are they useful?
-The user can have root access for the duration of the program.
+The most common usecase is so that the user can have root(admin) access for the duration of the program.
 
 ## What permissions does sudo run as ?
 ```
 ls -l /usr/bin/sudo
 -r-s--x--x  1 root  wheel  327920 Oct 24 09:04 /usr/bin/sudo
 ```
+The 's' bit means execute and set-uid; the effective userid of the process will be different from the parent process. In this example it will be root
+
 ## What's the difference betweeen getuid() and geteuid()?
+* `getuid` returns the real user id (zero if logged in as root)
+* `geteuid` returns the effective userid (zero if acting as root, e.g. due to the setuid flag set on a program)
 
 ## How do I ensure only privileged users can run my code?
 * Check the effective permissions of the user by calling `geteuid()`. A return value of zero means the program is running effectively as root.
