@@ -82,5 +82,12 @@ _In a Unix-style file system, an index node, informally referred to as an inode,
  
 Image source: http://en.wikipedia.org/wiki/Ext2 
 ## How many pointers can you store in each indirection table? 
-e.g. With 32 bit addressing and each block is 4KB
-Assume 64 bit addressing. Each block is 4KB
+As a worked example, suppose we divide the disk into 4KB blocks and we want to address upto 2^32 blocks.
+
+The maximum disk size is 4KB *2^32 = 16TB  (remember 2^10 = 1024)
+
+A disk block can store 4KB / 4B (each pointer needs to be 32 bits) = 1024 pointers. Each pointer refers to a 4KB disk block - so you can refer upto 1024*4KB = 4MB of data
+
+For the same disk configuration, a double indirect block stores 1024 pointers to 1024 indirection tables. Thus a double-indirect block can refer upto 1024 * 4MB = 4GB of data.
+
+Similarly a triple indirect block can refer up to 4TB of data.
