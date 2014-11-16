@@ -27,6 +27,13 @@ Thus, this path can be simplified to a/c
 ## Why make disk blocks the same size as memory pages?
 
 ## What information do we want to store for each file?
+* Filename
+* File size
+* Time created, last modified, last accessed
+* Permissions
+* Filepath
+* Checksum
+* File data (inode)
 
 ## What are the traditional permissions: user – group – other permissions for a file?
 
