@@ -12,7 +12,7 @@ The design of a file system is difficult problem because there many high-level d
 * High performance (e.g. Caching in-memory)
 * Efficient use of storage De-duplication
 
-Not all filesystems natively support all of these goals. For example, many filesystems do not automatically compressed rarely-used files
+Not all filesystems natively support all of these goals. For example, many filesystems do not automatically compress rarely-used files
 
 ## What is  `"."` 	`".."` `"..."` ?
 "." represents the current directory
