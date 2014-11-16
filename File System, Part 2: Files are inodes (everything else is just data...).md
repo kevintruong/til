@@ -4,7 +4,7 @@ It is common to think of the file name as the 'actual' file. It's not! Instead c
 
 ## So... How do we implement a directory?
 A directory is just a mapping of names to inode numbers.
-POISX provides a small set of functions to read the filename and inode number for each entry (see below)
+POSIX provides a small set of functions to read the filename and inode number for each entry (see below)
 
 ## How can I find the inode number of a file?
 From a shell, use `ls` with the `-i` option
