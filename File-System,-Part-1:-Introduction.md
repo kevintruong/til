@@ -1,7 +1,18 @@
-# This page is under construction!
 
 ## Design a file system! What are your design goals?
+The design of a file system is difficult problem because there many high-level design goals that we'd like to satisfy. An incomplete list of ideal goals includes - 
 
+* Reliable and robust (even with hardware failures or incomplete writes dues to power loss)
+* Access (security) controls
+* Accounting and quotas
+* Indexing and search
+* Versioning and backup capabilities
+* Encryption
+* Automatic compression
+* High performance (e.g. Caching in-memory)
+* Efficient use of storage De-duplication
+
+Not all filesystems natively support all of these goals. For example, many filesystems do not automatically compressed rarely-used files
 
 ## What is  `"."` 	`".."` `"..."` ?
 "." represents the current directory
