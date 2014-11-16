@@ -63,8 +63,9 @@ We can read permissions in octal format as follows:
 
 
 ## What is an inode? Which of the above items is stored in the inode?
+From [Wikipedia](http://en.wikipedia.org/wiki/Inode):
 
-
+_In a Unix-style file system, an index node, informally referred to as an inode, is a data structure used to represent a filesystem object, which can be one of various things including a file or a directory. Each inode stores the attributes and disk block location(s) of the filesystem object's data. Filesystem object attributes may include manipulation metadata (e.g. change, access, modify time), as well as owner and permission data (e.g. group-id, user-id, permissions)._
 
 ## How does inode store the file contents?
  
