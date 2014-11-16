@@ -76,7 +76,9 @@ Use `chown username filename`
 
 ## Why are some files 'setuid' what does this mean? ?
 set-user-ID-on-execution/set-group-ID-on-execution
-Why are they useful?
+
+## Why are they useful?
+The user can have root access for the duration of the program.
 
 ## What permissions does sudo run as ?
 ```
