@@ -37,6 +37,17 @@ To support virtual memory, so we can page stuff in and out of memory.
 * File data (inode)
 
 ## What are the traditional permissions: user – group – other permissions for a file?
+Some common file permissions include:
+* 755: rwx r-x r-x
+
+user: rwx, group: r_x, others: r_x
+
+User can read, write and execute. Group and others can only read and execute.
+* 644: rw- r-- r--
+
+user: rw-, group: r--, others: r--
+
+User can read and write. Group and others can only read.
 
 ## What are the the 3 permission bits for a regular file for each role?
 * Read (most significant bit)  
