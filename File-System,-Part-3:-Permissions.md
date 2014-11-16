@@ -1,6 +1,4 @@
 
-# ! Under construction !
-
 ## Does a directory have an inode too?
 Yes! Though a better way to think about this, is that a directory (like a file) _is_ an inode (with some data - the directory name and inode contents). It just happens to be a special kind of inode.
 
@@ -88,4 +86,4 @@ ls -l /usr/bin/sudo
 ## What's the difference betweeen getuid() and geteuid()?
 
 ## How do I ensure only privileged users can run my code?
-Use geteuid() == 0
+* Check the effective permissions of the user by calling `geteuid()`. A return value of zero means the program is running effectively as root.
