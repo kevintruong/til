@@ -55,8 +55,13 @@ chmod 700 file3
 chmod ugo-w file4
 chmod o-rx file4
 ```
-The base-8 ('octal') digits describe the permissions for each role: The user who owns the file, the group and everyone else.
+The base-8 ('octal') digits describe the permissions for each role: The user who owns the file, the group and everyone else. The octal number is the sum of three values given to the three types of permission: read(4), write(2), execute(1)
 
+Example: chmod 755 myfile
+r + w + x = digit
+user has 4+2+1, full permission
+group has 4+0+1, read and execute permission
+all users have 4+0+1, read and execute permission
 
 ## How do I read the permission string from ls?
 Use `ls -l'. 
