@@ -59,7 +59,16 @@ The base-8 ('octal') digits describe the permissions for each role: The user who
 
 
 ## How do I read the permission string from ls?
-Use `ls -l`
+Use `ls -l'. 
+Note that the permissions will output in the format 'drwxrwxrwx'. The first character indicates the type of file type. 
+Possible values for the first character:
+* (-) regular file
+* (d) directory
+* (c) character device file\
+* (l) symbolic link
+* (p) pipe
+* (b) block device
+* (s) socket
 
 ## What is sudo?
 Use `sudo` to become the admin on the machine.
