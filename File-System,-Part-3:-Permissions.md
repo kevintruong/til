@@ -33,7 +33,7 @@ For simplicity the above examples made hard links inside the same directory howe
 
 ## What happens when I `rm` (remove) a file?
 When you remove a file (using `rm` or `unlink`) you are removing an inode reference from a directory.
-However the inode may still be referenced from other directories. To determine if the contents of the file is still required each inode keeps a reference count that is updated whenever a new link is created or destroyed.
+However the inode may still be referenced from other directories. In order to determine if the contents of the file are still required, each inode keeps a reference count that is updated whenever a new link is created or destroyed.
 
 ## Case study: Back up software that minimizes file duplication
 An example use of hard-links is to efficiently create multiple archives of a file system at different points in time. Once the archive area has a copy of a particular file, then future archives can re-use these archive files rather than creating a duplicate file. Apple's "Time Machine" software does this.
