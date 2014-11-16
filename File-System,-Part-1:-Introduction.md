@@ -16,7 +16,8 @@ Not all filesystems natively support all of these goals. For example, many files
 
 ## What is  `"."` 	`".."` `"..."` ?
 "." represents the current directory
-".." represents the previous directory
+".." represents the parent directory
+"..." is NOT a valid representation of any directory (this not the grandparent directory)
 
 ## What are absolute and relative paths?
 Absolute paths are paths that start from the 'root node' of your directory tree. Relative paths are paths that start from your current position in the tree.
