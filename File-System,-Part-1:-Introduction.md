@@ -92,7 +92,7 @@ As a worked example, suppose we divide the disk into 4KB blocks and we want to a
 
 The maximum disk size is 4KB *2^32 = 16TB  (remember 2^10 = 1024)
 
-A disk block can store 4KB / 4B (each pointer needs to be 32 bits) = 1024 pointers. Each pointer refers to a 4KB disk block - so you can refer upto 1024*4KB = 4MB of data
+A disk block can store 4KB / 4B (each pointer needs to be 32 bits) = 1024 pointers. Each pointer refers to a 4KB disk block - so you can refer up to 1024*4KB = 4MB of data
 
 For the same disk configuration, a double indirect block stores 1024 pointers to 1024 indirection tables. Thus a double-indirect block can refer up to 1024 * 4MB = 4GB of data.
 
