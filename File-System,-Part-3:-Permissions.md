@@ -106,7 +106,7 @@ ls -l /usr/bin/sudo
 ```
 The 's' bit means execute and set-uid; the effective userid of the process will be different from the parent process. In this example it will be root
 
-## What's the difference betweeen getuid() and geteuid()?
+## What's the difference between getuid() and geteuid()?
 * `getuid` returns the real user id (zero if logged in as root)
 * `geteuid` returns the effective userid (zero if acting as root, e.g. due to the setuid flag set on a program)
 
