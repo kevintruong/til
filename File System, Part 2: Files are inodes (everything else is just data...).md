@@ -110,6 +110,7 @@ For example, to see if a particular directory includes a file (or filename) 'nam
 
 ```C
 int exists(char* directory, char* name)  {
+    struct dirent* dp;
     DIR* dirp = opendir(directory);
     while ((dp = readdir(dirp)) != NULL) {
         puts(dp->d_name);
