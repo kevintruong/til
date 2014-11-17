@@ -30,7 +30,7 @@ int main(int argc, char**argv) { dirlist(argv[1]);return 0; }
 Did you find all 4 bugs?
 ```C
 // Check opendir result (perhaps user gave us a path that can not be opened as a directory
-if(!dirp) { perror("Could not open directory"); return }
+if(!dirp) { perror("Could not open directory"); return; }
 // +2 as we need space for the / and the terminating 0
 char newpath[strlen(path) + strlen(dp->d_name) + 2]; 
 // Correct parameter
