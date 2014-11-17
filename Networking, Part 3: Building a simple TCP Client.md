@@ -67,7 +67,7 @@ A web page (or other resources) are requested using the following request:
 GET / HTTP/1.0
 
 ```
-There are four parts (the method e.g. GET,POST,...); the resource (e.g. / /index.html /image.png); the proctocol "HTTP/1.0" and two new lines (/r/n/r/n)
+There are four parts (the method e.g. GET,POST,...); the resource (e.g. / /index.html /image.png); the proctocol "HTTP/1.0" and two new lines (\r\n\r\n)
 
 
 The server's first response line describes the HTTP version used and whether the request is successful using a 3 digit response code:
