@@ -27,7 +27,7 @@ void dirlist(char*path) {
 
 int main(int argc, char**argv) { dirlist(argv[1]);return 0; }
 ```
-Did you find all 4 bugs?
+Did you find all 5 bugs?
 ```C
 // Check opendir result (perhaps user gave us a path that can not be opened as a directory
 if(!dirp) { perror("Could not open directory"); return; }
@@ -36,7 +36,9 @@ char newpath[strlen(path) + strlen(dp->d_name) + 2];
 // Correct parameter
 sprintf(newpath,"%s/%s", path, dp->d_name); 
 // Perform stat test (and verify) before recursing
-if( 0==stat(newpath,&s) && S_ISDIR(s.st_mode)) dirlist(newpath)
+if( 0==stat(newpath,&s) && S_ISDIR(s.st_mode)) dirlist(new path)
+// Resource leak: the directory file handle is not closed after the while loop
+closedir(dirp);
 ```
 
 
@@ -218,4 +220,3 @@ An example use of touch is to force make to recompile a file that is unchanged a
 touch myprogram.c   # force my source file to be recompiled
 make
 ```
-
