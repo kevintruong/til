@@ -13,7 +13,7 @@ hints.ai_flags =  AI_PASSIVE;
 
 Next, use getaddrinfo to specify the port number (we don't need to specify a host as we are creating a server socket, not sending a packet to a remote host).
 ```C
-getaddrinfo( NULL "300", &hints, &res);
+getaddrinfo(NULL, "300", &hints, &res);
 
 sockfd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
 bind(sockfd, res->ai_addr, res->ai_addrlen);
