@@ -61,7 +61,7 @@ The contents of our binary file can be listed using hexdump
 ```
 The careful reader may notice that our integers were written in least-significant-byte format (because that is the endianess of the CPU) and that we allocated a file that is one byte too many!
 
-The `PROT_READ | PROT_WRITE` options specify the virtual memory protection. The option PROT_EXEC (not used here) can be set to allow CPU execution of instructions in memory (e.g. this would be useful if you mapped an executable or library).
+The `PROT_READ | PROT_WRITE` options specify the virtual memory protection. The option `PROT_EXEC` (not used here) can be set to allow CPU execution of instructions in memory (e.g. this would be useful if you mapped an executable or library).
 
 ## What are the advantages of memory mapping a file
 
