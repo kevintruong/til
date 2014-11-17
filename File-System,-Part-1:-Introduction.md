@@ -29,7 +29,8 @@ If you start in your home directory ("~" for short), then `Desktop/cs241` would 
 
 ## How do I simplify `a/b/../c/./`?
 Remember that `..` means 'parent folder' and that `.` means 'current folder'.
-Example: a/b/../c/./
+
+Example: `a/b/../c/./`
 - Step 1: `cd a` (in a)
 - Step 2: `cd b` (in a/b)
 - Step 3: `cd ..` (in a, because .. represents 'parent folder')
