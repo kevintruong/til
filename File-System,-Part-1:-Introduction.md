@@ -14,7 +14,7 @@ The design of a file system is difficult problem because there many high-level d
 
 Not all filesystems natively support all of these goals. For example, many filesystems do not automatically compress rarely-used files
 
-## What is  `"."` 	`".."` `"..."` ?
+## What is  `"."` `".."` `"..."` ?
 "." represents the current directory  
 
 ".." represents the parent directory  
@@ -23,6 +23,12 @@ Not all filesystems natively support all of these goals. For example, many files
 
 ## What are absolute and relative paths?
 Absolute paths are paths that start from the 'root node' of your directory tree. Relative paths are paths that start from your current position in the tree.
+
+Sample absolute path:
+`/users/mark/bobapples`
+
+Sample relative path:
+`./bobapples`
 
 ## What are some examples of relative and absolute paths?
 If you start in your home directory ("~" for short), then "Desktop/cs241" would be a relative path. Its absolute path counterpart might be something like "/Users/[yourname]/Desktop/cs241".
