@@ -14,7 +14,7 @@ The design of a file system is difficult problem because there many high-level d
 
 Not all filesystems natively support all of these goals. For example, many filesystems do not automatically compress rarely-used files
 
-## What are `.`, `..`, and `...` ?
+## What are `.`, `..`, and `...`?
 `.` represents the current directory  
 
 `..` represents the parent directory  
@@ -27,7 +27,7 @@ Absolute paths are paths that start from the 'root node' of your directory tree.
 ## What are some examples of relative and absolute paths?
 If you start in your home directory ("~" for short), then `Desktop/cs241` would be a relative path. Its absolute path counterpart might be something like `/Users/[yourname]/Desktop/cs241`.
 
-## How do I simplify `a/b/../c/./`
+## How do I simplify `a/b/../c/./`?
 Remember that `..` means 'parent folder' and that `.` means 'current folder'.
 Example: a/b/../c/./
 - Step 1: `cd a` (in a)
