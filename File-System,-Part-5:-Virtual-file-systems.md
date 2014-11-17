@@ -58,7 +58,7 @@ cd /proc/self
 echo $$; cd /proc/12345; cat maps
 
 ## How do I mount a disk image?
-Suppose you had download a bootable linux disk image...
+Suppose you had downloaded a bootable linux disk image...
 ```
 wget http://cosmos.cites.illinois.edu/pub/archlinux/iso/2014.11.01/archlinux-2014.11.01-dual.iso
 ```
