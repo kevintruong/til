@@ -98,7 +98,7 @@ int main(int argc, char**argv) {
     struct dirent* dp;
     DIR* dirp = opendir(argv[1]);
     while ((dp = readdir(dirp)) != NULL) {
-        printf("%s %d\n", dp-> d_name, dp-> d_ino );
+        printf("%s %lu\n", dp-> d_name, (unsigned long)dp-> d_ino );
     }
 
     closedir(dirp);
