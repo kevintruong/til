@@ -62,7 +62,7 @@ wget http://cosmos.cites.illinois.edu/pub/archlinux/iso/2014.11.01/archlinux-201
 Before putting the filesystem on a CD, we can mount the file as a filesystem and explore its contents. Note, mount requires root access, so let's run it using sudo
 ```
 mkdir arch
-mount -o loop archlinux-2014.11.01-dual.iso ./arch
+sudo mount -o loop archlinux-2014.11.01-dual.iso ./arch
 cd arch
 ```
 Before the mount command, the arch directory is new and obviously empty. After mounting, the contents of `arch/` will be drawn from the files and directories stored in the filesystem stored inside the `archlinux-2014.11.01-dual.iso` file.
