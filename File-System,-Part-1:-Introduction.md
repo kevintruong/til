@@ -52,14 +52,14 @@ To support virtual memory, so we can page stuff in and out of memory.
 
 ## What are the traditional permissions: user – group – other permissions for a file?
 Some common file permissions include:
-* 755: rwx r-x r-x
+* 755: `rwx r-x r-x`
 
-user: rwx, group: r_x, others: r_x
+user: `rwx`, group: `r-x`, others: `r-x`
 
 User can read, write and execute. Group and others can only read and execute.
-* 644: rw- r-- r--
+* 644: `rw- r-- r--`
 
-user: rw-, group: r--, others: r--
+user: `rw-`, group: `r--`, others: `r--`
 
 User can read and write. Group and others can only read.
 
@@ -74,7 +74,6 @@ These are examples of permissions in octal format (base 8). Each octal digit cor
 We can read permissions in octal format as follows:  
 * 644 - R/W user permissions, R group permissions, R world permissions  
 * 755 - R/W/X user permissions, R/X group permissions, R/X world permissions
-
 
 ## What is an inode? Which of the above items is stored in the inode?
 From [Wikipedia](http://en.wikipedia.org/wiki/Inode):
