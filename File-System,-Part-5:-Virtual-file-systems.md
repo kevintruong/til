@@ -43,7 +43,9 @@ cat /proc/sys/kernel/random/entropy_avail
 hexdump /dev/random
 hexdump /dev/urandom
 
-Differences between random and urandom?
+##Differences between random and urandom?  
+/dev/random is a file which contains pseudorandom number generator where the entropy is determined from environmental noise. Random is will block/wait until enough entropy is collected from the environment.  
+/dev/urandom is like random, but differs in the fact that it allows for repetition (lower entropy threshold), thus wont block.
 
 cat /proc/meminfo
 cat /proc/cpuinfo
