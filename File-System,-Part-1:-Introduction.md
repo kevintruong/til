@@ -27,16 +27,16 @@ Absolute paths are paths that start from the 'root node' of your directory tree.
 ## What are some examples of relative and absolute paths?
 If you start in your home directory ("~" for short), then `Desktop/cs241` would be a relative path. Its absolute path counterpart might be something like `/Users/[yourname]/Desktop/cs241`.
 
-## How do I simplify a/b/../c/./
-Remember that ".." means 'parent folder' and that "." means 'current folder'.
+## How do I simplify `a/b/../c/./`
+Remember that `..` means 'parent folder' and that `.` means 'current folder'.
 Example: a/b/../c/./
-- Step 1: cd a (in a)
-- Step 2: cd b (in a/b)
-- Step 3: cd .. (in a, because .. represents 'parent folder')
-- Step 4: cd c (in a/c)
-- Step 5: cd . (in a/c, because . represents 'current folder')
+- Step 1: `cd a` (in a)
+- Step 2: `cd b` (in a/b)
+- Step 3: `cd ..` (in a, because .. represents 'parent folder')
+- Step 4: `cd c` (in a/c)
+- Step 5: `cd .` (in a/c, because . represents 'current folder')
 
-Thus, this path can be simplified to a/c
+Thus, this path can be simplified to `a/c`
 
 ## Why make disk blocks the same size as memory pages?
 To support virtual memory, so we can page stuff in and out of memory.
