@@ -65,8 +65,8 @@ The `PROT_READ | PROT_WRITE` options specify the virtual memory protection. The 
 
 ## What are the advantages of memory mapping a file
 
-For many applications the main advantages are:
-Simplified coding - the file data is immediately available. No need to parse the incoming data and store it in new memory structures
+For many applications the main advantages are:  
+Simplified coding - the file data is immediately available. No need to parse the incoming data and store it in new memory structures.  
 Sharing of files - memory mapped files are particularly efficient when the same data is shared between multiple processes.
 
 Note for simple sequential processing memory mapped files are not necessarily faster than standard 'stream-based' approaches of `read` / fscanf etc. 
