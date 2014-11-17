@@ -86,6 +86,7 @@ From [Wikipedia](http://en.wikipedia.org/wiki/Inode):
 
 Image source: http://en.wikipedia.org/wiki/Ext2  
 > "All problems in computer science can be solved by another level of indirection" 
+
 - David Wheeler
 
 ## How many pointers can you store in each indirection table? 
