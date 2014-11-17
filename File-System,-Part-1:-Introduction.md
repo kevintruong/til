@@ -24,14 +24,8 @@ Not all filesystems natively support all of these goals. For example, many files
 ## What are absolute and relative paths?
 Absolute paths are paths that start from the 'root node' of your directory tree. Relative paths are paths that start from your current position in the tree.
 
-Sample absolute path (*nix):
-`/users/mark/bobapples`
-
-Sample relative path (*nix):
-`./bobapples`
-
 ## What are some examples of relative and absolute paths?
-If you start in your home directory ("~" for short), then "Desktop/cs241" would be a relative path. Its absolute path counterpart might be something like "/Users/[yourname]/Desktop/cs241".
+If you start in your home directory ("~" for short), then `Desktop/cs241` would be a relative path. Its absolute path counterpart might be something like `/Users/[yourname]/Desktop/cs241`.
 
 ## How do I simplify a/b/../c/./
 Remember that ".." means 'parent folder' and that "." means 'current folder'.
