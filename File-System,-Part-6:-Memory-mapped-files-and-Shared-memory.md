@@ -89,7 +89,7 @@ Easy -  Use `mmap` without a file - just specify the MAP_ANONYMOUS and MAP_SHARE
 int main() {
   
   int size = 100 * sizeof(int);  
-  void* addr = mmap (0, size, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANON, -1, 0);
+  void* addr = mmap (0, size, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
   printf("Mapped at %p\n", addr);
   
   int* shared = addr;
