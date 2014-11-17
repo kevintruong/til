@@ -29,8 +29,8 @@ perl -p -i -e 's/Hi/Bye/' *.c
 (Don't panic if you get it wrong, original files are still there; they just have the extension .bak)
 Obviously there's a lot more you can do with regular expressions than changing Hi to Bye.
 
-## Use your shell `!`
-To re-run the last command just type `!` and press `return`
+## Use your shell `!!`
+To re-run the last command just type `!!` and press `return`
 To re-run the last command that started with g type `!g`  and press `return`
 
 ## Use your shell `&&`
