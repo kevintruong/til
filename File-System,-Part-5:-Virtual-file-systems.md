@@ -1,5 +1,5 @@
 ## Virtual file systems
-POSIX systems, such as Linux and Mac OSX (which is based on BSD) include several virtual filesystems that are mounted (available) as part of the file-system. Files inside these virtual filesysems do not exist on the exist; they are generated dynamically by the kernel when a process requests a directory listing.
+POSIX systems, such as Linux and Mac OSX (which is based on BSD) include several virtual filesystems that are mounted (available) as part of the file-system. Files inside these virtual filesystems do not exist on the disk; they are generated dynamically by the kernel when a process requests a directory listing.
 Linux provides 3 main virtual filesystems
 ```
 /dev  - A list of physical and virtual devices (for example network card, cdrom, random number generator)
