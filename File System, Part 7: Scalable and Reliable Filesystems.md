@@ -14,7 +14,7 @@ For writing we have to choose a trade-off between performance and reliability: D
 
 Note this is a simplified description because solid state drives (SSDs) can be used as a secondary write-back cache.
 
-Both solid state disks (SSD) and spinning disks have imrpoved performance when reading or writing sequential data. Thus operating system can often use a read-ahead strategy to amortize the read-request costs (e.g. time cost for a spinning disk) and request several contiguous disk blocks per request. By issuing an I/O request for the next disk block before the user application requires the next disk block, the apparent disk I/O latency can be reduced.
+Both solid state disks (SSD) and spinning disks have improved performance when reading or writing sequential data. Thus operating system can often use a read-ahead strategy to amortize the read-request costs (e.g. time cost for a spinning disk) and request several contiguous disk blocks per request. By issuing an I/O request for the next disk block before the user application requires the next disk block, the apparent disk I/O latency can be reduced.
 
 ## My data is important! Can I force the disk writes to be saved to the physical media and wait for it to complete?
 
