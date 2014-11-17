@@ -15,19 +15,19 @@ The design of a file system is difficult problem because there many high-level d
 Not all filesystems natively support all of these goals. For example, many filesystems do not automatically compress rarely-used files
 
 ## What is  `"."` `".."` `"..."` ?
-"." represents the current directory  
+`"."` represents the current directory  
 
-".." represents the parent directory  
+`".."` represents the parent directory  
 
-"..." is NOT a valid representation of any directory (this not the grandparent directory)
+`"..."` is NOT a valid representation of any directory (this not the grandparent directory)
 
 ## What are absolute and relative paths?
 Absolute paths are paths that start from the 'root node' of your directory tree. Relative paths are paths that start from your current position in the tree.
 
-Sample absolute path:
+Sample absolute path (*nix):
 `/users/mark/bobapples`
 
-Sample relative path:
+Sample relative path (*nix):
 `./bobapples`
 
 ## What are some examples of relative and absolute paths?
