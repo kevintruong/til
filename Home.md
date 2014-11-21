@@ -74,6 +74,10 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[ File System, Part 7: Scalable and Reliable Filesystems ]]
 * [[ Networking, Part 7: Creating a UDP server ]]
 
+## Week 13
+* [[ Signals, Part 2: Pending Signals and Signal Masks ]]
+* [[ Signals, Part 3: Raising signals ]]
+* [[ Signals, Part 4: Sigaction ]]
 
 ## Other content
 
