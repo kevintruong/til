@@ -78,14 +78,12 @@ int main(int argc, char** argv)
             exit(1);
     }
 
-    if ( bind(sock_fd, result->ai_addr, result->ai_addrlen) != 0 )
-    {
+    if ( bind(sock_fd, result->ai_addr, result->ai_addrlen) != 0 ) {
         perror("bind()");
         exit(1);
     }
 
-    if ( listen(sock_fd, 10) != 0 )
-    {
+    if ( listen(sock_fd, 10) != 0 ) {
         perror("listen()");
         exit(1);
     }
