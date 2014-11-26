@@ -72,7 +72,7 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[ File System, Part 5: Virtual file systems ]]
 * [[ File System, Part 6: Memory mapped files and Shared memory ]]
 * [[ File System, Part 7: Scalable and Reliable Filesystems ]]
-* [[ Networking, Part 7: Creating a UDP server ]]
+* [[ Networking, Part 6: Creating a UDP server ]]
 
 ## Week 13
 * [[ Signals, Part 2: Pending Signals and Signal Masks ]]
