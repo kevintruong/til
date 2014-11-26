@@ -63,7 +63,7 @@ In the above scheme, determining the frame number requires two memory reads: The
 
 Do page tables make memory access slower? (And what's a TLB)
 
-Yes - Significantly ! (And thanks to clever hardware, usually no...)
+Yes - Significantly ! (But thanks to clever hardware, usually no...)
 Compared to reading or writing memory directly.
 For a single page table, our machine is now twice as slow! (Two memory accesses are required)
 For a two-level page table, memory access is now three times as slow. (Three memory accesses are required)
