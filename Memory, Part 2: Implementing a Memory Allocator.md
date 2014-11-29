@@ -30,7 +30,7 @@ realsize = (*p) & ~1;  // mask out the lowest bit
 ```
 
 ## Alignment and rounding up considerations
-Many architectures expect multi-byte primitives to be aligned to some multiple of 2^n. For example it's not common to require 4 byte types to aligned to 4 byte boundaries (and 8 byte types on 8 byte boundaries). If multi-byte primitives are not stored on a reasonable boundary (for example starting at an odd address) then the performance can be significantly impacted because it may require two memory read requests instead of one. On some architectures the penalty is even greater -  the program will crash with a bus error. (see [[http://en.wikipedia.org/wiki/Bus_error#Unaligned_access]] )
+Many architectures expect multi-byte primitives to be aligned to some multiple of 2^n. For example it's common to require 4 byte types to be aligned to 4 byte boundaries (and 8 byte types on 8 byte boundaries). If multi-byte primitives are not stored on a reasonable boundary (for example starting at an odd address) then the performance can be significantly impacted because it may require two memory read requests instead of one. On some architectures the penalty is even greater -  the program will crash with a bus error. (see [[http://en.wikipedia.org/wiki/Bus_error#Unaligned_access]] )
 
 As malloc does not know how the user will use the allocated memory (array of doubles? array of chars?), the pointer returned to the program needs to be aligned for the worst case, which is architecture dependent.
 
