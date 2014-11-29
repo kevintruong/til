@@ -32,7 +32,7 @@ int main() {
 }
 
 ```
-The parent sends the bytes `H,i,(space),C...!` into the byte (this may block if the pipe is full).
+The parent sends the bytes `H,i,(space),C...!` into the pipe (this may block if the pipe is full).
 The child starts reading the pipe one byte at a time. In the above case, the child process will read and print each character. However it never leaves the while loop! When there are no characters left to read it simply blocks and waits for more. The call `putchar` writes the characters out but we never flush the buffer.
 
 To see the message we could flush the buffer (e.g. fflush(stdout) or printf("\n"))
