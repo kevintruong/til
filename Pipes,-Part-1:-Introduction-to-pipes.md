@@ -65,7 +65,7 @@ int main() {
 }
 ```
 
-The problem with using a pipe in this fashion is that writing to a pipe can block i.e. the pipe can only has a limited buffering capacity. If the pipe is full the writing process will block! The maximum size of the buffer is system dependent; typical values from  4KB upto 128KB.
+The problem with using a pipe in this fashion is that writing to a pipe can block i.e. the pipe only has a limited buffering capacity. If the pipe is full the writing process will block! The maximum size of the buffer is system dependent; typical values from  4KB upto 128KB.
 
 ```C
 int main() {
