@@ -24,7 +24,7 @@ The 128bit localhost address in IPv6 is `0:0:0:0:0:0:0:1` which can be written i
 ## What is a port?
 To send a datagram (packet) to a host on the Internet using IPv4 (or IPv6) you need to specify the host address and a port. The port is an unsigned 16 bit number (i.e. the maximum port number is 65535).
 
-A process can listen for incoming packet on a particular port. However only processes with super-user (root) access can listen on ports < 1024. Any process can listen on ports 1024 or higher.
+A process can listen for incoming packets on a particular port. However only processes with super-user (root) access can listen on ports < 1024. Any process can listen on ports 1024 or higher.
 
 An often used port is port 80: Port 80 is used for unencrypted http requests (i.e. web pages).
 For example, if a web browser connects to http://www.bbc.com/, then it will be connecting to port 80.
