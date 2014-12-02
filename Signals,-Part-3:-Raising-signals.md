@@ -14,7 +14,7 @@ kill -SIGKILL 4409
 kill -9 4409
 ```
 
-`killall` is similar except that it matches by program name. The next two example, sends a SIGINT and then SIGKILL to terminate the processes that are running `myprogram`
+`killall` is similar except that it matches by program name. The next two example, sends a `SIGINT` and then `SIGKILL` to terminate the processes that are running `myprogram`
 ```
 # Send SIGINT (SIGINT can be ignored)
 killall -SIGINT myprogram
@@ -56,6 +56,6 @@ Install a signal handler to asynchronously handle signals use `sigaction` (or fo
 
 To synchronously catch a pending signal use `sigwait` (which blocks until a signal is delivered) or `signalfd` (which also blocks and provides a file descriptor that can be `read()` to retrieve pending signals).
 
-(sigwait example)
+(Todo sigwait example)
 
 
