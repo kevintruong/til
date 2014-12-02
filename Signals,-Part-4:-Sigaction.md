@@ -13,11 +13,12 @@ struct sigaction {
 }; 
 ```
 
+```C
 struct sigaction sa; 
 sa.sa_handler = handler;
 sigemptyset(&sa.sa_mask);   //Also  sigfillset
 sa.sa_flags = SA_RESTART; /* Restart functions if  interrupted by handler */     
 sigaction(SIGINT, &sa, NULL)
-
+```
 
 (Under construction)
