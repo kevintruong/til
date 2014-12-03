@@ -52,10 +52,9 @@ It will kill the entire process. Though individual threads can set a signal mask
 ## How do I catch (handle) a signal ?
 You can choose a handle pending signals asynchronously or synchronously.
 
-Install a signal handler to asynchronously handle signals use `sigaction` (or for simple examples, `signal` ).
+Install a signal handler to asynchronously handle signals use `sigaction` (or, for simple examples, `signal` ).
 
 To synchronously catch a pending signal use `sigwait` (which blocks until a signal is delivered) or `signalfd` (which also blocks and provides a file descriptor that can be `read()` to retrieve pending signals).
 
-(Todo sigwait example)
-
+See `Signals, Part 4` for an example of using `sigwait`
 
