@@ -2,7 +2,7 @@
 
 ## Please can you explain a simple model of how the file's content is stored in a simple i-node based filesystem?
 
-Sure! To answer this question we'll build a virtual disk and then write some C code to access its contents. Our filesystem will divide the bytes available into space for inodes and a much larger space for disk blocks. Each disk block will be 4096 bytes- 
+Sure!To answer this question we'll build a virtual disk and then write some C code to access its contents. Our filesystem will divide the bytes available into space for inodes and a much larger space for disk blocks. Each disk block will be 4096 bytes- 
 
 ```C
 // Disk size:
@@ -58,6 +58,10 @@ int lookup_physical_block_index(inode*inode, int block_count) {
 
 
 This simple representation is reasonable provided we can represent all possible files with just ten blocks i.e. upto 40KB. What about larger files? We need the inode struct to always be the same size so just increasing the existing direct block array to 20 would roughly double the size of our inodes. If most of our files require less than 10 blocks, then our inode storage is now wasteful. To solve this problem we will use a disk block to extend the array of pointers at our disposal. We will only need this for files > 40KB
+
+![inode disk blocks for data](http://uw714doc.sco.com/en/FS_admin/graphics/s5chain.gif)
+(source: http://uw714doc.sco.com/en/FS_admin/graphics/s5chain.gif)
+
 
 ```C
 struct inode {
