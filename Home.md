@@ -79,6 +79,10 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[ Signals, Part 3: Raising signals ]]
 * [[ Signals, Part 4: Sigaction ]]
 
+## Week 14
+* [[ File System, Part 8: Disk blocks example ]]
+
+
 ## Other content
 
 * [[C Programming, Part 4: Debugging]]
