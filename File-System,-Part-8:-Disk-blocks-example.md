@@ -64,7 +64,7 @@ char readbyte(inode*inode,long position) {
 ```
 
 For a typical filesystem our index values are 32 bits i.e. 4bytes. Thus in 4096 bytes we can store 4096 / 4 = 1024 entries
-This means our indirect block can refer to 1024 * 4KB = 4MB of data. With the first ten direct blocks we can there accommodate files upto 4136KB (4096+40). Entries which are correspond to files larger than the actual file size are considered to be invalid and never used.
+This means our indirect block can refer to 1024 * 4KB = 4MB of data. With the first ten direct blocks we can there accommodate files up to 4136KB (4096+40). Entries which correspond to files larger than the actual file size are considered to be invalid and never used.
 
 For files larger than ~4MB, we could use two indirect blocks. However there's a better alternative, that will allow us to efficiently scale up to huge files. We will include a double-indirect pointer and if that's not enough a triple indirect pointer.
 
