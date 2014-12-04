@@ -57,10 +57,7 @@ int lookup_physical_block_index(inode*inode, int block_count) {
 ```
 
 
-This simple representation is reasonable provided we can represent all possible files with just ten blocks i.e. upto 40KB. What about larger files? We need the inode struct to always be the same size so just increasing the existing direct block array to 20 would roughly double the size of our inodes. If most of our files require less than 10 blocks, then our inode storage is now wasteful. To solve this problem we will use a disk block to extend the array of pointers at our disposal. We will only need this for files > 40KB
-
-![inode disk blocks for data](http://uw714doc.sco.com/en/FS_admin/graphics/s5chain.gif)
-(source: http://uw714doc.sco.com/en/FS_admin/graphics/s5chain.gif)
+This simple representation is reasonable provided we can represent all possible files with just ten blocks i.e. upto 40KB. What about larger files? We need the inode struct to always be the same size so just increasing the existing direct block array to 20 would roughly double the size of our inodes. If most of our files require less than 10 blocks, then our inode storage is now wasteful. To solve this problem we will use a disk block calledn the *indirect block* to extend the array of pointers at our disposal. We will only need this for files > 40KB
 
 
 ```C
@@ -101,6 +98,10 @@ For a typical filesystem our index values are 32 bits i.e. 4bytes. Thus in 4096 
 This means our indirect block can refer to 1024 * 4KB = 4MB of data. With the first ten direct blocks we can therefore accommodate files up to 40KB + 1024 * 4KB= 4136KB . Some of the later table entries can be invalid for files that are smaller than this. 
 
 For even larger files we could use two indirect blocks. However there's a better alternative, that will allow us to efficiently scale up to huge files. We will include a double-indirect pointer and if that's not enough a triple indirect pointer. The double indirect pointer means we have a table of 1024 entries to disk blocks that are used as 1024 entries. This means we can refer to 1024*1024 disk blocks of data.
+
+![inode disk blocks for data](http://uw714doc.sco.com/en/FS_admin/graphics/s5chain.gif)
+
+(source: http://uw714doc.sco.com/en/FS_admin/graphics/s5chain.gif)
 
 ```C
 int lookup_physical_block_index(inode*inode, int block_count) {
