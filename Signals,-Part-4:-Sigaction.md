@@ -24,7 +24,7 @@ sigaction(SIGINT, &sa, NULL)
 ## Full example
 
 Based on `http://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_sigmask.html`
-```
+```C
 static sigset_t   signal_mask;  /* signals to block         */
 
 int main (int argc, char *argv[])
