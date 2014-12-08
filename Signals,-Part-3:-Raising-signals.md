@@ -22,7 +22,7 @@ killall -SIGINT myprogram
 # SIGKILL (-9) cannot be ignored! 
 killall -9 myprogram
 ```
-## How do I send a signal to a process from the running shell?
+## How do I send a signal to a process from the running C program?
 Use `raise` or `kill`
 ```C
 int raise(int sig); // Send a signal to myself!
