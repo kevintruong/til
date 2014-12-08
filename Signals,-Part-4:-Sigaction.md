@@ -20,13 +20,13 @@ struct sigaction {
 
 Suppose you installed a signal handler for the alarm signal,
 ```C
-signal(SIGALRM, myhander);
+signal(SIGALRM, myhandler);
 ```
 
 The equivalent `sigaction` code is:
 ```C
 struct sigaction sa; 
-sa.sa_handler = myhander;
+sa.sa_handler = myhandler;
 sigemptyset(&sa.sa_mask);
 sa.sa_flags = 0; 
 sigaction(SIGINT, &sa, NULL)
