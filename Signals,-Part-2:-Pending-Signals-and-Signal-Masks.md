@@ -25,9 +25,10 @@ Signals can be blocked (meaning they will stay in the pending state) by setting 
 
 ## What happens when creating a new thread?
 The new thread inherits a copy of the calling thread's mask
-
+```C
 pthread_sigmask(...) // set my mask to block delivery of some signals
 pthread_create( ... ) // new thread will start with a copy of the same mask
+```
 
 ## What happens when forking?
 
@@ -100,7 +101,7 @@ pthread_sigmask(SIG_BLOCK, &set, NULL);
 pthread_create(&thread_id, NULL, myfunc, funcparam);
 ```
 
-The sigmask (and ) include a 'how' parameter that defines how the signal set is to be used:
+Just as we saw with sigprocmask, pthread_sigmask includes a 'how' parameter that defines how the signal set is to be used:
 ```C
 pthread_sigmask(SIG_SETMASK, &set, NULL) - replace the thread's mask with given signal set
 pthread_sigmask(SIG_BLOCK, &set, NULL) - add the signal set to the thread's mask
