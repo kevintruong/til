@@ -1,6 +1,9 @@
+## Where is Part 1?
+There is no official "Part 1" page. However we introduced a simple signal() callback at the beginning of the course.
+
 ## How can I learn more about signals?
 
-The linux man pages discusses signal system calls in section 2. There is also a longer article in section 7:
+The linux man pages discusses signal system calls in section 2. There is also a longer article in section 7 (though not in OSX/BSD):
 ```
 man -s7 signal
 ```
@@ -31,11 +34,19 @@ pthread_create( ... ) // new thread will start with a copy of the same mask
 The child process inherits a copy of the parent's signal dispositions. In other words, if you have installed a SIGINT handler before forking, then the child process will also call the handler if a SIGINT is delivered to the child.
 
 Note pending signals for the child are _not_ inherited during forking.
+## What is signal disposition ?
+A processes signal disposition is a table of actions i.e. what will happen when a particular signal is delivered to a process. For example, the default disposition of SIG-INT is to terminate the process. The signal disposition is per process not per thread. The signal disposition can be changed by calling signal() (which is simple but not portable as there are subtle variations in its implementation on different POSIX architectures and also not recommended for multi-threaded programs) or `sigaction` (discussed later)
 
 ## What happens during exec ?
-pending signals; disposition ; Todo
+Remember that `exec` replaces the current image with a new program image. In addition the signal disposition is reset. Any pending signals are cleared.
 
-Under construction ...
+## What happens during fork ?
+The child process inherits a copy of the parent process's signal disposition and a copy of the parent's signal mask.
+
+For example if `SIGINT` is blocked in the parent it will be blocked in the child too.
+For example if the parent installed a handler (call-back function) for SIG-INT then the child will also perform the same behavior.
+
+Pending signals however are not inherited by the child.
 
 ## How do I block signals in a single-threaded program?
 Use `sigprocmask`! With sigblockmask you can set the new mask, add new signals to be blocked to the process mask, and unblock currently blocked signals. You can also determine the existing mask (and use it for later) by passing in a non-null value for oldset.
