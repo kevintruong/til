@@ -25,7 +25,7 @@ killall -9 myprogram
 ## How do I send a signal to a process from the running shell?
 Use `raise` or `kill`
 ```C
-int raise(int sig); // Send a signal myself!
+int raise(int sig); // Send a signal to myself!
 int kill(pid_t pid, int sig); // Send a signal to another process
 ```
 For non-root processes, signals can only be sent to processes of the same user i.e. you cant just SIGKILL my processes! See kill(2) i.e. man -s2 for more details.
