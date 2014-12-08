@@ -100,6 +100,13 @@ pthread_sigmask(SIG_BLOCK, &set, NULL);
 pthread_create(&thread_id, NULL, myfunc, funcparam);
 ```
 
+The sigmask (and ) include a 'how' parameter that defines how the signal set is to be used:
+```C
+pthread_sigmask(SIG_SETMASK, &set, NULL) - replace the thread's mask with given signal set
+pthread_sigmask(SIG_BLOCK, &set, NULL) - add the signal set to the thread's mask
+pthread_sigmask(SIG_UNBLOCK, &set, NULL) - remove the signal set from the thread's mask
+ 
+
 ## How are pending signals delivered in a multi-threaded program?
 A signal is delivered to any signal thread that is not blocking that signal.
 
