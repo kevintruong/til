@@ -180,9 +180,8 @@ Some additional comments:
 
 Both fragmentation and performance depend on the application allocation profile, which can be evaluated but not predicted and in practice, under-specific usage conditions, a special-purpose allocator can often out-perform a general purpose implementation.
 
-The allocator doesn't know the program's memory allocation requests in advance. Even if we did, this is the [[http://en.wikipedia.org/wiki/Knapsack_problem|Knapsack problem]] (wikipedia) which is known to be NP hard!
+The allocator doesn't know the program's memory allocation requests in advance. Even if we did, this is the [Knapsack problem](http://en.wikipedia.org/wiki/Knapsack_problem) which is known to be NP hard!
 
 
 ## How do you implement a memory allocator?
-Good question. We need a wiki page on that.
-[[Implementing a Memory Allocator]]
+Good question. [Implementing a memory allocator](https://github.com/angrave/SystemProgramming/wiki/Memory%2C-Part-2%3A-Implementing-a-Memory-Allocator)
