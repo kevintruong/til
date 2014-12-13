@@ -29,7 +29,7 @@ int main() {
 We're lazy! We don't want to declare the `printf` function. It's already done for us inside the file '`stdio.h`'. The #include includes the text of the file as part of our file to be compiled.
 
 ## How are C strings represented?
-As characters in memory.  The end of the string includes a NUL (0) byte. So "ABC" requires four(4) bytes. The only way to find out the length of a C string is to keep reading memory until you find the NUL byte. C characters are always exactly one byte each.
+As characters in memory.  The end of the string includes a NULL (0) byte. So "ABC" requires four(4) bytes. The only way to find out the length of a C string is to keep reading memory until you find the NUL byte. C characters are always exactly one byte each.
 
 When you write a string literal `"ABC"` in an expression the string literal evaluates to a char pointer (char *), which points to the first byte/char of the string.  This means `ptr` in the example below will hold the memory address of the first character in the string.
 ```C
