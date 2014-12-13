@@ -47,8 +47,8 @@ The  ifaddrs struct includes the family but does not include the sizeof the stru
 The complete code is shown below.
 ```C
     int required_family = AF_INET; // Change to AF_INET6 for IPv6
-    getifaddrs(&myaddrs)
     struct ifaddrs *myaddrs, *ifa;
+    getifaddrs(&myaddrs);
     char host[256],port[256];
     for (ifa = myaddrs; ifa != NULL; ifa = ifa->ifa_next) {
          int family = ifa->ifa_addr->sa_family;
