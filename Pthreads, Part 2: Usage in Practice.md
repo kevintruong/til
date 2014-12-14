@@ -169,7 +169,7 @@ Also, creating a thread is significantly faster than creating(forking) a process
 Yes! No- isolation! As threads live inside the same process, one thread has access to the same virtual memory as the other threads. A single thread can terminate the entire process (e.g. by trying to read address zero).
 
 ## Can you fork a process with multiple threads?
-Yes! However the child process only has a single thread (which is a clone of the thread that called `fork`
+Yes! However the child process only has a single thread (which is a clone of the thread that called `fork`. We can see this as a simple example, where the background threads never print out a second message in the child process.
 
 ```C
 #include <pthread.h>
@@ -181,7 +181,7 @@ static pid_t child = -2;
 void* sleepnprint(void *arg) {
   printf("%d:%s starting up...\n",getpid(), (char*)arg);
 
-  while(child == -2) {sleep(1);} 
+  while(child == -2) {sleep(1);} /* Later we will use condition variables */
 
   printf("%d:%s finishing...\n",getpid(), (char*)arg);
 
