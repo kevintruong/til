@@ -169,7 +169,52 @@ Also, creating a thread is significantly faster than creating(forking) a process
 Yes! No- isolation! As threads live inside the same process, one thread has access to the same virtual memory as the other threads. A single thread can terminate the entire process (e.g. by trying to read address zero).
 
 ## Can you fork a process with multiple threads?
-Yes! If you fork a process with 8 threads, you now have two processes each with their 8 threads.
+Yes! However the child process only has a single thread (which is a clone of the thread that called `fork`
+
+```C
+#include <pthread.h>
+#include <stdio.h>
+#include <unistd.h>
+
+static pid_t child = -2;
+
+void* sleepnprint(void *arg) {
+  printf("%d:%s starting up...\n",getpid(), (char*)arg);
+
+  while(child == -2) {sleep(1);} 
+
+  printf("%d:%s finishing...\n",getpid(), (char*)arg);
+
+  return NULL;  
+}
+int main() {
+  pthread_t tid1,tid2;
+  pthread_create(&tid1,NULL, sleepnprint, "New Thread One");
+  pthread_create(&tid2,NULL, sleepnprint, "New Thread Two");
+  
+  child = fork();
+  printf("%d:%s\n",getpid(), "fork()ing complete");
+  sleep(3);
+    
+  printf("%d:%s\n",getpid(), "Main thread finished");
+  
+  pthread_exit(NULL);
+  return 0; /* Never executes */
+}
+```
+
+```
+8970:New Thread One starting up...
+8970:fork()ing complete
+8973:fork()ing complete
+8970:New Thread Two starting up...
+8970:New Thread Two finishing...
+8970:New Thread One finishing...
+8970:Main thread finished
+8973:Main thread finished
+```
+
+In practice creating threads before forking can lead to unexpected errors because (as demonstrated above) the other threads are immediately terminated when forking. Another thread might have just lock a mutex (e.g. by calling malloc) and never unlock it again. Advanced users may find `pthread_atfork` useful however we suggest you usually try to avoid creating threads before forking unless you fully understand the limitations and difficulties of this approach.
 
 ## Are there other reasons where `fork` might be preferable to creating a thread.
 Creating separate processes is useful 
