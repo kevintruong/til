@@ -184,7 +184,7 @@ Use  the versatile `dd` command. For example, the following command copies 1mb o
 `
 dd if=/dev/urandom of=/dev/null bs=1k count=1024
 `
-Both the input and output files in the example above are virtual - they don't exist on a disk. This means the speed of the transfer is unaffected by hardware speed. Instead they are part of the `dev` filesystem, which is virtual filesystem provided by the kernel.
+Both the input and output files in the example above are virtual - they don't exist on a disk. This means the speed of the transfer is unaffected by hardware power. Instead they are part of the `dev` filesystem, which is virtual filesystem provided by the kernel.
 The virtual file `/dev/urandom` provides an infinite stream of random bytes, while the virtal file `/dev/null` ignores all bytes written to it. A common use of `/dev/null` is to discard the output of a command,
 ```
 myverboseexecutable > /dev/null
