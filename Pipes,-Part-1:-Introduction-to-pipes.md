@@ -38,7 +38,7 @@ if(child ==0) {
 }
 ```
 ## Can I use pipes inside a single process?
-Short answer: Yes, but I'm not sure why you want to!
+Short answer: Yes, but I'm not sure why you would want to LOL!
 
 Here's an example program that sends a message to itself:
 ```C
