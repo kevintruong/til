@@ -187,7 +187,7 @@ char* f4() {
 Explanation :The array is static meaning it exists for the lifetime of the process (static variables are not on the heap or the stack).
 
 ## How do you look up information C library calls and system calls?
-Use the man pages. Note the man pages are organized into sections. Section 2 = System calls. System 3 = C libraries.
+Use the man pages. Note the man pages are organized into sections. Section 2 = System calls. Section 3 = C libraries.
 Web: Google "man7 open"
 shell: man -S2 open  or man -S3 printf
 
