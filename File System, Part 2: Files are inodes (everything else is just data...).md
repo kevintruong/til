@@ -120,6 +120,7 @@ int exists(char* directory, char* name)  {
     }
     closedir(dirp);
     return 0; /* Not Found */
+}
 ```
 
 The above code has a subtle bug: It leaks resources! If a matching filename is found then 'closedir' is never called as part of the early return. Any file descriptors opened, and any memory allocated, by opendir are never released. This means eventually the process will run out of resources and an `open` or `opendir` call will fail.
