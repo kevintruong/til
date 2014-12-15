@@ -13,7 +13,7 @@ printf("Debug: The string and int are stored at: %p and %p\n", name, &score );
 By default, for performance, `printf` does not actually write anything out (by calling write) until its buffer is full or a newline is printed. 
 
 ## How else can I print strings and single characters?
-Use `puts( name );` and `putchar( c )`  wher name is a pointer to a C string and c is just a `char`
+Use `puts( name );` and `putchar( c )`  where name is a pointer to a C string and c is just a `char`
 
 ## How do I print to other file streams?
 Use `fprintf( _file_ , "Hello %s, score: %d", name, score);`
