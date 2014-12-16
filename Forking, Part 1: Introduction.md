@@ -110,9 +110,20 @@ int main(int argc, char**argv) {
   }
 }
 ```
+## A simpler way to execute another program
+Use `system`!!! Here is how to use it:
+```C
 
+#include <unistd.h>
+#include <stdlib.h>
 
-
+int main(int argc, char**argv) {
+  system("~/.my_prog");
+  return 0;
+}
+```
+The `system` call would fork, exec the command passed by parameter and the parent process would wait for this to finish. This also means that `system` is a blocking call - The parent process can't continue until the process started by `system` exits. This may be useful or it may not me, use with caution.
+ 
 ## What is the silliest fork example?
 A slightly silly example is shown below. What will it print? Try it with multiple arguments to your program.
 ```C
