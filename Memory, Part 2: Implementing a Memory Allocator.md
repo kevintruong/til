@@ -54,9 +54,14 @@ However we have a bit more work to do: If the current block and the next block, 
 Similarly we also need to check the previous block too. If that exists and represents an unallocated memory, then we need to coalesce the blocks into a single large block.
 
 To be able to coalesce a free block with a previous free block we will also need to find the previous block, so we store the block's size at the end of the block too. These are called "boundary tags" (ref Knuth73). As the blocks are contiguous, the end of one blocks sits right next to the start of the next block. So the current block (apart from the first one) can look a few bytes further back to lookup the size of the previous block. With this information you can now jump backwards!
+![Double Boundary Tags](http://imgur.com/2tlWM73)
+Image provided from Harvard School of Engineering and Applied sciences.
 
+Source: http://www.eecs.harvard.edu/~mdw/course/cs61/mediawiki/images/5/53/Lectures-malloc1.pdf 
+
+Slide 29
 (Hey world - an open source licensed diagram of the above would be nice)
-
+-Not sure if the above image is open source or licensed. Confirmation pending.
 ## Performance
 With the above description it's possible to build a memory allocator. It's main advantage is simplicity - at least simple compared to other allocators!
 Allocating memory is a worst-case linear time operation (search linked lists for a sufficiently large free block) and de-allocation is constant time (no more than 3 blocks will need to be coalesced into a single block). Using this allocator it is possible to experiment with different placement strategies. For example, you could start searching from you last freed a block, or where you last allocated from. If you do store pointers to blocks, you need to be very careful that they always remain valid (e.g. when coalescing blocks or other malloc or free calls that change the heap structure)
