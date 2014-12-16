@@ -5,7 +5,7 @@ int main() {
    open("log.txt", O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
    puts("Captain's log");
    chdir("/usr/include");
-   // execl( executable,    arguments for executable including program name and NULL at the end */
+   // execl( executable,  arguments for executable including program name and NULL at the end)
 
    execl("/bin/ls",  /* Remaining items sent to ls*/ "/bin/ls",".",(char*)NULL); // "ls ."
    perror("exec failed");
