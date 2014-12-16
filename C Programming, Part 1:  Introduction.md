@@ -229,6 +229,12 @@ char* mystrdup(char*source) {
 
 ## How do you unallocate memory on the heap?
 Use free!
+```C
+int* n = (int*)malloc(sizeof(int));
+*n = 10;
+//Do some work
+free(n);
+```
 
 ## What is double free error? How can you avoid? What is a dangling pointer? How do you avoid?
 A double free error is when you accidentally attempt to free the same allocation twice.
