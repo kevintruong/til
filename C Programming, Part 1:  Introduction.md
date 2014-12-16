@@ -46,7 +46,7 @@ char* ptr2;
 
 ## How do you use a pointer to read/write some memory?
 if 'p' is a pointer then use "*p" to write to the memory address(es) pointed to by p.
-*ptr = 0; // Writes some memory. The number of bytes written depends on the pointer type.
+```*ptr = 0; // Writes some memory.``` The number of bytes written depends on the pointer type.
 
 ## What is pointer arithmetic?
 You can add an integer to a pointer. However the pointer type is used to determine how much to increment the pointer. For char pointers this is trivial because characters are always one byte:
