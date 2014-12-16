@@ -171,8 +171,6 @@ char* f2() {
 } // Incorrect!
 ```
 Explanation: An array p is created on the stack for the correct size to hold H,e,l,l,o, and a null byte i.e. (6) bytes. This array is stored on the stack and is invalid after we return from f2.
-```
-
 ```C
 char* f3() {
     char* p = "Hello";
