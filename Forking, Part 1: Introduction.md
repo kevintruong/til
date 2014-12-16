@@ -118,7 +118,7 @@ Use `system`!!! Here is how to use it:
 #include <stdlib.h>
 
 int main(int argc, char**argv) {
-  system("~/.my_prog");
+  system("/bin/ls");
   return 0;
 }
 ```
