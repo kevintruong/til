@@ -83,7 +83,7 @@ if( child_id > 0) {
 ```
 
 ## Can I make the child process execute another program?
-Yes. Use one of the `exec` functions after forking. [[http://man7.org/linux/man-pages/man3/exec.3.html]]
+Yes. Use one of the `exec` functions after forking. [[http://man7.org/linux/man-pages/man3/exec.3.html]] The `exec` set of functions replaces the process image with the the process image of what is being called. This means that any lines of code after the `exec` call are replaced. Any other work you want the child process to do should be done before the `exec` call.  
 ```C
 #include <unistd.h>
 #include <sys/types.h> 
