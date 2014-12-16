@@ -40,7 +40,7 @@ When `fork()` is executed the entire process memory is duplicated including the 
 
 Check the return value of `fork()`. Return value -1= failed; 0= in child process; positive = in parent process (and the return value is the child process id).  Here's one way to remember which is which:
 
-The child process get find its parent - the original process that was duplicated -  by calling getppid() - so does not need any additional return information from `fork()`. The parent process however can only find out the id of the new child process from the return value of `fork`:
+The child process can find its parent - the original process that was duplicated -  by calling getppid() - so does not need any additional return information from `fork()`. The parent process however can only find out the id of the new child process from the return value of `fork`:
 ```C
 pid_t id = fork();
 if( id == -1) exit(1); // fork failed 
