@@ -1,7 +1,7 @@
 # Want a quick introduction to C?
 * Keep reading for the quick crash-course to C Programming below
 * Then see the [[C Gotchas wiki page|C Programming, Part 3: Common Gotchas]].
-* And learn about [[text I/O | C Programming Text Input Output]].
+* And learn about [[text I/O |C Programming, Part 2: Text Input And Output]].
 * Kick back relax with [Lawrence's intro videos](http://angrave.github.io/sysassets)
 * Or watch some old CS241 slides [[CS241 Old Slides|https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/past-lectures/]]
 
