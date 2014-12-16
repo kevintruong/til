@@ -175,7 +175,7 @@ double push(double v) {
 ```
 Sketch #2  has implemented the `post` too early. Another thread waiting in push can erroneously attempt to write into a full stack (and similarly a thread waiting in the pop() is allowed to continue too early).
 
-```
+```C
 // Sketch #2 (Error!)
 double pop() {
   // Wait until there's at least one item
@@ -192,7 +192,7 @@ double push(double v) {
 ```
 
 Sketch 3 implements the correct semaphore logic but can you spot the error?
-```
+```C
 // Sketch #3 (Error!)
 double pop() {
   // Wait until there's at least one item
