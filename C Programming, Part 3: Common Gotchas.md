@@ -108,8 +108,21 @@ switch(flag) {
   case 3: printf("Me three\n");
 }
 ```
-Case statements without a break will just continue onto the code of the next case statement.
-
+Case statements without a break will just continue onto the code of the next case statement. Correct code is show bellow. The break for the last statements is unnecessary because there are no more cases to be executed after the last one. However if more are added, it can cause some bugs.
+```C
+int flag = 1; // Will print all three lines.
+switch(flag) {
+  case 1: 
+    printf("I'm printed\n");
+    break;
+  case 2: 
+    printf("Me too\n");
+    break;
+  case 3: 
+    printf("Me three\n");
+    break; //unnecessary
+}
+```
 ## Equal vs equality
 ```C
 int answer = 3; // Will print out the answer.
