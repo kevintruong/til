@@ -58,12 +58,9 @@ int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);`
 
 From the Linux man page of sigprocmask,
 ```
-SIG_BLOCK The  set  of blocked signals is the union of the current set and the set argument.
-SIG_UNBLOCK
-              The signals in set are removed from the current set of blocked  signals.
-              It is permissible to attempt to unblock a signal which is not blocked.
-SIG_SETMASK
-              The set of blocked signals is set to the argument set.
+SIG_BLOCK: The set of blocked signals is the union of the current set and the set argument.
+SIG_UNBLOCK: The signals in set are removed from the current set of blocked signals. It is permissible to attempt to unblock a signal which is not blocked.
+SIG_SETMASK: The set of blocked signals is set to the argument set.
 
 ```
 The sigset type behaves as a bitmap, except functions are used rather than explicitly setting and unsetting bits using & and |. 
