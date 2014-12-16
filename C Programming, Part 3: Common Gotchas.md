@@ -140,7 +140,13 @@ The system function 'time' actually takes a parameter (the pointer to some memor
 for(int i = 0; i < 5; i++) ; printf("I'm printed once");
 while(x < 10 ) ; x++ ; // X is never incremented
 ```
-
+However, the following code is perfectly OK.
+```C
+for(int i = 0; i < 5; i++){
+    printf("%d\n", i);;;;;;;;;;;;;
+}
+```
+It is OK to have this kind of code, because the C language uses semicolons (;) to separate statements. If there is no statement in between semicolons, then there is nothing to do and the compiler moves on to the next statement
 # Other Gotchas
 ## C Preprocessor macros and side-effects
 ```C
