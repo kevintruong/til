@@ -77,8 +77,8 @@ Performance! We want malloc to be as fast as possible. Zeroing out memory may be
 void * realloc(void * ptr, size_t newsize) {
   // Simple implementation always reserves more memory
   // and has no error checking
-  void* result = malloc(size); 
-  size_t oldsize =  ... (depends on allocator's internal data structure)
+  void* result = malloc(newsize); 
+  size_t oldsize =  ... //(depends on allocator's internal data structure)
   if(ptr) memcpy(result, ptr, oldsize);
   free(ptr);
   return result;
