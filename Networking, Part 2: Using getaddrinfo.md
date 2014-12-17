@@ -39,7 +39,7 @@ int main() {
 
   for(p = infoptr; p != NULL; p = p->ai_next) {
 
-    getnameinfo(p->ai_addr,p->ai_addrlen, host, sizeof(host), service,sizeof(service),NI_NUMERICHOST );
+    getnameinfo(p->ai_addr, p->ai_addrlen, host, sizeof(host), service, sizeof(service), NI_NUMERICHOST);
     puts(host);
   }
 
@@ -95,7 +95,7 @@ No. Error handling with `getaddrinfo` is a little different:
 ```C
 int result = getaddrinfo(...);
 if(result) { 
-   char* mesg = gai_strerror(result); 
+   char *mesg = gai_strerror(result); 
    ...
 }
 ```
@@ -106,7 +106,7 @@ Yes! Use the addrinfo structure that is passed into `getaddrinfo` to define the 
 For example, to specify stream-based protocols over IPv6:
 ```C
 struct addrinfo hints;
-memset(hints,0,sizeof(hints));
+memset(hints, 0, sizeof(hints));
 
 hints.ai_family = AF_INET6; // Only want IPv6 (use AF_INET for IPv4)
 hints.ai_socktype = SOCK_STREAM; // Only want stream-based connection
