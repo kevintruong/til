@@ -16,15 +16,15 @@ This means you should only rely on the value of errno if you know a system call 
 Be careful when complex error handling use of library calls or system calls that may change the value of `errno`. In practice it's safer to copy the value of errno into a int variable:
 ```C
 // Unsafe - the first fprintf may change the value of errno before we use it!
-if( -1 == sem_wait(&s)) {
-   fprintf(stderr,"An error occurred!");
-   fprintf(stderr,"The error value is %d\n",errno);
+if (-1 == sem_wait(&s)) {
+   fprintf(stderr, "An error occurred!");
+   fprintf(stderr, "The error value is %d\n", errno);
 }
 // Better, copy the value before making more system and library calls
-if( -1 == sem_wait(&s)) {
+if (-1 == sem_wait(&s)) {
    int errno_saved = errno;
-   fprintf(stderr,"An error occurred!");
-   fprintf(stderr,"The error value is %d\n",errno_saved);
+   fprintf(stderr, "An error occurred!");
+   fprintf(stderr, "The error value is %d\n", errno_saved);
 }
 ```
 
@@ -44,15 +44,15 @@ void handler(int signal) {
 
 Use `strerror` to get a short (English) description of the error value
 ```C
-char* mesg = strerror(errno);
-fprintf(stderr, "An error occurred (errno=%d): %s",errno, mesg);
+char *mesg = strerror(errno);
+fprintf(stderr, "An error occurred (errno=%d): %s", errno, mesg);
 ```
 ## How are perror and strerror related?
 
 In previous pages we've used perror to print out the error to standard error. Using `strerror`, we can now write a simple implementation of `perror`:
 ```C
-void perror(char* what) {
-   fprintf(stderr, "%s: %s\n", what, strerror( errno ) );
+void perror(char *what) {
+   fprintf(stderr, "%s: %s\n", what, strerror(errno));
 }
 ```
 
@@ -62,11 +62,11 @@ Unfortunately `strerror` is not threadsafe. In other words, two threads cannot c
 There are two workarounds: Firstly we can use a mutex lock to define a critical section and a local buffer. The same mutex should be used by all threads in all places that call `strerror`
 ```C
 pthread_mutex_lock(&m);
-char* result = strerror(errno);
-char* message = malloc(strlen(result)+1);
+char *result = strerror(errno);
+char *message = malloc(strlen(result) + 1);
 strcpy(message, result);
 pthread_mutex_unlock(&m);
-fprintf(stderr, "An error occurred (errno=%d): %s",errno, message);
+fprintf(stderr, "An error occurred (errno=%d): %s", errno, message);
 free(message);
 ```
 
@@ -79,14 +79,14 @@ Some system calls can be interrupted when a signal (e.g SIGCHLD, SIGPIPE,...) is
 This interruption can be detected by checking the return value and if `errno` is EINTR. In which case the system call should be retried. It's common to see the following kind of loop that wraps a system call (such as sem_wait).
 
 ```C
-while(( -1 == systemcall(...)) && (errno == EINTR) ) { /* repeat! */}
+while ((-1 == systemcall(...)) && (errno == EINTR)) { /* repeat! */}
 ```
-Be careful to write ==EINTR, not =EINTR ?
+Be careful to write `== EINTR`, not `= EINTR`.
 
-or, if the result value needs to be used later...
+Or, if the result value needs to be used later...
 
 ```C
-while(( -1 == (result=systemcall(...))) && (errno == EINTR) ) { /* repeat! */}
+while ((-1 == (result = systemcall(...))) && (errno == EINTR)) { /* repeat! */}
 ```
 
 On Linux,calling `read` and `write` to a local disk will normally not return with EINTR (instead the function is automatically restarted for you). However, calling `read` and `write` on a file descriptor that corresponds to a network stream _can_ return with EINTR.
