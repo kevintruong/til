@@ -28,7 +28,7 @@ int main() {
     printf("main() code starts at %p\n",main);
     
     input();
-    while(1) {
+    while (1) {
         puts("Hello");
         sleep(1);
     }
