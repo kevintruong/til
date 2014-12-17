@@ -20,7 +20,7 @@ write(filedes[1], "Go!", 4);
 
 ## How can I use pipe to communicate with a child process?
 A common method of using pipes is to create the pipe before forking.
-```
+```C
 int filedes[2];
 pipe (filedes);
 pid_t child = fork();
