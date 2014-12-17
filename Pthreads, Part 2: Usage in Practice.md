@@ -16,14 +16,14 @@ An alternative implementation is to use a boolean (int) variable whose value is 
 ## What is the difference between `exit` and `pthread_exit`?
 `exit(42)` exits the entire process and sets the processes exit value.  This is equivalent to `return 42` in the main method. All threads inside the process are stopped.
 
-`pthread_exit(void*)` only stops the calling thread i.e. the thread never returns after calling `pthread_exit`. The pthread library will automatically finish the process if there are no other threads running. `pthread_exit(...)` is equivalent to returning from the thread's function; both finish the thread and also set the return value (void* pointer) for the thread.
+`pthread_exit(void *)` only stops the calling thread i.e. the thread never returns after calling `pthread_exit`. The pthread library will automatically finish the process if there are no other threads running. `pthread_exit(...)` is equivalent to returning from the thread's function; both finish the thread and also set the return value (void *pointer) for the thread.
 
 Calling `pthread_exit` in the the `main` thread is a common way for simple programs to ensure that all threads finish. For example, in the following program, the  `myfunc` threads will probably not have time to get started.
 ```C
 int main() {
-  pthread_t tid1,tid2;
-  pthread_create(&tid1, NULL,  myfunc, "Jabberwocky");
-  pthread_create(&tid2, NULL,  myfunc, "Vorpel");
+  pthread_t tid1, tid2;
+  pthread_create(&tid1, NULL, myfunc, "Jabberwocky");
+  pthread_create(&tid2, NULL, myfunc, "Vorpel");
   exit(42); //or return 42;
 
   // No code is run after exit
@@ -32,9 +32,9 @@ int main() {
 The next two programs will wait for the new threads to finish-
 ```C
 int main() {
-  pthread_t tid1,tid2;
-  pthread_create(&tid1, NULL,  myfunc, "Jabberwocky");
-  pthread_create(&tid2, NULL,  myfunc, "Vorpel");
+  pthread_t tid1, tid2;
+  pthread_create(&tid1, NULL, myfunc, "Jabberwocky");
+  pthread_create(&tid2, NULL, myfunc, "Vorpel");
   pthread_exit(NULL); 
 
   // No code is run after pthread_exit
@@ -44,13 +44,13 @@ int main() {
 Alternatively, we join on each thread (i.e. wait for it to finish) before we return from main (or call exit).
 ```C
 int main() {
-  pthread_t tid1,tid2;
-  pthread_create(&tid1, NULL,  myfunc, "Jabberwocky");
-  pthread_create(&tid2, NULL,  myfunc, "Vorpel");
+  pthread_t tid1, tid2;
+  pthread_create(&tid1, NULL, myfunc, "Jabberwocky");
+  pthread_create(&tid2, NULL, myfunc, "Vorpel");
   // wait for both threads to finish :
   void* result;
-  pthread_join(tid1,  & result);
-  pthread_join(tid2,  & result); 
+  pthread_join(tid1, &result);
+  pthread_join(tid2, &result); 
   return 42;
 }
 ```
@@ -91,7 +91,7 @@ The following code is valid because the lifetime of the stack variable is longer
 ```
 void start_threads() {
   int start = 42;
-  void*result;
+  void *result;
   pthread_t tid;
   pthread_create(&tid, 0, myfunc, &start); // OK - start will be valid!
   pthread_join(tid, &result);
@@ -103,7 +103,7 @@ However, when run prints out `1 7 8 8 8 8 8 8 8 10`! Can you see why?
 ```C
 #include <pthread.h>
 void* myfunc(void* ptr) {
-    int i = * (int*)ptr;
+    int i = *((int *) ptr);
     printf("%d ", i);
     return NULL;
 }
@@ -130,19 +130,19 @@ struct T {
 ```
 These can be stored in an array - 
 ```
-struct T* info = calloc(10 , sizeof(struct T)); // reserve enough bytes for ten T structures
+struct T *info = calloc(10 , sizeof(struct T)); // reserve enough bytes for ten T structures
 ```
 And each array element passed to each thread - 
 ```
-pthread_create(& info[i].id,  NULL, func,  & info[i] )
+pthread_create(&info[i].id, NULL, func, &info[i]);
 ```
 
 ## Why are some functions e.g.  asctime,getenv, strtok, strerror  not thread-safe? 
 To answer this, let's look at a simple function that is also not 'thread-safe'
 ```C
-char* to_message(int num) {
+char *to_message(int num) {
     char static result [256];
-    if(num < 10) sprintf(result, "%d : blah blah" , num);
+    if (num < 10) sprintf(result, "%d : blah blah" , num);
     else strcpy(result, "Unknown");
     return result;
 }
@@ -178,17 +178,17 @@ Yes! However the child process only has a single thread (which is a clone of the
 
 static pid_t child = -2;
 
-void* sleepnprint(void *arg) {
-  printf("%d:%s starting up...\n",getpid(), (char*)arg);
+void *sleepnprint(void *arg) {
+  printf("%d:%s starting up...\n", getpid(), (char *) arg);
 
-  while(child == -2) {sleep(1);} /* Later we will use condition variables */
+  while (child == -2) {sleep(1);} /* Later we will use condition variables */
 
   printf("%d:%s finishing...\n",getpid(), (char*)arg);
 
   return NULL;  
 }
 int main() {
-  pthread_t tid1,tid2;
+  pthread_t tid1, tid2;
   pthread_create(&tid1,NULL, sleepnprint, "New Thread One");
   pthread_create(&tid2,NULL, sleepnprint, "New Thread Two");
   
