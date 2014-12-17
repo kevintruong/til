@@ -162,8 +162,13 @@ Use counting semaphores! Use a counting semaphore to keep track of how many spac
 ```C
 // Sketch #1
 
-Need code to initialize sitems to zero
-Need code to initialize sremain to 10
+sem_t sitems;
+sem_t sremain;
+void stack_init(){
+  sem_init(&sitems, 0, 0);
+  sem_init($sremain, 0, 10);
+}
+
 
 double pop() {
   // Wait until there's at least one item
