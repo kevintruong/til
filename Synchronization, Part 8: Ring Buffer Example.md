@@ -5,19 +5,19 @@ As data is added (enqueued) to the front of the queue or removed (dequeued) from
 A simple (single-threaded) implementation is shown below. Note enqueue and dequeue do not guard against underflow or overflow - it's possible to add an item when when the queue is full and possible to remove an item when the queue is empty. For example if we added 20 integers (1,2,3...) to the queue and did not dequeue any items then values `17,18,19,20` would overwrite the `1,2,3,4`. We won't fix this problem right now, instead when we create the multi-threaded version we will ensure enqueue-ing and dequeue-ing threads are blocked while the ring buffer is full or empty respectively.
 
 ```C
-void* buffer[16];
+void *buffer[16];
 int in = 0, out = 0;
 
-void enqueue(void* value) { /* Add one item to the front of the queue*/
+void enqueue(void *value) { /* Add one item to the front of the queue*/
   buffer[in] = value;
-  in ++; /* Advance the index for next time */
-  if(in == 16) in = 0; /* Wrap around! */
+  in++; /* Advance the index for next time */
+  if (in == 16) in = 0; /* Wrap around! */
 }
 
-void* dequeue() { /* Remove one item to the end of the queue.*/
-  void* result = buffer[out];
-  out ++;
-  if(out == 16) out = 0;
+void *dequeue() { /* Remove one item to the end of the queue.*/
+  void *result = buffer[out];
+  out++;
+  if (out == 16) out = 0;
   return result;
 }
 ```
@@ -25,7 +25,7 @@ void* dequeue() { /* Remove one item to the end of the queue.*/
 ## What are gotchas of implementing a Ring Buffer?
 It's very tempting to write the enqueue or dequeue method in the following compact form (N is the capacity of the buffer e.g. 16):
 ```C
-void enqueue(void* value)
+void enqueue(void *value)
   b[ (in++) % N ] = value;
 }
 ```
@@ -44,36 +44,35 @@ The following code is an incorrect implementation. What will happen? Will `enque
 For clarity `pthread_mutex` is shortened to `p_m` and we assume sem_wait cannot be interrupted.
 
 ```C
-void* b[16]
-int in=0,out=0
+void *b[16]
+int in = 0, out = 0
 p_m_t lock
 sem_t s1,s2
 void init() { 
- p_m_init(&lock,NULL)
- sem_init(&s1,0,16)
- sem_init(&s2,0,0)
+    p_m_init(&lock, NULL)
+    sem_init(&s1, 0, 16)
+    sem_init(&s2, 0, 0)
 }
 
-enqueue(void*value){
+enqueue(void *value) {
+    p_m_lock(&lock)
 
- p_m_lock(&lock)
-
- // Hint: Wait while zero. Decrement and return
- sem_wait( &s1 ) 
+    // Hint: Wait while zero. Decrement and return
+    sem_wait( &s1 ) 
  
- b[ (in++) & (N-1) ] = value
+    b[ (in++) & (N-1) ] = value
 
- // Hint: Increment. Will wake up a waiting thread 
- sem_post(&s1) 
- p_m_unlock(&lock)
+    // Hint: Increment. Will wake up a waiting thread 
+    sem_post(&s1) 
+    p_m_unlock(&lock)
 }
-void* dequeue(){
-  p_m_lock(&lock)
-  sem_wait(&s2)
-  void * result = b[(out++) & 15]
-  sem_post(&s2)
-  p_m_unlock(&lock)
-  return result
+void *dequeue(){
+    p_m_lock(&lock)
+    sem_wait(&s2)
+    void *result = b[(out++) & 15]
+    sem_post(&s2)
+    p_m_unlock(&lock)
+    return result
 }
 ```
 ## Analysis
@@ -89,18 +88,18 @@ The following code is an incorrect implementation. What will happen? Will `enque
 For clarity `pthread_mutex` is shortened to `p_m` and we assume sem_wait cannot be interrupted.
 
 ```C
-void* b[16]
-int in=0,out=0
+void *b[16]
+int in = 0, out = 0
 p_m_t lock
-sem_t s1,s2
-void init(){
- sem_init(&s1,0,16)
- sem_init(&s2,0,0)
+sem_t s1, s2
+void init() {
+    sem_init(&s1,0,16)
+    sem_init(&s2,0,0)
 }
 
-enqueue(void*value){
+enqueue(void *value){
 
- sem_wait( &s2 )
+ sem_wait(&s2)
  p_m_lock(&lock)
 
  b[ (in++) & (N-1) ] = value
@@ -109,10 +108,10 @@ enqueue(void*value){
  sem_post(&s1)
 }
 
-void* dequeue(){
+void *dequeue(){
   sem_wait(&s1)
   p_m_lock(&lock)
-  void * result = b[(out++) & 15]
+  void *result = b[(out++) & 15]
   p_m_unlock(&lock)
   sem_post(&s2)
 
@@ -136,14 +135,14 @@ As the mutex lock is stored in global (static) memory it can be initialized with
 // N must be 2^i
 #define N (16)
 
-void* b[N]
-int in=0,out=0
+void *b[N]
+int in = 0, out = 0
 p_m_t lock = PTHREAD_MUTEX_INITIALIZER
 sem_t countsem, spacesem
 
 void init() {
-  sem_init(&countsem,0,0)
-  sem_init(&spacesem,0,16)
+  sem_init(&countsem, 0, 0)
+  sem_init(&spacesem, 0, 16)
 }
 ```
 
@@ -152,7 +151,7 @@ The enqueue method is shown below. Notice,
 * A complete implementation would need to guard against early returns from `sem_wait` due to POSIX signals.
 
 ```C
-enqueue(void*value){
+enqueue(void *value){
  // wait if there is no space left:
  sem_wait( &spacesem )
 
@@ -168,12 +167,12 @@ enqueue(void*value){
 The `dequeue` implementation is shown below. Notice the symmetry of the synchronization calls to `enqueue`. In both cases the functions first wait if the count of spaces or count of items is zero.
 
 ```C
-void* dequeue(){
+void *dequeue(){
   // Wait if there are no items in the buffer
   sem_wait(&countsem)
 
   p_m_lock(&lock)
-  void* result = b[(out++) & (N-1)]
+  void *result = b[(out++) & (N-1)]
   p_m_unlock(&lock)
 
   // Increment the count of the number of spaces
