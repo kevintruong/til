@@ -51,7 +51,7 @@ Programmers often use `calloc` rather than explicitly calling `memset` after `ma
 link_t *link  = malloc(256);
 memset(link, 0, 256); // Assumes malloc returned a valid address!
 
-link_t *link = calloc(1, 256); // safe programming would be calloc(1, sizeof(link_t);
+link_t *link = calloc(1, 256); // safer: calloc(1, sizeof(link_t));
 ```
 ## Why is the memory that is first returned by sbrk initialized to zero?
 If the operating system did not zero out contents of physical RAM it might be possible for one process to learn about the memory of another process that had previously used the memory. This would be a security leak.
