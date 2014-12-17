@@ -23,8 +23,8 @@ This example also shows the preprocessor constants "__LINE__" and "__FILE__" tha
 #include <string.h>
 
 
-int fail(char*filename, int linenumber) { 
-  fprintf(stderr, "%s:%d %s\n",filename,linenumber,strerror(errno) ); 
+int fail(char *filename, int linenumber) { 
+  fprintf(stderr, "%s:%d %s\n", filename, linenumber, strerror(errno)); 
   exit(1);
   return 0; /*Make compiler happy */
 }
@@ -34,16 +34,16 @@ int main() {
   // We want a file big enough to hold 10 integers  
   int size = sizeof(int) * 10;
 
-  int fd = open("data",O_RDWR| O_CREAT|O_TRUNC, 0600); //6 = read+write for me!
+  int fd = open("data", O_RDWR | O_CREAT | O_TRUNC, 0600); //6 = read+write for me!
 
   lseek(fd, size, SEEK_SET);
-  write(fd, "A",1);
+  write(fd, "A", 1);
   
-  void* addr = mmap (0, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+  void *addr = mmap(0, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
   printf("Mapped at %p\n", addr);
-  if(!addr) QUIT;
+  if (!addr) QUIT;
   
-  int* array = addr;
+  int *array = addr;
   array[0] = 0x12345678;
   array[1] = 0xdeadc0de;
 
@@ -54,7 +54,7 @@ int main() {
 ```
 The contents of our binary file can be listed using hexdump
 ```
-> hexdump data
+$ hexdump data
 0000000 78 56 34 12 de c0 ad de 00 00 00 00 00 00 00 00
 0000010 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 0000020 00 00 00 00 00 00 00 00 41   
@@ -89,12 +89,12 @@ Easy -  Use `mmap` without a file - just specify the MAP_ANONYMOUS and MAP_SHARE
 int main() {
   
   int size = 100 * sizeof(int);  
-  void* addr = mmap (0, size, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+  void *addr = mmap(0, size, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
   printf("Mapped at %p\n", addr);
   
-  int* shared = addr;
+  int *shared = addr;
   pid_t mychild = fork();
-  if( mychild > 0 ) {
+  if (mychild > 0) {
     shared[0] = 10;
     shared[1] = 20;
   } else {
