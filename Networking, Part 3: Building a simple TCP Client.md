@@ -9,7 +9,7 @@
 #include <netdb.h>
 #include <unistd.h>
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
 	int s;
 	int sock_fd = socket(AF_INET, SOCK_STREAM, 0);
