@@ -7,7 +7,7 @@ Though conceptually we are thinking about creating linked lists and lists of blo
 We can think of our heap memory as a list of blocks where each block is either allocated or unallocated.
 Rather than storing an explicit list of pointers we store information about the block's size _as part of the block_. Thus there is a conceptually a list of free blocks, but it is implicit; i.e. in the form of block size information that we store as part of each block 
 
-We could navigate from one block to the next block just by adding the block's size. For example if you have a pointer 'p' that points to the start of a block, then `next_block`  with be at `((char*)p) +  *(size_t*) p`, if you are storing the size of the blocks in bytes. The cast to char* ensures that pointer arithmetic is calculated in bytes. The cast to `size_t*` ensures the memory at p is read as a size value and would be necessarily if p was a `void*` or `char*` type.
+We could navigate from one block to the next block just by adding the block's size. For example if you have a pointer 'p' that points to the start of a block, then `next_block`  with be at `((char *)p) +  *(size_t *) p`, if you are storing the size of the blocks in bytes. The cast to char* ensures that pointer arithmetic is calculated in bytes. The cast to `size_t *` ensures the memory at p is read as a size value and would be necessarily if p was a `void*` or `char *` type.
 
 The calling program never sees these values; they are internal to the implementation of the memory allocator. 
 
