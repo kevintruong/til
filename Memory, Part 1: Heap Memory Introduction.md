@@ -44,7 +44,7 @@ void *calloc(size_t n, size_t size)
 ```
 An advanced discussion of these limitations is [[here|http://locklessinc.com/articles/calloc/]]
 
-Programmers often use `calloc` rather than explicitly calling `memset` after `malloc`, to set the memory contents to zero. Note `calloc(x,y)` is identical to `calloc(y,x)`
+Programmers often use `calloc` rather than explicitly calling `memset` after `malloc`, to set the memory contents to zero. Note `calloc(x,y)` is identical to `calloc(y,x)`, but you should follow the conventions of the manual.
 
 ```C
 // Ensure our memory is initialized to zero
