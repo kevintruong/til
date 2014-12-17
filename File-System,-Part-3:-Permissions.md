@@ -8,12 +8,12 @@ First remember that a file name != the file. Think of the inode as 'the file' an
 If we already have a file on a file system we can create another link to the same inode using the 'ln' command
 
 ```
-ln file1.txt blip.txt
+$ ln file1.txt blip.txt
 ```
 However blip.txt _is_ the same file; if I edit blip I'm editing the same file as 'file1.txt!'
 We can prove this by showing that both file names refer to the same inode:
 ```
-> ls -i file1.txt blip.txt
+$ ls -i file1.txt blip.txt
 134235 file1.txt
 134235 blip.txt
 ```
@@ -49,11 +49,11 @@ Use `chmod`  (short for "change the file mode bits")
 
 There is a system call, `int chmod(const char *path, mode_t mode);` but we will concentrate on the shell command. There's two common ways to use `chmod` ; with an octal value or with a symbolic string:
 ```
-chmod 644 file1
-chmod 755 file2
-chmod 700 file3
-chmod ugo-w file4
-chmod o-rx file4
+$ chmod 644 file1
+$ chmod 755 file2
+$ chmod 700 file3
+$ chmod ugo-w file4
+$ chmod o-rx file4
 ```
 The base-8 ('octal') digits describe the permissions for each role: The user who owns the file, the group and everyone else. The octal number is the sum of three values given to the three types of permission: read(4), write(2), execute(1)
 
@@ -80,8 +80,8 @@ Use `sudo` to become the admin on the machine.
 e.g. Normally (unless explicitly specified in the '/etc/fstab' file, you need root access to mount a filesystem). `sudo` can be used to temporarily run a command as root (provided the user has sudo privileges)
 
 ```
-sudo mount /dev/sda2 /stuff/mydisk
-sudo adduser fred
+$ sudo mount /dev/sda2 /stuff/mydisk
+$ sudo adduser fred
 ```
 
 ## How do I change ownership of a file?
@@ -101,7 +101,7 @@ The most common usecase is so that the user can have root(admin) access for the 
 
 ## What permissions does sudo run as ?
 ```
-ls -l /usr/bin/sudo
+$ ls -l /usr/bin/sudo
 -r-s--x--x  1 root  wheel  327920 Oct 24 09:04 /usr/bin/sudo
 ```
 The 's' bit means execute and set-uid; the effective userid of the process will be different from the parent process. In this example it will be root
