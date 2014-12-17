@@ -10,7 +10,7 @@ POSIX provides a small set of functions to read the filename and inode number fo
 From a shell, use `ls` with the `-i` option
 
 ```
-> ls -i
+$ ls -i
 12983989 dirlist.c		12984068 sandwhich.c
 ```
 
@@ -33,10 +33,10 @@ There are actually three versions of `stat`;
 
 For example you can use `fstat` to find out the meta-information about a file if you already have an file descriptor associated with that file
 ```C
-   FILE* file = fopen("notes.txt","r");
-   int fd = fileno( file ); /* Just for fun - extract the file descriptor from a C FILE struct */
+   FILE *file = fopen("notes.txt", "r");
+   int fd = fileno(file); /* Just for fun - extract the file descriptor from a C FILE struct */
    struct stat s;
-   fstat( fd, & s);
+   fstat(fd, & s);
    printf("Last accessed %s", ctime(s.st_atime));
 ```
 
@@ -67,13 +67,13 @@ Let's write our own version of 'ls' to list the contents of a directory.
 #include <stdio.h>
 #include <dirent.h>
 #include <stdlib.h>
-int main(int argc, char**argv) {
-    if(argc ==1) {
-        printf("Usage: %s [directory]\n",*argv);
+int main(int argc, char **argv) {
+    if(argc == 1) {
+        printf("Usage: %s [directory]\n", *argv);
         exit(0);
     }
-    struct dirent* dp;
-    DIR* dirp = opendir(argv[1]);
+    struct dirent *dp;
+    DIR *dirp = opendir(argv[1]);
     while ((dp = readdir(dirp)) != NULL) {
         puts(dp->d_name);
     }
@@ -90,13 +90,13 @@ For example, here's a very simple implementation of 'ls' to list the contents of
 #include <stdio.h>
 #include <dirent.h>
 #include <stdlib.h>
-int main(int argc, char**argv) {
+int main(int argc, char **argv) {
     if(argc ==1) {
-        printf("Usage: %s [directory]\n",*argv);
+        printf("Usage: %s [directory]\n", *argv);
         exit(0);
     }
-    struct dirent* dp;
-    DIR* dirp = opendir(argv[1]);
+    struct dirent *dp;
+    DIR *dirp = opendir(argv[1]);
     while ((dp = readdir(dirp)) != NULL) {
         printf("%s %lu\n", dp-> d_name, (unsigned long)dp-> d_ino );
     }
@@ -109,13 +109,13 @@ int main(int argc, char**argv) {
 For example, to see if a particular directory includes a file (or filename) 'name', we might write the following code. (Hint: Can you spot the bug?)
 
 ```C
-int exists(char* directory, char* name)  {
-    struct dirent* dp;
-    DIR* dirp = opendir(directory);
+int exists(char *directory, char *name)  {
+    struct dirent *dp;
+    DIR *dirp = opendir(directory);
     while ((dp = readdir(dirp)) != NULL) {
         puts(dp->d_name);
         if (!strcmp(dp->d_name, name)) {
- 		return 1; /* Found */
+ 	    return 1; /* Found */
         }
     }
     closedir(dirp);
@@ -166,10 +166,10 @@ And to check if a file is regular file use `S_ISREG`,
 
 ```C
    struct stat s;
-   if( 0 == stat(name, &s) ) {
+   if (0 == stat(name, &s)) {
       printf("%s ", name);
-      if( S_ISDIR( s.st_mode ) ) puts("is a directory");
-      if( S_ISREG( s.st_mode ) ) puts("is a regular file");
+      if (S_ISDIR( s.st_mode)) puts("is a directory");
+      if (S_ISREG( s.st_mode)) puts("is a regular file");
    } else {
       perror("stat failed - are you sure I can read this file's meta data?");
    }
