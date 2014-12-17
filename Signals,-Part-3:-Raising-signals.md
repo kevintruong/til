@@ -3,24 +3,24 @@ You already know one way to send a `SIG_INT` just type `CTRL-C`
 From the shell you can use `kill` (if you know the process id) and `killall` (if you know the process name)
 ```
 # First let's use ps and grep to find the process we want to send a signal to
-ps au | grep myprogram
+$ ps au | grep myprogram
 angrave  4409   0.0  0.0  2434892    512 s004  R+    2:42PM   0:00.00 myprogram 1 2 3
 
 #Send SIGINT signal to process 4409 (equivalent of `CTRL-C`)
-kill -SIGINT 4409
+$ kill -SIGINT 4409
 
 #Send SIGKILL (terminate the process)
-kill -SIGKILL 4409
-kill -9 4409
+$ kill -SIGKILL 4409
+$ kill -9 4409
 ```
 
 `killall` is similar except that it matches by program name. The next two example, sends a `SIGINT` and then `SIGKILL` to terminate the processes that are running `myprogram`
 ```
 # Send SIGINT (SIGINT can be ignored)
-killall -SIGINT myprogram
+$ killall -SIGINT myprogram
 
 # SIGKILL (-9) cannot be ignored! 
-killall -9 myprogram
+$ killall -9 myprogram
 ```
 ## How do I send a signal to a process from the running C program?
 Use `raise` or `kill`
@@ -40,9 +40,9 @@ int pthread_kill(pthread_t thread, int sig)
 In the example below, the newly created thread executing `func` will be interrupted by `SIGINT`
 
 ```C
-pthread_create( &tid, NULL, func, args);
-pthread_kill( tid, SIGINT);
-pthread_kill( pthread_self() , SIGKILL); // send SIGKILL to myself
+pthread_create(&tid, NULL, func, args);
+pthread_kill(tid, SIGINT);
+pthread_kill(pthread_self(), SIGKILL); // send SIGKILL to myself
 ```
 
 ## Will `pthread_kill( threadid, SIGKILL)` kill the process or thread?
