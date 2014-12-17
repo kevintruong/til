@@ -5,15 +5,15 @@ For files less than the size of a long use fseek and ftell is a simple way to ac
 
 Move to the end of the file and find out the current position.
 ```C
-fseek(f,0,SEEK_END);
+fseek(f, 0, SEEK_END);
 long pos = ftell(f);
 ```
 This tells us the current position in the file in bytes - i.e. the length of the file!
 
 `fseek` can also be used to set the absolute position.
 ```C
-fseek(f,0,SEEK_SET); // Move to the start of the file 
-fseek(f,posn,SEEK_SET);  // Move to 'posn' in the file.
+fseek(f, 0, SEEK_SET); // Move to the start of the file 
+fseek(f, posn, SEEK_SET);  // Move to 'posn' in the file.
 ```
 All future reads and writes in the parent or child processes will be honor this position.
 Note writing or reading from the file will change the current position.
