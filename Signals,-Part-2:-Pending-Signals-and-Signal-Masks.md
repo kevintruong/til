@@ -26,8 +26,8 @@ Signals can be blocked (meaning they will stay in the pending state) by setting 
 ## What happens when creating a new thread?
 The new thread inherits a copy of the calling thread's mask
 ```C
-pthread_sigmask(...) // set my mask to block delivery of some signals
-pthread_create( ... ) // new thread will start with a copy of the same mask
+pthread_sigmask( ... ); // set my mask to block delivery of some signals
+pthread_create( ... ); // new thread will start with a copy of the same mask
 ```
 
 ## What happens when forking?
@@ -67,7 +67,7 @@ The sigset type behaves as a bitmap, except functions are used rather than expli
 
 It is a common error to forget to initialize the signal set before modifying one bit. For example,
 ```C
-sigset_t set , oldset;
+sigset_t set, oldset;
 sigaddset(&set, SIGINT); // Ooops!
 sigprocmask(SIG_SETMASK, &set, &oldset)
 ```
