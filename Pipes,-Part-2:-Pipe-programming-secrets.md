@@ -11,20 +11,20 @@ int main() {
     int fd[2];
     pipe(fd);
     //You must read from fd[0] and write from fd[1]
-    printf("Reading from %d, writing to %d\n",fd[0], fd[1]);
+    printf("Reading from %d, writing to %d\n", fd[0], fd[1]);
 
     pid_t p = fork();
-    if(p>0) {
+    if (p > 0) {
         /* I have a child therefore I am the parent*/
         write(fd[1],"Hi Child!",9);
 
         /*don't forget your child*/
         wait(NULL);
-    }else {
+    } else {
         char buf;
         int bytesread;
         // read one byte at a time.
-        while((bytesread=read(fd[0],&buf,1)) > 0) {
+        while ((bytesread = read(fd[0], &buf, 1)) > 0) {
             putchar(buf);
         }
     }
@@ -38,9 +38,9 @@ The child starts reading the pipe one byte at a time. In the above case, the chi
 To see the message we could flush the buffer (e.g. fflush(stdout) or printf("\n"))
 or better, let's look for the end of message '!'
 ```C
-        while((bytesread=read(fd[0],&buf,1)) > 0) {
+        while ((bytesread = read(fd[0], &buf, 1)) > 0) {
             putchar(buf);
-            if(buf == '!') break; /* End of message */
+            if (buf == '!') break; /* End of message */
         }
 ```
 And the message will be flushed to the terminal when the child process exits.
@@ -59,12 +59,12 @@ If you already have a file descriptor then you can 'wrap' it yourself into a FIL
 #include <fcntl.h>
 
 int main() {
-    char*name="Fred";
+    char *name="Fred";
     int score = 123;
-    int filedes = open("mydata.txt","w",O_CREAT , S_IWUSR|S_IRUSR);
+    int filedes = open("mydata.txt", "w", O_CREAT, S_IWUSR | S_IRUSR);
 
-    FILE *f = fdopen(filedes,"w");
-    fprintf(f, "Name:%s Score:%d\n",name,score);
+    FILE *f = fdopen(filedes, "w");
+    fprintf(f, "Name:%s Score:%d\n", name, score);
     fclose(f);
 ```
 For writing to files this is unnecessary - just use `fopen` which does the same as `open` and `fdopen`
@@ -80,15 +80,15 @@ Here's a complete example using pipes that almost works! Can you spot the error?
 int main() {
     int fh[2];
     pipe(fh);
-    FILE* reader = fdopen(fh[0],"r");
-    FILE* writer = fdopen(fh[1],"w");
+    FILE *reader = fdopen(fh[0], "r");
+    FILE *writer = fdopen(fh[1], "w");
     pid_t p = fork();
-    if(p>0) {
+    if (p > 0) {
         int score;
-        fscanf(reader,"Score %d", &score);
+        fscanf(reader, "Score %d", &score);
         printf("The child says the score is %d\n", score);
-    }else {
-        fprintf(writer,"Score %d",10+10);
+    } else {
+        fprintf(writer, "Score %d", 10 + 10);
         fflush(writer);
     }
     return 0;
@@ -96,8 +96,8 @@ int main() {
 ```
 Note the (unnamed) pipe resource will disappear once both the child and parent have exited. In the above example the child will send the bytes and the parent will receive the bytes from the pipe. However, no end-of-line character is ever sent, so `fscanf` will continue to ask for bytes because it is waiting for the end of the line i.e. it will wait forever! The fix is to ensure we send a newline character, so that `fscanf` will return.
 ```C
-change:   fprintf(writer,"Score %d",10+10);
-to:       fprintf(writer,"Score %d\n",10+10);
+change:   fprintf(writer, "Score %d", 10 + 10);
+to:       fprintf(writer, "Score %d\n", 10 + 10);
 ```
 
 So do we need to `fflush` too?
@@ -128,26 +128,26 @@ Here's an example of catching this signal that does not work! Can you see why?
 #include <signal.h>
 
 void no_one_listening(int signal) {
-    write(1,"No one is listening!\n",21);
+    write(1, "No one is listening!\n", 21);
 }
 
 int main() {
-    signal(SIGPIPE,no_one_listening);
+    signal(SIGPIPE, no_one_listening);
     int filedes[2];
     
-    pipe( filedes );
+    pipe(filedes);
     pid_t child = fork();
-    if(child > 0) { 
+    if (child > 0) { 
         /* I must be the parent. Close the listening end of the pipe */
         /* I'm not listening anymore!*/
         close(filedes[0]);
     } else {
         /* Child writes messages to the pipe */
-        write(filedes[1],"One",3);
+        write(filedes[1], "One", 3);
         sleep(2);
         // Will this write generate SIGPIPE ?
-        write(filedes[1],"Two",3);
-        write(1,"Done\n",5);
+        write(filedes[1], "Two", 3);
+        write(1, "Done\n", 5);
     }
     return 0;
 }
