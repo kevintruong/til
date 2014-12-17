@@ -7,7 +7,7 @@ int main() {
    chdir("/usr/include");
    // execl( executable,  arguments for executable including program name and NULL at the end)
 
-   execl("/bin/ls",  /* Remaining items sent to ls*/ "/bin/ls",".",(char*)NULL); // "ls ."
+   execl("/bin/ls", /* Remaining items sent to ls*/ "/bin/ls", ".", (char *) NULL); // "ls ."
    perror("exec failed");
    return 0; // Not expected
 }
@@ -40,16 +40,16 @@ You can find the lowest 8 bits of the child's exit value (the return value of `m
 ```C
 int status;
 pid_t child = fork();
-if(child == -1) return 1; //Failed
-if(child>0) { /* I am the parent - wait for the child to finish */
+if (child == -1) return 1; //Failed
+if (child > 0) { /* I am the parent - wait for the child to finish */
   pid_t pid = waitpid(child, &status, 0);
-  if(pid != -1 && WIFEXITED(status)) {
-     int low8bits = WEXITSTATUS ( status );
+  if (pid != -1 && WIFEXITED(status)) {
+     int low8bits = WEXITSTATUS(status);
      printf("Process %d returned %d" , pid, low8bits);
   }
 } else { /* I am the child */
  // do something interesting
-  execl("/bin/ls", "/bin/ls",".",(char*)NULL); // "ls ."
+  execl("/bin/ls", "/bin/ls", ".", (char *) NULL); // "ls ."
 }
 
 
@@ -78,7 +78,7 @@ Once a process completes, any of its children will be assigned to "init" - the f
 ## How do I prevent zombies? (Warning: Simplified answer)
 Wait on your child!
 ```C
-waitpid(child, &status,0); // Clean up and wait for my child process to finish.
+waitpid(child, &status, 0); // Clean up and wait for my child process to finish.
 ```
 Note we assume that the only reason to get a SIGCHLD event is that a child has finished (this is not quite true - see man page for more details).
 
@@ -100,9 +100,9 @@ int main() {
    // Register signal handler BEFORE the child can finish
    signal(SIGCHLD, cleanup); // or better - sigaction
    child = fork();
-   if(child == -1 ) { exit(EXIT_FAILURE);}
+   if (child == -1) { exit(EXIT_FAILURE);}
 
-   if( child ==0 ) { /* I am the child!*/
+   if (child == 0) { /* I am the child!*/
      // Do background stuff e.g. call exec   
    } else { /* I'm the parent! */
       sleep(4); // so we can see the cleanup
@@ -120,7 +120,7 @@ A more robust code to reap zombies is shown below.
 ```C
 void cleanup(int signal) {
   int status;
-  while (waitpid((pid_t)(-1), 0, WNOHANG) > 0) {}
+  while (waitpid((pid_t) (-1), 0, WNOHANG) > 0) {}
 }
 ```
 ## How do I kill/stop my child?
