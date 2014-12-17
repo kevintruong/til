@@ -13,7 +13,7 @@ double data[256][8192]
 
 The thread function has four main parts-
 ```C
-void* calc(void*arg) {
+void *calc(void *arg) {
   /* Do my part of the first calculation */
   /* Am I the last thread to finish? If so wake up all the other threads! */
   /* Otherwise wait until the other threads has finished part one */
@@ -28,17 +28,17 @@ Since a (void*) type can hold small integers, we will pass the value of i by cas
 double data[256][8192] ;
 int main() {
     pthread_t ids[N];
-    for(int i=0;i<N;i++)  
-        pthread_create( &ids[i], NULL , calc, (void*) i );
+    for(int i = 0; i < N; i++)  
+        pthread_create(&ids[i], NULL, calc, (void *) i);
 ```
   
 Note, we will never dereference this pointer value as an actual memory location - we will just cast it straight back to an integer:
 ```C
-void* calc( void* ptr) {
+void *calc(void *ptr) {
 // Thread 0 will work on columns 0..15, thread 1 on rows 16..31
-  int x,y, start = N *  (int)ptr;
+  int x, y, start = N * (int) ptr;
   int end = start + N; 
-  for(x = start; x<end;x++) for(y=0; y <8192;y++) { /* do calc #1 */ }
+  for(x = start; x < end; x++) for (y = 0; y < 8192; y++) { /* do calc #1 */ }
 ```
 
 After calculation 1 completes we need to wait for the slower threads (unless we are the last thread!).
@@ -50,9 +50,9 @@ int remain = N;
 
 // After calc #1 code:
 remain--; // We finished
-if(remain ==0) {/*I'm last!  -  Time for everyone to wake up! */ }
+if (remain ==0) {/*I'm last!  -  Time for everyone to wake up! */ }
 else {
-  while(remain != 0) { /* spin spin spin*/ }
+  while (remain != 0) { /* spin spin spin*/ }
 }
 ```
 However the above code has a race condition (two threads might try to decrement `remain`) and the loop is a busy loop. We can do better! Let's use a condition variable and then we will use a broadcast/signal functions to wake up the sleeping threads.
@@ -77,7 +77,7 @@ The last arriving thread needs to wake up all sleeping threads - so we will need
 ```C
 pthread_mutex_lock(&m);
 remain--; 
-if(remain ==0) { pthread_cond_broadcast(&cv); }
+if (remain ==0) { pthread_cond_broadcast(&cv); }
 else {
   while(remain != 0) { pthread_cond_wait(&cv, &m) }
 }
