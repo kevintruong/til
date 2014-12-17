@@ -58,7 +58,7 @@ void push(double v) {
 }
 double pop() {
   pthread_mutex_lock(&m);
-  double v= values[--count];
+  double v = values[--count];
   pthread_mutex_unlock(&m);
   return v;
 }
@@ -82,36 +82,36 @@ The implementation assumes a single stack.  A more general purpose version might
 typedef struct stack {
   int count;
   pthread_mutex_t m; 
-  double* values;
+  double *values;
 } stack_t;
 
 stack_t* stack_create(int capacity) {
-  stack_t* result = malloc( sizeof(stack_t) );
-  result -> values = malloc( sizeof(double) * capacity );
-  pthread_mutex_init(& result->m, NULL);
+  stack_t *result = malloc(sizeof(stack_t));
+  result->values = malloc(sizeof(double) * capacity);
+  pthread_mutex_init(&result->m, NULL);
   return result;
 }
-void stack_destroy(stack_t*s) {
+void stack_destroy(stack_t *s) {
   free(s->values);
-  pthread_mutex_destroy(& s->m);
+  pthread_mutex_destroy(&s->m);
   free(s);
 }
 // Warning no underflow or overflow checks!
 
-void push(stack_t*s, double v) { 
+void push(stack_t *s, double v) { 
   pthread_mutex_lock(&s->m); 
   s->values[(s->count)++] = v; 
   pthread_mutex_unlock(&s->m); }
 
-double pop(stack_t*s) { 
+double pop(stack_t *s) { 
   pthread_mutex_lock(&s->m); 
-  double v= s->values[-- (s->count)]; 
+  double v = s->values[--(s->count)]; 
   pthread_mutex_unlock(&s->m); 
 return v;}
 
-int is_empty(stack_t*s) { 
+int is_empty(stack_t *s) { 
   pthread_mutex_lock(&s->m); 
-  int result= s->count == 0; 
+  int result = s->count == 0; 
   pthread_mutex_unlock(&s->m);
   return result;
 }
@@ -119,10 +119,10 @@ int is_empty(stack_t*s) {
 Example use:
 ```C
 int main() {
-    stack_t* s1 = stack_create(10 /* Max capacity*/);
-    stack_t* s2 = stack_create(10);
+    stack_t *s1 = stack_create(10 /* Max capacity*/);
+    stack_t *s2 = stack_create(10);
     push(s1, 3.141);
-    push(s2, pop(s1) );
+    push(s2, pop(s1));
     stack_destroy(s2);
     stack_destroy(s1);
 }
@@ -139,12 +139,12 @@ A simple (but incorrect!) suggestion is shown below. The `unlock` function simpl
 ```C
 // Version 1 (Incorrect!)
 
-void lock(mutex_t* m) {
+void lock(mutex_t *m) {
   while(m->locked) { /*Locked? Nevermind - just loop and check again!*/ }
 
   m->locked = 1;
 }
-void unlock(mutex_t*m) {
+void unlock(mutex_t *m) {
   m->locked = 0;
 }
 ```
@@ -223,8 +223,8 @@ double values[10];
 sem_t sitems, sremain;
 
 void init() {
-  sem_init(&sitems,0,0);
-  sem_init(&sremains,0,10); // 10 spaces
+  sem_init(&sitems, 0, 0);
+  sem_init(&sremains, 0, 10); // 10 spaces
 }
 
 double pop() {
