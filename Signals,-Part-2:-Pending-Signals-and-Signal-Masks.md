@@ -50,7 +50,7 @@ For example if the parent installed a handler (call-back function) for SIG-INT t
 Pending signals however are not inherited by the child.
 
 ## How do I block signals in a single-threaded program?
-Use `sigprocmask`! With sigblockmask you can set the new mask, add new signals to be blocked to the process mask, and unblock currently blocked signals. You can also determine the existing mask (and use it for later) by passing in a non-null value for oldset.
+Use `sigprocmask`! With sigprocmask you can set the new mask, add new signals to be blocked to the process mask, and unblock currently blocked signals. You can also determine the existing mask (and use it for later) by passing in a non-null value for oldset.
 
 ```
 int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);`
