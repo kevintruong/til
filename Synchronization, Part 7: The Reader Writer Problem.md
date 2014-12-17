@@ -42,7 +42,7 @@ Our second attempt suffers from a race condition - imagine if two threads both c
 <table><tr><td>
 <pre>read() {
   lock(&m)
-  while(writers) {
+  while (writers) {
     pthread_cond_wait(&cv,&m)
   }
   readers++
@@ -54,12 +54,12 @@ Our second attempt suffers from a race condition - imagine if two threads both c
 </td><td>
 <pre>write() {
   lock(&m)
-  while(readers || writers) {
+  while (readers || writers) {
     pthread_cond_wait(&cv,&m)
   }
   writers++
   // do write stuff
-  writers --
+  writers--
   pthread_cond_signal(&cv)
   unlock(&m)
 </pre></td></tr></table>
