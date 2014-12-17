@@ -51,7 +51,7 @@ static sigset_t   signal_mask;  /* signals to block         */
 
 int main (int argc, char *argv[])
 {
-    pthread_t  sig_thr_id;      /* signal handler thread ID */
+    pthread_t sig_thr_id;      /* signal handler thread ID */
     sigemptyset (&signal_mask);
     sigaddset (&signal_mask, SIGINT);
     sigaddset (&signal_mask, SIGTERM);
@@ -69,7 +69,7 @@ void *signal_thread (void *arg)
     int       sig_caught;    /* signal caught       */
 
     /* Use same mask as the set of signals that we'd like to know about! */
-    sigwait (&signal_mask, &sig_caught);
+    sigwait(&signal_mask, &sig_caught);
     switch (sig_caught)
     {
     case SIGINT:     /* process SIGINT  */
