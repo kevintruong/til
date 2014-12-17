@@ -6,15 +6,15 @@ What common mistakes do C programmers make?
 char array[] = "Hi!"; // array contains a mutable copy
 strcpy(array, "OK");
 
-char* ptr = "Can't change me"; // ptr points to some immutable memory
+char *ptr = "Can't change me"; // ptr points to some immutable memory
 strcpy(ptr, "Will not work");
 ```
 
 ## Buffer overflow/ underflow
 ```C
 #define N (10)
-int i=N, array[N];
-for( ; i>=0; i--) array[i]=i;
+int i = N, array[N];
+for( ; i >= 0; i--) array[i] = i;
 ```
 C does not check that pointers are valid. The above example writes into `array[10]` which is outside the array bounds. This can cause memory corruption because that memory location is probably being used for something else.
 In practice, this can be harder to spot because the overflow/underflow may occur in a library call e.g.
@@ -25,12 +25,12 @@ gets(array); // Let's hope the input is shorter than my array!
 
 ## Returning pointers to automatic variables
 ```C
- int* f() {
-     int result = 42;
-     static int imok;
-     return &imok; // OK - static variables are not on the stack
-     return &result; // Not OK
-  }
+int *f() {
+    int result = 42;
+    static int imok;
+    return &imok; // OK - static variables are not on the stack
+    return &result; // Not OK
+}
 ```
 Automatic variables are bound to stack memory only for the lifetime of the function.
 After the function returns it is an error to continue to use the memory.
@@ -41,7 +41,7 @@ struct User {
 };
 typedef struct User user_t;
 
-user_t* user = (user_t*) malloc(sizeof(user));
+user_t *user = (user_t *) malloc(sizeof(user));
 ```
 In the above example, we needed to allocate enough bytes for the struct. Instead we allocated enough bytes to hold a pointer. Once we start using the user pointer we will corrupt memory. Correct code is show bellow.
 ```C
@@ -50,7 +50,7 @@ struct User {
 };
 typedef struct User user_t;
 
-user_t* user = (user_t*) malloc(sizeof(user_t));
+user_t * user = (user_t *) malloc(sizeof(user_t));
 ```
 ## Using uninitialized variables
 ```C
@@ -81,7 +81,7 @@ It is an error to free the same block of memory twice.
 ## Dangling pointers
 ```C
   char *p = malloc(10);
-  strcpy(p,"Hello");
+  strcpy(p, "Hello");
   free(p);
 //  .. later ...
   strcpy(p,"World"); 
@@ -126,7 +126,7 @@ switch(flag) {
 ## Equal vs equality
 ```C
 int answer = 3; // Will print out the answer.
-if(answer=42) { printf("I've solved the answer! It's %d", answer);}
+if (answer = 42) { printf("I've solved the answer! It's %d", answer);}
 ```
 
 ## Undeclared or incorrectly prototyped functions
@@ -138,7 +138,7 @@ The system function 'time' actually takes a parameter (the pointer to some memor
 ## Extra Semicolons
 ```C
 for(int i = 0; i < 5; i++) ; printf("I'm printed once");
-while(x < 10 ) ; x++ ; // X is never incremented
+while(x < 10); x++ ; // X is never incremented
 ```
 However, the following code is perfectly OK.
 ```C
@@ -160,6 +160,6 @@ Macros are simple text substitution so the above example expands to `x++ < 100 ?
 ```C
 #define min(a,b) a<b ? a : b
 int x = 99;
-int r = 10 + min(99,100); // r is 100!
+int r = 10 + min(99, 100); // r is 100!
 ```
 Macros are simple text substitution so the above example expands to `10 + 99 < 100 ? 99 : 100`
