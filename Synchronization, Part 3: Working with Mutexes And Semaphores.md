@@ -87,6 +87,7 @@ typedef struct stack {
 
 stack_t* stack_create(int capacity) {
   stack_t *result = malloc(sizeof(stack_t));
+  result->count = 0;
   result->values = malloc(sizeof(double) * capacity);
   pthread_mutex_init(&result->m, NULL);
   return result;
@@ -107,7 +108,8 @@ double pop(stack_t *s) {
   pthread_mutex_lock(&s->m); 
   double v = s->values[--(s->count)]; 
   pthread_mutex_unlock(&s->m); 
-return v;}
+  return v;
+}
 
 int is_empty(stack_t *s) { 
   pthread_mutex_lock(&s->m); 
