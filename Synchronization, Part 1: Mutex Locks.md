@@ -55,7 +55,7 @@ m = PTHREAD_MUTEX_INITIALIZER is equivalent to the more general purpose
 `pthread_mutex_init(&m,NULL)`. The init version includes options to trade performance for additional error-checking and advanced sharing options.
 
 ```C
-pthread_mutex_t* lock = malloc( sizeof(pthread_mutex_t) ); 
+pthread_mutex_t *lock = malloc(sizeof(pthread_mutex_t)); 
 pthread_mutex_init(lock, NULL);
 //later
 pthread_mutex_destroy(lock);
@@ -100,7 +100,7 @@ void *countgold(void *param) {
     int i;
     
     //Same thread that locks the mutex must unlock it
-    //Critical section is just 'sum+=1'
+    //Critical section is just 'sum += 1'
     //However locking and unlocking a million times
     //has significant overhead in this simple answer
     
