@@ -2,7 +2,7 @@
 Who needs an editor? IDE? We can just use `cat`!
 You've seen `cat` being used to read the contents of files but it can also be used to read the  standard-input and send it back to standard output.
 ```
->cat
+$ cat
 HELLO
 HELLO
 ```
@@ -10,7 +10,7 @@ To finish reading from the input stream close the input stream by pressing `CTRL
 
 Let's use `cat` to send standard input to a file. We will use '>' to redirect its output to a file:
 ```
->cat > myprog.c
+$ cat > myprog.c
 #include <stdio.h>
 int main() {printf("Hi!");return 0;}
 ```
@@ -22,9 +22,9 @@ A useful trick if you have several text files (e.g. source code) to change is to
 `perl` makes this very easy to edit files in place.
 Just remember 'perl pie' and search on the web...
 
-An example. Suppose we want to change the sequence "Hi" to "Bye" in all .c files in the current directory. Then we can write a simple substition pattern that will be executed on each line at time in all files:
+An example. Suppose we want to change the sequence "Hi" to "Bye" in all .c files in the current directory. Then we can write a simple substitution pattern that will be executed on each line at time in all files:
 ```
-perl -p -i -e 's/Hi/Bye/' *.c
+$ perl -p -i -e 's/Hi/Bye/' *.c
 ```
 (Don't panic if you get it wrong, original files are still there; they just have the extension .bak)
 Obviously there's a lot more you can do with regular expressions than changing Hi to Bye.
@@ -37,7 +37,7 @@ To re-run the last command that started with g type `!g`  and press `return`
 Tired of running `make` or `gcc` and then running the program if it compiled OK? Instead, use && to chain these commands together
 
 ```
-gcc program.c && ./a.out
+$ gcc program.c && ./a.out
 ```
 
 ## Is your neighbor too productive? C pre-procesors to the rescue!
