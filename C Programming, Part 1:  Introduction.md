@@ -21,8 +21,8 @@
 ```C
 #include <stdio.h>
 int main() { 
-  printf("Hello World\n");
-  return 0; 
+    printf("Hello World\n");
+    return 0; 
 }
 ```
 ## Why do we use '`#include stdio.h`'?
@@ -33,15 +33,15 @@ As characters in memory.  The end of the string includes a NULL (0) byte. So "AB
 
 When you write a string literal `"ABC"` in an expression the string literal evaluates to a char pointer (char *), which points to the first byte/char of the string.  This means `ptr` in the example below will hold the memory address of the first character in the string.
 ```C
-char*ptr = "ABC"
+char *ptr = "ABC"
 ```
 
 
 ## How do you declare a pointer? 
 A pointer refers to a memory address. The type of the pointer is useful - it tells the compiler how many bytes need to be read/written.
 ```
-int* ptr1;
-char* ptr2;
+int *ptr1;
+char *ptr2;
 ```
 
 ## How do you use a pointer to read/write some memory?
@@ -55,16 +55,16 @@ The number of bytes written depends on the pointer type.
 You can add an integer to a pointer. However the pointer type is used to determine how much to increment the pointer. For char pointers this is trivial because characters are always one byte:
 ```C
 char *ptr = "Hello"; // ptr holds the memory location of 'H'
-ptr +=2; //ptr now points to the first'l'
+ptr += 2; //ptr now points to the first'l'
 ```
 
 If an int is 4 bytes then ptr+1 points to 4 bytes after whatever ptr is pointing at.
 ```C
 char *ptr = "ABCDEFGH";
-int *bna = (int *)ptr;
+int *bna = (int *) ptr;
 bna +=1; // Would cause iterate by one integer space (i.e 4 bytes on some systems)
-ptr = (char*) bna;
-printf("%s",ptr);
+ptr = (char *) bna;
+printf("%s", ptr);
 /* Notice how only 'EFGH' is printed. Why is that? Well as mentioned above, when performing 'bna+=1' we are increasing the **integer** pointer by 1, (translates to 4 bytes on most systems) which is equivalent to 4 characters (each character is only 1 byte)*/
 return 0;
 ```
@@ -83,23 +83,23 @@ A full list of all of the format specifiers is found [here](http://www.cplusplus
 
 Example of integer:
 ```C
-int num1=10;
-printf("%d",num1); //prints num1
+int num1 = 10;
+printf("%d", num1); //prints num1
 ```
 
 Example of integer pointer:
 ```C
-int *ptr=(int*)malloc(sizeof(int));
-*ptr=10;
-printf("%p\n",ptr); //prints the address pointed to by the pointer
-printf("%p\n",&ptr); /*prints the address of pointer -- extremely useful
+int *ptr = (int *) malloc(sizeof(int));
+*ptr = 10;
+printf("%p\n", ptr); //prints the address pointed to by the pointer
+printf("%p\n", &ptr); /*prints the address of pointer -- extremely useful
 when dealing with double pointers*/
-printf("%d",*ptr); //prints the integer content of ptr
+printf("%d", *ptr); //prints the integer content of ptr
 return 0;
 ```
 Example of string:
 ```C
-char *str = (char *) malloc(256*sizeof(char));
+char *str = (char *) malloc(256 * sizeof(char));
 strcpy(str, "Hello there!");
 printf("%p\n", str); // print the address in the heap
 printf("%s", str);
@@ -122,24 +122,24 @@ See [[http://angrave.github.io/sysassets/chapter1.html]]
 ## What's the difference between a pointer and an array? Give an example of something you can do with one but not the other.
 ```
 char ary[] = "Hello";
-char* ptr = "Hello";
+char *ptr = "Hello";
 ```
 Example 
 
 The array name is means the first byte of the array. Both `ary` and `ptr` can be printed out:
 ```C
 char ary[] = "Hello";
-char* ptr = "Hello";
+char *ptr = "Hello";
 // Print out address and contents
-printf("%p : %s\n",ary,ary);
-printf("%p : %s\n",ptr,ptr);
+printf("%p : %s\n", ary, ary);
+printf("%p : %s\n", ptr, ptr);
 ```
 The array is mutable, so we can change its contents (be careful not to write bytes beyond the end of the array though). Fortunately 'World' is no longer than 'Hello"
 
 The char pointer `ptr` points to some read only memory, so we cannot change those contents.
 ```
-strcpy(ary,"World"); // OK
-strcpy(ptr,"World"); // NOT OK - Segmentation fault (crashes)
+strcpy(ary, "World"); // OK
+strcpy(ptr, "World"); // NOT OK - Segmentation fault (crashes)
 
 ```
 We can, however, unlike the array, we change `ptr` to point to another piece of memory,
@@ -148,13 +148,13 @@ ptr = "World"; // OK!
 ptr = ary; // OK!
 ary = (..anything..) ; // WONT COMPILE
 // ary is doomed to always refer to the original array.
-printf("%p : %s\n",ptr,ptr);
-strcpy(ptr,"World"); // OK because now ptr is pointing to mutable memory (the array)
+printf("%p : %s\n", ptr, ptr);
+strcpy(ptr, "World"); // OK because now ptr is pointing to mutable memory (the array)
 ```
 
 ## `sizeof()` returns the number of bytes. So using above code, what is sizeof(ary) and sizeof(ptr)?
 `sizeof(ary)`: `ary` is an array. Returns the number of bytes required for the entire array (5 chars + zero byte = 6 bytes)
-`sizeof(ptr)`: Same as sizeof(char*). Returns the number bytes required for a pointer (e.g. 4 or 8 for a 32 bit or 64 bit machine)
+`sizeof(ptr)`: Same as sizeof(char *). Returns the number bytes required for a pointer (e.g. 4 or 8 for a 32 bit or 64 bit machine)
 
 ## Which of the following code is incorrect or correct and why?
 ```C
@@ -173,7 +173,7 @@ char* f2() {
 Explanation: An array p is created on the stack for the correct size to hold H,e,l,l,o, and a null byte i.e. (6) bytes. This array is stored on the stack and is invalid after we return from f2.
 ```C
 char* f3() {
-    char* p = "Hello";
+    char *p = "Hello";
     return p;
 } // OK
 ```
@@ -196,7 +196,7 @@ shell: man -S2 open  or man -S3 printf
 Use malloc. There's also realloc and calloc.
 Typically used with cast and a sizeof. e.g. enough space to hold 10 integers
 ```C
-int* space = (int*) malloc(sizeof(int) * 10);
+int *space = (int *) malloc(sizeof(int) * 10);
 ```
 
 ## What's wrong with this string copy code?
@@ -221,7 +221,7 @@ Note it's also usual to see the following kind of implementation, which does eve
 ```C
 // Use strlen+1 to find the zero byte... 
 char* mystrdup(char*source) {
-   char* p = (char*) malloc ( strlen(source)+1 );
+   char *p = (char *) malloc ( strlen(source)+1 );
    strcpy(p,source);
    return p;
 }
@@ -230,7 +230,7 @@ char* mystrdup(char*source) {
 ## How do you unallocate memory on the heap?
 Use free!
 ```C
-int* n = (int*)malloc(sizeof(int));
+int *n = (int *) malloc(sizeof(int));
 *n = 10;
 //Do some work
 free(n);
@@ -239,7 +239,7 @@ free(n);
 ## What is double free error? How can you avoid? What is a dangling pointer? How do you avoid?
 A double free error is when you accidentally attempt to free the same allocation twice.
 ```C
-int* p = malloc(sizeof(int));
+int *p = malloc(sizeof(int));
 free(p);
 
 *p = 123; // Oops! - Dangling pointer! Writing to memory we don't own anymore
