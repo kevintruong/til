@@ -25,7 +25,7 @@ int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
 * The third is a pointer to a function that we want to run
 * Fourth is a pointer that will be given to our function
 
-The argument `void *(*start_routine) (void *)` is difficult to read! It means a pointer that takes a `void*` pointer and returns a `void*` pointer. It looks like a function declaration except that the name of the function is wrapped with `(* .... )`
+The argument `void *(*start_routine) (void *)` is difficult to read! It means a pointer that takes a `void *` pointer and returns a `void *` pointer. It looks like a function declaration except that the name of the function is wrapped with `(* .... )`
 
 Here's the simplest example:
 ```C
@@ -33,20 +33,20 @@ Here's the simplest example:
 #include <pthread.h>
 // remember to set compilation option -pthread
 
-void* busy(void* ptr) {
+void *busy(void *ptr) {
 // ptr will point to "Hi"
     puts("Hello World");
     return NULL;
 }
 int main() {
     pthread_t id;
-    pthread_create(& id, NULL, busy, "Hi" );
-    while(1) {} // Loop forever
+    pthread_create(&id, NULL, busy, "Hi");
+    while (1) {} // Loop forever
 }
 ```
 If we want to wait for our thread to finish use `pthread_join`
 ```C
-void* result;
+void *result;
 pthread_join(id, &result);
 ```
 In the above example, `result` will be `null` because the busy function returned `null`.
