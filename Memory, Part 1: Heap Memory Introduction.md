@@ -16,9 +16,9 @@ On typical architectures, the heap is part of the `Data segment` and starts just
 ## Do programs need to call brk or sbrk?
 Not typically (though calling `sbrk(0)` can be interesting because it tells you where your heap currently ends). Instead programs use `malloc,calloc,realloc` and `free` which are part of the C library. The internal implementation of these functions will call `sbrk` when additional heap memory is required.
 ```C
-void* top_of_heap = sbrk(0);
+void *top_of_heap = sbrk(0);
 malloc(16384);
-void* top_of_heap2 = sbrk(0);
+void *top_of_heap2 = sbrk(0);
 printf("The top of heap went from %p to %p \n", top_of_heap, top_of_heap2);
 ```
 Example output: `The top of heap went from 0x4000 to 0xa000`
@@ -48,7 +48,7 @@ Programmers often use `calloc` rather than explicitly calling `memset` after `ma
 
 ```C
 // Ensure our memory is initialized to zero
-link_t* link  = malloc(256);
+link_t *link  = malloc(256);
 memset(link, 0, 256); // Assumes malloc returned a valid address!
 
 link_t link = calloc(1, 256);
@@ -65,7 +65,7 @@ char* ptr = malloc(300);
 // strcpy(ptr, "Some data); // work with the data
 free(ptr);
 // later
-char*ptr2 = malloc(308); // Contents might now contain existing data and is probably not zero
+char *ptr2 = malloc(308); // Contents might now contain existing data and is probably not zero
 ```
 
 ## Why doesn't malloc always initialize memory to zero?
@@ -77,16 +77,16 @@ Performance! We want malloc to be as fast as possible. Zeroing out memory may be
 void * realloc(void * ptr, size_t newsize) {
   // Simple implementation always reserves more memory
   // and has no error checking
-  void* result = malloc(newsize); 
+  void *result = malloc(newsize); 
   size_t oldsize =  ... //(depends on allocator's internal data structure)
-  if(ptr) memcpy(result, ptr, oldsize);
+  if (ptr) memcpy(result, ptr, oldsize);
   free(ptr);
   return result;
 }
 ```
 An INCORRECT use of realloc is shown below:
 ```C
-int* array = malloc(sizeof(int) * 2);
+int *array = malloc(sizeof(int) * 2);
 array[0] = 10; array[1]; = 20;
 // Ooops need a bigger array - so use realloc..
 realloc (array, 3); // ERRORS!
@@ -96,7 +96,7 @@ array[2] = 30;
 The above code contains two mistakes. Firstly we needed 3*sizeof(int) bytes not 3 bytes.
 Secondly realloc may need to move the existing contents of the memory to a new location. For example, there may not be sufficient space because the neighboring bytes are already allocated. A correct use of realloc is shown below.
 ```C
-array = realloc(array, 3*sizeof(int));
+array = realloc(array, 3 * sizeof(int));
 // If array is copied to a new location then old allocation will be freed.
 ```
 A robust version would also check for a `NULL` return value. Note `realloc` can be used to grow and shrink allocations. 
@@ -114,7 +114,7 @@ void* malloc(size_t size)
 // Ask the system for more bytes by extending the heap space. 
 // sbrk Returns -1 on failure
    void *p = sbrk(size); 
-   if(p == (void*) -1) return NULL; // No space left
+   if(p == (void *) -1) return NULL; // No space left
    return p;
 }
 void free() {/* Do nothing */}
