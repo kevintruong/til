@@ -61,7 +61,7 @@ A working simple server example is shown below. Note this example is incomplete 
 #include <unistd.h>
 #include <arpa/inet.h>
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     int s;
     int sock_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -78,17 +78,17 @@ int main(int argc, char** argv)
             exit(1);
     }
 
-    if ( bind(sock_fd, result->ai_addr, result->ai_addrlen) != 0 ) {
+    if (bind(sock_fd, result->ai_addr, result->ai_addrlen) != 0) {
         perror("bind()");
         exit(1);
     }
 
-    if ( listen(sock_fd, 10) != 0 ) {
+    if (listen(sock_fd, 10) != 0) {
         perror("listen()");
         exit(1);
     }
     
-    struct sockaddr_in * result_addr = (struct sockaddr_in*) result->ai_addr;
+    struct sockaddr_in *result_addr = (struct sockaddr_in *) result->ai_addr;
     printf("Listening on file descriptor %d, port %d\n", sock_fd, ntohs(result_addr->sin_port));
 
     printf("Waiting for connection...\n");
@@ -96,7 +96,7 @@ int main(int argc, char** argv)
     printf("Connection made: client_fd=%d\n", client_fd);
 
     char buffer[1000];
-    int len = read(client_fd, buffer, sizeof(buffer)-1 );
+    int len = read(client_fd, buffer, sizeof(buffer) - 1);
     buffer[len] = '\0';
 
     printf("Read %d chars\n", len);
