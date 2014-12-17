@@ -166,7 +166,7 @@ sem_t sitems;
 sem_t sremain;
 void stack_init(){
   sem_init(&sitems, 0, 0);
-  sem_init($sremain, 0, 10);
+  sem_init(&sremain, 0, 10);
 }
 
 
