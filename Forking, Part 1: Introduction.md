@@ -43,8 +43,8 @@ Check the return value of `fork()`. Return value -1= failed; 0= in child process
 The child process can find its parent - the original process that was duplicated -  by calling getppid() - so does not need any additional return information from `fork()`. The parent process however can only find out the id of the new child process from the return value of `fork`:
 ```C
 pid_t id = fork();
-if( id == -1) exit(1); // fork failed 
-if( id > 0 )
+if (id == -1) exit(1); // fork failed 
+if (id > 0)
 { 
 // I'm the original parent and 
 // I just created a child process with id 'id'
@@ -57,7 +57,7 @@ if( id > 0 )
 ## What is a fork bomb ?
 A 'fork bomb' is when you attempt to create an infinite number of processes. A simple example is shown below:
 ```
-while( 1 ) fork();
+while (1) fork();
 ```
 This will often bring a system to a near-standstill as it attempts to allocate CPU time and memory to a very large number of processes that are ready to run. Comment: System administrators don't like fork-bombs and may set upper limits on the number of processes each user can have or may revoke login rights because it creates a disturbance in the force for other users' programs. You can also limit the number of child processes created by using `setrlimit()`.
 
@@ -70,8 +70,8 @@ Use `waitpid` (or `wait`).
 
 ```C
 pid_t child_id = fork();
-if( child_id == -1) { perror("fork"); exit(EXIT_FAILURE);}
-if( child_id > 0) { 
+if (child_id == -1) { perror("fork"); exit(EXIT_FAILURE);}
+if (child_id > 0) { 
   // We have a child! Get their exit code
   int status; 
   waitpid( child_id, &status, 0 );
@@ -92,8 +92,8 @@ Yes. Use one of the `exec` functions after forking. [[http://man7.org/linux/man-
 
 int main(int argc, char**argv) {
   pid_t child = fork();
-  if(child == -1) return EXIT_FAILURE;
-  if(child) { /* I have a child! */
+  if (child == -1) return EXIT_FAILURE;
+  if (child) { /* I have a child! */
     int status;
     waitpid(child , &status ,0);
     return EXIT_SUCCESS;
@@ -103,7 +103,7 @@ int main(int argc, char**argv) {
     // Remember first arg is the program name
     // Last arg must be a char pointer to NULL
 
-    execl("/bin/ls", "ls","-alh", (char*)NULL );
+    execl("/bin/ls", "ls","-alh", (char *) NULL);
 
     // If we get to this line, something went wrong!
     perror("exec failed!");
@@ -129,13 +129,13 @@ A slightly silly example is shown below. What will it print? Try it with multipl
 ```C
 #include <unistd.h>
 #include <stdio.h>
-int main(int argc, char**argv) {
+int main(int argc, char **argv) {
   pid_t id;
   int status; 
-  while(--argc && (id=fork())) {
+  while (--argc && (id=fork())) {
     waitpid(id,&status,0); /* Wait for child*/
   }
-  printf("%d:%s\n",argc, argv[argc]);
+  printf("%d:%s\n", argc, argv[argc]);
   return 0;
 }
 ```
