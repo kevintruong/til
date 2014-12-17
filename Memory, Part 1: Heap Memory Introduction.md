@@ -160,7 +160,7 @@ In the example below, of the 64KB of heap memory, 17KB is allocated, and 47KB is
  `16KB free` | 10KB allocated | 1KB free | 1KB allocated | 30KB free | 4KB allocated | 2KB free 
 ---|---|---|---|---|---|---
 
-## What affect do placement strategies have on fragmentation and performance?
+## What effect do placement strategies have on fragmentation and performance?
 Different strategies affect the fragmentation of heap memory in non-obvious ways, which only are discovered by mathematical analysis or careful simulations under real-world conditions (for example simulating the memory allocation requests of a database or webserver).
 For example, best-fit at first glance appears to be an excellent strategy however, if we can not find a perfectly-sized hole then this placement creates many tiny unusable holes, leading to high fragmentation. It also requires a scan of all possible holes.
 
