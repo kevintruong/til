@@ -23,7 +23,7 @@ Where \_file\_ is either predefined 'stdout' 'stderr' or a FILE pointer that was
 Use `sprintf` or better `snprintf`.
 ```C
 char result[200];
-int len = snprintf(result, sizeof(result) , "%s:%d",name,score);
+int len = snprintf(result, sizeof(result), "%s:%d", name, score);
 ```
 snprintf returns the number of characters written excluding the terminating byte. In the above example this would be a maximum of 199.
 
@@ -32,11 +32,11 @@ Use `scanf` (or `fscanf` or `sscanf`) to get input from the default input stream
 It's a good idea to check the return value to see how many items were parsed.
 `scanf` functions require valid pointers. It's a common source of error to pass in an incorrect pointer value. For example,
 ```
-int* data = (int*) malloc(sizeof(int));
-char* line = "v 10";
+int *data = (int *) malloc(sizeof(int));
+char *line = "v 10";
 char type;
 // Good practice: Check scanf parsed the line and read two values:
-int ok = 2 == sscanf(line,"%c %d", &type, &data); // pointer error
+int ok = 2 == sscanf(line, "%c %d", &type, &data); // pointer error
 ```
 We wanted to write the character value into c and the integer value into the malloc'd memory.
 However we passed the address of the data pointer, not what the pointer is pointing to! So `sscanf` will change the pointer itself. i.e. the pointer will now point to address 10 so this code will later fail e.g. when free(data) is called.
@@ -63,7 +63,7 @@ gets(buf); // Remember the array name means the first byte of the array
 
 Where each have the following structure respectively:
 ``` 
-char * fgets ( char * str, int num, FILE * stream); 
+char *fgets (char *str, int num, FILE *stream); 
 
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 ```
@@ -71,15 +71,15 @@ ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 Here's a simple, safe way to read a single line. Lines longer than 9 characters will be truncated:
 ```C
 char buffer[10];
-char* result =  fgets(buffer, sizeof(buffer), stdin);
+char *result = fgets(buffer, sizeof(buffer), stdin);
 ```
 The result is NULL if there was an error or the end of the file is reached.
 Note, unlike `gets`,  `fgets` copies the newline into the buffer, which you may want to discard-
 ```C
-if( ! result) { return; /* no data - don't read the buffer contents */}
+if (!result) { return; /* no data - don't read the buffer contents */}
 
 int i= strlen(buffer) -1;
-if(buffer[i] == '\n') buffer[i] = '\0'
+if (buffer[i] == '\n') buffer[i] = '\0'
 ```
 
 ## How do I use `getline`?
@@ -89,13 +89,13 @@ One of the advantages of `getline` is that will automatically (re-) allocate a b
 // ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 
  /* set buffer and size to 0; they will be changed by getline*/
-char* buffer = NULL;
+char *buffer = NULL;
 size_t size = 0;
 
 ssize_t chars = getline(&buffer, &size, stdin);
 
 // Discard newline character if it is present,
-if(chars >0 && buffer[chars -1] =='\n') buffer[chars-1] = '\0';
+if (chars > 0 && buffer[chars -1] =='\n') buffer[chars-1] = '\0';
 
 // Read another line.
 // The existing buffer will be re-used, or, if necessary,
