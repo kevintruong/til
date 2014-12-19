@@ -122,7 +122,7 @@ int main(int argc, char**argv) {
   return 0;
 }
 ```
-The `system` call would fork, exec the command passed by parameter and the parent process would wait for this to finish. This also means that `system` is a blocking call - The parent process can't continue until the process started by `system` exits. This may be useful or it may not me, use with caution.
+The `system` call would fork, exec the command passed by parameter and the parent process would wait for this to finish. This also means that `system` is a blocking call - The parent process can't continue until the process started by `system` exits. This may be useful or it may not be, use with caution.
  
 ## What is the silliest fork example?
 A slightly silly example is shown below. What will it print? Try it with multiple arguments to your program.
