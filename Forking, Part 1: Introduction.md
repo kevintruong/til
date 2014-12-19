@@ -63,7 +63,7 @@ This will often bring a system to a near-standstill as it attempts to allocate C
 
 fork bombs are not necessarily malicious - they occasionally occur due to student coding errors.
 
-Angrave suggests that the Matrix trilogy, where the machine and man finally work together to defeat the multiplying Agent-Smith, was a cinematic plot based on a AI-driven fork-bomb.
+Angrave suggests that the Matrix trilogy, where the machine and man finally work together to defeat the multiplying Agent-Smith, was a cinematic plot based on an AI-driven fork-bomb.
 
 ## How does the parent process wait for the child to finish?
 Use `waitpid` (or `wait`).
