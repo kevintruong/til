@@ -126,7 +126,7 @@ char *ptr = "Hello";
 ```
 Example 
 
-The array name is means the first byte of the array. Both `ary` and `ptr` can be printed out:
+The array name points to the first byte of the array. Both `ary` and `ptr` can be printed out:
 ```C
 char ary[] = "Hello";
 char *ptr = "Hello";
@@ -136,7 +136,7 @@ printf("%p : %s\n", ptr, ptr);
 ```
 The array is mutable, so we can change its contents (be careful not to write bytes beyond the end of the array though). Fortunately 'World' is no longer than 'Hello"
 
-The char pointer `ptr` points to some read only memory, so we cannot change those contents.
+In this case, the char pointer `ptr` points to some read only memory (where the statically allocated string literal is stored), so we cannot change those contents.
 ```
 strcpy(ary, "World"); // OK
 strcpy(ptr, "World"); // NOT OK - Segmentation fault (crashes)
@@ -151,6 +151,8 @@ ary = (..anything..) ; // WONT COMPILE
 printf("%p : %s\n", ptr, ptr);
 strcpy(ptr, "World"); // OK because now ptr is pointing to mutable memory (the array)
 ```
+
+What to take away from this is that pointers * can point to any type of memory while C arrays [] can only point to memory on the stack. In a more common case, pointers will point to heap memory in which case the memory referred to by the pointer CAN be modified.
 
 ## `sizeof()` returns the number of bytes. So using above code, what is sizeof(ary) and sizeof(ptr)?
 `sizeof(ary)`: `ary` is an array. Returns the number of bytes required for the entire array (5 chars + zero byte = 6 bytes)
