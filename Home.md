@@ -51,7 +51,7 @@ Rather than requiring a book this semester, we will build our own set of resourc
 * [[Files, Part 1: Working with files]]
 
 ## Week 9
-* [[ POSIX Error handling]]
+* [[ POSIX, Part1:  Error handling]]
 * [[ Networking, Part 1: Introduction]]
 * [[ Networking, Part 2: Using getaddrinfo ]]
 * [[ Networking, Part 3: Building a simple TCP Client ]]
