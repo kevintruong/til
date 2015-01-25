@@ -83,7 +83,7 @@ if (child_id > 0) {
 ```
 
 ## Can I make the child process execute another program?
-Yes. Use one of the `exec` functions after forking. [[http://man7.org/linux/man-pages/man3/exec.3.html]] The `exec` set of functions replaces the process image with the the process image of what is being called. This means that any lines of code after the `exec` call are replaced. Any other work you want the child process to do should be done before the `exec` call.  
+Yes. Use one of the [`exec`](http://man7.org/linux/man-pages/man3/exec.3.html) functions after forking. The `exec` set of functions replaces the process image with the the process image of what is being called. This means that any lines of code after the `exec` call are replaced. Any other work you want the child process to do should be done before the `exec` call.  
 ```C
 #include <unistd.h>
 #include <sys/types.h> 
@@ -140,7 +140,7 @@ int main(int argc, char **argv) {
 }
 ```
 
-The amazing parallel apparent-O(N) _sleepsort_ is today's silly winner. First published on 4chan 2011 [[https://dis.4chan.org/read/prog/1295544154]]. A version of this awful but amusing sorting algorithm is shown below.
+The amazing parallel apparent-O(N) _sleepsort_ is today's silly winner. First published on [4chan 2011 ](https://dis.4chan.org/read/prog/1295544154). A version of this awful but amusing sorting algorithm is shown below.
 ```C
 int main(int c, char **v)
 {
@@ -157,7 +157,7 @@ The key differences include:
 * The process id returned by `getpid()`. The parent process id returned by `getppid()`.
 * The parent is notified via a signal when the child process finishes but not vice versa.
 * The child does not inherit pending signals or timer alarms.
-For a complete list see the [[fork man page|http://man7.org/linux/man-pages/man2/fork.2.html]]
+For a complete list see the [fork man page](http://man7.org/linux/man-pages/man2/fork.2.html)
 
 # Do child processes share open filehandles?
 Yes! In fact both processes use the same underlying kernel file descriptor. For example if one process rewinds the random access position back to the beginning of the file, then both processes are affected.
