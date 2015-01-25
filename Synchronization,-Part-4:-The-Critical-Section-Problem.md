@@ -122,7 +122,7 @@ This solution satisfies Mutual Exclusion, Bounded Wait and Progress. If thread #
 
 
 Link to Peterson's original article pdf:
-[[G. L. Peterson: "Myths About the Mutual Exclusion Problem", Information Processing Letters 12(3) 1981, 115–116|http://dl.acm.org/citation.cfm?id=945527]]
+[G. L. Peterson: "Myths About the Mutual Exclusion Problem", Information Processing Letters 12(3) 1981, 115–116](http://dl.acm.org/citation.cfm?id=945527)
 
 ## Was Peterson's solution the first solution?
 
