@@ -7,7 +7,7 @@ We will examine one specific form of the reader-writer problem where there are m
 See [[Synchronization,-Part-7:-The-Reader-Writer-Problem]] for part 1
 
 ## Candidate solution #3
-Candidate solutions 1 and 2 are discussed in [[part 1|Synchronization,-Part-7:-The-Reader-Writer-Problem]].
+Candidate solutions 1 and 2 are discussed in [part 1](Synchronization,-Part-7:-The-Reader-Writer-Problem).
 
 
 In the code below for clarity `lock` and `cond_wait` are shortened versions `pthread_mutex_lock` and `pthread_cond_wait` etc. respectively
