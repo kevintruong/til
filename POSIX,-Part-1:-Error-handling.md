@@ -106,6 +106,6 @@ If a blocked call to one of the following interfaces is interrupted by a signal 
 * read(2), readv(2), write(2), writev(2), and ioctl(2) calls on "slow" devices. A "slow" device is one where the I/O call may block for an indefinite time, for example, a terminal, pipe, or socket. (A disk is not a slow device according to this definition.) If an I/O call on a slow device has already transferred some data by the time it is interrupted by a signal handler, then the call will return a success status (normally, the number of bytes transferred).
 "
 
-Note, it is easy to believe that setting 'SA_RESTART' flag is sufficient to make this whole problem dissappear. Unfortunately that's not true: there are still system calls that may return early and set `EINTR`! See signal(7) for details - 
-[[signal(7)|https://angrave.github.io/sysassets/man_pages/html/man7/signal.7.html]]
+Note, it is easy to believe that setting 'SA_RESTART' flag is sufficient to make this whole problem dissappear. Unfortunately that's not true: there are still system calls that may return early and set `EINTR`! See [signal(7)](https://angrave.github.io/sysassets/man_pages/html/man7/signal.7.html) for details. 
+
 
