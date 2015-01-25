@@ -140,7 +140,7 @@ int main(int argc, char **argv) {
 }
 ```
 
-The amazing parallel apparent-O(N) _sleepsort_ is today's silly winner. First published on [4chan 2011 ](https://dis.4chan.org/read/prog/1295544154). A version of this awful but amusing sorting algorithm is shown below.
+The amazing parallel apparent-O(N) _sleepsort_ is today's silly winner. First published on [4chan in 2011 ](https://dis.4chan.org/read/prog/1295544154). A version of this awful but amusing sorting algorithm is shown below.
 ```C
 int main(int c, char **v)
 {
