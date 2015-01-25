@@ -42,7 +42,7 @@ void *calloc(size_t n, size_t size)
 	return result; 
 }
 ```
-An advanced discussion of these limitations is [[here|http://locklessinc.com/articles/calloc/]]
+An advanced discussion of these limitations is [here](http://locklessinc.com/articles/calloc/)
 
 Programmers often use `calloc` rather than explicitly calling `memset` after `malloc`, to set the memory contents to zero. Note `calloc(x,y)` is identical to `calloc(y,x)`, but you should follow the conventions of the manual.
 
@@ -102,7 +102,7 @@ array = realloc(array, 3 * sizeof(int));
 A robust version would also check for a `NULL` return value. Note `realloc` can be used to grow and shrink allocations. 
 
 ## Where can I read more?
-See the man page! [[http://man7.org/linux/man-pages/man3/malloc.3.html]]
+See [the man page](http://man7.org/linux/man-pages/man3/malloc.3.html)!
 
 ## How important is that memory allocation is fast?
 Very! Allocating and de-allocating heap memory is a common operation in most applications.
