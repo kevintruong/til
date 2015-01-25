@@ -222,9 +222,6 @@ Creating separate processes is useful
 * When running an existing and complete program then a new process is required (e.g. starting 'gcc')
  
 ## How can I find out more?
-See the complete example in the man page - 
-[[http://man7.org/linux/man-pages/man3/pthread_create.3.html]]
-And the pthread reference guide -
-[[pthread guide| http://man7.org/linux/man-pages/man7/pthreads.7.html]]
-ALSO: Concise third party sample code explaining create, join and exit - 
-[[http://www.thegeekstuff.com/2012/04/terminate-c-thread/]]
+See the complete example in the [man page](http://man7.org/linux/man-pages/man3/pthread_create.3.html)
+And the [pthread reference guide](http://man7.org/linux/man-pages/man7/pthreads.7.html)
+ALSO: [Concise third party sample code explaining create, join and exit](http://www.thegeekstuff.com/2012/04/terminate-c-thread/)
