@@ -3,7 +3,7 @@ Stack memory includes non-static automatic (temporary )variables, parameter valu
 If a buffer is too small some data (e.g. input values from the user), then there is a real possibility that other stack variables and even the return address will be overwritten.
 The precise layout of the stack's contents and order of the automatic variables is architecture and compiler dependent. However with a little investigative work we can learn how to deliberately smash the stack for a particular architecture.
 
-The example below demonstrates how the return address is stored on the stack. For a particular 32 bit architecture [[Live Linux Machine|http://angrave.github.io/sys/]], we determine that the return address is stored at an address two pointers (8 bytes) above the address of the automatic variable. The code deliberately changes the stack value so that when the input function returns, rather than continuing on inside the main method, it jumps to the exploit function instead.
+The example below demonstrates how the return address is stored on the stack. For a particular 32 bit architecture [Live Linux Machine](http://angrave.github.io/sys/), we determine that the return address is stored at an address two pointers (8 bytes) above the address of the automatic variable. The code deliberately changes the stack value so that when the input function returns, rather than continuing on inside the main method, it jumps to the exploit function instead.
 
 
 ````C
