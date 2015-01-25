@@ -30,7 +30,7 @@ realsize = (*p) & ~1;  // mask out the lowest bit
 ```
 
 ## Alignment and rounding up considerations
-Many architectures expect multi-byte primitives to be aligned to some multiple of 2^n. For example it's common to require 4 byte types to be aligned to 4 byte boundaries (and 8 byte types on 8 byte boundaries). If multi-byte primitives are not stored on a reasonable boundary (for example starting at an odd address) then the performance can be significantly impacted because it may require two memory read requests instead of one. On some architectures the penalty is even greater -  the program will crash with a bus error. (see [[http://en.wikipedia.org/wiki/Bus_error#Unaligned_access]] )
+Many architectures expect multi-byte primitives to be aligned to some multiple of 2^n. For example it's common to require 4 byte types to be aligned to 4 byte boundaries (and 8 byte types on 8 byte boundaries). If multi-byte primitives are not stored on a reasonable boundary (for example starting at an odd address) then the performance can be significantly impacted because it may require two memory read requests instead of one. On some architectures the penalty is even greater -  the program will crash with a [bus error](http://en.wikipedia.org/wiki/Bus_error#Unaligned_access).
 
 As malloc does not know how the user will use the allocated memory (array of doubles? array of chars?), the pointer returned to the program needs to be aligned for the worst case, which is architecture dependent.
 
@@ -95,10 +95,10 @@ The main disadvantage of the Buddy allocator is that they suffer from internal f
 
 
 ### Further Reading and References
-* See [[Foundations of Software Technology and Theoretical Computer Science 1999 proceedings|http://books.google.com/books?id=0uHME7EfjQEC&lpg=PP1&pg=PA85#v=onepage&q&f=false]] (Google books,page 85)
-* ThanksForTheMemory UIUC lecture Slides ([[pptx|https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx]]) ([[pdf|https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx.pdf]])
+* See [Foundations of Software Technology and Theoretical Computer Science 1999 proceedings](http://books.google.com/books?id=0uHME7EfjQEC&lpg=PP1&pg=PA85#v=onepage&q&f=false) (Google books,page 85)
+* ThanksForTheMemory UIUC lecture Slides ([pptx](https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx)) ([pdf](https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-05-ThanksForTheMemorySlides.pptx.pdf))
 and 
-* [[http://en.wikipedia.org/wiki/Buddy_memory_allocation]]
+* [Wikipedia's buddy memory allocation page](http://en.wikipedia.org/wiki/Buddy_memory_allocation)
 
 # Other allocators
-There are many other allocation schemes. For example [[SLUB|http://en.wikipedia.org/wiki/SLUB_%28software%29]] (wikipedia) - one of three allocators used internally by the Linux Kernel.
+There are many other allocation schemes. For example [SLUB](http://en.wikipedia.org/wiki/SLUB_%28software%29) (wikipedia) - one of three allocators used internally by the Linux Kernel.
