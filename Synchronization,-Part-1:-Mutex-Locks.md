@@ -69,7 +69,7 @@ No.A mutex is not that smart - it works with code(threads) not data. Only when a
 ## Can I create mutex before fork-ing?
 Yes - however the child and parent process will not share virtual memory and each one will have a mutex independent of the other.
 
-(Advanced note: There are advanced options using shared memory that allow a child and parent to share a mutex if it's created with the correct options and uses a shared memory segment. See [[stackoverflow example|http://stackoverflow.com/questions/19172541/procs-fork-and-mutexes]] )
+(Advanced note: There are advanced options using shared memory that allow a child and parent to share a mutex if it's created with the correct options and uses a shared memory segment. See [stackoverflow example](http://stackoverflow.com/questions/19172541/procs-fork-and-mutexes) )
 
 ## If one thread locks a mutex can another thread unlock it?
 No. The same thread must unlock it.
@@ -142,7 +142,7 @@ This process runs a slower because we lock and unlock the mutex a million times,
 ```
 ## How do I find out more?
 [Play!](http://angrave.github.io/sys) Read the man page!
-* [[http://linux.die.net/man/3/pthread_mutex_lock]]
-* [[http://linux.die.net/man/3/pthread_mutex_unlock]]
-* [[http://linux.die.net/man/3/pthread_mutex_init]]
-* [[http://linux.die.net/man/3/pthread_mutex_destroy]]
+* [](http://linux.die.net/man/3/pthread_mutex_lock)
+* [](http://linux.die.net/man/3/pthread_mutex_unlock)
+* [](http://linux.die.net/man/3/pthread_mutex_init)
+* [](http://linux.die.net/man/3/pthread_mutex_destroy)
