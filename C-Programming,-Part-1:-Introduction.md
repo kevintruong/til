@@ -268,8 +268,8 @@ Declares an alias for a types. Often used with structs to reduce the visual clut
 typedef float real; 
 real gravity = 10;
 // Also typedef gives us an abstraction over the underlying type used. 
-// For example in the future we only need to change this typedef and 
-// in we wanted out physics library to use doubles instead of floats.
+// For example in the future we only need to change this typedef if we
+// wanted our physics library to use doubles instead of floats.
 
 typedef struct link link_t; 
 //With structs, include the keyword 'struct' as part of the original types
