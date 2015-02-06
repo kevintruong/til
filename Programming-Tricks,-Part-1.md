@@ -39,13 +39,12 @@ Tired of running `make` or `gcc` and then running the program if it compiled OK?
 ```
 $ gcc program.c && ./a.out
 ```
-
+## Make can do more than make
 You might also try putting a line in your Makefile that will compile, and then run your program.
 ```
 run : $(program)
         ./$(program)
 ```
-
 Then running
 ```
 $ make run
