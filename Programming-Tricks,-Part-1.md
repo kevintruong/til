@@ -40,6 +40,18 @@ Tired of running `make` or `gcc` and then running the program if it compiled OK?
 $ gcc program.c && ./a.out
 ```
 
+You might also try putting a line in your Makefile that will compile, and then run your program.
+```
+run : $(program)
+        ./$(program)
+```
+
+Then running
+```
+$ make run
+```
+will make sure any changes you've made are compiled, and run your program in one go. Also good for testing many inputs at once. Although you probably would just rather write a regular shell script for that.
+
 ## Is your neighbor too productive? C pre-procesors to the rescue!
 Use the C pre-processor to redefine common keywords e.g.
 ```C
