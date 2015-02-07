@@ -129,7 +129,7 @@ Instead we need an allocator that can efficiently use heap space and only ask fo
 ## What are placement strategies?
 During program execution memory is allocated ande de-allocated (freed), so there will be gaps (holes) in the heap memory that can be re-used for future memory requests. The memory allocator needs to keep track of which parts of the heap are currently allocated and which are parts are available.
 
-Suppose our current heap size is 64K, though not all of it is in use because some earlier malloc'd memory has already been freed by the program- 
+Suppose our current heap size is 64K, though not all of it is in use because some earlier malloc'd memory has already been freed by the program: 
 
 16KB free | 10KB allocated | 1KB free | 1KB allocated | 30KB free | 4KB allocated | 2KB free 
 ---|---|---|---|---|---|---
