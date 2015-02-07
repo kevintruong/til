@@ -25,7 +25,7 @@ Example output: `The top of heap went from 0x4000 to 0xa000`
 
 
 ## What is calloc?
-Unlike `malloc`, `calloc` initializes memory contents to zero and also takes two arguments (the number of items and the size in bytes of each item). A naive but readable implementation of `calloc` looks like this-
+Unlike `malloc`, `calloc` initializes memory contents to zero and also takes two arguments (the number of items and the size in bytes of each item). A naive but readable implementation of `calloc` looks like this:
 ```C
 void *calloc(size_t n, size_t size)
 {
@@ -42,7 +42,7 @@ void *calloc(size_t n, size_t size)
 	return result; 
 }
 ```
-An advanced discussion of these limitations is [here](http://locklessinc.com/articles/calloc/)
+An advanced discussion of these limitations is [here](http://locklessinc.com/articles/calloc/).
 
 Programmers often use `calloc` rather than explicitly calling `memset` after `malloc`, to set the memory contents to zero. Note `calloc(x,y)` is identical to `calloc(y,x)`, but you should follow the conventions of the manual.
 
