@@ -163,3 +163,12 @@ int x = 99;
 int r = 10 + min(99, 100); // r is 100!
 ```
 Macros are simple text substitution so the above example expands to `10 + 99 < 100 ? 99 : 100`
+
+## Assignments in Conditions
+
+```int a = 0;
+if (a = 1) {
+    printf("What is a?\n");
+}
+```
+Notice the second line--`a = 1` vs. `a == 1`. What happens here? The assignment operator in C returns the value on the right. So in this case, `if (a = 1)` evaluates to `if (1)`.
