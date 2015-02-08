@@ -69,6 +69,8 @@ printf("%s", ptr);
 /* Notice how only 'EFGH' is printed. Why is that? Well as mentioned above, when performing 'bna+=1' we are increasing the **integer** pointer by 1, (translates to 4 bytes on most systems) which is equivalent to 4 characters (each character is only 1 byte)*/
 return 0;
 ```
+Because pointer arithmetic in C is always automatically scaled by the size of the type that is pointed to, you can't perform pointer arithmetic on void pointers.
+
 ## What is a void pointer?
 A pointer without a type (very similar to a void variable). You can think of this as a raw pointer, or just a memory address. You cannot directly read or write to it because the void type does not have a size.
 
