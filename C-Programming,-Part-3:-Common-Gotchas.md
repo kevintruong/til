@@ -9,6 +9,18 @@ strcpy(array, "OK");
 char *ptr = "Can't change me"; // ptr points to some immutable memory
 strcpy(ptr, "Will not work");
 ```
+String literals are character arrays stored in static memory, which is immutable. Two string literals may share the same space in memory. An example follows:
+
+```char * str1 = "Brandon Chong is the best TA";
+char * str2 = "Brandon Chong is the best TA";
+```
+The strings pointed to by `str1` and `str2` may actually reside in the same location in memory.
+
+Char arrays, however, put that string literal in static memory, *and then copy it over to stack memory*. These following char arrays do not reside in the same place in memory.
+
+```char * arr1[] = "Brandon Chong didn't write this";
+char * arr2[] = "Brandon Chong didn't write this";
+```
 
 ## Buffer overflow/ underflow
 ```C
