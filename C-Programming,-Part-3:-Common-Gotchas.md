@@ -180,7 +180,8 @@ Macros are simple text substitution so the above example expands to `10 + 99 < 1
 
 ## Assignments in Conditions
 
-```int a = 0;
+```C
+int a = 0;
 if (a = 1) {
     printf("What is a?\n");
 }
