@@ -147,7 +147,7 @@ if (answer = 42) { printf("I've solved the answer! It's %d", answer);}
 ```C
 time_t start = time();
 ```
-The system function 'time' actually takes a parameter (the pointer to some memory that can receive the time_t structure. The compiler did not catch this error because the programmer did not provide a valid function prototype by including `time.h`
+The system function 'time' actually takes a parameter (a pointer to some memory that can receive the time_t structure). The compiler did not catch this error because the programmer did not provide a valid function prototype by including `time.h`
 
 ## Extra Semicolons
 ```C
