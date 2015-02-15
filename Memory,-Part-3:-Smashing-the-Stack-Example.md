@@ -1,5 +1,5 @@
 Each thread uses a stack memory. The stack 'grows downwards' - if a function calls another function, then the stack is extended to smaller memory addresses.
-Stack memory includes non-static automatic (temporary )variables, parameter values and the return address.
+Stack memory includes non-static automatic (temporary) variables, parameter values and the return address.
 If a buffer is too small some data (e.g. input values from the user), then there is a real possibility that other stack variables and even the return address will be overwritten.
 The precise layout of the stack's contents and order of the automatic variables is architecture and compiler dependent. However with a little investigative work we can learn how to deliberately smash the stack for a particular architecture.
 
