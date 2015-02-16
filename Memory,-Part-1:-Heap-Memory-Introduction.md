@@ -127,7 +127,7 @@ If this allocator was used in a typical program, the process would quickly exhau
 Instead we need an allocator that can efficiently use heap space and only ask for more memory when necessary.
 
 ## What are placement strategies?
-During program execution memory is allocated ande de-allocated (freed), so there will be gaps (holes) in the heap memory that can be re-used for future memory requests. The memory allocator needs to keep track of which parts of the heap are currently allocated and which are parts are available.
+During program execution memory is allocated and de-allocated (freed), so there will be gaps (holes) in the heap memory that can be re-used for future memory requests. The memory allocator needs to keep track of which parts of the heap are currently allocated and which are parts are available.
 
 Suppose our current heap size is 64K, though not all of it is in use because some earlier malloc'd memory has already been freed by the program: 
 
