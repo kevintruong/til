@@ -15,7 +15,7 @@ As an example, suppose your allocator is asked to reserve 80 bytes (`malloc(80)`
 In the implementation, remember that pointer arithmetic depends on type. For example, `p += 8` adds `sizeof(p)*8` not necessarily 8 bytes!
 
 ## Implementing malloc
-The simplest implementation uses first fit: Start at the first block,assuming it exists, and iterate until a block that represents unallocated space of sufficient size is found, or we've checked all the blocks.
+The simplest implementation uses first fit: Start at the first block, assuming it exists, and iterate until a block that represents unallocated space of sufficient size is found, or we've checked all the blocks.
 
 If no suitable block is found then it's time to call `sbrk()` again to sufficiently extend the size of the heap. A fast implementation might extend it a significant amount so that we will not need to request more heap memory in the near future.
 
