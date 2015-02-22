@@ -35,7 +35,7 @@ int main() {
 Note, we will never dereference this pointer value as an actual memory location - we will just cast it straight back to an integer:
 ```C
 void *calc(void *ptr) {
-// Thread 0 will work on columns 0..15, thread 1 on rows 16..31
+// Thread 0 will work on rows 0..15, thread 1 on rows 16..31
   int x, y, start = N * (int) ptr;
   int end = start + N; 
   for(x = start; x < end; x++) for (y = 0; y < 8192; y++) { /* do calc #1 */ }
