@@ -190,7 +190,7 @@ char* f4() {
     return p;
 } // OK
 ```
-Explanation :The array is static meaning it exists for the lifetime of the process (static variables are not on the heap or the stack).
+Explanation: The array is static meaning it exists for the lifetime of the process (static variables are not on the heap or the stack).
 
 ## How do you look up information C library calls and system calls?
 Use the man pages. Note the man pages are organized into sections. Section 2 = System calls. Section 3 = C libraries.
