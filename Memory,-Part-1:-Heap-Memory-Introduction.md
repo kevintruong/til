@@ -62,7 +62,7 @@ Unfortunately this means that for `malloc` requests before any memory has been f
 char* ptr = malloc(300);
 // contents is probably zero because we get brand new memory
 // so beginner programs appear to work!
-// strcpy(ptr, "Some data); // work with the data
+// strcpy(ptr, "Some data"); // work with the data
 free(ptr);
 // later
 char *ptr2 = malloc(308); // Contents might now contain existing data and is probably not zero
