@@ -89,7 +89,7 @@ write() {
     lock()
     writer++
 
-    while (reading | writing)
+    while (reading || writing)
     cond_wait
     unlock()
   ...
@@ -118,14 +118,20 @@ read() {
 Below is our first working solution to the Reader-Writer problem. 
 Note if you continue to read about the "Reader Writer problem" then you will discover that we solved the "Second Reader Writer problem" by giving writers preferential access to the lock. This solution is not optimal. However it satisfies our original problem (N active readers, single active writer, avoids starvation of the writer if there is a constant stream of readers). 
 
-Can you identify two improvements? Is any of the code superfluous? For example, how would you improve the code so that we only woke up readers or one writer? 
+Can you identify any improvements? For example, how would you improve the code so that we only woke up readers or one writer? 
 ```C
+
+int writers; // Number writer threads that want to enter the critical section (some or all of these may be blocked)
+int writing; // Number of threads that are actually writing inside the C.S. (can only be zero or one)
+int reading; // Number of threads that are actually reading inside the C.S.
+// if writing !=0 then reading must be zero (and vice versa)
+
 reader() {
     mutex_lock(&m)
     while (writers)
         cond_wait(&turn, &m)
-    while (writing)
-        cond_wait(&turn, &m)
+    // No need to wait while(writing here) because we can only exit the above loop
+    // when writing is zero
     reading++
     unlock(&m)
 
