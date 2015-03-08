@@ -63,7 +63,7 @@ free(lock);
 ```
 
 ## `So pthread_mutex_lock` stops the other threads when they read the same variable?
-No.A mutex is not that smart - it works with code(threads) not data. Only when another thread calls `lock` on a locked mutex will the second thread need to wait until the mutex is unlocked.
+No. A mutex is not that smart - it works with code (threads), not data. Only when another thread calls `lock` on a locked mutex will the second thread need to wait until the mutex is unlocked.
 
 
 ## Can I create mutex before fork-ing?
