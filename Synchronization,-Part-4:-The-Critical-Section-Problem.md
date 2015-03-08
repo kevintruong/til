@@ -107,7 +107,7 @@ Time | Turn | Thread #1 | Thread #2
 4| 2 | // Do Critical Section stuff | // Do Critical Section stuff - OOPS 
 
 ## What is Peterson's solution?
-Peterson published his novel and surprisingly simple solution in a 2 page paper in 1981. A version of his algorithm is shown below that uses a shared variable 'turn' - 
+Peterson published his novel and surprisingly simple solution in a 2 page paper in 1981. A version of his algorithm is shown below that uses a shared variable `turn`: 
 
 ```
 \\ Candidate #5
