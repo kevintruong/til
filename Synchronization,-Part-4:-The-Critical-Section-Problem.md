@@ -28,6 +28,8 @@ Ooops! There is a race condition. In the unfortunate case both threads checked t
 ## Candidate solutions to the critical section problem.
 To simplify the discussion we consider only two threads. Note these arguments work for threads and processes and the classic CS literature discusses these problem in terms of two processes that need exclusive access (i.e. mutual exclusion) to a critical section or shared resource.
 
+Raising a flag represents a thread/process's intention to enter the critical section.
+
 Remember that the psuedo-code outlined below is part of a larger program; the thread or process will typically need to enter the critical section many times during the lifetime of the process. So imagine each example as wrapped inside a loop where for a random amount of time the thread or process is working on something else.
 
 Is there anything wrong with candidate solution described below?
