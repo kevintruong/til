@@ -73,7 +73,7 @@ wait until my turn is myid
 // Do Critical Section stuff
 turn = yourid
 ```
-Candidate #3 satisfies mutual exclusion (each thread or process gets exclusive access to the Critical Section), however both threads/processes must take a strict turn-based approach to using the critical section. For example, if thread 1 wishes to read a hashtable every millisecond but another thread writes to a hashtable every second, then the reading thread would have to wait another 999ms before being able to read from the hashtable again. Thus, the threads/processes are forced into a strictly alternating access pattern. This 'solution' is not effective, because our threads should be able to make progress and enter the critical section if no other thread is currently in the critical section.
+Candidate #3 satisfies mutual exclusion (each thread or process gets exclusive access to the Critical Section), however both threads/processes must take a strict turn-based approach to using the critical section. For example, if thread 1 wishes to read a hashtable every millisecond but another thread writes to a hashtable every second, then the reading thread would have to wait another 999ms before being able to read from the hashtable again. This 'solution' is not effective, because our threads should be able to make progress and enter the critical section if no other thread is currently in the critical section.
 
 ## Desired properties for solutions to the Critical Section Problem?
 There are three main desirable properties that we desire in a solution the critical section problem
