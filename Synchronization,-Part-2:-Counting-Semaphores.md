@@ -11,6 +11,8 @@ This page introduces unnamed semaphores. Unfortunately Mac OS X does not support
 First decide if the initial value should be zero or some other value (e.g. the number of remaining spaces in an array).
 Unlike pthread mutex there are not shortcuts to creating a semaphore - use `sem_init`
 ```C
+#include <semaphore.h>
+
 sem_t s;
 int main() {
   sem_init(&s, 0, 10); // returns -1 (=FAILED) on OS X
