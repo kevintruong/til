@@ -9,7 +9,7 @@ In short, `post` increments and immediately returns whereas `wait` will wait if 
 This page introduces unnamed semaphores. Unfortunately Mac OS X does not support these yet.
 
 First decide if the initial value should be zero or some other value (e.g. the number of remaining spaces in an array).
-Unlike pthread mutex there are not shortcuts to creating a semaphore - use 'sem_init'
+Unlike pthread mutex there are not shortcuts to creating a semaphore - use `sem_init`
 ```C
 sem_t s;
 int main() {
