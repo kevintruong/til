@@ -175,7 +175,7 @@ double pop() {
   sem_wait(&sitems);
   ...
 
-double push(double v) {
+void push(double v) {
   // Wait until there's at least one space
   sem_wait(&sremain);
   ...
@@ -190,7 +190,7 @@ double pop() {
   sem_post(&sremain); // error! wakes up pushing() thread too early
   return values[--count];
 }
-double push(double v) {
+void push(double v) {
   // Wait until there's at least one space
   sem_wait(&sremain);
   sem_post(&sitems); // error! wakes up a popping() thread too early
@@ -209,7 +209,7 @@ double pop() {
   return v;
 }
 
-double push(double v) {
+void push(double v) {
   // Wait until there's at least one space
   sem_wait(&sremain);
   values[count++] = v;
@@ -246,7 +246,7 @@ double pop() {
   return v;
 }
 
-double push(double v) {
+void push(double v) {
   // Wait until there's at least one space
   sem_wait(&sremain);
 
