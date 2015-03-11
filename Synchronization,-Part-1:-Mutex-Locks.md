@@ -114,6 +114,19 @@ void *countgold(void *param) {
     pthread_mutex_unlock(&m);
     return NULL;
 }
+
+int main() {
+    pthread_t tid1, tid2;
+    pthread_create(&tid1, NULL, countgold, NULL);
+    pthread_create(&tid2, NULL, countgold, NULL);
+
+    //Wait for both threads to finish:
+    pthread_join(tid1, NULL);
+    pthread_join(tid2, NULL);
+
+    printf("ARRRRG sum is %d\n", sum);
+    return 0;
+}
 ```
 
 In the code above, the thread gets the lock to the counting house before entering. The critical section is only the `sum+=1` so the following version is also correct but slower - 
@@ -126,7 +139,7 @@ In the code above, the thread gets the lock to the counting house before enterin
     return NULL;
 }
 ```
-This process runs a slower because we lock and unlock the mutex a million times, which is expensive - at least compared with incrementing a variable. (And in this simple example we didn't really need threads - we could have added up twice!)  A faster multi-thread example would be to add one million using an automatic(local) variable and only then adding it to a shared total after the calculation loop has finished:
+This process runs slower because we lock and unlock the mutex a million times, which is expensive - at least compared with incrementing a variable. (And in this simple example we didn't really need threads - we could have added up twice!)  A faster multi-thread example would be to add one million using an automatic(local) variable and only then adding it to a shared total after the calculation loop has finished:
 ```C
     int local = 0;
     for (i = 0; i < 10000000; i++) {
