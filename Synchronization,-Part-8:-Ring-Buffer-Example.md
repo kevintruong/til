@@ -121,7 +121,7 @@ void *dequeue(){
 
 ### Analysis
 * The initial value of s2 is 0. Thus enqueue will block on the first call to sem_wait even though the buffer is empty!
-* The initial value of s1 is 0. Thus dequeue will not block on the first call to sem_wait even though the buffer is empty - oops Underflow! The dequeue method will return invalid data.
+* The initial value of s1 is 16. Thus dequeue will not block on the first call to sem_wait even though the buffer is empty - oops Underflow! The dequeue method will return invalid data.
 * The code does not satisfy Mutual Exclusion; two threads can modify `in` or `out` at the same time! The code appears to use  mutex lock. Unfortunately the lock was never initialized with `pthread_mutex_init()` or `PTHREAD_MUTEX_INITIALIZER` - so the lock may not work (`pthread_mutex_lock` may simply do nothing)
 
 ## Correct implementation of a ring buffer
