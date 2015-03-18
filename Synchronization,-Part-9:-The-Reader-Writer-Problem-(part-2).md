@@ -133,28 +133,28 @@ reader() {
     // No need to wait while(writing here) because we can only exit the above loop
     // when writing is zero
     reading++
-    unlock(&m)
+    mutex_unlock(&m)
 
   // perform reading here
 
-    lock(&m)
+    mutex_lock(&m)
     reading--
     cond_broadcast(&turn)
-    unlock(&m)
+    mutex_unlock(&m)
 }
 
 writer(){
-    lock(&m)  
+    mutex_lock(&m)  
     writers++  
     while (reading || writing)   
         cond_wait(&turn, &m)  
     writing++  
-    unlock(&m)  
+    mutex_unlock(&m)  
     // perform writing here  
-    lock(&m)  
+    mutex_lock(&m)  
     writing--  
     writers--  
     cond_broadcast(&turn)  
-    unlock(&m)  
+    mutex_unlock(&m)  
 }
 ```
