@@ -143,7 +143,7 @@ reader() {
     mutex_unlock(&m)
 }
 
-writer(){
+writer() {
     mutex_lock(&m)  
     writers++  
     while (reading || writing)   
