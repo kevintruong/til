@@ -75,7 +75,7 @@ while (count < 10) {
    pthread_cond_wait(&cv, &m); 
 /* Remember that cond_wait unlocks the mutex before blocking (waiting)! */
 /* After unlocking, other threads can claim the mutex. */
-/* When this thread is later woken it will 
+/* When this thread is later woken it will */
 /* re-lock the mutex before returning */
 }
 pthread_mutex_unlock(&m);
