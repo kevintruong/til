@@ -32,7 +32,7 @@ lock = 0;
 * Threads sleeping inside a condition variable are woken up calling `pthread_cond_broadcast` (wake up all) or `pthread_cond_signal` (wake up one). Note despite the function name, this has nothing to do with POSIX `signal`s!
 
 ## What does `pthread_cond_wait` do?
-Wait performs three actions:
+The call `pthread_cond_wait` performs three actions:
 * unlock the mutex and atomically...
 * waits (sleeps until `pthread_cond_signal` is called on the same condition variable)
 * Before returning, locks the mutex
@@ -72,7 +72,11 @@ count = 0;
 
 pthread_mutex_lock(&m);
 while (count < 10) {
-   pthread_cond_wait(&cv, &m); /*unlock m,wait, lock m*/
+   pthread_cond_wait(&cv, &m); 
+/* Remember that cond_wait unlocks the mutex before blocking (waiting)! */
+/* After unlocking, other threads can claim the mutex. */
+/* When this thread is later woken it will 
+/* re-lock the mutex before returning */
 }
 pthread_mutex_unlock(&m);
 
@@ -84,8 +88,10 @@ while (1) {
   pthread_mutex_lock(&m);
   count++;
   pthread_cond_signal(&cv);
-  /* Even though the other thread is woken up it will not return
-  we unlock the mutex */
+  /* Even though the other thread is woken up it cannot not return */
+  /* from pthread_cond_wait until we have unlocked the mutex. This is */
+  /* a good thing! In fact, it is usually the best practice to call */
+  /* cond_signal or cond_broadcast before unlocking the mutex */
   pthread_mutex_unlock(&m);
 }
 ```
