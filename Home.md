@@ -1,7 +1,7 @@
-Welcome to Angrave's crowd-sourced System Programming wiki!
-This wiki is being built by students and faculty from UIUC.
+Welcome to Angrave's crowd-sourced System Programming wiki-book!
+This wiki is being built by students and faculty from the University of Illinois and is a crowd-source authoring experiment by Lawrence Angrave from CS @ Illinois.
 
-Rather than requiring a book this semester, we will build our own set of resources here.
+Rather than requiring an existing paper-based book this semester, we will build our own set of resources here.
 
 
 ## Week 1
