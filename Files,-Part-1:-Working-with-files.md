@@ -1,7 +1,7 @@
 We've already seen [open](http://angrave.github.io/sysassets/web/chapter1.html) and fopen (todo link here) so let's look at some more advanced concepts.
 
 #How do I tell how large a file is?
-For files less than the size of a long use fseek and ftell is a simple way to accomplish this:
+For files less than the size of a long using fseek and ftell is a simple way to accomplish this:
 
 Move to the end of the file and find out the current position.
 ```C
