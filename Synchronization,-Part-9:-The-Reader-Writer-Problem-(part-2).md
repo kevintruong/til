@@ -127,34 +127,34 @@ int reading; // Number of threads that are actually reading inside the C.S.
 // if writing !=0 then reading must be zero (and vice versa)
 
 reader() {
-    mutex_lock(&m)
+    lock(&m)
     while (writers)
         cond_wait(&turn, &m)
     // No need to wait while(writing here) because we can only exit the above loop
     // when writing is zero
     reading++
-    mutex_unlock(&m)
+    unlock(&m)
 
   // perform reading here
 
-    mutex_lock(&m)
+    lock(&m)
     reading--
     cond_broadcast(&turn)
-    mutex_unlock(&m)
+    unlock(&m)
 }
 
 writer() {
-    mutex_lock(&m)  
+    lock(&m)  
     writers++  
     while (reading || writing)   
         cond_wait(&turn, &m)  
     writing++  
-    mutex_unlock(&m)  
+    unlock(&m)  
     // perform writing here  
-    mutex_lock(&m)  
+    lock(&m)  
     writing--  
     writers--  
     cond_broadcast(&turn)  
-    mutex_unlock(&m)  
+    unlock(&m)  
 }
 ```
