@@ -15,7 +15,7 @@ This tells us the current position in the file in bytes - i.e. the length of the
 fseek(f, 0, SEEK_SET); // Move to the start of the file 
 fseek(f, posn, SEEK_SET);  // Move to 'posn' in the file.
 ```
-All future reads and writes in the parent or child processes will be honor this position.
+All future reads and writes in the parent or child processes will honor this position.
 Note writing or reading from the file will change the current position.
 
 See the man pages for fseek and ftell for more information.
