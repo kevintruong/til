@@ -61,6 +61,7 @@ Rather than requiring an existing paper-based book this semester, we will build 
 * [[ Networking, Part 4: Building a simple TCP Server ]]
 * [[ Networking, Part 5: Reusing ports ]]
 * [[ Scheduling, Part 1: Scheduling Processes ]]
+* [[ Networking, Part 6: Creating a UDP server ]]
 
 ## Week 11
 * [[ File System, Part 1: Introduction ]]
@@ -72,7 +73,6 @@ Rather than requiring an existing paper-based book this semester, we will build 
 * [[ File System, Part 5: Virtual file systems ]]
 * [[ File System, Part 6: Memory mapped files and Shared memory ]]
 * [[ File System, Part 7: Scalable and Reliable Filesystems ]]
-* [[ Networking, Part 6: Creating a UDP server ]]
 
 ## Week 13
 * [[ Signals, Part 2: Pending Signals and Signal Masks ]]
