@@ -109,7 +109,7 @@ int main(int argc, char **argv)
 
 ## Why can't my server re-use the port?
 
-By default a port is not immediately released when the socket is closed instead the port enters a "TIMED-WAIT" state. This can lead to significant confusion during development because the timeout can make valid networking code appear to fail.
+By default a port is not immediately released when the socket is closed. Instead, the port enters a "TIMED-WAIT" state. This can lead to significant confusion during development because the timeout can make valid networking code appear to fail.
 
  To be able to immediately re-use a port, specify `SO_REUSEPORT` before binding to the port.
 ```C
