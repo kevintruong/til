@@ -41,7 +41,7 @@ int main() {
   
   void *addr = mmap(0, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
   printf("Mapped at %p\n", addr);
-  if (!addr) QUIT;
+  if (addr == (void*) -1 ) QUIT;
   
   int *array = addr;
   array[0] = 0x12345678;
