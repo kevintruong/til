@@ -91,7 +91,7 @@ Use `chown username filename`
 
 `chmod(const char *path, mode_t mode);`
 
-## Why are some files 'setuid' what does this mean? ?
+## Why are some files 'setuid'? What does this mean?
 The set-user-ID-on-execution bit changes the user associated with the process when the file is run. This is typically used for commands that need to run as root but are executed by non-root users. An example of this is `sudo`
 
 The set-group-ID-on-execution changes the group under which the process is run.
