@@ -220,3 +220,5 @@ An example use of touch is to force make to recompile a file that is unchanged a
 $ touch myprogram.c   # force my source file to be recompiled
 $ make
 ```
+
+[Go to File System: Part 5](https://github.com/angrave/SystemProgramming/wiki/File-System,-Part-5:-Virtual-file-systems)
