@@ -2,6 +2,11 @@
 ## Does a directory have an inode too?
 Yes! Though a better way to think about this, is that a directory (like a file) _is_ an inode (with some data - the directory name and inode contents). It just happens to be a special kind of inode.
 
+From [Wikipedia](http://en.wikipedia.org/wiki/Inode):
+> Unix directories are lists of association structures, each of which contains one filename and one inode number.
+
+Remember, inodes don't contain filenames--only other file metadata.
+
 ## How can I have the same file appear in two different places in my file system?
 First remember that a file name != the file. Think of the inode as 'the file' and a directory as just a list of names with each name mapped to an inode number. Some of those inodes may be regular file inodes, others may be directory inodes.
 
