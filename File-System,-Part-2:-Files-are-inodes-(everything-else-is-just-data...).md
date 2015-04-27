@@ -105,6 +105,9 @@ int main(int argc, char **argv) {
     return 0;
 }
 ```
+
+Note: after a call to fork(), either (XOR) the parent or the child can use readdir(), rewinddir() or seekdir(). If both the parent and the child use the above, behavior is undefined.
+
 ## How do I check to see if a file is in the current directory?
 For example, to see if a particular directory includes a file (or filename) 'name', we might write the following code. (Hint: Can you spot the bug?)
 
