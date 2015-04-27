@@ -97,3 +97,5 @@ A disk block can store 4KB / 4B (each pointer needs to be 32 bits) = 1024 pointe
 For the same disk configuration, a double indirect block stores 1024 pointers to 1024 indirection tables. Thus a double-indirect block can refer up to 1024 * 4MB = 4GB of data.
 
 Similarly a triple indirect block can refer up to 4TB of data.
+
+`[Go to File System: Part 2](https://github.com/angrave/SystemProgramming/wiki/File-System,-Part-2:-Files-are-inodes-(everything-else-is-just-data...))
