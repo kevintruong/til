@@ -111,3 +111,5 @@ int main() {
 
 Yes! As a simple example you could reserve just a few bytes and change the value in shared memory when you want the child process to quit.
 Sharing memory is a very efficient form of inter-process communication because there is no copying overhead - the two processes literally share the same _physical_ frame of memory.
+
+[Go to File System: Part 7](https://github.com/angrave/SystemProgramming/wiki/File-System,-Part-7:-Scalable-and-Reliable-Filesystems)
