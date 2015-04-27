@@ -85,3 +85,4 @@ $ touch arch/nocando
 touch: cannot touch `/home/demo/arch/nocando': Read-only file system
 ```
 
+[Go to File System: Part 6](https://github.com/angrave/SystemProgramming/wiki/File-System,-Part-6:-Memory-mapped-files-and-Shared-memory)
