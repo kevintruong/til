@@ -8,7 +8,7 @@ This behavior can be disabled by setting the socket option REUSEPORT before bind
     int optval = 1;
     setsockopt(sock_fd, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof(optval));
 
-    bind(sock_fd, ...)
+    bind(sock_fd, ...);
 ```
 
 ## Can a TCP client bind to a particular port?
