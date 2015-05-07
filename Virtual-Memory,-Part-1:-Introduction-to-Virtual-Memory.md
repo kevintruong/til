@@ -15,7 +15,7 @@ We need to do better than this. Our lookup table better be smaller than the memo
 The solution is to chunk memory into small regions called 'pages' and 'frames' and use a lookup table for each page.
 # What is a page? How many of them are there?
 
-A page is block of virtual memory. A typical block size on Linux operating system is 4KB (i.e. 2^12 addresses), though you can find examples of larger blocks.
+A page is a block of virtual memory. A typical block size on Linux operating system is 4KB (i.e. 2^12 addresses), though you can find examples of larger blocks.
 
 So rather than talking about individual bytes we can talk about blocks of 4KBs. Each block is called a page. We can also number our pages ("Page 0" "Page 1" etc)
 
@@ -26,7 +26,7 @@ Remember that 2^10 is 1024, so 2^20 is a bit more than one million.
 
 For a 64 bit machine, 2^64 / 2^12 = 2^52, which is roughly 10^15 pages.
 ## What is a frame?
-A frame (or sometimes called a 'page frame') is block of _physical memory_ or RAM (=Random Access Memory). This kind of memory is occasionally called 'primary storage' (and contrasted with slower, secondary storage such as spinning disks that have lower access times)
+A frame (or sometimes called a 'page frame') is a block of _physical memory_ or RAM (=Random Access Memory). This kind of memory is occasionally called 'primary storage' (and contrasted with slower, secondary storage such as spinning disks that have lower access times)
 
 A frame is the same number of bytes as a virtual page. If a 32 bit machine has 2^32 (4GB) of RAM, then there will be the same number of them in the addressable space of the machine. It's unlikely that a 64 bit machine will ever have 2^64 bytes of RAM - can you see why?
 
@@ -43,7 +43,7 @@ For a 64 bit machine with 4KB pages, each entry needs 52 bits. Let's round up to
 In 64 bit architectures memory addresses are sparse, so we need a mechanism to reduce the page table size, given that most of the entries will never be used.
 
 ## What is the offset and how is it used?
-Remember our page table maps pages to frames, but each page is block of contiguous addresses. How do we calculate which particular byte to use inside a particular frame? The solution is to re-use the lowest bits of the virtual memory address directly. For example, suppose our process is reading the following address-
+Remember our page table maps pages to frames, but each page is a block of contiguous addresses. How do we calculate which particular byte to use inside a particular frame? The solution is to re-use the lowest bits of the virtual memory address directly. For example, suppose our process is reading the following address-
 ```VirtualAddress = 11110000111100001111000010101010 (binary)```
 
 On a machine with page size 256 Bytes, then the lowest 8 bits (10101010) will be used as the offset.
