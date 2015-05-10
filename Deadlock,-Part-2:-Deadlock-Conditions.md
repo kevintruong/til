@@ -36,7 +36,7 @@ The Dining Philosophers problem is a classic synchronization problem. Imagine I 
 
 ![5DiningPhilosophers](https://raw.githubusercontent.com/wiki/angrave/SystemProgramming/5DiningPhilosophers.png)
 
-Is is possible to design an efficient solution such that all philosophers get to eat? Or, will some philosophers starve, never obtaining a second chopstick? Or will all of them deadlock? For example, imagine each guest picks up the chopstick on their left and then waits for the chopstick on their right to be free. Oops - our philosophers have deadlocked!
+Is it possible to design an efficient solution such that all philosophers get to eat? Or, will some philosophers starve, never obtaining a second chopstick? Or will all of them deadlock? For example, imagine each guest picks up the chopstick on their left and then waits for the chopstick on their right to be free. Oops - our philosophers have deadlocked!
 
 
 
