@@ -79,14 +79,14 @@ $ ls . >/dev/null
 
 ## Why would I want to set a directory's sticky bit?
 
-When a directory's sticky bit is set only the file's owner, the directory's owner, and the root user can rename (or delete) the file. This is useful when multiple users have write access to a common directory
+When a directory's sticky bit is set only the file's owner, the directory's owner, and the root user can rename (or delete) the file. This is useful when multiple users have write access to a common directory.
 
 A common use of the sticky bit is for the shared and writable `/tmp` directory.
 
 
 ## Why do shell and script programs start with `#!/usr/bin/env python` ?
 Ans: For portability!
-While it is possible to write the fully qualified path to a python or perl interpreter, this approach is not portable because you may have installed python in a different directory me.
+While it is possible to write the fully qualified path to a python or perl interpreter, this approach is not portable because you may have installed python in a different directory.
 
 To overcome this use the `env` utility is used to find and execute the program on the user's path.
 The env utility itself has historically been stored in `/usr/bin` - and it must be specified with an absolute path.
