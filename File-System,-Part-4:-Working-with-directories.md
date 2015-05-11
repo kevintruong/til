@@ -36,7 +36,7 @@ char newpath[strlen(path) + strlen(dp->d_name) + 2];
 // Correct parameter
 sprintf(newpath,"%s/%s", path, dp->d_name); 
 // Perform stat test (and verify) before recursing
-if (0 == stat(newpath,&s) && S_ISDIR(s.st_mode)) dirlist(new path)
+if (0 == stat(newpath,&s) && S_ISDIR(s.st_mode)) dirlist(newpath)
 // Resource leak: the directory file handle is not closed after the while loop
 closedir(dirp);
 ```
