@@ -55,7 +55,7 @@ int main() {
 }
 ```
 Note the pthread_exit version creates thread zombies, however this is not a long-running processes, so we don't care.
-## How can a thread can be terminated?
+## How can a thread be terminated?
 * Returning from the thread function
 * Calling `pthread_exit`
 * Cancelling the thread with `pthread_cancel`
