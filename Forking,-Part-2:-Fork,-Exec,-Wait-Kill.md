@@ -143,10 +143,10 @@ kill -s TERM 46
 
 We will return to signals later on - this is just a short introduction. On a Linux system, see `man -s7 signal` if you are interested in finding out more (for example a list of system and library calls that are async-signal-safe.
 
-There are strict limitations on the executable code inside a signal handler. Most library and system calls are not 'async-signal-safe' - they may be not use used inside a signal handler because they are not re-entrant. Remember a signal handler pauses the current execution of a program to execute the signal handler. Suppose your original program was interrupted while executing the library code of `malloc` ;  the memory structures used by malloc will not be in a consistent state. Calling `printf` (which uses `malloc`) as part of the signal handler will result in "undefined behavior". In practice your program might crash, compute or generate incorrect results or stop functioning ("deadlock"), depending on exactly what your program was executing the moment the signal handler code was called.
+There are strict limitations on the executable code inside a signal handler. Most library and system calls are not 'async-signal-safe' - they may be not use used inside a signal handler because they are not re-entrant safe. In a single-threaded program, signal handling momentarily interrupts the program execution to execute the signal handler code instead. Suppose your original program was interrupted while executing the library code of `malloc` ;  the memory structures used by malloc will not be in a consistent state. Calling `printf` (which uses `malloc`) as part of the signal handler is unsafe and will result in "undefined behavior" i.e. it is no longer a useful,predictable program. In practice your program might crash, compute or generate incorrect results or stop functioning ("deadlock"), depending on exactly what your program was executing when it was interrupted to execute the signal handler code.
 
 
-One common use of signal handlers is to set a boolean flag that is checked as part of the normal running of the program. For example,
+One common use of signal handlers is to set a boolean flag that is occasionally polled (read) as part of the normal running of the program. For example,
 ```C
 int pleaseStop ; // See notes on why "volatile sig_atomic_t" is better
 
@@ -169,3 +169,5 @@ By specifying `pleaseStop` with the correct type `volatile sig_atomic_t` we can 
 ```C
 volatile sig_atomic_t pleaseStop;
 ```
+Two examples of this pattern can be found in "COMP" a terminal based 1Hz 4bit computer (https://github.com/gto76/comp-cpp/blob/1bf9a77eaf8f57f7358a316e5bbada97f2dc8987/src/output.c#L121).
+Two boolean flags are used. One to mark the delivery of SIGINT (CTRL-C), and gracefully shutdown the program, and the other to mark SIGWINCH signal to detect terminal resize and redraw the entire display. 
