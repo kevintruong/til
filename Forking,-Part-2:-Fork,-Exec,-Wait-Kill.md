@@ -139,4 +139,33 @@ kill -l
 kill -9 45
 kill -s TERM 46
 ```
+## How can I detect "CTRL-C" and clean up gracefully?
 
+We will return to signals later on - this is just a short introduction. On a Linux system, see `man -s7 signal` if you are interested in finding out more (for example a list of system and library calls that are async-signal-safe.
+
+There are strict limitations on the executable code inside a signal handler. Most library and system calls are not 'async-signal-safe' - they may be not use used inside a signal handler because they are not re-entrant. Remember a signal handler pauses the current execution of a program to execute the signal handler. Suppose your original program was interrupted while executing the library code of `malloc` ;  the memory structures used by malloc will not be in a consistent state. Calling `printf` (which uses `malloc`) as part of the signal handler will result in "undefined behavior". In practice your program might crash, compute or generate incorrect results or stop functioning ("deadlock"), depending on exactly what your program was executing the moment the signal handler code was called.
+
+
+One common use of signal handlers is to set a boolean flag that is checked as part of the normal running of the program. For example,
+```C
+int pleaseStop ; // See notes on why "volatile sig_atomic_t" is better
+
+void handle_sigint(int signal) {
+  pleaseStop = 1;
+}
+
+int main() {
+  signal(SIGINT, handle_sigint);
+  pleaseStop = 0;
+  while ( ! pleaseStop) { 
+     /* application logic here */ 
+   }
+  /* cleanup code here */
+}
+```
+The above code might appear to be correct on paper. However, we need to provide a hint to the compiler and to the CPU core that will execute the `main()` loop. We need to prevent a compiler optimization: The expression `! pleaseStop` appears to be a loop invariant i.e. true forever, so can be simplified to `true`.  Secondly, we need to ensure that the value of `pleaseStop` is not cached using a CPU register and instead always read from and written to main memory. The `sig_atomic_t` type implies that all the bits of the variable can be read or modified as an "atomic operation" - a single uninterruptable operation. It is impossible to read a value that is composed of some new bit values and old bit values.
+
+By specifying `pleaseStop` with the correct type `volatile sig_atomic_t` we can write portable code where the main loop will be exited after the signal handler returns. The `sig_atomic_t` type can be as large as an `int` on most modern platforms but on embedded systems can be as small as a `char` and only able to represent (-127 to 127) values.
+```C
+volatile sig_atomic_t pleaseStop;
+```
