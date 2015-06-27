@@ -20,8 +20,8 @@ The strings pointed to by `str1` and `str2` may actually reside in the same loca
 Char arrays, however, put that string literal in static memory, *and then copy it over to stack memory*. These following char arrays do not reside in the same place in memory.
 
 ```C
-char * arr1[] = "Brandon Chong didn't write this";
-char * arr2[] = "Brandon Chong didn't write this";
+char arr1[] = "Brandon Chong didn't write this";
+char arr2[] = "Brandon Chong didn't write this";
 ```
 
 ## Buffer overflow/ underflow
