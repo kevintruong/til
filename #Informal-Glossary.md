@@ -1,4 +1,4 @@
-Warning: Unlike a full length glossary, this informal glossary is skips on details and provides a simplified and accessible explanation of each term. For more information and details use your favorite web search engine.
+Warning: Unlike a full length glossary, this informal glossary skips on details and provides a simplified and accessible explanation of each term. For more information and details use your favorite web search engine.
 
 ## What is the kernel?
 The kernel is central part of the operating system that manages processes, resources (including memory) and hardware input-output devices. User programs interact with the kernel by making system calls.
