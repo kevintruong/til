@@ -265,7 +265,7 @@ Famous example: Heart Bleed (performed a memcpy into a buffer that was of insuff
 Simple example: implement a strcpy and forget to add one to strlen, when determining the size of the memory required.
 
 ## What is 'typedef' and how do you use it? 
-Declares an alias for a types. Often used with structs to reduce the visual clutter of having to write 'struct' as part of the type.
+Declares an alias for a type. Often used with structs to reduce the visual clutter of having to write 'struct' as part of the type.
 ```C
 typedef float real; 
 real gravity = 10;
