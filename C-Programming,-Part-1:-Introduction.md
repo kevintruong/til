@@ -11,6 +11,7 @@
 * [C Tutorial by Brian Kernighan](http://www.lysator.liu.se/c/bwk-tutor.html)
 * [c faq](http://c-faq.com/)
 * [C Bootcamp](http://gribblelab.org/CBootCamp/index.html)
+* [C/C++ function reference](http://www.cplusplus.com/reference/clibrary/)
 * Add your favorite resources here
 
 
