@@ -222,7 +222,7 @@ Note it's also usual to see the following kind of implementation, which does eve
   while( (*dest++ = *src++ )) {};
 ```
 
-## How do you write a strcpy replacement?
+## How do you write a strdup replacement?
 ```C
 // Use strlen+1 to find the zero byte... 
 char* mystrdup(char*source) {
