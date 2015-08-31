@@ -12,6 +12,8 @@
 * [c faq](http://c-faq.com/)
 * [C Bootcamp](http://gribblelab.org/CBootCamp/index.html)
 * [C/C++ function reference](http://www.cplusplus.com/reference/clibrary/)
+* [Gnu debugger (gdb) tutorial](http://www.unknownroad.com/rtfm/gdbtut/gdbtoc.html)
+* [List of gdb and lldb commands](http://lldb.llvm.org/lldb-gdb.html)
 * Add your favorite resources here
 
 
