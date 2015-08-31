@@ -12,7 +12,7 @@
 * [c faq](http://c-faq.com/)
 * [C Bootcamp](http://gribblelab.org/CBootCamp/index.html)
 * [C/C++ function reference](http://www.cplusplus.com/reference/clibrary/)
-* Tutorials for [the Gnu debugger (gdb)](http://www.unknownroad.com/rtfm/gdbtut/gdbtoc.html) and [the clang debugger (lldb)](http://lldb.llvm.org/tutorial.html). Tip: run gdb with the "-tui" command line argument to get a full screen version of the debugger.
+* [gdb (Gnu debugger) tutorial](http://www.unknownroad.com/rtfm/gdbtut/gdbtoc.html) Tip: run gdb with the "-tui" command line argument to get a full screen version of the debugger.
 * Add your favorite resources here
 
 
