@@ -40,7 +40,8 @@ int main() {
   return 0;
 }
 ```
-If we start this process from the shell we can send it a signal using the keyboard (CTRL-C to interrupt) or by using the kill command.
+We will first start the process in the background (notice the & at the end).
+Then send it a signal from the shell process by using the kill command.
 ```
 >./program &
 My pid is 403
