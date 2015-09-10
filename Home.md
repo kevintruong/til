@@ -14,7 +14,7 @@ Rather than requiring an existing paper-based book this semester, we will build 
 * [[C Programming, Part 3: Common Gotchas]]
 * [[Forking, Part 1: Introduction]]
 * [[Forking, Part 2: Fork, Exec, Wait]]
-* [[Process Control, Part 1: Wait macros Suspend Kill]]
+* [[Process Control, Part 1: Wait macros, using signals]]
 
 ## Week 3
 * [[Memory, Part 1: Heap Memory Introduction]]
