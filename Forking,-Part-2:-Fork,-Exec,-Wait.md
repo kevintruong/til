@@ -35,26 +35,6 @@ Use `waitpid` or `wait`. The parent process will pause until `wait` (or `waitpid
 A common programming pattern is to call `fork` followed by `exec` and `wait`. The original process calls fork, which creates a child process. The child process then uses exec to start execution of a new program. Meanwhile the parent uses `wait` (or `waitpid`) to wait for the child process to finish.
 See below for a complete code example.
 
-## Can I find out the exit value of my child?
-You can find the lowest 8 bits of the child's exit value (the return value of `main()` or value included in `exit()`): Use the macros (see `wait`/`waitpid` man page) and the `wait` or `waitpid` call
-```C
-int status;
-pid_t child = fork();
-if (child == -1) return 1; //Failed
-if (child > 0) { /* I am the parent - wait for the child to finish */
-  pid_t pid = waitpid(child, &status, 0);
-  if (pid != -1 && WIFEXITED(status)) {
-     int low8bits = WEXITSTATUS(status);
-     printf("Process %d returned %d" , pid, low8bits);
-  }
-} else { /* I am the child */
- // do something interesting
-  execl("/bin/ls", "/bin/ls", ".", (char *) NULL); // "ls ."
-}
-
-
-```
-
 
 ## How do I start a background process that runs as the same time?
 Don't wait for them! Your parent process can continue to execute code without having to wait for the child process. Note in practice background processes can also be disconnected from the parent's input and output streams by calling `close` on the open file descriptors before calling exec.
