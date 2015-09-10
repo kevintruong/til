@@ -1,9 +1,28 @@
+## Can I find out the exit value of my child?
+
+You can find the lowest 8 bits of the child's exit value (the return value of `main()` or value included in `exit()`): Use the "Wait macros" - typically you will use "WIFEXITED" and "WEXITSTATUS" . See `wait`/`waitpid` man page for more information).
+```C
+int status;
+pid_t child = fork();
+if (child == -1) return 1; //Failed
+if (child > 0) { /* I am the parent - wait for the child to finish */
+  pid_t pid = waitpid(child, &status, 0);
+  if (pid != -1 && WIFEXITED(status)) {
+     int low8bits = WEXITSTATUS(status);
+     printf("Process %d returned %d" , pid, low8bits);
+  }
+} else { /* I am the child */
+ // do something interesting
+  execl("/bin/ls", "/bin/ls", ".", (char *) NULL); // "ls ."
+}
+```
+
 ## Can I pause my child?
 
-Yes ! You can temporarily pause a running process by sending it a SIGSUSPEND signal.
+Yes ! You can temporarily pause a running process by sending it a SIGSTOP signal.
 If it succeeds it will freeze a process; i.e. the process will not be allocated anymore CPU time.
 
-To allow a process to resume send it the SIGRESUME signal.
+To allow a process to resume execution send it the SIGCONT signal.
 
 For example,
 Here's program that slowly prints a dot every second, upto 20 dots.
