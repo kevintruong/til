@@ -201,9 +201,9 @@ shell: man -S2 open  or man -S3 printf
 
 ## How do you allocate memory on the heap?
 Use malloc. There's also realloc and calloc.
-Typically used with cast and a sizeof. e.g. enough space to hold 10 integers
+Typically used with sizeof. e.g. enough space to hold 10 integers
 ```C
-int *space = (int *) malloc(sizeof(int) * 10);
+int *space = malloc(sizeof(int) * 10);
 ```
 
 ## What's wrong with this string copy code?
