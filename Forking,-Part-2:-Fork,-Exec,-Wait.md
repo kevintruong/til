@@ -22,6 +22,7 @@ There's no error checking in the above code (we assume close,open,chdir etc work
 * Open filehandles. If the parent later seeks, say, to the back to the beginning of the file then this will affect the child too (and vice versa). 
 * Signal handlers
 * Current working directory
+* Environment variables
 See the fork man page for more details.
 
 ## What is different in the child process than the parent process?
