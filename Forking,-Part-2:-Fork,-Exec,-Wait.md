@@ -23,6 +23,7 @@ There's no error checking in the above code (we assume close,open,chdir etc work
 * Signal handlers
 * Current working directory
 * Environment variables
+
 See the fork man page for more details.
 
 ## What is different in the child process than the parent process?
