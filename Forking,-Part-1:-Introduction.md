@@ -89,6 +89,7 @@ Yes. Use one of the [`exec`](http://man7.org/linux/man-pages/man3/exec.3.html) f
 #include <sys/types.h> 
 #include <sys/wait.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int main(int argc, char**argv) {
   pid_t child = fork();
