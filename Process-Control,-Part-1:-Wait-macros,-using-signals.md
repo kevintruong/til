@@ -100,4 +100,4 @@ By specifying `pleaseStop` with the correct type `volatile sig_atomic_t` we can 
 volatile sig_atomic_t pleaseStop;
 ```
 Two examples of this pattern can be found in "COMP" a terminal based 1Hz 4bit computer (https://github.com/gto76/comp-cpp/blob/1bf9a77eaf8f57f7358a316e5bbada97f2dc8987/src/output.c#L121).
-Two boolean flags are used. One to mark the delivery of SIGINT (CTRL-C), and gracefully shutdown the program, and the other to mark SIGWINCH signal to detect terminal resize and redraw the entire display. 
+Two boolean flags are used. One to mark the delivery of `SIGINT` (CTRL-C), and gracefully shutdown the program, and the other to mark `SIGWINCH` signal to detect terminal resize and redraw the entire display. 
