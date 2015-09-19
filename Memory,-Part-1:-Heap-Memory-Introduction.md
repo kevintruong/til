@@ -79,7 +79,7 @@ void * realloc(void * ptr, size_t newsize) {
   // and has no error checking
   void *result = malloc(newsize); 
   size_t oldsize =  ... //(depends on allocator's internal data structure)
-  if (ptr) memcpy(result, ptr, oldsize);
+  if (ptr) memcpy(result, ptr, newsize < oldsize ? newsize : oldsize);
   free(ptr);
   return result;
 }
