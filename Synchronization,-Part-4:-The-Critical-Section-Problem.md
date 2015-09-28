@@ -128,7 +128,7 @@ Link to Peterson's original article pdf:
 
 ## Was Peterson's solution the first solution?
 
-No. Todo; Discuss Dekkers Algorithm
+No, Dekkers Algorithm (1962) was the first provably correct solution. A version of the algorithm is below.
 ```
 raise my flag
 while(your flag is raised) :
@@ -141,8 +141,10 @@ set your turn to win
 lower my flag
 ```
 
+Notice how the process's flag is always raised during the critical section no matter if the loop is iterated zero, once or more times. Further the flag can be interpreted as an immediate intent to enter the critical section. Only if the other process has also raised the flag will one process defer, lower their intent flag and wait.
+
 ## Can I implement Peterson's algorithm in C or assembler?
-Yes - and it is used today in production for specific mobile processors: Peterson's algorithm is used to implement low-level Linux Kernel locks for the Tegra mobile processor (a system-on-chip ARM process and GPU core by Nvidia)
+Yes - and with a bit searching it is possible even today to find it in production for specific mobile processors: Peterson's algorithm is used to implement low-level Linux Kernel locks for the Tegra mobile processor (a system-on-chip ARM process and GPU core by Nvidia)
 https://android.googlesource.com/kernel/tegra.git/+/android-tegra-3.10/arch/arm/mach-tegra/sleep.S#58
 
 However in general, CPUs and C compilers can re-order CPU instructions or use CPU-core-specific local cache values that are stale if another core updates the shared variables. Thus a simple pseudo-code to C implementation is too naive for most platforms.
