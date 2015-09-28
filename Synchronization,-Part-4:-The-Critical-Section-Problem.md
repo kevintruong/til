@@ -143,11 +143,25 @@ lower my flag
 
 Notice how the process's flag is always raised during the critical section no matter if the loop is iterated zero, once or more times. Further the flag can be interpreted as an immediate intent to enter the critical section. Only if the other process has also raised the flag will one process defer, lower their intent flag and wait.
 
-## Can I implement Peterson's algorithm in C or assembler?
+## Can I just implement Peterson's (or Dekkers) algorithm in C or assembler?
 Yes - and with a bit searching it is possible even today to find it in production for specific mobile processors: Peterson's algorithm is used to implement low-level Linux Kernel locks for the Tegra mobile processor (a system-on-chip ARM process and GPU core by Nvidia)
 https://android.googlesource.com/kernel/tegra.git/+/android-tegra-3.10/arch/arm/mach-tegra/sleep.S#58
 
 However in general, CPUs and C compilers can re-order CPU instructions or use CPU-core-specific local cache values that are stale if another core updates the shared variables. Thus a simple pseudo-code to C implementation is too naive for most platforms.
+
+For example, consider the following code,
+
+```C
+while(flag2 ) { /* busy loop - go around again */
+```
+An efficient compiler would infer that `flag2` variable is never changed inside the loop, so that test can be optimized to `while(true)` 
+Using `volatile` goes someway to prevent compiler optimizations of this kind.
+
+Independent instructions can be re-ordered by an optimizing compiler or at runtime by an out-of-order execution optimization by the CPU. These sophisticated optimizations if the code requires variables to be modified and checked and a precise order.
+
+A related challenge is that CPU cores include a data cache to store recently read or modified main memory values. Modified values may not be written back to main memory or re-read from memory immediately. Thus data changes, such as the state of a flag and turn variable in the above examples, may not be shared between two CPU codes. 
+
+But there is happy ending. Fortunately, modern hardware adresses these issues using 'memory fences' (also known as Memory Barrier) CPU instructions to ensure that main memory and the CPUs' cache is in a reasonable and coherent state. Higher level synchronization primitives, such as `pthread_mutex_lock` are will call these CPU instructions as part of their implementation. Thus, in practice, surrounding critical section with a mutex lock and unlock calls is sufficient to ignore these lower-level problems.
 
 ## How do we implement Critical Section Problem on hardware?
 Good question. Next lecture...
