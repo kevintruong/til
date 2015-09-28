@@ -167,8 +167,8 @@ But there is happy ending. Fortunately, modern hardware addresses these issues u
 
 Further reading: we suggest the following web post that discusses implementing Peterson's algorithm on an x86 process and the linux documentation on memory barriers.
 
-[http://bartoszmilewski.com/2008/11/05/who-ordered-memory-fences-on-an-x86/]
-[http://lxr.free-electrons.com/source/Documentation/memory-barriers.txt]
+http://bartoszmilewski.com/2008/11/05/who-ordered-memory-fences-on-an-x86/
+http://lxr.free-electrons.com/source/Documentation/memory-barriers.txt
 
 ## How do we implement Critical Section Problem on hardware?
 Good question. Next lecture...
