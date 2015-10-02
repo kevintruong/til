@@ -123,7 +123,7 @@ e.g.
 cat output.txt
 ```
 More complicated way: close(1) and then use open to re-open the file descriptor.
-See [[http://angrave.github.io/sysassets/web/chapter1.html]]
+See [[http://cs-education.github.io/sys/#chapter/0/section/3/activity/0]]
 ## What's the difference between a pointer and an array? Give an example of something you can do with one but not the other.
 ```
 char ary[] = "Hello";
