@@ -25,7 +25,7 @@ If it succeeds it will freeze a process; i.e. the process will not be allocated 
 To allow a process to resume execution send it the SIGCONT signal.
 
 For example,
-Here's program that slowly prints a dot every second, upto 20 dots.
+Here's program that slowly prints a dot every second, up to 59 dots.
 ```C
 #include <unistd.h>
 #include <stdio.h>
