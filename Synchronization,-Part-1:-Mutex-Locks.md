@@ -82,7 +82,7 @@ If you only have one lock then they may be significant contention for the lock b
 However simply creating many locks is insufficient: It's important to be able to reason about critical sections e.g. it's important that one thread can't read two data structures while they are being updated and temporarily in an inconsistent state.
 
 ## Is there any overhead in calling lock and unlock?
-There is a small overhead amount of overhead of calling `pthread_mutex_lock` and `_unlock`; however this is the price you pay for correctly functioning programs!
+There is a small amount of overhead of calling `pthread_mutex_lock` and `_unlock`; however this is the price you pay for correctly functioning programs!
 
 ## Simplest complete example?
 A complete example is shown below
