@@ -17,7 +17,8 @@ Pthreads has a function `pthread_barrier_wait()` that implements this. You'll ne
   printf("thread %d: going!\n", thread_id);
 ```
 
-Suppose we wanted to perform a large multi-threaded calculation that has two stages but we don't want to advance to the second stage until the first stage is completed.
+Now let's implement our own barrier and use it to keep a all the threads in sync in a large calculation.
+
 ```C
 double data[256][8192]
 
