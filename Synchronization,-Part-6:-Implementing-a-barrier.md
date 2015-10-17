@@ -9,7 +9,7 @@ Think of it like being out for a hike with some friends.  You agree to wait for 
 Pthreads has a function `pthread_barrier_wait()` that implements this. You'll need to declare a `pthread_barrier_t` variable and initialize it with `pthread_barrier_init()`.  `pthread_barrier_init()` takes the number of threads that will be participating in the barrier as an argument.  [Here's an example.](https://github.com/angrave/SystemProgramming/wiki/Sample-program-using-pthread-barriers)
 
 
-Now let's implement our own barrier and use it to keep a all the threads in sync in a large calculation.
+Now let's implement our own barrier and use it to keep all the threads in sync in a large calculation.
 
 ```C
 double data[256][8192]
