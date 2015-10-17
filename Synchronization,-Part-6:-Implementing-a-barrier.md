@@ -6,16 +6,8 @@ We could use a synchronization method called a **barrier**. When a thread reache
 
 Think of it like being out for a hike with some friends.  You agree to wait for each other at the top of each hill (and you make a mental note how many are in your group). Say you're the first one to reach the top of the first hill. You'll wait there at the top for your friends. One by one, they'll arrive at the top, but nobody will continue until the last person in your group arrives.  Once they do, you'll all proceed.
 
-Pthreads has a function `pthread_barrier_wait()` that implements this. You'll need to declare a `pthread_barrier_t` variable and initialize it with `pthread_barrier_init()`.  `pthread_barrier_init()` takes the number of threads that will be participating in the barrier as an argument.
+Pthreads has a function `pthread_barrier_wait()` that implements this. You'll need to declare a `pthread_barrier_t` variable and initialize it with `pthread_barrier_init()`.  `pthread_barrier_init()` takes the number of threads that will be participating in the barrier as an argument.  [Here's an example.](https://github.com/angrave/SystemProgramming/wiki/Sample-program-using-pthread-barriers)
 
-```C
-  int wait_sec = 1 + rand() % 5;
-  printf("thread %d: Wait for %d seconds.\n", thread_id, wait_sec);
-  sleep(wait_sec);
-  printf("thread %d: I'm ready...\n", thread_id);
-  pthread_barrier_wait(&mybarrier);
-  printf("thread %d: going!\n", thread_id);
-```
 
 Now let's implement our own barrier and use it to keep a all the threads in sync in a large calculation.
 
