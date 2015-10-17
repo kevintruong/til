@@ -1,6 +1,21 @@
 ## How do I wait for N threads to reach a certain point before continuing onto the next step?
 
-Suppose we wanted to perform a large multi-threaded calculation that has two stages but we dont want to advance to the second stage until the first stage is completed.
+Suppose we wanted to perform a multi-threaded calculation that has two stages but we don't want to advance to the second stage until the first stage is completed.
+
+We could use a synchronization method called a **barrier**. When a thread reaches a barrier, it will wait at the barrier until all the threads reach the barrier, and then they'll all proceed together.  Think of it like being out for a hike with some friends.  You agree to wait for each other at the top of each hill, and you make a mental note how many are in your group. Say you're the first one to reach the top of the first hill. You'll wait there at the top for your friends. One by one, they'll arrive at the top, but nobody will continue until the last person in your group arrives.  Once they do, you'll all proceed.
+
+Pthreads has a function `pthread_barrier_wait()` that implements this. You'll need to declare a `pthread_barrier_t` variable and initialize it with `pthread_barrier_init()`.  `pthread_barrier_init()` takes the number of threads that will be participating in the barrier as an argument.
+
+```C
+  int wait_sec = 1 + rand() % 5;
+  printf("thread %d: Wait for %d seconds.\n", thread_id, wait_sec);
+  sleep(wait_sec);
+  printf("thread %d: I'm ready...\n", thread_id);
+  pthread_barrier_wait(&mybarrier);
+  printf("thread %d: going!\n", thread_id);
+```
+
+Suppose we wanted to perform a large multi-threaded calculation that has two stages but we don't want to advance to the second stage until the first stage is completed.
 ```C
 double data[256][8192]
 
@@ -84,4 +99,3 @@ else {
 pthread_mutex_unlock(&m);
 ```
 When a thread enters `pthread_cond_wait` it releases the mutex and sleeps. At some point in the future it will be awoken. Once we bring a thread back from its sleep, before returning it must wait until it can lock the mutex. Notice that even if a sleeping thread wakes up early, it will check the while loop condition and re-enter wait if necessary.
-
