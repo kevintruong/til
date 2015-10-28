@@ -25,7 +25,8 @@ The `accept` system call can optionally provide information about the remote cli
     struct sockaddr_storage clientaddr;
     socklen_t clientaddrsize = sizeof(clientaddr);
     int client_id = accept(passive_socket,
-            (struct sockaddr *) &clientaddr, &clientaddrsize);
+            (struct sockaddr *) &clientaddr,
+             &clientaddrsize);
 ```
 
 We've already seen `getaddrinfo` that can build a linked list of addrinfo entries (and each one of these can include socket configuration data). What if we wanted to turn socket data into IP and port addresses? Enter `getnameinfo` that can be used to convert a local or remote socket information into a domain name or numeric IP. Similarly the port number can be represented as a service name (e.g. "http" for port 80). In the example below we request numeric versions for the client IP address and client port number.
