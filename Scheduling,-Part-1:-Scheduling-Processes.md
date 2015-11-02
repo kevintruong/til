@@ -1,10 +1,11 @@
 ## Scheduling
 # What is scheduling?
+https://en.wikipedia.org/wiki/Scheduling_(computing)
 
 # How is scheduling measured?
 
 # What are some well known schedulers?
-
+https://en.wikipedia.org/wiki/Scheduling_(computing)#Types_of_operating_system_schedulers
 
 
 # Why might a process be placed on the ready queue?
