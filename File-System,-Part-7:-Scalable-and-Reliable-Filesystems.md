@@ -1,6 +1,6 @@
 Note These notes are not quite complete. Please also see
 
-https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/lectures/CS241-28-filesystems-5.pptx
+https://subversion.ews.illinois.edu/svn/fa15-cs241/_shared/lecture_handouts/CS241-28-filesystems-5.pptx
 
 ## How and why does the kernel cache the filesystem?
 
