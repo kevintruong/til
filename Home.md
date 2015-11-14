@@ -74,6 +74,7 @@ Rather than requiring an existing paper-based book this semester, we will build 
 * [[ File System, Part 5: Virtual file systems ]]
 * [[ File System, Part 6: Memory mapped files and Shared memory ]]
 * [[ File System, Part 7: Scalable and Reliable Filesystems ]]
+* [[ File System, Part 8: Removing preinstalled malware from an Android device ]]
 
 ## Week 14
 * [[ Signals, Part 2: Pending Signals and Signal Masks ]]
