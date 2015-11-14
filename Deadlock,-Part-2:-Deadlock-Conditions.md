@@ -15,10 +15,10 @@ All of these conditions are required for deadlock, so let's discuss each one in 
 ## Breaking the Coffman Conditions
 
 Two students need a pen and paper:
-* Mutual Exclusion: The students share a pen and paper. Deadlock is avoided because Mutual Exclusion was not required.
-* Circular Dependency: The students both agree to grab the pen before grabbing the paper. Deadlock is avoided because there cannot be a circular wait.
-* Hold and Wait: The students grab both the pen and paper in one operation ("Get both or get none"). Deadlock is avoided because there is no _Hold and Wait_
-* :Pre-emption: The students are friends and will ask each other to give up a held resource. Deadlock is avoided because pre-emption is allowed.
+* The students share a pen and paper. Deadlock is avoided because Mutual Exclusion was not required.
+* The students both agree to grab the pen before grabbing the paper. Deadlock is avoided because there cannot be a circular wait.
+* The students grab both the pen and paper in one operation ("Get both or get none"). Deadlock is avoided because there is no _Hold and Wait_
+* The students are friends and will ask each other to give up a held resource. Deadlock is avoided because pre-emption is allowed.
 
 
 ## Livelock
