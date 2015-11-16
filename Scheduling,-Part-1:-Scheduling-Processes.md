@@ -17,6 +17,8 @@ Total wait time, or the first waiting before it is scheduled the first time?
 
 
 For now, see 
-https://subversion.ews.illinois.edu/svn/sp15-cs241/_shared/lectures/CS241-24-SockOpts-Scheduling.docx
-https://subversion.ews.illinois.edu/svn/sp15-cs241/_shared/lectures/CS241-25-Scheduling-UDP-Packets.docx
+* https://subversion.ews.illinois.edu/svn/sp15-cs241/_shared/lectures/CS241FA15-26-SockOpts-Scheduling.docx
+* https://subversion.ews.illinois.edu/svn/sp15-cs241/_shared/lectures/CS241FA15-27-Scheduling-TCP-Handshake.docx
 (3rd page includes answers)
+
+* https://subversion.ews.illinois.edu/svn/sp15-cs241/_shared/lectures/  (pdfs etc)
