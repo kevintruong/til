@@ -42,5 +42,7 @@ TCP is a connection-based protocol that is built on top of IPv4 and IPv6 (and th
 
 TCP will automatically manage resending packets, ignoring duplicate packets, re-arranging out-of-order packets and changing the rate at which packets are sent.
 
+TCP's three way handshake is known as SYN, SYN-ACK, and ACK. The diagram on this page helps with understanding the TCP handshake. [TCP Handshake](http://www.inetdaemon.com/tutorials/internet/tcp/3-way_handshake.shtml)
+ 
 Most services on the Internet today (e.g. a web service) use TCP because it hides the complexity of lower, packet-level nature of the Internet.
 
