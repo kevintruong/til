@@ -1,5 +1,5 @@
 ## Where is Part 1?
-There is no official "Part 1" page. However we introduced a simple signal() callback at the beginning of the course (e.g. [[Forking, Part 2: Fork, Exec, Wait Kill]] )
+There is no official "Part 1" page. However we introduced a simple signal() callback at the beginning of the course (e.g. [[Forking, Part 2: Fork, Exec, Wait]] )
 
 ## How can I learn more about signals?
 
