@@ -58,8 +58,8 @@ char* c = "Hello"; strcpy("World", c);
 ````
 
 Complete the function pointer typedef to declare a pointer to a function that takes a void* argument and returns a void*. Name your type 'pthread_callback'
-
+````C
 typedef ______________________;
-
+````
 
 In addition to the function arguments what else is stored on a thread's stack?
