@@ -3,6 +3,8 @@ This wiki is being built by students and faculty from the University of Illinois
 
 Rather than requiring an existing paper-based book this semester, we will build our own set of resources here.
 
+## Exam Practice Questions
+* [[C Programming: Review Questions]]
 
 ## Week 1 - 2
 * [[C Programming, Part 1: Introduction]]
