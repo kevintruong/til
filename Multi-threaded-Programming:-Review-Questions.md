@@ -13,6 +13,15 @@ void format(int v) {
 }
 ````
 ## Q2
+Which one of the following does not cause a process to exit?
+* Returning from the pthread's starting function in the last running thread.
+* The original thread returning from main.
+* Any thread causing a segmentation fault.
+* Any thread calling `exit`.
+* Calling `pthread_exit` in the main thread with other threads still running.
+
+
+## Q3
 Write a mathematical expression for the number of "B" characters that will be printed by the following program. Assume a,b,c,d are small positive integers. Your answer may use a 'min' function that returns its lowest valued argument.
 
 ````C
