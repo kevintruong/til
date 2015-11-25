@@ -1,3 +1,4 @@
+## Warning - question numbers subject to change
 # Memory and Strings
 ## Q1.1
 In the example below, which variables are guaranteed to print the value of zero?
