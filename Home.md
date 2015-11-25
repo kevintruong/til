@@ -5,6 +5,8 @@ Rather than requiring an existing paper-based book this semester, we will build 
 
 ## Exam Practice Questions
 * [[C Programming: Review Questions]]
+* [[Multi-threaded Programming: Review Questions]]
+
 
 ## Week 1 - 2
 * [[C Programming, Part 1: Introduction]]
