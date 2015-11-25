@@ -1,16 +1,4 @@
-(Todo - move this question to another page)
-What mistake did the programmer make in the following code? Is it possible to fix it i) using heap memory? ii) using global (static) memory?
-````C
-static int id;
-
-char* next_ticket() {
-  id ++;
-  char result[20];
-  sprintf(result,"%d",id);
-  return result;
-}
-````
-
+## Q1
 Is the following code thread-safe? Redesign the following code to be thread-safe. Hint: A mutex is unnecessary if the message memory is unique to each call.
 
 ````C
@@ -24,7 +12,7 @@ void format(int v) {
   return message;
 }
 ````
-
+## Q2
 Write a mathematical expression for the number of "B" characters that will be printed by the following program. Assume a,b,c,d are small positive integers. Your answer may use a 'min' function that returns its lowest valued argument.
 
 ````C
