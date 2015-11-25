@@ -1,4 +1,5 @@
-## Memory and Strings
+# Memory and Strings
+## Q1.1
 In the example below, which variables are guaranteed to print the value of zero?
 ````C
 int a;
@@ -10,7 +11,7 @@ void func() {
    printf("%d %d %d %d\n",a,b,c,d);
 }
 ````
-
+## Q 1.2
 In the example below, which variables are guaranteed to print the value of zero?
 ````C
 void func() {
@@ -22,7 +23,7 @@ void func() {
    printf("%d %d %d %d\n",*ptr1,*ptr2,*ptr3,*ptr);
 }
 ````
-
+## Q 1.3
 Explain the error in the following attempt to copy a string.
 ````C
 char* copy(char*src) {
@@ -31,7 +32,7 @@ char* copy(char*src) {
  return result;
 }
 ````
-
+## Q 1.4
 Why does the following attempt to copy a string sometimes work and sometimes fail?
 
 ````C
@@ -41,7 +42,7 @@ char* copy(char*src) {
  return result;
 }
 ````
-
+## Q 1.4
 Explain the two errors in the following code that attempts to copy a string.
 ````C
 char* copy(char*src) {
@@ -50,7 +51,7 @@ char* copy(char*src) {
  return result;
 }
 ````
-
+## Q 1.5
 Which of the following is legal?
 ````C
 char a[] = "Hello"; strcpy("World", a);
@@ -58,22 +59,23 @@ char b[] = "Hello"; strcpy("World12345", b);
 char* c = "Hello"; strcpy("World", c);
 ````
 
+## Q 1.6
 Complete the function pointer typedef to declare a pointer to a function that takes a void* argument and returns a void*. Name your type 'pthread_callback'
 ````C
 typedef ______________________;
 ````
-
+## Q 1.7
 In addition to the function arguments what else is stored on a thread's stack?
 
 
-## Printing
-
+# Printing
+## Q 2.1
 Spot the error!
 ````C
 fprintf(stdout, "You scored 100%");
 ````
-## Formatting - printing to a file
-
+# Formatting and Printing to a file
+## Q 3.1
 Complete the following code to print to a file. Print the name, a comma and the score to the file 'result.txt'
 ````C
 char* name = .....;
@@ -84,7 +86,8 @@ if(f) {
 }
 fclose(f);
 ````
-## Formatting - printing to a string
+# Printing to a string
+## Q 4.1
 
 How would you print the values of variables a,mesg,val and ptr to a string? Print a as an integer, mesg as C string, val as a double val and ptr as a hexadecimal pointer. You may assume the mesg points to a short C string(<50 characters).
 Bonus: How would you make this code more robust or able to cope with?
@@ -95,13 +98,28 @@ char* toString(int a, char*mesg, double val, void* ptr) {
    return result;
 }
 
-## Input. Parsing
+# Input parsing
+## Q 5.1
 Why should you check the return value of sscanf and scanf?
-
+## Q 5.2
 Why is 'gets' dangerous?
 
-Write a complete program that uses `getline`
+## Q 5.3
+Write a complete program that uses `getline`. Ensure your program has no memory leaks.
 
 ## Heap memory
 When would you use calloc not malloc? 
 When would realloc be useful?
+
+(Todo - move this question to another page)
+What mistake did the programmer make in the following code? Is it possible to fix it i) using heap memory? ii) using global (static) memory?
+````C
+static int id;
+
+char* next_ticket() {
+  id ++;
+  char result[20];
+  sprintf(result,"%d",id);
+  return result;
+}
+````
