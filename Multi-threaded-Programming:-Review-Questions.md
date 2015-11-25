@@ -1,3 +1,4 @@
+## Warning - question numbers subject to change
 ## Q1
 Is the following code thread-safe? Redesign the following code to be thread-safe. Hint: A mutex is unnecessary if the message memory is unique to each call.
 
