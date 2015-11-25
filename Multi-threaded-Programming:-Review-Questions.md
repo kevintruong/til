@@ -23,7 +23,7 @@ void format(int v) {
   pthread_mutex_unlock(&mutex);
   return message;
 }
-
+````
 
 Write a mathematical expression for the number of "B" characters that will be printed by the following program. Assume a,b,c,d are small positive integers. Your answer may use a 'min' function that returns its lowest valued argument.
 
