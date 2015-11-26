@@ -47,7 +47,7 @@ int main(int argv, char**argc) {
 ````
 
 ## Q4
-Complete the following code. The following code is supposed to print alternating `A` and `B`. It represents two threads that take turns to execute.  Add condition variable calls to `func` so that the waiting thread does not need to continually check the `turn` variable. Hint: As there is only 
+Complete the following code. The following code is supposed to print alternating `A` and `B`. It represents two threads that take turns to execute.  Add condition variable calls to `func` so that the waiting thread does not need to continually check the `turn` variable. Hint: Why is cond_broadcast necessary?
 ````C
 pthread_cond_t cv = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
@@ -75,3 +75,42 @@ int main(int argc, char**argv){
   return 0;
 }
 ````
+
+## Q5
+Identify the critical sections in the given code. Add mutex locking to make the code thread safe. Add condition variable calls so that `total` never becomes negative or above 1000. Instead the call should block until it is safe to proceed. Explain why `pthread_cond_broadcast` is necessary.
+````C
+int total;
+void add(int value) {
+ if(value) <1) return;
+ total += value;
+}
+void sub(int value) {
+ if(value) <1) return;
+ total -= value;
+}
+````
+## Q5
+Identify the critical sections in the given code. Add mutex locking to make the code thread safe. Add condition variable calls so that `total` never becomes negative or above 1000. Instead the call should block until it is safe to proceed. 
+````C
+int total;
+void add(int value) {
+ if(value) <1) return;
+ total += value;
+}
+void sub(int value) {
+ if(value) <1) return;
+ total -= value;
+}
+````
+
+## Q6
+A non-threadsafe datastructure has `size()` `enq` and `deq` methods. Use condition variable and mutex lock to complete the thread-safe, blocking versions.
+````C
+void enqueue(void* data) {
+// should block if the size() > 256
+enq(data);
+}
+void* dequeue() {
+// should block if size() is 0
+return deq();
+}
