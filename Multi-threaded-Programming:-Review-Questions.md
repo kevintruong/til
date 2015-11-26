@@ -45,3 +45,28 @@ int main(int argv, char**argc) {
   /*Process will finish when all threads have exited */
 }
 ````
+
+## Q4
+Complete the following code. Add condition variable calls to `func` so that the waiting thread does not need to continually check the `turn` variable.
+````C
+pthread_cond_t cv = PTHREAD_COND_INITIALIZER;
+pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
+
+void* turn;
+
+void* func(void*mesg) {
+  while(1) {
+    while(turn == mesg) { /* poll again ... Fix me - Wastes lots of CPU time!*/ }
+    puts( (char*) mesg);
+    turn = mesg;
+  }
+  return 0;
+}
+
+int main(int argc, char**argv){
+  pthread_t tid1;
+  pthread_create(&tid1,NULL, func, "A");
+  func("B");
+  return 0;
+}
+````
