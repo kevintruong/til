@@ -113,7 +113,7 @@ int sem_init(sem_t *s, int pshared, int value) {
 
   s->count = value;
   pthread_mutex_init(&s->m, NULL);
-  pthread_condition_init(&s->cv, NULL);
+  pthread_cond_init(&s->cv, NULL);
   return 0;
 }
 ```
