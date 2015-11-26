@@ -47,7 +47,7 @@ int main(int argv, char**argc) {
 ````
 
 ## Q4
-Complete the following code. Add condition variable calls to `func` so that the waiting thread does not need to continually check the `turn` variable.
+Complete the following code. The following code is supposed to print alternating `A` and `B`. It represents two threads that take turns to execute.  Add condition variable calls to `func` so that the waiting thread does not need to continually check the `turn` variable. Hint: As there is only 
 ````C
 pthread_cond_t cv = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
@@ -56,9 +56,14 @@ void* turn;
 
 void* func(void*mesg) {
   while(1) {
-    while(turn == mesg) { /* poll again ... Fix me - Wastes lots of CPU time!*/ }
+// Add mutex lock and condition variable calls ...
+
+    while(turn == mesg) { /* poll again ... Change me - This busy loop burns CPU time!*/ }
+
+    /* Do stuff on this thread*/
     puts( (char*) mesg);
     turn = mesg;
+    
   }
   return 0;
 }
@@ -66,7 +71,7 @@ void* func(void*mesg) {
 int main(int argc, char**argv){
   pthread_t tid1;
   pthread_create(&tid1,NULL, func, "A");
-  func("B");
+  func("B"); // no need to create another thread - just use the main thread
   return 0;
 }
 ````
