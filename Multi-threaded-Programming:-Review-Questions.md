@@ -107,10 +107,40 @@ void sub(int value) {
 A non-threadsafe datastructure has `size()` `enq` and `deq` methods. Use condition variable and mutex lock to complete the thread-safe, blocking versions.
 ````C
 void enqueue(void* data) {
-// should block if the size() > 256
-enq(data);
+  // should block if the size() would be become greater than 256
+  enq(data);
 }
 void* dequeue() {
-// should block if size() is 0
-return deq();
+  // should block if size() is 0
+  return deq();
 }
+
+
+## Q7
+Your startup offers realtime path planning using latest traffic information. Your overpaid intern has created a non-threadsafe datastructure with two functions: `shortest` (which uses but does not modify the graph) and `set_edge` (which modifies the graph).
+````C
+graph_t* create_graph(char* filename); // called once
+
+// returns a new heap object that is the shortest path from vertex i to j
+path_t* shortest(graph_t* graph, int i, int j); 
+
+// updates edge from vertex i to j
+void set_edge(graph_t* graph, int i, int j, double time); 
+  
+````
+For performance, multiple threads must be able to call `shortest` at the same time but the graph can only be modified by one thread when no threads other are executing inside `shortest` or `set_edge`.
+ 
+Use mutex lock and condition variables to implement a reader-writer solution. An incomplete attempt is shown below. Though this attempt is threadsafe (thus sufficient for demo day), it does not allow multiple threads to calculate `shortest` path at the same time and will not have sufficient throughput.
+````C
+path_t* shortest_safe(graph_t* graph, int i, int j) {
+  pthread_mutex_lock(&m);
+  path_t* path = shortest(graph, i, j);
+  pthread_mutex_unlock(&m);
+  return path;
+}
+void add_edge_safe(graph_t* graph, int i, int j, double dist) {
+  pthread_mutex_lock(&m);
+  add_edge(graph, i, j, dist);
+  pthread_mutex_unlock(&m);
+}
+````
