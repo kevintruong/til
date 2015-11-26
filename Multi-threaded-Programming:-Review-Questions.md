@@ -23,7 +23,7 @@ Which one of the following does not cause a process to exit?
 
 
 ## Q3
-Write a mathematical expression for the number of "B" characters that will be printed by the following program. Assume a,b,c,d are small positive integers. Your answer may use a 'min' function that returns its lowest valued argument.
+Write a mathematical expression for the number of "W" characters that will be printed by the following program. Assume a,b,c,d are small positive integers. Your answer may use a 'min' function that returns its lowest valued argument.
 
 ````C
 unsigned int a=...,b=...,c=...,d=...;
