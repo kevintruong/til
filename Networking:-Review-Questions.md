@@ -1,5 +1,5 @@
-See [Coding Questions](#coding-questions)
-See [Short answer questions](#short-answer-questions)
+* See [Coding Questions](#coding-questions)
+* See [Short answer questions](#short-answer-questions)
 
 
 # Short answer questions
