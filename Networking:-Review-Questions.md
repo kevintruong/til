@@ -1,4 +1,5 @@
 ## Q1
+What is a socket?
 
 ## Q2 
 What is special about listening on port 1000 vs port 2000?
