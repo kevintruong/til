@@ -6,7 +6,7 @@ Rather than requiring an existing paper-based book this semester, we will build 
 ## Exam Practice Questions
 * [[C Programming: Review Questions]]
 * [[Multi-threaded Programming: Review Questions]]
-* [[Synchronization: Review Questions]]
+* [[Synchronization Concepts: Review Questions]]
 * [[Memory: Review Questions]]
 * [[Networking: Review Questions]]
 
