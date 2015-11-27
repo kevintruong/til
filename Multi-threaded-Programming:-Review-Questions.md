@@ -91,7 +91,7 @@ void sub(int value) {
 ````
 
 ## Q6
-A non-threadsafe datastructure has `size()` `enq` and `deq` methods. Use condition variable and mutex lock to complete the thread-safe, blocking versions.
+A non-threadsafe data structure has `size()` `enq` and `deq` methods. Use condition variable and mutex lock to complete the thread-safe, blocking versions.
 ````C
 void enqueue(void* data) {
   // should block if the size() would be become greater than 256
@@ -101,7 +101,7 @@ void* dequeue() {
   // should block if size() is 0
   return deq();
 }
-
+````
 
 ## Q7
 Your startup offers path planning using latest traffic information. Your overpaid intern has created a non-threadsafe data structure with two functions: `shortest` (which uses but does not modify the graph) and `set_edge` (which modifies the graph).
