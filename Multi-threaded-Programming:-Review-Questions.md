@@ -1,4 +1,5 @@
-## Warning - question numbers subject to change
+> Warning - question numbers subject to change
+
 ## Q1
 Is the following code thread-safe? Redesign the following code to be thread-safe. Hint: A mutex is unnecessary if the message memory is unique to each call.
 
@@ -125,9 +126,9 @@ path_t* shortest_safe(graph_t* graph, int i, int j) {
   pthread_mutex_unlock(&m);
   return path;
 }
-void add_edge_safe(graph_t* graph, int i, int j, double dist) {
+void set_edge_safe(graph_t* graph, int i, int j, double dist) {
   pthread_mutex_lock(&m);
-  add_edge(graph, i, j, dist);
+  set_edge(graph, i, j, dist);
   pthread_mutex_unlock(&m);
 }
 ````
