@@ -2,17 +2,17 @@
 > Question numbers subject to change
  
 ## Q1
-1. What do each of the Coffman conditions mean? (e.g. can you provide a definition of each one)
-Hold and wait
-Circular wait
-Pre-emption
-Mutual exclusion
+What do each of the Coffman conditions mean? (e.g. can you provide a definition of each one)
+* Hold and wait
+* Circular wait
+* No pre-emption
+* Mutual exclusion
 
 ## Q2
 Give a real life example of breaking each Coffman condition in turn. A situation to consider: Painters, paint and paint brushes.
 Hold and wait
 Circular wait
-Pre-emption
+No pre-emption
 Mutual exclusion
 
 ## Q3
