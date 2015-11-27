@@ -8,6 +8,8 @@ Rather than requiring an existing paper-based book this semester, we will build 
 * [[Multi-threaded Programming: Review Questions]]
 * [[Synchronization Concepts: Review Questions]]
 * [[Memory: Review Questions]]
+* [[Pipe: Review Questions]]
+* [[Filesystem: Review Questions]]
 * [[Networking: Review Questions]]
 
 ## Week 1 - 2
