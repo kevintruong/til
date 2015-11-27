@@ -1,4 +1,4 @@
-* See [Coding Questions](#coding-questions)
+* See [Coding questions](#coding-questions)
 * See [Short answer questions](#short-answer-questions)
 
 
