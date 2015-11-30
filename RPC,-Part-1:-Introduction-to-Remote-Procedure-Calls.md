@@ -47,6 +47,10 @@ To implement RPC you need to decide (and document) which conventions you will us
 
 To marshall a struct, decide which fields need to be serialized. It may not be necessary to send all data items (for example, some items may be irrelevant to the specific RPC or can be re-computed by the server from the other data items present).
 
+To marshall a linked list it is unnecessary to send the link pointers- just stream the values. As part of unmarshalling the server can recreate a linked list structure from the byte sequence.
+
+By starting at the head node/vertex, a simple tree can be recursively visited to create a serialized version of the data. A cyclic graph will usually require additional memory to ensure that each edge and vertex is processed exactly once.
+
 ## What is an IDL (Interface Design Language)?
 
 Writing stub code by hand is painful, tedious, error prone, difficult to maintain and difficult to reverse engineer the wire protocol from the implemented code. A better approach is specify the data objects, messages and services and automatically generate the client and server code.
@@ -74,9 +78,6 @@ Let's examine three methods of transferring data using 3 different formats - JSO
 
 Google Protocol Buffers is an open-source efficient binary protocol that places a strong emphasis on high throughput with low CPU overhead and minimal memory copying. Implementations exist for multiple languages including Go, Python, C++ and C. This means client and server stub code in multiple languages can be generated from the .proto specification file to marshall data to and from a binary stream.
 
-The 
-Google Protocol Buffers reduces the versioning problem by ignoring unknown fields that are present in a message.
-
-
+Google Protocol Buffers reduces the versioning problem by ignoring unknown fields that are present in a message. See the introduction to Protocol Buffers for more information.
 
 [[https://developers.google.com/protocol-buffers/docs/overview]]
