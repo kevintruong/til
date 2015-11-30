@@ -91,6 +91,7 @@ Rather than requiring an existing paper-based book this semester, we will build 
 * [[ Signals, Part 4: Sigaction ]]
 
 ## Week 15
+* [[ RPC, Part 1: Introduction to Remote Procedure Calls ]]
 * [[ File System, Part 8: Disk blocks example ]]
 
 
