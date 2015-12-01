@@ -32,7 +32,7 @@ void *calc(void *arg) {
 ```
 
 Our main thread will create the 16 threads and we will divide each calculation into 16 separate pieces.  Each thread will be given a unique value (0,1,2,..15), so it can work on its own block.
-Since a (void*) type can hold small integers, we will pass the value of i by casting it to a void*. 
+Since a (void*) type can hold small integers, we will pass the value of `i` by casting it to a void pointer. 
 ```C
 #define N (16)
 double data[256][8192] ;
@@ -67,9 +67,9 @@ else {
 ```
 However the above code has a race condition (two threads might try to decrement `remain`) and the loop is a busy loop. We can do better! Let's use a condition variable and then we will use a broadcast/signal functions to wake up the sleeping threads.
 
-A reminder, that a condition variable is similar to a house! Threads go there to sleep (`pthread_cond_wait`). You can choose to wake up one thread (`pthread_cond_signal`) or all of them (`pthread_cond_broadcast`).  If there are no threads waiting inside these calls have no effect.
+A reminder, that a condition variable is similar to a house! Threads go there to sleep (`pthread_cond_wait`). You can choose to wake up one thread (`pthread_cond_signal`) or all of them (`pthread_cond_broadcast`).  If there are no threads currently waiting then these two calls have no effect.
 
-A condition variable version is usually very similar to a busy loop incorrect solution. We will need to add a mutex and condition global variables and to initialize them in `main` ...
+A condition variable version is usually very similar to a busy loop incorrect solution - as we will show next. First, let's add a mutex and condition global variables and don't forget to initialize them in `main` ...
 
 ```C
 //global variables
@@ -82,7 +82,7 @@ main() {
 ```
 
 We will use the mutex to ensure that only one thread modifies `remain` at a time.
-The last arriving thread needs to wake up all sleeping threads - so we will need `pthread_cond_broadcast(&cv)`
+The last arriving thread needs to wake up _all_ sleeping threads - so we will use `pthread_cond_broadcast(&cv)` not `pthread_cond_signal`
 
 ```C
 pthread_mutex_lock(&m);
