@@ -65,6 +65,19 @@ through the file descriptors in readfds and/or writefds to see which ones are re
 
     int num_ready = select(FD_SETSIZE, &readfds, &writefds, NULL, &timeout);
 
+    if (num_ready < 0) {
+      perror("error in select()");
+    } else if (num_ready == 0) {
+      printf("timeout\n");
+    } else {
+      for (int i=0; i < read_fd_count; i++)
+        if (FD_ISSET(my_read_fds[i], &readfds))
+          printf("fd %d is ready for reading\n", my_read_fds[i]);
+      for (int i=0; i < write_fd_count; i++)
+        if (FD_ISSET(my_write_fds[i], &writefds))
+          printf("fd %d is ready for writing\n", my_write_fds[i]);
+    }
+
 [For more information on select()](http://pubs.opengroup.org/onlinepubs/9699919799/functions/select.html)
 
 #### epoll
