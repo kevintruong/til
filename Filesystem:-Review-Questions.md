@@ -9,7 +9,7 @@ void xout(char* filename) {
 
 
 }
-
+````
 ## Q2
 In an `ext` filesystem how many inodes are read from disk to access the first byte of the file `/dir1/subdirA/notes.txt` ? Assume the directory names and inode numbers in the root directory (but not the inodes themselves) are already in memory.
 
@@ -18,3 +18,9 @@ In an `ext` filesystem what is the minimum number of disk blocks that must be re
 
 ## Q4
 In an `ext2` filesystem with 32 bit addresses and 4KB disk blocks, an inodes that can store 10 direct disk block numbers. What is the minimum file size required to require an single indirection table? ii) a double direction table?
+
+## Q5
+Fix the shell command `chmod` below to set the permission of a file `secret.txt`  so that the owner can read,write,and execute permissions the group can read and everyone else has no access.
+````
+chmod 000 secret.txt
+```
