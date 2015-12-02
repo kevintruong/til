@@ -1,10 +1,8 @@
 ### Don't waste time waiting
 
-Normally, when you call `read()`, if the data is not available yet it will wait until the data is ready before returning.  When you're reading data from a disk, that delay may not be long, but when you're reading from a slow network
-connection it may take a long time for that data to arrive, if it ever arrives.  
+Normally, when you call `read()`, if the data is not available yet it will wait until the data is ready before the function returns.  When you're reading data from a disk, that delay may not be long, but when you're reading from a slow network connection it may take a long time for that data to arrive, if it ever arrives.  
 
-POSIX lets you set a flag on a file descriptor such that any call to `read()` will returns immediately,
-whether it has finished or not.  With your file descriptor in this mode, your call to `read()` will start
+POSIX lets you set a flag on a file descriptor such that any call to `read()` on that file descriptor will return immediately, whether it has finished or not.  With your file descriptor in this mode, your call to `read()` will start
 the read operation, and while it's working you can do other useful work.  This is called "nonblocking" mode,
 since the call to `read()` doesn't block.
 
@@ -44,8 +42,8 @@ There are a few ways.  Let's see how to do it using *select* and *epoll*.
                struct timeval *timeout);
 
 Given three sets of file descriptors, `select()` will wait for any of those file descriptors to become 'ready'.
-* readfds - a file descriptor in readfds is ready when there is data that can be read or EOF has been reached
-* writefds - a file descriptor in writefds is ready when a call to write() will succeed
+* readfds - a file descriptor in readfds is ready when there is data that can be read or EOF has been reached.
+* writefds - a file descriptor in writefds is ready when a call to write() will succeed.
 * exceptfds - system-specific, not well-defined.  Just pass NULL for this.
 
 `select()` returns the total number of file descriptors that are ready.  If none of them become
