@@ -74,18 +74,26 @@ file descriptors.  It will tell you exactly which descriptors are ready. It even
 a small amount of data with each descriptor, like an array index or a pointer, making it easier to access
 your data associated with that descriptor.
 
-To use epoll, first you must create a special file descriptor with [epoll_create()](http://linux.die.net/man/2/epoll_create).  
+To use epoll, first you must create a special file descriptor with [epoll_create()](http://linux.die.net/man/2/epoll_create).  You won't read or write to this file
+descriptor; you'll just pass it to the other epoll_xxx functions and call
+close() on it at the end.
 
     epfd = epoll_create(1);
 
-For each file descriptor you want to monitor with epoll, you'll need to add it with [epoll_ctl()](http://linux.die.net/man/2/epoll_ctl) with the `EPOLL_CTL_ADD` option.
+For each file descriptor you want to monitor with epoll, you'll need to add it 
+to the epoll data structures 
+using [epoll_ctl()](http://linux.die.net/man/2/epoll_ctl) with the `EPOLL_CTL_ADD` option.  You can add any
+number of file descriptors to it.
 
     struct epoll_event event;
     event.events = EPOLLOUT;  // EPOLLIN==read, EPOLLOUT==write
     event.data.ptr = mypointer;
     epoll_ctl(epfd, EPOLL_CTL_ADD, mypointer->fd, &event)
 
-To wait for a file descriptor to become ready, use [epoll_wait()](http://linux.die.net/man/2/epoll_wait).
+To wait for some of the file descriptors to become ready, use [epoll_wait()](http://linux.die.net/man/2/epoll_wait).
+The epoll_event struct that it fills out will contain the data you provided in event.data when you
+added this file descriptor. This make it easy for you to look up your own data associated
+with this file descriptor.
 
     int num_ready = epoll_wait(epfd, &event, 1, timeout_milliseconds);
     if (num_ready > 0) {
@@ -93,8 +101,8 @@ To wait for a file descriptor to become ready, use [epoll_wait()](http://linux.d
       printf("ready to write on %d\n", mypointer->fd);
     }
 
-Say you were waiting to write data on a file descriptor, but now you want to wait to read data from it.
-Just use `epoll_ctl()` with the `EPOLL_CTL_MOD` option.
+Say you were waiting to write data to a file descriptor, but now you want to wait to read data from it.
+Just use `epoll_ctl()` with the `EPOLL_CTL_MOD` option to change the type of operation you're monitoring.
 
     event.events = EPOLLOUT;
     event.data.ptr = mypointer;
@@ -104,10 +112,10 @@ To unsubscribe one file descriptor from epoll while leaving others active, use `
 
     epoll_ctl(epfd, EPOLL_CTL_DEL, mypointer->fd, NULL);
 
-To deallocate the memory used by an epoll instance, close its file descriptor.
+To shut down an epoll instance, close its file descriptor.
 
     close(epfd);
 
-In addition to nonblocking `read()` and `write()`, when a socket is nonblocking any calls to `connect()` will also be
+In addition to nonblocking `read()` and `write()`, any calls to `connect()` on a nonblocking socket will also be
 nonblocking. To wait for the connection to complete, use `select()` or epoll to wait for the socket to be writable.
 
