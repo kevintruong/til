@@ -78,6 +78,23 @@ char* mystrcat(char*dest, const char*src) {
   return dest;
 }
 ````
+## Q 1.9
+Implement version of size_t strlen(const char*) using a loop and no function calls.
+````C
+size_t mystrlen(const char*s) {
+
+}
+## Q 1.10
+Identify the three bugs in the following implementation of `strcpy`.
+````C
+char* strcpy(const char* dest, const char* src) {
+  while(*src) { *dest++ = *src++; }
+  return dest;
+}
+````
+
+
+
 # Printing
 ## Q 2.1
 Spot the error!
