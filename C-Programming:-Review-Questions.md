@@ -68,7 +68,16 @@ typedef ______________________;
 ## Q 1.7
 In addition to the function arguments what else is stored on a thread's stack?
 
+## Q 1.8
+Implement a version of `char* strcat(char*dest, const char*src)` using only `strcpy`  `strlen` and pointer arithmetic
+````C
+char* mystrcat(char*dest, const char*src) {
 
+  ? Use strcpy strlen here
+
+  return dest;
+}
+````
 # Printing
 ## Q 2.1
 Spot the error!
