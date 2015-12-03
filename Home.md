@@ -72,7 +72,7 @@ Rather than requiring an existing paper-based book this semester, we will build 
 * [[ Networking, Part 5: Reusing ports ]]
 * [[ Scheduling, Part 1: Scheduling Processes ]]
 * [[ Networking, Part 6: Creating a UDP server ]]
-* [[ Nonblocking I O, select(), and epoll ]]
+* [[ Nonblocking I/O ]]
 
 ## Week 12
 * [[ File System, Part 1: Introduction ]]
