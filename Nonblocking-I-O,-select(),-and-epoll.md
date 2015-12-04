@@ -105,7 +105,7 @@ number of file descriptors to it.
 
 To wait for some of the file descriptors to become ready, use [epoll_wait()](http://linux.die.net/man/2/epoll_wait).
 The epoll_event struct that it fills out will contain the data you provided in event.data when you
-added this file descriptor. This make it easy for you to look up your own data associated
+added this file descriptor. This makes it easy for you to look up your own data associated
 with this file descriptor.
 
     int num_ready = epoll_wait(epfd, &event, 1, timeout_milliseconds);
