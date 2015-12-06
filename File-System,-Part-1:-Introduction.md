@@ -37,7 +37,7 @@ Example: `a/b/../c/./`
 - Step 4: `cd c` (in a/c)
 - Step 5: `cd .` (in a/c, because . represents 'current folder')
 
-Thus, this path can be simplified to `a/c`
+Thus, this path can be simplified to `a/c`.
 
 ## Why make disk blocks the same size as memory pages?
 To support virtual memory, so we can page stuff in and out of memory.
