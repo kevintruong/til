@@ -124,6 +124,7 @@ char* toString(int a, char*mesg, double val, void* ptr) {
     _____
    return result;
 }
+```
 
 # Input parsing
 ## Q 5.1
@@ -140,7 +141,7 @@ When would realloc be useful?
 
 (Todo - move this question to another page)
 What mistake did the programmer make in the following code? Is it possible to fix it i) using heap memory? ii) using global (static) memory?
-````C
+```C
 static int id;
 
 char* next_ticket() {
@@ -149,4 +150,4 @@ char* next_ticket() {
   sprintf(result,"%d",id);
   return result;
 }
-````
+```
