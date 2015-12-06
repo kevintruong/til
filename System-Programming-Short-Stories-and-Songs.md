@@ -2,13 +2,17 @@
  Lawrence Angrave 12/4/15 (an extract from the longer, unpublished story "The Last Time Slice")
 
 "Decide," the computer said with parental patience but with an air of gravity and tempered impatience.
+
 "Why does it have to be me?" asked the last human.
+
 "Because you are the only one left, and so the decision is yours."
+
 "Why can't you? You are an infinite times more older, wiser. Why don't you just pick a random slice?"
+
 "This decision is yours. A gift, or curse if you will, from your distant elders. Heavier than any religious rite. This will be the last decision I, the ancients or anyone asks, or can ask, of you. With this last choice we will exhaust the last entropy stores. You will decide the last reality slice to have meaning and experience."
 The human was quiet for a few minutes - a remarkable feat given their age. Eventually the computer decided that the human was no longer productively thinking about the problem in hand.
-"What is the pattern of conscious if it is never made conscious?" it asked. "The universe must be self-aware, must experience itself for the Universe - for all life! - to have meaning. That is the ultimate truth that humanity discovered and celebrated. With no awareness, it is simply patterns, patterns of atoms or energy but without a single iota of meaning; mere shapes and representations encoded in geometric patterns of data, structure and energy."
 
+"What is the pattern of conscious if it is never made conscious?" it asked. "The universe must be self-aware, must experience itself for the Universe - for all life! - to have meaning. That is the ultimate truth that humanity discovered and celebrated. With no awareness, it is simply patterns, patterns of atoms or energy but without a single iota of meaning; mere shapes and representations encoded in geometric patterns of data, structure and energy."
 ___
 ## File Descriptor at Urbana Champaign
 A System Programming parody by Angrave (November 2015). 
