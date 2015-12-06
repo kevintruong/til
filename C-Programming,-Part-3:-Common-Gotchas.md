@@ -67,7 +67,7 @@ typedef struct User user_t;
 user_t * user = (user_t *) malloc(sizeof(user_t));
 ```
 
-#### Strings require strlen(s)+1 bytes
+#### Strings require `strlen(s)+1` bytes
 
 Every string must have a null byte after the last characters. To store the string <code>"Hi"</code> it takes 3 bytes: <code>[H] [i] [\0]</code>.
 
