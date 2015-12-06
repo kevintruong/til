@@ -153,7 +153,7 @@ switch(flag) {
     break; //unnecessary
 }
 ```
-## Equal vs equality
+## Equal vs. equality
 ```C
 int answer = 3; // Will print out the answer.
 if (answer = 42) { printf("I've solved the answer! It's %d", answer);}
