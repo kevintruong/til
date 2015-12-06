@@ -146,7 +146,7 @@ void init() {
 }
 ```
 
-The enqueue method is shown below. Notice,
+The enqueue method is shown below. Notice:
 * The lock is only held during the critical section (access to the data structure).
 * A complete implementation would need to guard against early returns from `sem_wait` due to POSIX signals.
 
