@@ -10,7 +10,7 @@ The design of a file system is difficult problem because there many high-level d
 * Encryption
 * Automatic compression
 * High performance (e.g. Caching in-memory)
-* Efficient use of storage De-duplication
+* Efficient use of storage de-duplication
 
 Not all filesystems natively support all of these goals. For example, many filesystems do not automatically compress rarely-used files
 
