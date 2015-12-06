@@ -6,7 +6,7 @@ HTTP
 SIGINT
 TCP
 TLB
-VM
+Virtual Memory
 arrays
 barrier
 c strings
