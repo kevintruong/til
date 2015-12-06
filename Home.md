@@ -101,5 +101,6 @@ Rather than requiring an existing paper-based book this semester, we will build 
 
 * [[C Programming, Part 4: Debugging]]
 * [[#Example Markdown]]
+* [[ System Programming Short Stories and Songs ]]
 
 
