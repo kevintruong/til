@@ -39,13 +39,17 @@ Which common protocol is stream-based and will resend data if packets are lost?
 What is the SYN ACK ACK-SYN handshake?
 
 ## Q9 
-Which one of the following is NOT a feature of TCP?
 
-Packet re-ordering
-Flow control
-Packet re-tranmission
-Simple error detection
-Encryption
+@MCQ
+Which one of the following is NOT a feature of TCP?
+Nice! [https://en.wikipedia.org/wiki/OSI_model](OSI Model) @EXP
+No hint available. @HINT
+- Packet re-ordering
+- Flow control
+- Packet re-tranmission
+- Simple error detection
+- Encryption @ANS
+@END
 
 ## Q10
 What protocol uses sequence numbers? What is their initial value? And why?
