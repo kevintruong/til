@@ -87,7 +87,7 @@ Why may getaddrinfo generate network packets?
 Which network call specifies the size of the allowed backlog?
 
 ## Q20
-Which network call returns a new filedescriptor?
+Which network call returns a new file descriptor?
 
 ## Q21
 When are passive sockets used?
@@ -97,6 +97,13 @@ When is epoll a better choice than select? When is select a better choice than e
 
 ## Q23
 Will  `write(fd, data, 5000)`  always send 5000 bytes of data? When can it fail?
+
+## Q24 
+How does Network Address Translation (NAT) work? 
+
+## Q25
+
+
 
 # Coding questions
 ## Q 2.1
