@@ -101,8 +101,9 @@ Will  `write(fd, data, 5000)`  always send 5000 bytes of data? When can it fail?
 ## Q24 
 How does Network Address Translation (NAT) work? 
 
-@MCQ
+
 ## Q25
+@MCQ
 Assuming a network has a 20ms Transmit Time between Client and Server, how much time would it take to establish a TCP Connection?
 20 ms
 40 ms 
