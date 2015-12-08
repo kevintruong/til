@@ -18,12 +18,14 @@ Mutual exclusion
 ## Q3
 Identify when Dining Philosophers code causes a deadlock (or not). For example, if you saw the following code snippet which Coffman condition is not satisfied?
 
+```
 // Get both locks or none.
 pthread_mutex_lock( a );
 if( pthread_mutex_trylock( b ) ) { /*failed*/
    pthread_mutex_unlock( a );
    ...
 }
+```
 
 ## Q4
 How many processes are blocked?
