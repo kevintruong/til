@@ -55,9 +55,9 @@ char* copy(char*src) {
 ## Q 1.5
 Which of the following is legal?
 ````C
-char a[] = "Hello"; strcpy("World", a);
-char b[] = "Hello"; strcpy("World12345", b);
-char* c = "Hello"; strcpy("World", c);
+char a[] = "Hello"; strcpy(a, "World");
+char b[] = "Hello"; strcpy(b, "World12345", b);
+char* c = "Hello"; strcpy(c, "World");
 ````
 
 ## Q 1.6
