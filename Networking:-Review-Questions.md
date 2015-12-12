@@ -36,6 +36,7 @@ Which one of the following is NOT a feature of TCP?
 - Packet re-tranmission
 - Simple error detection
 - Encryption @ANS
+No hint @HINT
 https://en.wikipedia.org/wiki/Transmission_Control_Protocol @EXP
 @END
 
