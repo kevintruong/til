@@ -4,7 +4,8 @@ This wiki is being built by students and faculty from the University of Illinois
 Rather than requiring an existing paper-based book this semester, we will build our own set of resources here.
 
 ## Exam Practice Questions
-Warning these are good practice but not comprehensive; questions assume you fully understand all of the course.
+Warning these are good practice but not comprehensive. The CS241 final assumes you fully understand and can apply all topics of the course. Questions will focus mostly but not entirely on topics that you have used in the lab and programming assignments.
+
 * [[Exam Topics]]
 * [[C Programming: Review Questions]]
 * [[Multi-threaded Programming: Review Questions]]
