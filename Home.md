@@ -4,6 +4,7 @@ This wiki is being built by students and faculty from the University of Illinois
 Rather than requiring an existing paper-based book this semester, we will build our own set of resources here.
 
 ## Exam Practice Questions
+Warning these are good practice but not comprehensive; questions assume you fully understand all of the course.
 * [[Exam Topics]]
 * [[C Programming: Review Questions]]
 * [[Multi-threaded Programming: Review Questions]]
