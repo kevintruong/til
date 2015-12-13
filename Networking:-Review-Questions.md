@@ -1,3 +1,4 @@
+* [Wiki w/Interactive MC Questions](http://angrave.github.io/SystemProgramming/networkingreviewquestions.html)
 * See [Coding questions](#coding-questions)
 * See [Short answer questions](#short-answer-questions)
 * See [MP Wearables](https://courses.engr.illinois.edu/cs241/mps/mp7/) Food For Thought questions
@@ -39,13 +40,15 @@ Which common protocol is stream-based and will resend data if packets are lost?
 What is the SYN ACK ACK-SYN handshake?
 
 ## Q9
-@MCQ Which one of the following is NOT a feature of TCP? Nice! https://en.wikipedia.org/wiki/OSI_model @EXP No hint available. @HINT
-
+@MCQ Which one of the following is NOT a feature of TCP? 
+Nice! https://en.wikipedia.org/wiki/OSI_model @EXP
+No hint available. @HINT
 - Packet re-ordering
 - Flow control
 - Packet re-tranmission
 - Simple error detection
-- Encryption @ANS @END
+- Encryption @ANS
+@END
 
 ## Q10
 What protocol uses sequence numbers? What is their initial value? And why?
