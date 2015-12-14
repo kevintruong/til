@@ -47,7 +47,8 @@ read/write
 reader/writer
 resource allocation graphs
 ring buffer
-scanf buffering
+scanf 
+buffering
 scheduling
 select
 semaphores
