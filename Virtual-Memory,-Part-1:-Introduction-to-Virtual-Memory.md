@@ -76,12 +76,18 @@ Yes! In addition to storing the frame number, the page table can be used to stor
 In addition, processes can share a page with a child process using the `mmap` system call.
 
 ## What else is stored in the page table and why?
-In addition to read-only bit and usage statistics discussed above, its common to store modification and execution information:
+In addition to read-only bit and usage statistics discussed above, it is common to store at least read-only, modification and execution information. 
+
+### Read-only bit
+The read-only bit marks the page as read-only. Attempts to write to the page will cause a page fault. The page fault will then be handled by the Kernel. Two examples of the read-only page include sharing the c runtime library between multiple processes (for security you wouldn't want to allow one process to modify the library); and Copy-On-Write where the cost of duplicating a page can be delayed until the first write occurs. 
+
 ### Dirty bit
 http://en.wikipedia.org/wiki/Page_table#Page_table_data
 > The dirty bit allows for a performance optimization. A page on disk that is paged in to physical memory, then read from, and subsequently paged out again does not need to be written back to disk, since the page hasn't changed. However, if the page was written to after it's paged in, its dirty bit will be set, indicating that the page must be written back to the backing store. This strategy requires that the backing store retain a copy of the page after it is paged in to memory. When a dirty bit is not used, the backing store need only be as large as the instantaneous total size of all paged-out pages at any moment. When a dirty bit is used, at all times some pages will exist in both physical memory and the backing store.
 
 ### Execution bit
 The execution bit defines whether bytes in a page can be executed as CPU instructions. By disabling a page, it prevents code that is maliciously stored in the process memory (e.g. by stack overflow) from being easily executed. (further reading: http://en.wikipedia.org/wiki/NX_bit#Hardware_background)
-```
 
+
+### Find out more
+A lower level more and more technical discussion of paging and page bits on x86 platform is discussed at [http://wiki.osdev.org/Paging]
