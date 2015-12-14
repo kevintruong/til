@@ -93,6 +93,7 @@ Warning these are good practice but not comprehensive. The CS241 final assumes y
 * [[ Signals, Part 2: Pending Signals and Signal Masks ]]
 * [[ Signals, Part 3: Raising signals ]]
 * [[ Signals, Part 4: Sigaction ]]
+* [[ Nonblocking I O, select(), and epoll ]]
 
 ## Week 15
 * [[ RPC, Part 1: Introduction to Remote Procedure Calls ]]
