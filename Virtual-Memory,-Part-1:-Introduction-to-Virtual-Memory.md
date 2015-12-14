@@ -78,6 +78,9 @@ In addition, processes can share a page with a child process using the `mmap` sy
 ## What else is stored in the page table and why?
 In addition to read-only bit and usage statistics discussed above, it is common to store at least read-only, modification and execution information. 
 
+## What's a page fault?
+A page fault is when a running program tries to access some virtual memory in its address space that is not mapped to physical memory. Page faults will also occur in other situations, including in the next section.
+
 ### Read-only bit
 The read-only bit marks the page as read-only. Attempts to write to the page will cause a page fault. The page fault will then be handled by the Kernel. Two examples of the read-only page include sharing the c runtime library between multiple processes (for security you wouldn't want to allow one process to modify the library); and Copy-On-Write where the cost of duplicating a page can be delayed until the first write occurs. 
 
