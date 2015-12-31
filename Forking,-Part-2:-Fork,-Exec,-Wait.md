@@ -1,5 +1,8 @@
 ## What does the following 'exec' example do?
 ```C
+#include <unistd.h>
+#include <fcntl.h> // O_CREAT, O_APPEND etc. defined here
+
 int main() {
    close(1); // close standard out
    open("log.txt", O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
