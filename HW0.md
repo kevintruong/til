@@ -72,6 +72,7 @@ The in-browser virtual machine runs entirely in Javascript and is fastest in Chr
   If the address of data is 0x7fbd9d40, then what is the address of data+2?
   - What is data[3] equivalent to in C?
 - sizeof character arrays, incrementing pointers
+  
   Remember the type of a string constant "abc" is an array.
   - Why does this segfault?
   ```C
