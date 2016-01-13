@@ -36,6 +36,11 @@ read(0, buffer, sizeof(buffer));
 
 http://cs-education.github.io/sys/
 
+There is also the course wikibook - 
+
+https://github.com/angrave/SystemProgramming/wiki
+
+
 The in-browser virtual machine runs entirely in Javascript and is fastest in Chrome. Note the VM and any code you write is reset when you reload the page *So copy your code to a separate document*
 
 ### Chapter 1
