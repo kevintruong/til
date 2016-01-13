@@ -40,9 +40,9 @@ The in-browser virtual machine runs entirely in Javascript and is fastest in Chr
 
 ### Chapter 1
 - Hello World (System call style)
-  - Write a program that uses write() to print out "Hi! My name is <Your Name>".
+  - Write a program that uses `write()` to print out "Hi! My name is <Your Name>".
 - Hello Standard Error Stream
-  - Write a program that uses write() to prints out a triangle of height n to Standard Error
+  - Write a program that uses `write()` to print out a triangle of height `n` to Standard Error
     - n should be a variable and the triangle should look like this for n = 3
     ```C
     *
