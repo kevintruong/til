@@ -127,11 +127,11 @@ The in-browser virtual machine runs entirely in Javascript and is fastest in Chr
 - struct, typedefs and a linked list
   - Create a struct that represents a Person and typedef, so that "struct Person" can be replaced with a single word.
     - A person should contain the following information: name, age, friends (array of people).
-  - Now make a person "Bob" on the heap who is 40 years old and his only friend is himself :(
+  - Now make two persons "Agent Smith" and "Sonny Moore" on the heap who are 128 and 256 years old respectively and are friends with each other.
 - Duplicating strings, memory allocation and deallocation of structures
-  - Create functions to create and destroy a Person.
+  - Create functions to create and destroy a Person (Person's and their names should live on the heap).
     - `create()` should take a name and make a copy of the name and also an age. Use malloc to reserve sufficient memory. Be sure initialize all fields (why?).
-    - `destroy()` should free up not only the memory of the person struct but also all its attributes (the array if it exists and the string).
+    - `destroy()` should free up not only the memory of the person struct but also free all its attributes that are stored on the heap (the array if it exists and the string). Destroying one person however should not destroy any others.
 
 ### Chapter 5 
 - Reading characters, Trouble with gets
