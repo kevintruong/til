@@ -17,8 +17,12 @@ exit(0);
 ```
 # So you want to master System Programming?
 ```C
-puts("Bring your near-completed answers the problems below to the first lab to show that you've been working on this");
+puts("Bring your near-completed answers the problems below");
+puts(" to the first lab to show that you've been working on this");
 printf("A few \"don't knows\" or \"unsure\" is fine for lab 1"); 
+puts("Warning; your peers will be working hard for this class");
+puts("This is not CS225; you will be pushed much harder to");
+puts(" work things out on your own");
 fprintf(stdout,"the point is that this homework is a stepping stone to all future assignments");
 char p[] = "so you will want to clear up any confusions or misconceptions.";
 write(1, p, strlen(p) );
