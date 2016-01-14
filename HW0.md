@@ -15,22 +15,27 @@ if(!fork()) { execlp("make","make", "snowman", (char*)0); execlp("make","make", 
 
 exit(0);
 ```
-# So you want to master System Programming?
+# So you want to master System Programming? And get a better grade than B?
 ```C
-puts("Bring your near-completed answers the problems below");
-puts(" to the first lab to show that you've been working on this");
-printf("A few \"don't knows\" or \"unsure\" is fine for lab 1"); 
-puts("Warning; your peers will be working hard for this class");
-puts("This is not CS225; you will be pushed much harder to");
-puts(" work things out on your own");
-fprintf(stdout,"the point is that this homework is a stepping stone to all future assignments");
-char p[] = "so you will want to clear up any confusions or misconceptions.";
-write(1, p, strlen(p) );
-char buffer[1024];
-sprintf(buffer,"For grading purposes it will be graded as part of your lab %d work.", 1);
-write(1, buffer, strlen(buffer));
-printf("Press Return to continue\n");
-read(0, buffer, sizeof(buffer));
+int main(int argc, char** argv) {
+ puts("Great! We have plenty of useful resources for you but it's up to you to");
+ puts("be an active learner and learn how to solve problems and debug code.");
+ puts("Bring your near-completed answers the problems below");
+ puts(" to the first lab to show that you've been working on this");
+ printf("A few \"don't knows\" or \"unsure\" is fine for lab 1"); 
+ puts("Warning; your peers will be working hard for this class");
+ puts("This is not CS225; you will be pushed much harder to");
+ puts(" work things out on your own");
+ fprintf(stdout,"the point is that this homework is a stepping stone to all future assignments");
+ char p[] = "so you will want to clear up any confusions or misconceptions.";
+ write(1, p, strlen(p) );
+ char buffer[1024];
+ sprintf(buffer,"For grading purposes this homework 0 will be graded as part of your lab %d work.", 1);
+ write(1, buffer, strlen(buffer));
+ printf("Press Return to continue\n");
+ read(0, buffer, sizeof(buffer));
+ return 0;
+}
 ```
 ## Watch the videos and write up your answers to the following questions.
 
@@ -40,6 +45,8 @@ There is also the course wikibook -
 
 https://github.com/angrave/SystemProgramming/wiki
 
+Questions? Comments? Use Piazza,
+https://piazza.com/class/ijd7w4r95dp3q
 
 The in-browser virtual machine runs entirely in Javascript and is fastest in Chrome. Note the VM and any code you write is reset when you reload the page *So copy your code to a separate document*
 
@@ -149,3 +156,8 @@ The in-browser virtual machine runs entirely in Javascript and is fastest in Chr
 - Are tabs or spaces used in Makefiles?
 - What are the differences between heap and stack memory?
 - Are there other kinds of memory in a process?
+
+### Optional (Just for fun)
+- Convert your a song lyrics into System Programming and C code covered in this wiki book and share on Piazza.
+- Find, in your opinion the best and worst C code on the web and post the link to Piazza
+- Write a short C program with a deliberate subtle C bug and post it on Piazza to see if others can spot your bug 
