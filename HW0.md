@@ -48,7 +48,7 @@ https://github.com/angrave/SystemProgramming/wiki
 Questions? Comments? Use Piazza,
 https://piazza.com/class/ijd7w4r95dp3q
 
-The in-browser virtual machine runs entirely in Javascript and is fastest in Chrome. Note the VM and any code you write is reset when you reload the page *So copy your code to a separate document*
+The in-browser virtual machine runs entirely in Javascript and is fastest in Chrome. Note the VM and any code you write is reset when you reload the page *So copy your code to a separate document.* The post-video challenges (e.g. Haiku poem) are not part of homework 0. 
 
 ### Chapter 1
 - Hello World (System call style)
