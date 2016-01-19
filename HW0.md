@@ -133,7 +133,7 @@ The in-browser virtual machine runs entirely in Javascript and is fastest in Chr
   - How can one avoid the previous 2 mistakes? 
 - struct, typedefs and a linked list
   - Create a struct that represents a Person and typedef, so that "struct Person" can be replaced with a single word.
-    - A person should contain the following information: name, age, friends (array of people).
+    - A person should contain the following information: name, age, friends (pointer to an array of pointers to People).
   - Now make two persons "Agent Smith" and "Sonny Moore" on the heap who are 128 and 256 years old respectively and are friends with each other.
 - Duplicating strings, memory allocation and deallocation of structures
   - Create functions to create and destroy a Person (Person's and their names should live on the heap).
