@@ -9,7 +9,7 @@ strcpy(array, "OK");
 char *ptr = "Can't change me"; // ptr points to some immutable memory
 strcpy(ptr, "Will not work");
 ```
-String literals are character arrays stored in static memory, which is immutable. Two string literals may share the same space in memory. An example follows:
+String literals are character arrays stored in the code segment of the program, which is immutable. Two string literals may share the same space in memory. An example follows:
 
 ```C
 char * str1 = "Brandon Chong is the best TA";
@@ -17,7 +17,7 @@ char * str2 = "Brandon Chong is the best TA";
 ```
 The strings pointed to by `str1` and `str2` may actually reside in the same location in memory.
 
-Char arrays, however, put that string literal in static memory, *and then copy it over to stack memory*. These following char arrays do not reside in the same place in memory.
+Char arrays, however, contain the literal value which has been copied from the code segment into either the stack or static memory. These following char arrays do not reside in the same place in memory.
 
 ```C
 char arr1[] = "Brandon Chong didn't write this";
