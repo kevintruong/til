@@ -89,7 +89,7 @@ pthread_mutex_lock(&m);
 remain--; 
 if (remain ==0) { pthread_cond_broadcast(&cv); }
 else {
-  while(remain != 0) { pthread_cond_wait(&cv, &m) }
+  while(remain != 0) { pthread_cond_wait(&cv, &m); }
 }
 pthread_mutex_unlock(&m);
 ```
