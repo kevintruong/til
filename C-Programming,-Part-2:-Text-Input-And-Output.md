@@ -95,7 +95,8 @@ size_t size = 0;
 ssize_t chars = getline(&buffer, &size, stdin);
 
 // Discard newline character if it is present,
-if (chars > 0 && buffer[chars -1] =='\n') buffer[chars-1] = '\0';
+if (chars > 0 && buffer[chars-1] == '\n') 
+    buffer[chars-1] = '\0';
 
 // Read another line.
 // The existing buffer will be re-used, or, if necessary,
