@@ -78,8 +78,9 @@ Note, unlike `gets`,  `fgets` copies the newline into the buffer, which you may 
 ```C
 if (!result) { return; /* no data - don't read the buffer contents */}
 
-int i= strlen(buffer) -1;
-if (buffer[i] == '\n') buffer[i] = '\0'
+int i = strlen(buffer) - 1;
+if (buffer[i] == '\n') 
+    buffer[i] = '\0';
 ```
 
 ## How do I use `getline`?
@@ -88,7 +89,7 @@ One of the advantages of `getline` is that will automatically (re-) allocate a b
 ```C
 // ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 
- /* set buffer and size to 0; they will be changed by getline*/
+ /* set buffer and size to 0; they will be changed by getline */
 char *buffer = NULL;
 size_t size = 0;
 
