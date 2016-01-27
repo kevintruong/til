@@ -4,7 +4,7 @@
 * And learn about [[text I/O|C Programming, Part 2: Text Input And Output]].
 * Kick back relax with [Lawrence's intro videos](http://cs-education.github.io/sys/#)
 * ^ and the same link includes a virtual machine-in-a-browser you can play with
-* Or watch some old CS241 slides [CS241 Old Slides](https://subversion.ews.illinois.edu/svn/fa14-cs241/_shared/past-lectures/)
+* Or current CS241 students may wish to review some old CS241 slides [CS241 2013 Slides](https://subversion.ews.illinois.edu/svn/sp16-cs241/_shared/past-lectures/) (requires logon)
 
 # External resources
 * [C for C++/Java Programmers](http://www.ccs.neu.edu/course/com3620/parent/C-for-Java-C++/c-for-c++-alt.html)
