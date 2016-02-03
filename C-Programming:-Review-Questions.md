@@ -84,6 +84,7 @@ Implement version of size_t strlen(const char*) using a loop and no function cal
 size_t mystrlen(const char*s) {
 
 }
+````
 ## Q 1.10
 Identify the three bugs in the following implementation of `strcpy`.
 ````C
