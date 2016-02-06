@@ -15,6 +15,9 @@ Total wait time, or the first waiting before it is scheduled the first time?
 
 # Write a formula for the wait time based on arrival time, execution time and completion time
 
+# Linux Scheduling
+As of February 2016, Linux by default uses Completely Fair Scheduler for CPU scheduling and the Budget Fair Scheduling "BFQ" for I/O scheduling. Appropriate scheduling can have a significant impact on throughput and latency. Latency is particularly important for interactive and soft-real time applications such as audio and video streaming. See the discussion and comparative benchmarks here [https://lkml.org/lkml/2014/5/27/314] for more information.
+
 
 For now, see 
 * https://subversion.ews.illinois.edu/svn/sp15-cs241/_shared/lectures/CS241FA15-26-SockOpts-Scheduling.docx
