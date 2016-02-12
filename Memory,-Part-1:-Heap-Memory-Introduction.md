@@ -72,7 +72,7 @@ char *ptr2 = malloc(308); // Contents might now contain existing data and is pro
 Performance! We want malloc to be as fast as possible. Zeroing out memory may be unnecessary.
 
 ## What is realloc and when would you use it?
-`realloc` allows you to resize an existing memory allocation that was previously allocated on the heap (via malloc,calloc or realloc). The most common use of realloc is to resize memory used to hold an array of values.A naive but readable version of realloc is suggested below
+`realloc` allows you to resize an existing memory allocation that was previously allocated on the heap (via malloc,calloc or realloc). The most common use of realloc is to resize memory used to hold an array of values. A naive but readable version of realloc is suggested below
 ```C
 void * realloc(void * ptr, size_t newsize) {
   // Simple implementation always reserves more memory
