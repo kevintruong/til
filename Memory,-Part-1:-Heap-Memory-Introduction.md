@@ -9,7 +9,11 @@ The heap is part of the process memory and it does not have a fixed size. Heap m
 
 First a quick review on process memory: A process is a running instance of your program. Each process has its own address space. For example on a 32 bit machine your process gets about 4 billion addresses to play with, however not all of these are valid or even mapped to actual physical memory (RAM). Inside the process's memory you will find the executable code, space for the stack, environment variables, global (static) variables and the heap.
 
-By calling `sbrk` the C library can increase the size of the heap as your program demands more heap memory. As the heap and stack (one for each thread) need to grow, we put them at opposite ends of the address space. So for typical architectures the heap will grow upwards and the stack grows downwards. If we write a multi-threaded program (more about that later) we will need multiple stacks (one per thread) but there's only ever one heap.
+By calling `sbrk` the C library can increase the size of the heap as your program demands more heap memory. As the heap and stack (one for each thread) need to grow, we put them at opposite ends of the address space. So for typical architectures the heap will grow upwards and the stack grows downwards. 
+
+Truthiness: Modern operating system memory allocators no longer need `sbrk` - instead they can request independent regions of virtual memory and maintain multiple memory regions. For example gigabyte requests may be placed in a different memory region than small allocation requests. However this detail is an unwanted complexity: The problems of fragmentation and allocating memory efficiently still apply, so we will ignore this implementation nicety here and will write as if the heap is a single region.
+
+If we write a multi-threaded program (more about that later) we will need multiple stacks (one per thread) but there's only ever one heap.
 
 On typical architectures, the heap is part of the `Data segment` and starts just above the code and global variables. 
 
