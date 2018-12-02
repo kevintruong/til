@@ -123,7 +123,7 @@ with this file descriptor.
 Say you were waiting to write data to a file descriptor, but now you want to wait to read data from it.
 Just use `epoll_ctl()` with the `EPOLL_CTL_MOD` option to change the type of operation you're monitoring.
 ```C
-    event.events = EPOLLOUT;
+    event.events = EPOLLIN;
     event.data.ptr = mypointer;
     epoll_ctl(epfd, EPOLL_CTL_MOD, mypointer->fd, &event);
 ```
