@@ -127,5 +127,5 @@ Note, it is easy to believe that setting 'SA_RESTART' flag is sufficient to make
 
 ## Errno exceptions?
 
-There are some POSIX utilities that have their own errno per say. One is when you call `getaddrinfo` the function to check that error and convert to a string is [gai_strerr](https://linux.die.net/man/3/gai_strerror). Don't get them mixed up!
+There are some POSIX utilities that have their own error numbers and do not use `errno`. One example is when you call `getaddrinfo` that returns the error code as its result. The function to check convert the returned error number to a string is [gai_strerr](https://linux.die.net/man/3/gai_strerror).
 
