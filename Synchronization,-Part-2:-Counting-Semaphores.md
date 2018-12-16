@@ -84,7 +84,6 @@ int main()
 Note robust programs do not use `signal()` in a multi-threaded program ("The effects of signal() in a multithreaded process are unspecified." - the signal man page); a more correct program will need to use `sigaction`.
 
 ## How do I find out more?
-
 Read the man pages:
 * [sem_init](http://man7.org/linux/man-pages/man3/sem_init.3.html)
 * [sem_wait](http://man7.org/linux/man-pages/man3/sem_wait.3.html)
