@@ -1,9 +1,9 @@
-#About 
+# Foreword 
 
 Welcome to Angrave's crowd-sourced System Programming wiki-book!
-This wiki from 2014-2018 was actively built and maintained by students and faculty from the University of Illinois and is a crowd-source authoring experiment by Lawrence Angrave from CS @ Illinois.
+This wiki was actively built and maintained 2014-2018 by students and faculty from the University of Illinois. It was a crowd-source authoring experiment by Lawrence Angrave from CS @ Illinois and represents the lecture content from that time. This wiki will always be available to everyone around the world learn more about system programming. Please let me know (angrave @ illinois) if you find it helpful!
 
-It is the predecessor to the CS241 coursebook. University of Illinois students should use the CS241 coursebook-
+ University of Illinois students should use the CS241-specific coursebook -
 
 http://cs241.cs.illinois.edu/coursebook/index.html
 
