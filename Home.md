@@ -1,13 +1,16 @@
-Welcome to Angrave's crowd-sourced System Programming wiki-book!
-This wiki is being built by students and faculty from the University of Illinois and is a crowd-source authoring experiment by Lawrence Angrave from CS @ Illinois.
+#About 
 
-This book is an introduction to programming in C, and system programming (processes, threads, synchronization, networking and more!). We assume you've already had some programming experience, in an earlier computer science course.
+Welcome to Angrave's crowd-sourced System Programming wiki-book!
+This wiki from 2014-2018 was actively built and maintained by students and faculty from the University of Illinois and is a crowd-source authoring experiment by Lawrence Angrave from CS @ Illinois.
+
+It is the predecessor to the CS241 coursebook. University of Illinois students should use the CS241 coursebook-
+
+http://cs241.cs.illinois.edu/coursebook/index.html
+
+# Welcome
 
 ## 0. Introduction (resources for UIUC students)
-* [[HW0]]
-* [Lecture Code and handouts](https://github-dev.cs.illinois.edu/angrave/cs241-lectures/)
 * [[Informal Glossary]]
-* [[#Piazza: When And How to Ask For Help]]
 * [[Programming Tricks, Part 1 ]]
 * [[System Programming Short Stories and Songs ]]
 * [[Systems Programming Bugs in Industry]]
@@ -151,16 +154,8 @@ This book is an introduction to programming in C, and system programming (proces
 * [[ Signals, Part 4: Sigaction ]]
 * [[ Signals Review Questions ]]
 
-## 11. Virtualization, emulation, and containers
-
-* [[ Virtualization, Part 1: Machine emulation ]]
-* [[ Virtualization, Part 2: Virtual machines ]]
-* [[ Virtualization, Part 3: Linux namespaces ]]
-* [[ Virtualization, Part 4: Docker and Singularity containers]]
-
-
-## UIUC Exam Practice Questions
-Warning these are good practice but not comprehensive. The UIUC CS241 final assumes you fully understand and can apply all topics of the course. Questions will focus mostly but not entirely on topics that you have used in the lab and programming assignments.
+## Exam Practice and Review Questions
+Warning these are good practice but not comprehensive.
 
 * [[Exam Topics]]
 * [[C Programming: Review Questions]]
