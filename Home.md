@@ -7,9 +7,9 @@ This wiki was actively built and maintained 2014-2018 by students and faculty fr
 
 http://cs241.cs.illinois.edu/coursebook/index.html
 
-# Welcome
+# Contents
 
-## 0. Introduction (resources for UIUC students)
+## 0. Introduction
 * [[Informal Glossary]]
 * [[Programming Tricks, Part 1 ]]
 * [[System Programming Short Stories and Songs ]]
