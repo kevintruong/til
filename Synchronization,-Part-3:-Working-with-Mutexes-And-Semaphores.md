@@ -273,3 +273,4 @@ void push(double v) {
 * Using an uninitialized mutex (or using a mutex that has already been destroyed)
 * Locking a mutex twice on a thread (without unlocking first)
 * Deadlock and Priority Inversion (we will talk about these later)
+* Assuming the sem_wait, sem_trywait, sem_timedwait succeeded instead of checking return code for EINTR or ETIMEDOUT
