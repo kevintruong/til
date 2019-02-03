@@ -25,7 +25,7 @@ The call `pthread_cond_wait` performs three actions:
 3. Before returning, locks the mutex
 
 ## (Advanced topic) Why do Condition Variables also need a mutex?
-Condition variables need a mutex for three reasons. The simplest to understand is that it prevents an early wakeup message (`signal` or `broadcast` functions) from being 'lost.' Imagine the following sequence of events (time runs down the page) where the condition is satisfied _just before _`pthread_cond_wait` is called. In this example the wake-up signal is lost!
+Condition variables need a mutex for three reasons. The simplest to understand is that it prevents an early wakeup message (`signal` or `broadcast` functions) from being 'lost.' Imagine the following sequence of events (time runs down the page) where the condition is satisfied _just before_ `pthread_cond_wait` is called. In this example the wake-up signal is lost!
 
 Thread 1                 | Thread 2
 -------------------------|---------
