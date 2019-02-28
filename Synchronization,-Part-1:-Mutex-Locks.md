@@ -66,7 +66,7 @@ free(lock);
 Things to keep in mind about `init` and `destroy`:
 * Multiple threads init/destroy has undefined behavior
 * Destroying a locked mutex has undefined behavior
-* Basically try to keep to the pattern of one thread initializing a mutex and one and only one thread initializing a mutex.
+* Basically try to keep to the pattern of one thread initializing a mutex and one and only one thread destroying a mutex.
 
 # Mutex Gotchas
 
