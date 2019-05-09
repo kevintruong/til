@@ -1,7 +1,7 @@
 # Backstory
 <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/An_illustration_of_the_dining_philosophers_problem.png" height="500px" width="500px">
 
-So you have your philosophers sitting around a table all wanting to eat some pasta (or whatever that is) and they are really hungry. Each of the philosophers are essentially the same, meaning that each philosopher has the same instruction set based on the other philosopher ie you can't tell every even philosopher to do one thing and every odd philosopher to do another thing.
+So you have your philosophers sitting around a table all wanting to eat some pasta (or whatever that is) and they are really hungry. Each of the philosophers are essentially the same, meaning that each philosopher has the same instruction set based on the other philosopher (ie; you can't tell every even-numbered philosopher to do one thing and every odd-numbered philosopher to do another thing).
 
 # Failed Solutions
 ## Left-Right Deadlock
@@ -65,8 +65,8 @@ The advanced arbitrator solution is to implement a class that determines if the 
 
 ### Problems:
 - These solutions are slow
-- They have a single point of failure, the arbitrator making it a bottleneck
-- The arbitrator needs to also be fair, and be able to determine deadlock in the second solution
+- They have a single point of failure - the arbitrator - which can cause a bottleneck
+- The arbitrator needs to also be fair, and be able to determine the deadlock in the second solution
 - In practical systems, the arbitrator tends to give the forks repeatedly to philosophers that just ate because of process scheduling
 
 ## Leaving the Table (Stallings' Solution)
@@ -80,7 +80,7 @@ How about 2 philsophers? 3? ... You can see where this is going. Stallings' solu
 - Again priority is given to the processes who have already eaten.
 
 ## Partial Ordering (Dijkstra's Solution)
-This is Dijkstra's solution (he was the one to propose this problem on an exam). Why does the first solution deadlock? Dijkstra thought that the last philosopher who picks up his left fork (causing the solution to deadlock) should pick up his right. He accomplishes it by number the forks 1..n, and tells each of the philosopher to pick up his lower number fork.
+This is Dijkstra's solution (he was the one to propose this problem on an exam). Why does the first solution deadlock? Dijkstra thought that the last philosopher who picks up his left fork (causing the solution to deadlock) should pick up his right. He accomplishes this by numbering the forks 1...n, and tells each of the philosopher to pick up his lower number fork.
 
 Let's run through the deadlock condition again. Everyone tries to pick up their lower number fork first. Philosopher 1 gets fork 1, Philosopher 2 gets fork 2, and so on until we get to Philosopher n. They have to choose between fork 1 and n. fork 1 is already held up by philosopher 1, so they can't pick up that fork, meaning he won't pick up fork n. We have broken circular wait! Meaning deadlock isn't possible.
 
