@@ -60,7 +60,7 @@ If you already have a file descriptor then you can 'wrap' it yourself into a FIL
 int main() {
     char *name = "Fred";
     int score = 123;
-    int filedes = open("mydata.txt", "w", O_CREAT, S_IWUSR | S_IRUSR);
+    int filedes = open("mydata.txt", O_CREAT, S_IWUSR | S_IRUSR);
 
     FILE *f = fdopen(filedes, "w");
     fprintf(f, "Name:%s Score:%d\n", name, score);
