@@ -63,4 +63,4 @@ You can always call through the full path. That is always why in past classes if
 
 ## Alright then what's a terminal?
 
-A terminal is just an application that displays the output form the shell. You can have your default terminal, a quake based terminal, terminator, the options are endless!
+A terminal is just an application that displays the output from the shell. You can have your default terminal, a quake based terminal, terminator, the options are endless!
