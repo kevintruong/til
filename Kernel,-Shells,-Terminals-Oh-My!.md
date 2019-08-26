@@ -24,7 +24,7 @@ The kernel handles all of this stuff in kernel mode. Kernel mode gets you greate
 
 One of the things that you have already become familiar with is that the kernel gives you file descriptors when you open text files. Here is a zine from Julia Evans that details it a bit.
 
-![Fds](https://drawings.jvns.ca/drawings/file-descriptors.svg)
+![Fds](https://drawings.jvns.ca/drawings/filedescriptors.jpeg)
 
 As the little zine shows, the Kernel keeps track of the file descriptors and what they point to. We will see later that file descriptors need not point to actual files and the OS keeps track of them for you. Also, notice that between processes file descriptors may be reused but inside of a process they are unique.
 
