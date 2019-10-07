@@ -32,7 +32,7 @@ To simplify the discussion we consider only two threads. Note these arguments wo
 
 Raising a flag represents a thread/process's intention to enter the critical section.
 
-Remember that the psuedo-code outlined below is part of a larger program; the thread or process will typically need to enter the critical section many times during the lifetime of the process. So imagine each example as wrapped inside a loop where for a random amount of time the thread or process is working on something else.
+Remember that the pseudo-code outlined below is part of a larger program; the thread or process will typically need to enter the critical section many times during the lifetime of the process. So imagine each example as wrapped inside a loop where for a random amount of time the thread or process is working on something else.
 
 Is there anything wrong with candidate solution described below?
 ```
