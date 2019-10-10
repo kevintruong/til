@@ -128,7 +128,7 @@ write() {
     writer++
 
     while (reading || writing)
-    cond_wait
+        cond_wait
     unlock()
   ...
 }
@@ -140,7 +140,7 @@ read() {
     lock()
     // readers that arrive *after* the writer arrived will have to wait here!
     while(writer)
-    cond_wait(&cv,&m)
+        cond_wait(&cv,&m)
 
     // readers that arrive while there is an active writer
     // will also wait.
