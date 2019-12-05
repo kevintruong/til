@@ -264,6 +264,6 @@ Here, by using the `x` command with parameters `16xb`, we can see that starting 
 Back: C Programming, Part 4: Strings and Structs
 </a>
 | <a href="https://github.com/angrave/SystemProgramming/wiki/C-Programming%2C-Review-Questions">
-Back: C Programming, Review Questions
+Next: C Programming, Review Questions
 </a>
 </div>
