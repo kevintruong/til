@@ -23,3 +23,9 @@
 * What is natural alignment?
 * What is Coalescing/Splitting? How do they increase/decrease fragmentation? When can you coalesce or split?
 * How do boundary tags work? How can they be used to coalesce or split?
+
+<div align="center">
+<a href="https://github.com/angrave/SystemProgramming/wiki/Memory%2C-Part-3%3A-Smashing-the-Stack-Example">
+Back: Memory, Part 3: Smashing the Stack Example
+</a>
+</div>
