@@ -148,7 +148,7 @@ Whichever hole is chosen, the allocator will need to split the hole into two: Th
 
 A perfect-fit strategy finds the smallest hole that is of sufficient size (at least 2KB):
 
-16KB free | 10KB allocated | 1KB free | 1KB allocated | 30KB free | 4KB allocated | '2KB HERE!'
+16KB free | 10KB allocated | 1KB free | 1KB allocated | 30KB free | 4KB allocated | `2KB HERE!`
 ---|---|---|---|---|---|---
 
 A worst-fit strategy finds the largest hole that is of sufficient size (so break the 30KB hole into two):
@@ -165,7 +165,7 @@ A first-fit strategy finds the first available hole that is of sufficient size (
 ## What is external fragmentation?
 In the example below, of the 64KB of heap memory, 17KB is allocated, and 47KB is free. However the largest available block is only 30KB because our available unallocated heap memory is fragmented into smaller pieces. 
 
- `16KB free` | 10KB allocated | 1KB free | 1KB allocated | 30KB free | 4KB allocated | 2KB free 
+ `16KB free` | 10KB allocated | `1KB free` | 1KB allocated | `30KB free` | 4KB allocated | 2KB allocated 
 ---|---|---|---|---|---|---
 
 ## What effect do placement strategies have on external fragmentation and performance?
