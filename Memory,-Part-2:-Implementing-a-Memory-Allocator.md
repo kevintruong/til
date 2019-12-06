@@ -107,3 +107,12 @@ and
 
 # Other allocators
 There are many other allocation schemes. For example [SLUB](http://en.wikipedia.org/wiki/SLUB_%28software%29) (wikipedia) - one of three allocators used internally by the Linux Kernel.
+
+<div align="center">
+<a href="https://github.com/angrave/SystemProgramming/wiki/Memory%2C-Part-1%3A-Heap-Memory-Introduction">
+Back: Memory, Part 1: Heap Memory Introduction
+</a> |
+<a href="https://github.com/angrave/SystemProgramming/wiki/Memory%2C-Part-3%3A-Smashing-the-Stack-Example">
+Next: Memory, Part 3: Smashing the Stack Example
+</a>
+</div>
