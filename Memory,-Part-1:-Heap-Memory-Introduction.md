@@ -192,4 +192,10 @@ The allocator doesn't know the program's memory allocation requests in advance. 
 
 
 ## How do you implement a memory allocator?
-Good question. [Implementing a memory allocator](https://github.com/angrave/SystemProgramming/wiki/Memory%2C-Part-2%3A-Implementing-a-Memory-Allocator)
+Good question. See next part for implementation.
+
+<div align="center">
+<a href="https://github.com/angrave/SystemProgramming/wiki/Memory%2C-Part-2%3A-Implementing-a-Memory-Allocator">
+Next: Memory, Part 2: Implementing a Memory Allocator
+</a>
+</div>
