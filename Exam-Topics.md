@@ -1,6 +1,6 @@
 The final exam will likely include multiple choice questions that test your mastery of the following.
 
-````
+```
 CSP (critical section problems)
 HTTP
 SIGINT
@@ -62,5 +62,5 @@ variable initializers
 variable scope
 vm thrashing
 wait macros
-write/read with errno, EINTR and partial data
+write/read with errno, EINTR, and partial data
 ```
