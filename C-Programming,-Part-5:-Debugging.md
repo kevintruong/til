@@ -163,7 +163,7 @@ int main() {
 // compile with gcc -fsanitize=thread -pie -fPIC -ltsan -g simple_race.c
 ```
 
-We can see that there is a race condition on the variable `Global`. Both the main thread and the thread created with pthread_create will try to change the value at the same time. But, does ThreadSantizer catch it?
+We can see that there is a race condition on the variable `Global`. Both the main thread and the thread created with pthread_create will try to change the value at the same time. But, does ThreadSanitizer catch it?
 
 ```
 $ ./a.out
