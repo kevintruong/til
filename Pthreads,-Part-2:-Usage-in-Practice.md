@@ -87,7 +87,7 @@ pthread_t start_threads() {
   return tid;
 }
 ```
-The above code is invalid because the function `start_threads` will likely return before `myfunc` even starts. The function passes the address-of `start`, however by the time `myfunc` is executes, `start` is no longer in scope and its address will re-used for another variable.
+The above code is invalid because the function `start_threads` will likely return before `myfunc` even starts. The function passes the address-of `start`, however by the time `myfunc` is executed, `start` is no longer in scope and its address will re-used for another variable.
 
 The following code is valid because the lifetime of the stack variable is longer than the background thread.
 
