@@ -261,7 +261,7 @@ int mutex_lock(mutex* mtx){
     return 1;
 }
 ```
-Yikes! What does this code do? Well to start it it initializes a variable that we will keep as the unlocked state. [Atomic Compare and Exchange](https://en.wikipedia.org/wiki/Compare-and-swap) is an instruction supported by most modern architectures (on x86 it's `lock cmpxchg`). The pseudocode for this operation looks like this
+Yikes! What does this code do? Well to start, it initializes a variable that we will keep as the unlocked state. [Atomic Compare and Exchange](https://en.wikipedia.org/wiki/Compare-and-swap) is an instruction supported by most modern architectures (on x86 it's `lock cmpxchg`). The pseudocode for this operation looks like this
 
 ```C
 int atomic_compare_exchange_pseudo(int* addr1, int* addr2, int val){
