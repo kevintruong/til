@@ -101,7 +101,7 @@ One instructor and another CS faculty member initially thought so! However, anal
 
 Candidate #4 fails because a thread does not wait until the other thread lowers their flag. After some thought (or inspiration) the following scenario can be created to demonstrate how Mutual Exclusion is not satisfied.
 
-Imagine the first thread runs this code twice (so the the turn flag now points to the second thread). While the first thread is still inside the Critical Section, the second thread arrives. The second thread can immediately continue into the Critical Section!
+Imagine the first thread runs this code twice (so the turn flag now points to the second thread). While the first thread is still inside the Critical Section, the second thread arrives. The second thread can immediately continue into the Critical Section!
 
 Time | Turn | Thread #1 | Thread #2
 -----|------|-----------|----------
@@ -273,7 +273,7 @@ int atomic_compare_exchange_pseudo(int* addr1, int* addr2, int val){
     }
 }
 ```
-Except it is all done _atomically_ meaning in one uninterruptible operation. What does the _weak_ part mean? Well atomic instructions are also prone to **spurious failures** meaning that there are two versions to these atomic functions a _strong_ and a _weak_ part, strong guarantee the the success or failure while weak may fail. We are using weak because weak is faster and we are in a loop! That means we are okay if it fails a little bit more often because we will just keep spinning around anyway.
+Except it is all done _atomically_ meaning in one uninterruptible operation. What does the _weak_ part mean? Well atomic instructions are also prone to **spurious failures** meaning that there are two versions to these atomic functions a _strong_ and a _weak_ part, strong guarantee the success or failure while weak may fail. We are using weak because weak is faster and we are in a loop! That means we are okay if it fails a little bit more often because we will just keep spinning around anyway.
 
 What is this memory order business? We were talking about memory fences earlier, here it is! We won't go into detail because it is outside the scope of this course but not the scope of [this article](https://gcc.gnu.org/wiki/Atomic/GCCMM/AtomicSync).
 
