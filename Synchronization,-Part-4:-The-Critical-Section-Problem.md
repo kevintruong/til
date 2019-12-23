@@ -215,7 +215,7 @@ my_mutex_lock(int* m) {
 my_mutex_unlock(int* m)  { *m= 0; }
 ````
 
-The exchange instruction must be atomic i.e. it behaves as a single __uninterruptable__ and indivisible instruction. For example, if two threads both call `my_mutex_lock` (and then __exch) at the same time, then one thread _will_receive a value of 0, and the other thread will loose and get the newer value of 1 (so will continue to poll).
+The exchange instruction must be atomic i.e. it behaves as a single __uninterruptable__ and indivisible instruction. For example, if two threads both call `my_mutex_lock` (and then __exch) at the same time, then one thread _will_ receive a value of 0, and the other thread will loose and get the newer value of 1 (so will continue to poll).
 
 
 ## How do we really implement the Critical Section Problem on real hardware? (Advanced topic)
