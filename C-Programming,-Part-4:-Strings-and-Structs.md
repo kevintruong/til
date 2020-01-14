@@ -115,7 +115,7 @@ struct contact {
     unsigned int phone;
 };
 
-struct contact bhuvan;
+struct contact person;
 ```
 
 **Brief aside**
@@ -124,7 +124,7 @@ struct contact bhuvan;
  so we can just write contact contact1 */
 
 typedef struct contact contact;
-contact bhuvan;
+contact person;
 
 /* You can also declare the struct like this to get
  it done in one statement */
@@ -136,10 +136,10 @@ typedef struct optional_name {
 If you compile the code without any optimizations and reordering, you can expect the addresses of each of the variables to look like this.
 
 ```C
-&bhuvan           // 0x100
-&bhuvan.firstname // 0x100 = 0x100+0x00
-&bhuvan.lastname  // 0x114 = 0x100+0x14
-&bhuvan.phone     // 0x128 = 0x100+0x28
+&person           // 0x100
+&person.firstname // 0x100 = 0x100+0x00
+&person.lastname  // 0x114 = 0x100+0x14
+&person.phone     // 0x128 = 0x100+0x28
 ```
 
 Because all your compiler does is say 'hey reserve this much space, and I will go and calculate the offsets of whatever variables you want to write to'.
@@ -155,40 +155,40 @@ typedef struct {
     char c_str[0];
 } string;
 
-const char* to_convert = "bhuvan";
+const char* to_convert = "person";
 int length = strlen(to_convert);
 
 // Let's convert to a c string
-string* bhuvan_name;
-bhuvan_name = malloc(sizeof(string) + length+1);
+string* person;
+person = malloc(sizeof(string) + length+1);
 /*
 Currently, our memory looks like this with junk in those black spaces
-                ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
- bhuvan_name = |   |   |   |   |   |   |   |   |   |   |   |
-                ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾
+           ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
+ person = |   |   |   |   |   |   |   |   |   |   |   |
+           ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾
 */
 
 
-bhuvan_name->length = length;
+person->length = length;
 /*
 This writes the following values to the first four bytes
 The rest is still garbage
-                ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
- bhuvan_name = | 0 | 0 | 0 | 6 |   |   |   |   |   |   |   |
-                ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾
+           ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
+ person = | 0 | 0 | 0 | 6 |   |   |   |   |   |   |   |
+           ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾
 */
 
 
-strcpy(bhuvan_name->c_str, to_convert);
+strcpy(person->c_str, to_convert);
 /*
 Now our string is filled in correctly at the end of the struct
 
-                ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ____
- bhuvan_name = | 0 | 0 | 0 | 6 | b | h | u | v | a | n | \0 |
-                ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾‾
+           ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ____
+ person = | 0 | 0 | 0 | 6 | p | e | r | s | o | n | \0 |
+           ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾‾
 */
 
-strcmp(bhuvan_name->c_str, "bhuvan") == 0 //The strings are equal!
+strcmp(person->c_str, "person") == 0 //The strings are equal!
 ```
 
 ## But not all structs are perfect
