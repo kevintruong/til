@@ -36,7 +36,7 @@ int main(){
 ```
 * What are the differences between the following two declarations? What does `sizeof` return for one of them?
 ```C
-char str1[] = "bhuvan";
+char str1[] = "another";
 char *str2 = "another one";
 ```
 * What is a string in c?

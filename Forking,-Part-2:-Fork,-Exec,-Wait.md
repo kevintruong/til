@@ -154,7 +154,7 @@ Environment variables are variables that the system keeps for all processes to u
 
 ```
 $ echo $HOME
-/home/bhuvy
+/home/user
 $ echo $PATH
 /usr/local/sbin:/usr/bin:...
 ```
@@ -162,8 +162,8 @@ $ echo $PATH
 How would you get these in C/C++? You can use the `getenv` and `setenv` function
 
 ```C
-char* home = getenv("HOME"); // Will return /home/bhuvy
-setenv("HOME", "/home/bhuvan", 1 /*set overwrite to true*/ );
+char* home = getenv("HOME"); // Will return /home/user
+setenv("HOME", "/home/user", 1 /*set overwrite to true*/ );
 ```
 
 ## Right, so how do these environment variables mean anything to parent/child?

@@ -21,9 +21,9 @@ char* hello_string = malloc(14);
                        ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
 // hello_string ----> | g | a | r | b | a | g | e | g | a | r | b | a | g | e |
                        ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾
-hello_string = "Hello Bhuvan!";
+hello_string = "Hello Person!";
 // (constant string in the text segment)
-// hello_string ----> [ "H" , "e" , "l" , "l" , "o" , " " , "B" , "h" , "u" , "v" , "a" , "n" , "!" , "\0" ]
+// hello_string ----> [ "H" , "e" , "l" , "l" , "o" , " " , "P" , "e" , "r" , "s" , "o" , "n" , "!" , "\0" ]
                        ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___
 // memory_leak -----> | g | a | r | b | a | g | e | g | a | r | b | a | g | e |
                        ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾ ‾‾‾
@@ -32,7 +32,7 @@ hello_string[9] = 't'; //segfault!!
 
 What did we do? We allocated space for 14 bytes, reassigned the pointer and successfully segfaulted! Remember to keep track of what your pointers are doing. What you probably wanted to do was use a `string.h` function `strcpy`.
 ```C
-strcpy(hello_string, "Hello Bhuvan!");
+strcpy(hello_string, "Hello Person!");
 ```
 
 ## Remember the NULL byte!
