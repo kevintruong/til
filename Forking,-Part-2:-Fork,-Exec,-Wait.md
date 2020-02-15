@@ -46,7 +46,7 @@ int main(){
             children[i] = child;
         }
     }
-
+    // EDIT
     int j;
     for(j = 0; j < i; j++){
         waitpid(children[j], NULL, 0);
