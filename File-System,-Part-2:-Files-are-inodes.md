@@ -3,6 +3,7 @@ Big idea: Forget names of files: The 'inode' is the file.
 It is common to think of the file name as the 'actual' file. It's not! Instead consider the inode as the file. The inode holds the meta-information (last accessed, ownership, size) and points to the disk blocks used to hold the file contents.
 
 ## So... How do we implement a directory?
+
 A directory is just a mapping of names to inode numbers.
 POSIX provides a small set of functions to read the filename and inode number for each entry (see below)
 
@@ -26,53 +27,59 @@ $ ls -i
 From C, call one of the stat functions (introduced below).
 
 ## How do I find out meta-information about a file (or directory)?
+
 Use the stat calls. For example, to find out when my 'notes.txt' file was last accessed -
-```C
-   struct stat s;
-   stat("notes.txt", &s);
-   printf("Last accessed %s", ctime(&s.st_atime));
+
+```c
+struct stat s;
+stat("notes.txt", &s);
+printf("Last accessed %s", ctime(&s.st_atime));
 ```
 There are actually three versions of `stat`;
 
-```C
-       int stat(const char *path, struct stat *buf);
-       int fstat(int fd, struct stat *buf);
-       int lstat(const char *path, struct stat *buf);
+```c
+int stat(const char *path, struct stat *buf);
+int fstat(int fd, struct stat *buf);
+int lstat(const char *path, struct stat *buf);
 ```
 
 For example you can use `fstat` to find out the meta-information about a file if you already have an file descriptor associated with that file
-```C
-   FILE *file = fopen("notes.txt", "r");
-   int fd = fileno(file); /* Just for fun - extract the file descriptor from a C FILE struct */
-   struct stat s;
-   fstat(fd, & s);
-   printf("Last accessed %s", ctime(&s.st_atime));
+
+```c
+FILE *file = fopen("notes.txt", "r");
+int fd = fileno(file); /* Just for fun - extract the file descriptor from a C FILE struct */
+struct stat s;
+fstat(fd, & s);
+printf("Last accessed %s", ctime(&s.st_atime));
 ```
 
 The third call 'lstat' we will discuss when we introduce symbolic links.
 
 In addition to access,creation, and modified times, the stat structure includes the inode number, length of the file and owner information.
-```C
+
+```c
 struct stat {
-               dev_t     st_dev;     /* ID of device containing file */
-               ino_t     st_ino;     /* inode number */
-               mode_t    st_mode;    /* protection */
-               nlink_t   st_nlink;   /* number of hard links */
-               uid_t     st_uid;     /* user ID of owner */
-               gid_t     st_gid;     /* group ID of owner */
-               dev_t     st_rdev;    /* device ID (if special file) */
-               off_t     st_size;    /* total size, in bytes */
-               blksize_t st_blksize; /* blocksize for file system I/O */
-               blkcnt_t  st_blocks;  /* number of 512B blocks allocated */
-               time_t    st_atime;   /* time of last access */
-               time_t    st_mtime;   /* time of last modification */
-               time_t    st_ctime;   /* time of last status change */
-           };
+    dev_t     st_dev;     /* ID of device containing file */
+    ino_t     st_ino;     /* inode number */
+    mode_t    st_mode;    /* protection */
+    nlink_t   st_nlink;   /* number of hard links */
+    uid_t     st_uid;     /* user ID of owner */
+    gid_t     st_gid;     /* group ID of owner */
+    dev_t     st_rdev;    /* device ID (if special file) */
+    off_t     st_size;    /* total size, in bytes */
+    blksize_t st_blksize; /* blocksize for file system I/O */
+    blkcnt_t  st_blocks;  /* number of 512B blocks allocated */
+    time_t    st_atime;   /* time of last access */
+    time_t    st_mtime;   /* time of last modification */
+    time_t    st_ctime;   /* time of last status change */
+};
 ```
 
 ## How do I list the contents of a directory ?
+
 Let's write our own version of 'ls' to list the contents of a directory.
-```C
+
+```c
 #include <stdio.h>
 #include <dirent.h>
 #include <stdlib.h>
@@ -91,11 +98,13 @@ int main(int argc, char **argv) {
     return 0;
 }
 ```
-## How do I read the contents of a directory?
-Ans: Use opendir readdir closedir
-For example, here's a very simple implementation of 'ls' to list the contents of a directory.
 
-```C
+## How do I read the contents of a directory?
+
+Ans: Use `opendir`, `readdir`, `closedir`  
+For example, here's a very simple implementation of `ls` to list the contents of a directory.
+
+```c
 #include <stdio.h>
 #include <dirent.h>
 #include <stdlib.h>
@@ -120,7 +129,7 @@ Note: after a call to fork(), either (XOR) the parent or the child can use readd
 ## How do I check to see if a file is in the current directory?
 For example, to see if a particular directory includes a file (or filename) 'name', we might write the following code. (Hint: Can you spot the bug?)
 
-```C
+```c
 int exists(char *directory, char *name)  {
     struct dirent *dp;
     DIR *dirp = opendir(directory);
@@ -154,15 +163,15 @@ Ans: Use `S_ISDIR` to check the mode bits stored in the stat structure
 
 And to check if a file is regular file use `S_ISREG`,
 
-```C
-   struct stat s;
-   if (0 == stat(name, &s)) {
-      printf("%s ", name);
-      if (S_ISDIR( s.st_mode)) puts("is a directory");
-      if (S_ISREG( s.st_mode)) puts("is a regular file");
-   } else {
-      perror("stat failed - are you sure I can read this file's meta data?");
-   }
+```c
+struct stat s;
+if (0 == stat(name, &s)) {
+    printf("%s ", name);
+    if (S_ISDIR( s.st_mode)) puts("is a directory");
+    if (S_ISREG( s.st_mode)) puts("is a regular file");
+} else {
+    perror("stat failed - are you sure I can read this file's meta data?");
+}
 ```
 ## Does a directory have an inode too?
 Yes! Though a better way to think about this, is that a directory (like a file) _is_ an inode (with some data - the directory name and inode contents). It just happens to be a special kind of inode.
