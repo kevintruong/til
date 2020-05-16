@@ -40,7 +40,8 @@ int main()
 
 ```
 Typical output of the above code is `ARGGGH sum is 8140268`
-A different sum is printed each time the program is run because there is a race condition; the code does not stop two threads from reading-writing `sum` at the same time. For example both threads copy the current value of sum into CPU that runs each thread (let's pick 123). Both threads increment one to their own copy. Both threads write back the value (124). If the threads had accessed the sum at different times then the count would have been 125.
+A different output is printed each time the program is run because there is a race condition; the code does not stop two threads from reading-writing `sum` at the same time. For example both threads copy the current value of `sum` into CPU that runs each thread (let's pick 123). Both threads increment one to their own copy. Both threads write back the value (124). If the threads had accessed the sum at different times then the count would have been 125.
+* Can we provide an upper bound  and a lower bound on the output of the above program?
 
 ## How do I ensure only one thread at a time can access a global variable?
 You mean, "Help - I need a mutex!"
