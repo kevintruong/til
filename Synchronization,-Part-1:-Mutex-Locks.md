@@ -1,7 +1,7 @@
 # Solving Critical Sections
 
 ## What is a Critical Section?
-A critical section is a section of code that can only be executed by one thread at a time, if the program is to function correctly. If two threads (or processes) were to execute code inside the critical section at the same time then it is possible that program may no longer have correct behavior.
+A critical section is a section of code that can only be executed by one thread at a time, if the program is to function correctly (by correctly,  we mean gives right results, for now). If two threads (or processes) were to execute code inside the critical section at the same time then it is possible that program may no longer have correct behavior.
 
 ## Is just incrementing a variable a critical section?
 Possibly. Incrementing a variable (`i++`) is performed in three individual steps: Copy the memory contents to the CPU register. Increment the value in the CPU. Store the new value in memory. If the memory location is only accessible by one thread (e.g. automatic variable `i` below) then there is no possibility of a race condition and no Critical Section associated with `i`. However the `sum` variable is a global variable and accessed by two threads. It is possible that two threads may attempt to increment the variable at the same time.
@@ -9,29 +9,35 @@ Possibly. Incrementing a variable (`i++`) is performed in three individual steps
 #include <stdio.h>
 #include <pthread.h>
 // Compile with -pthread
+// gcc -o ex1 ex1.c  -lpthread
+// ./ex1
 
 int sum = 0; //shared
 
-void *countgold(void *param) {
+void *countgold(void *param)
+{
     int i; //local to each thread
-    for (i = 0; i < 10000000; i++) {
+    for (i = 0; i < 10000000; i++)
+    {
         sum += 1;
     }
     return NULL;
 }
 
-int main() {
+int main()
+{
     pthread_t tid1, tid2;
     pthread_create(&tid1, NULL, countgold, NULL);
     pthread_create(&tid2, NULL, countgold, NULL);
-    
+
     //Wait for both threads to finish:
     pthread_join(tid1, NULL);
     pthread_join(tid2, NULL);
-    
+
     printf("ARRRRG sum is %d\n", sum);
     return 0;
 }
+
 ```
 Typical output of the above code is `ARGGGH sum is 8140268`
 A different sum is printed each time the program is run because there is a race condition; the code does not stop two threads from reading-writing `sum` at the same time. For example both threads copy the current value of sum into CPU that runs each thread (let's pick 123). Both threads increment one to their own copy. Both threads write back the value (124). If the threads had accessed the sum at different times then the count would have been 125.
