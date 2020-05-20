@@ -53,7 +53,7 @@ pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER; // global variable
 pthread_mutex_lock(&m);   // start of Critical Section
 pthread_mutex_unlock(&m); // end of Critical Section
 ```
-Once we are finished with the mutex we should also call `pthread_mutex_destroy(&m)` too. Note, you can only destroy an unlocked mutex. Calling destroy on a destroyed lock, initializing an initialized lock, locking an already locked lock, unlocking an unlocked lock etc are unsupported (at least for default mutexes) and usually result in undefined behavior.
+Once we are finished with the mutex we should also call `pthread_mutex_destroy(&m)` too. Note, _you can only destroy an unlocked mutex._ Calling destroy on a destroyed lock, initializing an initialized lock, locking an already locked lock, unlocking an unlocked lock etc are unsupported (at least for default mutexes) and usually result in undefined behavior.
 
 ## If I lock a mutex, does it stop all other threads?
 No, the other threads will continue. It's only when a thread attempts to lock a mutex that is already locked, will the thread have to wait. As soon as the original thread unlocks the mutex, the second (waiting) thread will acquire the lock and be able to continue.
@@ -61,30 +61,32 @@ No, the other threads will continue. It's only when a thread attempts to lock a 
 ## Are there other ways to create a mutex?
 Yes. You can use the macro `PTHREAD_MUTEX_INITIALIZER` only for global ('static') variables.
 `m = PTHREAD_MUTEX_INITIALIZER` is equivalent to the more general purpose
-`pthread_mutex_init(&m,NULL)`. The init version includes options to trade performance for additional error-checking and advanced sharing options.
+`pthread_mutex_init(&m,NULL)`. The init version includes options to _trade performance_ for additional error-checking and advanced sharing options.
 
 ```C
 pthread_mutex_t *lock = malloc(sizeof(pthread_mutex_t)); 
 pthread_mutex_init(lock, NULL);
-//later
+//later 
+// we must have equal number of unlocks and locks in an execution
 pthread_mutex_destroy(lock);
 free(lock);
 ```
 Things to keep in mind about `init` and `destroy`:
-* Multiple threads init/destroy has undefined behavior
+* Multiple threads doing init/destroy has undefined behavior
 * Destroying a locked mutex has undefined behavior
 * Basically try to keep to the pattern of one thread initializing a mutex and one and only one thread destroying a mutex.
 
 # Mutex Gotchas
 
 ## So `pthread_mutex_lock` stops the other threads when they read the same variable?
-No. A mutex is not that smart - it works with code (threads), not data. Only when another thread calls `lock` on a locked mutex will the second thread need to wait until the mutex is unlocked.
+No. A mutex is not that smart - it works with code (threads), not data. Only when another thread calls `lock` on a locked mutex will the another thread would need to wait until the mutex is unlocked.
 
 Consider
 ```C
 int a;
-pthread_mutex_t m1 = PTHREAD_MUTEX_INITIALIZER,
-                m2 = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t m1 = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t m2 = PTHREAD_MUTEX_INITIALIZER;
+
 // later
 // Thread 1
 pthread_mutex_lock(&m1);
@@ -217,22 +219,41 @@ No, copying the bytes of the mutex to a new memory location and then using the c
 A simple (but incorrect!) suggestion is shown below. The `unlock` function simply unlocks the mutex and returns. The lock function first checks to see if the lock is already locked. If it is currently locked, it will keep checking again until another thread has unlocked the mutex.
 ```C
 // Version 1 (Incorrect!)
+// assume that the `locked` variable is `bool`
+// how would this behavior differ on an uni processor machine as compared to a multiprocessor machine? 
 
 void lock(mutex_t *m) {
-    while(m->locked) { /*Locked? Nevermind - just loop and check again!*/ }
-
-    m->locked = 1;
+    while(m->locked) { /*Locked? Never-mind - just loop and check again!*/ }
+    // what would be the behaviour if we put another check such as 
+    // on a single cpu ?? on multiple cpuS ?? 
+    if ( m->locked != 0 ) 
+    {
+        m->locked = 1;  
+    }
+    // or 
+    // m->locked = true;
 }
 
 void unlock(mutex_t *m) {
     m->locked = 0;
+    // or
+    // m->locked = false;
+
 }
 ```
 Version 1 uses 'busy-waiting' (unnecessarily wasting CPU resources) however there is a more serious problem: We have a race-condition! 
 
-If two threads both called `lock` concurrently it is possible that both threads would read 'm_locked' as zero. Thus both threads would believe they have exclusive access to the lock and both threads will continue. Ooops!
+If two threads both called `lock` concurrently it is possible that both threads would read 'm_locked' as zero. Thus both threads would believe they have exclusive access to the lock and both threads will continue. Oops!
 
-We might attempt to reduce the CPU overhead a little by calling `pthread_yield()` inside the loop  - pthread_yield suggests to the operating system that the thread does not use the CPU for a short while, so the CPU may be assigned to threads that are waiting to run. But does not fix the race-condition. We need a better implementation - can you work how to prevent the race-condition?
+What if one of the many threads which actually was able to take the lock, calls `unlock`, and what would be the behavior of the other threads which have been wanting the `lock`?  
+
+
+We might attempt to reduce the CPU overhead a little by calling, [pthread_yield](http://man7.org/linux/man-pages/man3/pthread_yield.3.html) inside the loop  - pthread_yield suggests to the operating system that the thread does not use the CPU for a short while, so the CPU may be assigned to threads that are waiting to run. But does not fix the race-condition.
+
+Why does it not fix the race-condition?
+It's not even an attempt to fix it, it's an attempt to make the code run faster. 
+
+We need a better implementation - can you work how to prevent the race-condition?
 
 
 ## How do I find out more?
