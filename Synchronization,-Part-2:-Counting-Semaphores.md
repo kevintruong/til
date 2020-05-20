@@ -1,9 +1,11 @@
 ## What is a counting semaphore?
-A counting semaphore contains a value and supports two operations "wait" and "post". Post increments the semaphore and immediately returns. "wait" will wait if the count is zero. If the count is non-zero the semaphore decrements the count and immediately returns.
+A counting semaphore contains a value[ non negative ]  and supports two operations "wait" and "post". Post increments the semaphore and immediately returns. "wait" will _wait_ if the count is zero. If the count is non-zero the _wait_ call decrements the count and immediately returns.
+
+Why are they names as "wait"& "post"? 
 
 An analogy is a count of the cookies in a cookie jar (or gold coins in the treasure chest). Before taking a cookie, call 'wait'. If there are no cookies left then `wait` will not return: It will `wait` until another thread increments the semaphore by calling post.
 
-In short, `post` increments and immediately returns whereas `wait` will wait if the count is zero. Before returning it will decrement count.
+In short, `post` increments and immediately returns whereas `wait` will wait if the count is zero. Before returning it will decrement count, meaning, there is one lesser cookie.
 
 ## How do I create a semaphore?
 This page introduces unnamed semaphores. Unfortunately Mac OS X does not support these yet.
@@ -15,7 +17,7 @@ Unlike pthread mutex there are not shortcuts to creating a semaphore - use `sem_
 
 sem_t s;
 int main() {
-  sem_init(&s, 0, 10); // returns -1 (=FAILED) on OS X
+  sem_init(&s, 0, 10); // max cookies are ten // returns -1 (=FAILED) on OS X 
   sem_wait(&s); // Could do this 10 times without blocking
   sem_post(&s); // Announce that we've finished (and one more resource item is available; increment count)
   sem_destroy(&s); // release resources of the semaphore
@@ -24,14 +26,18 @@ int main() {
 
 ## Can I call wait and post from different threads?
 Yes! Unlike a mutex, the increment and decrement can be from different threads.
+Can there non global semaphores? What would be their use?
 
 ## Can I use a semaphore instead of a mutex?
 Yes - though the overhead of a semaphore is greater. To use a semaphore:
-* Initialize the semaphore with a count of one.
+* Initialize the semaphore with a count of one. [ is the the max value or the initial value? ] 
 * Replace `...lock` with `sem_wait`
 * Replace `...unlock` with `sem_post`
 
-A mutex is a semaphore that always `waits` before it `posts`
+Why should the overhead of semaphore operations be higher? 
+
+A mutex is an _initialized_ semaphore that always `waits` before it `posts`
+If one does the opposite, what situation would one fall in? Deadlocks? Race conditions? 
 
 ```C
 sem_t s;
@@ -43,9 +49,10 @@ sem_post(&s);
 ```
 
 ## Can I use sem_post inside a signal handler?
+## Can I increase the count of the counter in semaphore inside a signal handler?
 Yes! `sem_post` is one of a handful of functions that can be correctly used inside a signal handler.
-This means we can release a waiting thread which can now make all of the calls that we were not
-allowed to call inside the signal handler itself (e.g. `printf`).
+_This means we can release a waiting thread which can now make all of the calls that we were not_
+_allowed to call inside the signal handler itself (e.g. `printf`)._ ??????
 
 ```C
 #include <stdio.h>
@@ -63,7 +70,7 @@ void handler(int signal)
 
 void *singsong(void *param)
 {
-    sem_wait(&s);
+    sem_wait(&s); // see the value of semaphore  value which was used to initialize it
     printf("I had to wait until your signal released me!\n");
 }
 
