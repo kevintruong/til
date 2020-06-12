@@ -50,6 +50,7 @@ int main() {
   array[1] = 0xdeadc0de;
 
   munmap(addr, size);
+  close(fd);
   return 0;
   
 }
