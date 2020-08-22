@@ -1,10 +1,14 @@
-### Don't waste time waiting
+# Nonblocking IO, select, epoll
+
+##  Non-blocking IO on read/write
 
 Normally, when you call `read()`, if the data is not available yet it will wait until the data is ready before the function returns.  When you're reading data from a disk, that delay may not be long, but when you're reading from a slow network connection it may take a long time for that data to arrive, if it ever arrives.  
 
 POSIX lets you set a flag on a file descriptor such that any call to `read()` on that file descriptor will return immediately, whether it has finished or not.  With your file descriptor in this mode, your call to `read()` will start
 the read operation, and while it's working you can do other useful work.  This is called "nonblocking" mode,
 since the call to `read()` doesn't block.
+
+----
 
 To set a file descriptor to be nonblocking:
 ```C
@@ -29,11 +33,11 @@ send immediately, or about 23,000.  If you called `write()` right away again, it
 EAGAIN or EWOULDBLOCK. That's the system's way of telling you it's still busy sending the last chunk of data,
 and isn't ready to send more yet.
 
-### How do I check when the I/O has finished?
+## How do I check when the I/O has finished? select way
 
-There are a few ways.  Let's see how to do it using *select* and *epoll*.
 
-#### select
+*select*
+
 ```C
     int select(int nfds, 
                fd_set *readfds, 
@@ -41,6 +45,8 @@ There are a few ways.  Let's see how to do it using *select* and *epoll*.
                fd_set *exceptfds, 
                struct timeval *timeout);
 ```
+----
+
 Given three sets of file descriptors, `select()` will wait for any of those file descriptors to become 'ready'.
 * `readfds` - a file descriptor in `readfds` is ready when there is data that can be read or EOF has been reached.
 * `writefds` - a file descriptor in `writefds` is ready when a call to write() will succeed.
@@ -86,12 +92,14 @@ calling it.
 
 [For more information on select()](http://pubs.opengroup.org/onlinepubs/9699919799/functions/select.html)
 
-## epoll
+## How to know IO finish -  epoll way
 
 *epoll* is not part of POSIX, but it is supported by Linux.  It is a more efficient way to wait for many
 file descriptors.  It will tell you exactly which descriptors are ready. It even gives you a way to store
 a small amount of data with each descriptor, like an array index or a pointer, making it easier to access
 your data associated with that descriptor.
+
+----
 
 To use epoll, first you must create a special file descriptor with [epoll_create()](http://linux.die.net/man/2/epoll_create).  You won't read or write to this file
 descriptor; you'll just pass it to the other epoll_xxx functions and call
@@ -139,6 +147,3 @@ In addition to nonblocking `read()` and `write()`, any calls to `connect()` on a
 nonblocking. To wait for the connection to complete, use `select()` or epoll to wait for the socket to be writable.
 
 
-## Interesting Blogpost about edge cases with select
-
-https://idea.popcount.org/2017-01-06-select-is-fundamentally-broken/

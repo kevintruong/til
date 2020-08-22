@@ -32,6 +32,9 @@ To explicitly bind to an ethernet interface and port, call `bind` before `connec
 
 If your process writes to a socket that has already been shutdown by the other end of the TCP connection, then your process will be sent a SIGPIPE signal. From our previous discussion on pipes, you might remember the default action is to shutdown the process. A workaround to this is to ignore SIGPIPE signals or to implement your own signal handler.
 
+
+----
+ 
 ```C
 void handle_sigpipe(int signal) {
   char mesg[1000];
@@ -47,6 +50,9 @@ signal(SIGPIPE,handle_sigpipe)
 ## Who connected to my server?
 
 The `accept` system call can optionally provide information about the remote client, by passing in a sockaddr struct. Different protocols have differently variants of the  `struct sockaddr`, which are different sizes. The simplest struct to use is the `sockaddr_storage` which is sufficiently large to represent all possible types of sockaddr. Notice that C does not have any model of inheritance. Therefore we need to explicitly cast our struct to the 'base type' struct sockaddr.
+
+----
+  
 
 ```C
     struct sockaddr_storage clientaddr;
@@ -72,6 +78,9 @@ Todo: Discuss NI_MAXHOST and NI_MAXSERV, and NI_NUMERICHOST
 
 To obtain a linked list of IP addresses of the current machine use `getifaddrs` which will return a linked list of IPv4 and IPv6 IP addresses (and potentially other interfaces too). We can examine each entry and use `getnameinfo` to print the host's IP address.
 The  ifaddrs struct includes the family but does not include the sizeof the struct. Therefore we need to manually determine the struct sized based on the family (IPv4 v IPv6)
+
+----
+ 
 ```C
  (family == AF_INET) ? sizeof(struct sockaddr_in) : sizeof(struct sockaddr_in6)
 ```
@@ -97,6 +106,9 @@ The complete code is shown below.
 
 Answer: use `ifconfig` (or Windows's ipconfig)
 However this command generates a lot of output for each interface, so we can filter the output using grep
+
+----
+ 
 ```
 ifconfig | grep inet
 

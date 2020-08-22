@@ -1,6 +1,9 @@
 ## Coffman conditions
 There are four _necessary_ and _sufficient_ conditions for deadlock. These are known as the Coffman conditions.
 
+----
+
+
 * Mutual Exclusion
 * Circular Wait
 * Hold and Wait
@@ -16,6 +19,9 @@ All of these conditions are required for deadlock, so let's discuss each one in 
 
 ## Breaking the Coffman Conditions
 
+
+----
+
 Two students need a pen and paper:
 * The students share a pen and paper. Deadlock is avoided because Mutual Exclusion was not required.
 * The students both agree to grab the pen before grabbing the paper. Deadlock is avoided because there cannot be a circular wait.
@@ -26,6 +32,9 @@ Two students need a pen and paper:
 ## Livelock
 Livelock is _not_ deadlock-
 
+
+----
+
 Consider the following 'solution'
 * The students will put down one held resource if they are unable to pick up the other resource within 10 seconds. This solution avoids deadlock however it may suffer from livelock.
 
@@ -34,11 +43,17 @@ In practice Livelock may occur because the programmer has taken steps to avoid d
 
 ## Deadlock Prevention/Avoidance vs Deadlock Detection
 
+
+----
+
 Deadlock prevention is making sure that deadlock cannot happen, meaning that you break a coffman condition. This works the best inside a single program and the software engineer making the choice to break a certain coffman condition. Consider the [Banker's Algorithm](https://en.wikipedia.org/wiki/Banker's_algorithm). It is another algorithm for deadlock avoidance. The whole implementation is outside the scope of this class, just know that there are more generalized algorithms for operating systems.
 
 Deadlock detection on the other hand is allowing the system to enter a deadlocked state. After entering, the system uses the information that it has to break deadlock. As an example, consider multiple processes accessing files. The operating system is able to keep track of all of the files/resources through file descriptors at some level (either abstracted through an API or directly). If the operating system detects a directed cycle in the operating system file descriptor table it may break one process' hold (through scheduling for example) and let the system proceed.
 
 ## Dining Philosophers
+
+
+----
 
 The Dining Philosophers problem is a classic synchronization problem. Imagine I invite N (let's say 5) philosophers to a meal. We will sit them at a table with 5 chopsticks (one between each philosopher). A philosopher alternates between wanting to eat or think. To eat the philosopher must pick up the two chopsticks either side of their position (the original problem required each philosopher to have two forks). However these chopsticks are shared with his neighbor.
 

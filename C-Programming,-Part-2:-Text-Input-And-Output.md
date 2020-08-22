@@ -1,6 +1,9 @@
 # Printing to Streams
 
 ## How do I print strings, ints, chars to the standard output stream? 
+
+----
+
 Use `printf`. The first parameter is a format string that includes placeholders for the data to be printed. Common format specifiers are `%s` treat the argument as a c string pointer, keep printing all characters until the NULL-character is reached; `%d` print the argument as an integer; `%p` print the argument as a memory address. 
 
 A simple example is shown below:
@@ -15,16 +18,28 @@ printf("Debug: The string and int are stored at: %p and %p\n", name, &score );
 By default, for performance, `printf` does not actually write anything out (by calling write) until its buffer is full or a newline is printed. 
 
 ## How else can I print strings and single characters?
+
+----
+
 Use `puts( name )` and `putchar( c )`  where name is a pointer to a C string and c is just a `char`
 
 ## How do I print to other file streams?
+
+----
+
 Use `fprintf( _file_ , "Hello %s, score: %d", name, score);`
 Where \_file\_ is either predefined 'stdout' 'stderr' or a FILE pointer that was returned by `fopen` or `fdopen`
 
 ## Can I use file descriptors?
+
+----
+
 Yes! Just use `dprintf(int fd, char* format_string, ...);` Just remember the stream may be buffered, so you will need to assure that the data is written to the file descriptor.
 
 ## How do I print data into a C string?
+
+----
+
 Use `sprintf` or better `snprintf`.
 ```C
 char result[200];
@@ -41,6 +56,8 @@ Source: [this StackOverflow post](https://stackoverflow.com/questions/12746885/w
 
 ## What if I really really want `printf` to call `write` without a newline?
 
+----
+
 Use `fflush( FILE* inp )`. The contents of the file will be written. If I wanted to write "Hello World" with no newline, I could write it like this.
 
 ```C
@@ -52,6 +69,9 @@ int main(){
 ```
 
 ## How is `perror` helpful?
+
+----
+
 Let's say that you have a function call that just failed (because you checked the man page and it is a failing return code). `perror(const char* message)` will print the English version of the error to stderr
 ```C
 int main(){
@@ -64,10 +84,9 @@ int main(){
 }
 ```
 
-# Parsing Input
-
 ## How do I parse numbers from strings?
 
+----
 Use `long int strtol(const char *nptr, char **endptr, int base);` or `long long int strtoll(const char *nptr, char **endptr, int base);`.
 
 What these functions do is take the pointer to your string `*nptr` and a `base` (ie binary, octal, decimal, hexadecimal etc) and an optional pointer `endptr` and returns a parsed value.
@@ -97,6 +116,9 @@ int main(){
 ```
 
 ## How do I parse input using `scanf` into parameters?
+
+----
+
 Use `scanf` (or `fscanf` or `sscanf`) to get input from the default input stream, an arbitrary file stream or a C string respectively.
 It's a good idea to check the return value to see how many items were parsed.
 `scanf` functions require valid pointers. It's a common source of error to pass in an incorrect pointer value. For example,
@@ -111,6 +133,9 @@ We wanted to write the character value into c and the integer value into the mal
 However, we passed the address of the data pointer, not what the pointer is pointing to! So `sscanf` will change the pointer itself. i.e. the pointer will now point to address 10 so this code will later fail e.g. when free(data) is called.
  
 ## How do I stop scanf from causing a buffer overflow?
+
+----
+
 The following code assumes the scanf won't read more than 10 characters (including the terminating byte) into the buffer.
 ```C
 char buffer[10];
@@ -123,6 +148,9 @@ scanf("%9s", buffer); // reads up to 9 charactes from input (leave room for the 
 ```
 
 ## Why is `gets` dangerous? What should I use instead?
+
+----
+
 The following code is vulnerable to buffer overflow. It assumes or trusts that the input line will be no more than 10 characters, including the terminating byte.
 ```C
 char buf[10];
@@ -153,6 +181,9 @@ if (buffer[i] == '\n')
 ```
 
 ## How do I use `getline`?
+
+----
+
 One of the advantages of `getline` is that will automatically (re-) allocate a buffer on the heap of sufficient size.
 
 ```C
@@ -175,13 +206,4 @@ chars = getline(&buffer, &size, stdin);
 
 // Later... don't forget to free the buffer!
 free(buffer);
-```
-
-<div align="center">
-<a href="https://github.com/angrave/SystemProgramming/wiki/C-Programming,-Part-1:-Introduction">
-Back: C Programming, Part 1: Introduction
-</a> |
-<a href="https://github.com/angrave/SystemProgramming/wiki/C-Programming%2C-Part-3%3A-Common-Gotchas">
-Next: C Programming, Part 3: Common Gotchas
-</a>
-</div>
+``` 

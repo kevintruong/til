@@ -1,6 +1,9 @@
 # Thread Safe Stack
 
 ## What is an atomic operation?
+ 
+ ----
+ 
 To paraphrase Wikipedia, 
 > An operation (or set of operations) is atomic or uninterruptible if it appears to the rest of the system to occur instantaneously.
 Without locks, only simple CPU instructions ("read this byte from memory") are atomic (indivisible). On a single CPU system, one could temporarily disable interrupts (so a sequence of operations cannot be interrupted) but in practice atomicity is achieved by using synchronization primitives, typically a mutex lock.
@@ -8,7 +11,8 @@ Without locks, only simple CPU instructions ("read this byte from memory") are a
 Incrementing a variable (`i++`) is _not_ atomic because it requires three distinct steps: Copying the bit pattern from memory into the CPU; performing a calculation using the CPU's registers; copying the bit pattern back to memory. During this increment sequence, another thread or process can still read the old value and other writes to the same memory would also be over-written when the increment sequence completes.
 
 
-## How do I use mutex lock to make my data-structure thread-safe?
+Why is code below is not thread-safe 
+
 Note, this is just an introduction - writing high-performance thread-safe data structures requires its own book! Here's a simple data structure (a stack) that is not thread-safe:
 ```C
 // A simple fixed-sized stack (version 1)
@@ -28,11 +32,16 @@ int is_empty() {
     return count == 0;
 }
 ```
+
+----
+
 Version 1 of the stack is not thread-safe because if two threads call push or pop at the same time then the results or the stack can be inconsistent. For example, imagine if two threads call pop at the same time then both threads may read the same value, both may read the original count value.
 
 To turn this into a thread-safe data structure we need to identify the _critical sections_ of our code  i.e. which section(s) of the code must only have one thread at a time. In the above example the `push`,`pop` and `is_empty` functions access the same variables (i.e. memory) and all critical sections for the stack. 
 
 While `push` (and `pop`) is executing, the datastructure is an inconsistent state (for example the count may not have been written to, so may still contain the original value). By wrapping these methods with a mutex we can ensure that only one thread at a time can update (or read) the stack.
+
+## How do I use mutex lock to make my data-structure thread-safe (version 2)?
 
 A candidate 'solution' is shown below. Is it correct? If not, how will it fail?
 ```C
@@ -65,6 +74,8 @@ int is_empty() {
 }
 
 ```
+---- 
+
 The above code ('version 2') contains at least one error. Take a moment to see if you can the error(s) and work out the consequence(s).
 
 If three threads called `push()` at the same time the lock `m1` ensures that only one thread at time manipulates the stack (two threads will need to wait until the first thread completes (calls unlock), then a second thread will be allowed to continue into the critical section and finally the third thread will be allowed to continue once the second thread has finished).
@@ -75,7 +86,10 @@ The fix is simple in this case - use the same mutex lock for both the push and p
 
 The code has a second error; `is_empty` returns after the comparison and will not unlock the mutex. However the error would not be spotted immediately. For example, suppose one thread calls `is_empty` and a second thread later calls `push`. This thread would mysteriously stop. Using debugger you can discover that the thread is stuck at the lock() method inside the `push` method because the lock was never unlocked by the earlier `is_empty` call. Thus an oversight in one thread led to problems much later in time in an arbitrary other thread.
 
+## How do I use mutex lock to make my data-structure thread-safe (version 3)?
+
 A better version is shown below - 
+
 ```C
 // An attempt at a thread-safe stack (version 3)
 int count;
@@ -100,6 +114,10 @@ int is_empty() {
   return result;
 }
 ```
+
+
+----
+
 Version 3 is thread-safe (we have ensured mutual exclusion for all of the critical sections) however there are two points of note:
 * `is_empty` is thread-safe but its result may already be out-of date i.e. the stack may no longer be empty by the time the thread gets the result!
 * There is no protection against underflow (popping on an empty stack) or overflow (pushing onto an already-full stack)
@@ -160,10 +178,15 @@ int main() {
     stack_destroy(s1);
 }
 ```
-# Stack Semaphores
 
 ## How can I force my threads to wait if the stack is empty or full?
+
+example 1
+
 Use counting semaphores! Use a counting semaphore to keep track of how many spaces remain and another semaphore to keep to track the number of items in the stack. We will call these two semaphores 'sremain' and 'sitems'. Remember `sem_wait` will wait if the semaphore's count has been decremented to zero (by another thread calling sem_post).
+
+----
+  
 
 ```C
 // Sketch #1
@@ -186,7 +209,10 @@ void push(double v) {
   sem_wait(&sremain);
   ...
 ```
-Sketch #2  has implemented the `post` too early. Another thread waiting in push can erroneously attempt to write into a full stack (and similarly a thread waiting in the pop() is allowed to continue too early).
+## How can I force my threads to wait if the stack is empty or full?
+
+Sketch 2
+
 
 ```C
 // Sketch #2 (Error!)
@@ -204,7 +230,14 @@ void push(double v) {
 }
 ```
 
-Sketch 3 implements the correct semaphore logic but can you spot the error?
+
+----
+
+Sketch #2  has implemented the `post` too early. Another thread waiting in push can erroneously attempt to write into a full stack (and similarly a thread waiting in the pop() is allowed to continue too early).
+
+## How can I force my threads to wait if the stack is empty or full?
+sketch 3  solution 
+
 ```C
 // Sketch #3 (Error!)
 double pop() {
@@ -222,7 +255,45 @@ void push(double v) {
   sem_post(&sitems); 
 }
 ```
-Sketch 3 correctly enforces buffer full and buffer empty conditions using semaphores. However there is no _mutual exclusion_: Two threads can be in the _critical section_ at the same time, which would corrupt the data structure (or least lead to data loss). The fix is to wrap a mutex around the critical section:
+----
+
+
+sketch 3 correctly enforces buffer full and buffer empty conditions using semaphores. however there is no _mutual exclusion_: two threads can be in the _critical section_ at the same time, which would corrupt the data structure (or least lead to data loss). the fix is to wrap a mutex around the critical section:
+
+
+## How can I force my threads to wait if the stack is empty or full?
+
+full  solution 
+```c
+double pop() {
+  // Wait until there's at least one item
+  sem_wait(&sitems);
+
+  pthread_mutex_lock(&m); // CRITICAL SECTION
+  double v= values[--count];
+  pthread_mutex_unlock(&m);
+
+  sem_post(&sremain); // Hey world, there's at least one space
+  return v;
+}
+
+void push(double v) {
+  // Wait until there's at least one space
+  sem_wait(&sremain);
+
+  pthread_mutex_lock(&m); // CRITICAL SECTION
+  values[count++] = v;
+  pthread_mutex_unlock(&m);
+
+  sem_post(&sitems); // Hey world, there's at least one item
+}
+```
+
+
+
+----
+
+sketch 3 correctly enforces buffer full and buffer empty conditions using semaphores. however there is no _mutual exclusion_: two threads can be in the _critical section_ at the same time, which would corrupt the data structure (or least lead to data loss). the fix is to wrap a mutex around the critical section:
 
 ```C
 // Simple single stack - see above example on how to convert this into a multiple stacks.
@@ -267,6 +338,9 @@ void push(double v) {
 
 
 ## What are the common Mutex Gotchas?
+
+----
+
 * Locking/unlocking the wrong mutex (due to a silly typo)
 * Not unlocking a mutex (due to say an early return during an error condition)
 * Resource leak (not calling `pthread_mutex_destroy`)

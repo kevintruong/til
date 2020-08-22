@@ -15,11 +15,9 @@
 * Add your favorite resources here
 
 
-# Crash course intro to C
-
-*Warning new page* Please fix typos and formatting mistakes for me and add useful links too.*
-
 ## How do you write a complete hello world program in C?
+
+----
 ```C
 #include <stdio.h>
 int main(void) { 
@@ -27,12 +25,19 @@ int main(void) {
     return 0; 
 }
 ```
+
 ## Why do we use '`#include <stdio.h>`'?
+
+----
+
 We're lazy! We don't want to declare the `printf` function. It's already done for us inside the file '`stdio.h`'. The `#include` includes the text of the file as part of our file to be compiled.
 
 Specifically, the `#include` directive takes the file `stdio.h` (which stands for **st**an**d**ard **i**nput and **o**utput) located somewhere in your operating system, copies the text, and substitutes it where the `#include` was.
 
 ## How are C strings represented?
+
+----
+
 They are represented as characters in memory.  The end of the string includes a NULL (0) byte. So "ABC" requires four(4) bytes `['A','B','C','\0']`. The only way to find out the length of a C string is to keep reading memory until you find the NULL byte. C characters are always exactly one byte each.
 
 When you write a string literal `"ABC"` in an expression the string literal evaluates to a char pointer (`char *`), which points to the first byte/char of the string.  This means `ptr` in the example below will hold the memory address of the first character in the string.
@@ -47,6 +52,9 @@ char str[]={'A','B','C','\0'};
 ```
 
 ## How do you declare a pointer? 
+
+----
+
 A pointer refers to a memory address. The type of the pointer is useful - it tells the compiler how many bytes need to be read/written. You can declare a pointer as follows.
 ```C
 int *ptr1;
@@ -63,6 +71,9 @@ int *ptr3, *ptr4;
 ```
 
 ## How do you use a pointer to read/write some memory?
+
+----
+
 Let's say that we declare a pointer `int *ptr`. For the sake of discussion, let's say that `ptr` points to memory address `0x1000`. If we want to write to a pointer, we can dereference and assign `*ptr`.
 
 ```C
@@ -72,6 +83,8 @@ Let's say that we declare a pointer `int *ptr`. For the sake of discussion, let'
 What C will do is take the type of the pointer which is an `int` and writes `sizeof(int)` bytes from the start of the pointer, meaning that bytes `0x1000`, `0x1001`, `0x1002`, `0x1003` will all be zero. The number of bytes written depends on the pointer type. It is the same for all primitive types but structs are a little different.
 
 ## What is pointer arithmetic?
+
+----
 You can add an integer to a pointer. However, the pointer type is used to determine how much to increment the pointer. For char pointers this is trivial because characters are always one byte:
 ```C
 char *ptr = "Hello"; // ptr holds the memory location of 'H'
@@ -107,6 +120,9 @@ int *offset = (int*)(temp_ptr1 + sizeof(int)*4);
 To get the value. **Every time you do pointer arithmetic, take a deep breath and make sure that you are shifting over the number of bytes you think you are shifting over.**
 
 ## What is a void pointer?
+
+----
+
 A pointer without a type (very similar to a void variable). Void pointers are used when either a datatype you're dealing with is unknown or when you're interfacing C code with other programming languages. You can think of this as a raw pointer, or just a memory address. You cannot directly read or write to it because the void type does not have a size. For Example
 
 ```C
@@ -153,6 +169,9 @@ return 0;
 [Strings as Pointers & Arrays @ BU](https://www.cs.bu.edu/teaching/c/string/intro/)
 
 ## How would you make standard out be saved to a file?
+
+----
+
 Simplest way: run your program and use shell redirection
 e.g.
 ```
@@ -199,6 +218,9 @@ strcpy(ptr, "World"); // OK because now ptr is pointing to mutable memory (the a
 What to take away from this is that pointers * can point to any type of memory while C arrays [] can only point to memory on the stack. In a more common case, pointers will point to heap memory in which case the memory referred to by the pointer CAN be modified.
 
 ## `sizeof()` returns the number of bytes. So using above code, what is sizeof(ary) and sizeof(ptr)?
+
+----
+
 `sizeof(ary)`: `ary` is an array. Returns the number of bytes required for the entire array (5 chars + zero byte = 6 bytes)
 `sizeof(ptr)`: Same as sizeof(char *). Returns the number bytes required for a pointer (e.g. 4 or 8 for a 32 bit or 64-bit machine)
 
@@ -227,6 +249,9 @@ char* f2() {
     return p;
 } // Incorrect!
 ```
+
+----
+
 Explanation: An array p is created on the stack for the correct size to hold H,e,l,l,o, and a null byte i.e. (6) bytes. This array is stored on the stack and is invalid after we return from f2.
 ```C
 char* f3() {
@@ -245,11 +270,17 @@ char* f4() {
 Explanation: The array is static meaning it exists for the lifetime of the process (static variables are not on the heap or the stack).
 
 ## How do you look up information C library calls and system calls?
+
+---
+
 Use the man pages. Note the man pages are organized into sections. Section 2 = System calls. Section 3 = C libraries.
 Web: Google "man7 open"
 shell: man -S2 open  or man -S3 printf
 
 ## How do you allocate memory on the heap?
+
+----
+
 Use malloc. There's also realloc and calloc.
 Typically used with sizeof. e.g. enough space to hold 10 integers
 ```C
@@ -264,6 +295,8 @@ void mystrcpy(char*dest, char* src) {
   while( *src ) { dest = src; src ++; dest++; }  
 }
 ```
+----
+
 In the above code it simply changes the dest pointer to point to source string. Also the nuls bytes are not copied. Here's a better version - 
 ```
   while( *src ) { *dest = *src; src ++; dest++; } 
@@ -275,6 +308,9 @@ Note it's also usual to see the following kind of implementation, which does eve
 ```
 
 ## How do you write a strdup replacement?
+
+----
+
 ```C
 // Use strlen+1 to find the zero byte... 
 char* mystrdup(char*source) {
@@ -285,6 +321,9 @@ char* mystrdup(char*source) {
 ```
 
 ## How do you unallocate memory on the heap?
+
+----
+
 Use free!
 ```C
 int *n = (int *) malloc(sizeof(int));
@@ -294,6 +333,9 @@ free(n);
 ```
 
 ## What is double free error? How can you avoid? What is a dangling pointer? How do you avoid?
+
+----
+
 A double free error is when you accidentally attempt to free the same allocation twice.
 ```C
 int *p = malloc(sizeof(int));
@@ -313,10 +355,16 @@ p = NULL; // Now you can't use this pointer by mistake
 ```
 
 ## What is an example of buffer overflow?
+
+----
+
 Famous example: Heart Bleed (performed a memcpy into a buffer that was of insufficient size).
 Simple example: implement a strcpy and forget to add one to strlen, when determining the size of the memory required.
 
 ## What is 'typedef' and how do you use it? 
+
+----
+
 Declares an alias for a type. Often used with structs to reduce the visual clutter of having to write 'struct' as part of the type.
 ```C
 typedef float real; 
@@ -342,11 +390,3 @@ comparator gt = greater_than;
 
 This declares a function type comparator that accepts two `void*` params and returns an integer.
 
-## Wow that was a lot of C
-Don't worry more to come!
-
-<div align="center">
-<a href="https://github.com/angrave/SystemProgramming/wiki/C-Programming%2C-Part-2%3A-Text-Input-And-Output">
-Next: C Programming, Part 2: Text Input And Output
-</a>
-</div>

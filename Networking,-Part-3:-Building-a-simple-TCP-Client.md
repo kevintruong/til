@@ -1,6 +1,10 @@
-## `socket`
+# TCP/IP connection
+
+## `socket` in linux 
 
 `int socket(int domain, int socket_type, int protocol);`
+
+----
 
 Socket creates a socket with domain (e.g. AF_INET for IPv4 or AF_INET6 for IPv6), `socket_type` is whether to use UDP or TCP or other socket type, `protocol` is an optional choice of protocol configuration (for our examples this we can just leave this as 0 for default). This call creates a socket object in the kernel with which one can communicate with the outside world/network. 
 You can use the result of `getaddressinfo` to fill in the `socket` parameters, or provide them manually.
@@ -9,17 +13,15 @@ The socket call returns an integer - a file descriptor - and, for TCP clients, y
 
 TCP sockets are similar to `pipes` except that they allow full duplex communication i.e. you can send and receive data in both directions independently.
 
-## `getaddressinfo`
-
-We saw this in the last section! You're experts at this. 
-
-## `connect`
+## `connect` 
 
 `int connectok = connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);`
 
+----
+
 Pass `connect` the socket file descriptor, the address you want to connect to and the length in bytes of the address structure. To help identify errors and mistakes it is good practice to check the return value of all networking calls, including `connect`
 
-## `read`/`write`
+## `read`/`write` function 
 
 Once we have a successful connection we can read or write like any old file descriptor. Keep in mind if you are connected to a website, you want to conform to the HTTP protocol specification in order to get any sort of meaningful results back. There are libraries to do this, usually you don't connect at the socket level because there are other libraries or packages around it.
 
@@ -72,6 +74,7 @@ int main(int argc, char **argv) {
     return 0;
 }
 ```
+----
 
 Example output:
 ```
@@ -92,8 +95,30 @@ Provided by Web Services at Public Affairs at the University of Illinois
 ```
 
 ## Comment on HTTP request and response
+
+
 The example above demonstrates a request to the server using Hypertext Transfer Protocol.
 A web page (or other resources) are requested using the following request:
+
+```
+SENDING: GET / HTTP/1.0
+
+===
+HTTP/1.1 200 OK
+Date: Mon, 27 Oct 2014 19:19:05 GMT
+Server: Apache/2.2.15 (Red Hat) mod_ssl/2.2.15 OpenSSL/1.0.1e-fips mod_jk/1.2.32
+Last-Modified: Fri, 03 Feb 2012 16:51:10 GMT
+ETag: "401b0-49-4b8121ea69b80"
+Accept-Ranges: bytes
+Content-Length: 73
+Connection: close
+Content-Type: text/html
+
+Provided by Web Services at Public Affairs at the University of Illinois
+```
+
+----
+
 ```
 GET / HTTP/1.0
 

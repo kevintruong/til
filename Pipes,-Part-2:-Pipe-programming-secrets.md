@@ -1,4 +1,7 @@
 # Pipe Gotchas
+
+## what wrong with example below ?
+
 Here's a complete example that doesn't work! The child reads one byte at a time from the pipe and prints it out - but we never see the message! Can you see why?
 
 ```C
@@ -32,6 +35,9 @@ int main() {
 }
 
 ```
+
+----
+
 The parent sends the bytes `H,i,(space),C...!` into the pipe (this may block if the pipe is full).
 The child starts reading the pipe one byte at a time. In the above case, the child process will read and print each character. However it never leaves the while loop! When there are no characters left to read it simply blocks and waits for more. 
 
@@ -51,7 +57,8 @@ POSIX file descriptors are simple integers 0,1,2,3...
 At the C library level, C wraps these with a buffer and useful functions like printf and scanf, so we that we can easily print or parse integers, strings etc.
 If you already have a file descriptor then you can 'wrap' it yourself into a FILE pointer using `fdopen` :
 
-
+----
+   
 ```C
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -100,15 +107,24 @@ to:       fprintf(writer, "Score %d\n", 10 + 10);
 ```
 
 ## So do we need to `fflush` too?
+
+----
+
 Yes, if you want your bytes to be sent to the pipe immediately! At the beginning of this course we assumed that file streams are always _line buffered_ i.e. the C library will flush its buffer everytime you send a newline character. Actually this is only true for terminal streams - for other filestreams the C library attempts to improve performance by only flushing when it's internal buffer is full or the file is closed.
 
 
 ## When do I need two pipes?
 
+----
+
+
 If you need to send data to and from a child asynchronously, then two pipes are required (one for each direction).
 Otherwise the child would attempt to read its own data intended for the parent (and vice versa)!
 
 ## Closing pipes gotchas
+
+
+----
 
 Processes receive the signal SIGPIPE when no process is listening! From the pipe(2) man page - 
 ```
@@ -157,23 +173,32 @@ When forking, _It is common practice_ to close the unnecessary (unused) end of e
 
 ## What is filling up the pipe? What happens when the pipe becomes full?
 
+----
+
+
 A pipe gets filled up when the writer writes too much to the pipe without the reader reading any of it. When the pipes become full, all writes fail until a read occurs. Even then, a write may partial fail if the pipe has a little bit of space left but not enough for the entire message.
 
 To avoid this, usually two things are done. Either increase the size of the pipe. Or more commonly, fix your program design so that the pipe is constantly being read from.
 
 ## Are pipes process safe?
 
+----
+
+
 Yes! Pipe write are atomic up to the size of the pipe. Meaning that if two processes try to write to the same pipe, the kernel has internal mutexes with the pipe that it will lock, do the write, and return. The only gotcha is when the pipe is about to become full. If two processes are trying to write and the pipe can only satisfy a partial write, that pipe write is not atomic -- be careful about that!
 
 ## The lifetime of pipes
+
+----
 
 Unnamed pipes (the kind we've seen up to this point) live in memory (do not take up any disk space) and are a simple and efficient form of inter-process communication (IPC) that is useful for streaming data and simple messages. Once all processes have closed, the pipe resources are freed.
 
 An alternative to _unamed_ pipes is _named_ pipes created using `mkfifo`.
 
-# Named Pipes
-
 ## How do I create named pipes?
+
+----
+
 
 From the command line: `mkfifo`
 From C: `int mkfifo(const char *pathname, mode_t mode);`
@@ -181,6 +206,9 @@ From C: `int mkfifo(const char *pathname, mode_t mode);`
 You give it the path name and the operation mode, it will be ready to go! Named pipes take up no space on the disk. What the operating system is essentially telling you when you have a named pipe is that it will create an unnamed pipe that refers to the named pipe, and that's it! There is no additional magic. This is just for programming convenience if processes are started without forking (meaning that there would be no way to get the file descriptor to the child process for an unnamed pipe)
 
 ## Why is my pipe hanging?
+
+----
+
 Reads and writes hang on Named Pipes until there is at least one reader and one writer, take this
 ```bash
 1$ mkfifo fifo
@@ -215,20 +243,25 @@ int main() {
 }
 ```
 
+----
+
+
 This may never print hello because of a race condition. Since you opened the pipe in the first process under both permissions, open won't wait for a reader because you told the operating system that you are a reader! Sometimes it looks like it works because the execution of the code looks something like this.
-
-| Process 1 | Process 2 |
-|-----------|-----------|
-|  open(O_RDWR) & write()  |           |
-|           |   open(O_RDONLY) & read()  |
-|  close() & exit()   |           |
-|           | print() & exit() |
-
+```
+| Process 1                 | Process 2 |
+|---------------------------|----------------------------|
+|  open(O_RDWR) & write()   |                            |
+|                           |   open(O_RDONLY) & read()  |
+|  close() & exit()         |                            |
+|                           | print() & exit() |
+```
 
 Sometimes it won't
 
+```
 | Process 1 | Process 2 |
-|-----------|-----------|
-|  open(O_RDWR) & write()  |           |
-|  close() & exit()   |  (Named pipe is destroyed)  |
-|   (Blocks indefinitely)        |    open(O_RDONLY)       |
+|--------------------------|-----------------------------|
+|  open(O_RDWR) & write()  |                             |
+|  close() & exit()        |  (Named pipe is destroyed)  |
+|   (Blocks indefinitely)  |          open(O_RDONLY)     |
+```

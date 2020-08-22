@@ -1,8 +1,11 @@
-What common mistakes do C programmers make?
-
 # Memory Mistakes
 
-## String Constants are Read-Only
+What common mistakes do C programmers make?
+
+## Common mistakes: String Constants are Read-Only
+
+----
+
 ```C
 char array[] = "Hi!"; // array contains a mutable copy 
 strcpy(array, "OK");
@@ -29,6 +32,9 @@ arr1 == arr2;         // false
 ```
 
 ## Buffer Overflow / Underflow
+
+----
+
 ```C
 int i = 10, array[10];
 for (; i >= 0; i--) array[i] = i;
@@ -41,6 +47,9 @@ fgets(array, 4096, stdin); // Whoops
 ```
 
 ## Handling Pointers to Out-of-Scope Automatic Variables
+
+----
+
 ```C
 int *f() {
     int result = 42;
@@ -78,6 +87,8 @@ user_t *user = (user_t *) malloc(sizeof (user_t));
 
 ## Strings Require `strlen(s)+1` Bytes
 
+----
+
 Every string must have a null byte after the last actual character. To store the string <code>"Hi"</code> it takes 3 bytes: <code>[H] [i] [\0]</code>.
 
 ```C
@@ -92,6 +103,9 @@ char *strdup(const char *input) {     /* return a copy of 'input' */
 ```
 
 ## Failing to Initialize Memory
+
+----
+
 ```C
 void myfunct() {
     char array[10];
@@ -102,6 +116,9 @@ void myfunct() {
 Automatic (stack) variables and heap memory obtained with `malloc` are not initialized to zero by default. The function above results in undefined behavior.
 
 ## Double-free
+
+----
+
 ```C
 char *p = malloc(10);
 free(p);
@@ -111,6 +128,9 @@ free(p);
 It is an error to free the same heap memory twice.
 
 ## Dangling Pointers
+
+----
+
 ```C
 char *p = malloc(10);
 strcpy(p, "Hello");
@@ -125,6 +145,8 @@ Accessing freed memory results in undefined behavior. A defensive programming pr
 ```
 
 ## Forgetting to Copy `getline` Buffer
+
+
 ```C
 #include <stdio.h>
   
@@ -142,6 +164,8 @@ int main(void){
     printf("%s", strings[i]);
 }
 ```
+----
+
 Since `getline` reuses a buffer, all pointers in the `strings` array are actually pointing to the same memory. We can fix this by setting the assignment of `strings[i]` to a deep copy of the buffer.
 ```C
    strings[i] = getline(&line, &linecap, stdin) >= 0 ? strdup(line) : "";
@@ -149,8 +173,9 @@ Since `getline` reuses a buffer, all pointers in the `strings` array are actuall
 Fun fact: providing "1\n123456789abcdef\n3\n" to the broken version of the program might cause it to print out "3\n3\n1\n" instead of "3\n3\n3\n". Now why might that be? 
 *Hint: use Valgrind*
 
-# Logic and Program Flow Mistakes
 ## Forgetting `break` after `case` 
+
+
 ```C
 int flag = 1; // Will print all three lines.
 switch (flag) {
@@ -159,6 +184,8 @@ case 2: printf("Me too\n");
 case 3: printf("Me three\n");
 }
 ```
+----
+
 Case statements without a break will just continue onto the code of the next case statement. The correct code is shown below. The break for the last statement is unnecessary because there are no more cases to be executed after the last one.
 ```C
 int flag = 1; // Will print only "I'm printed\n"
@@ -177,11 +204,14 @@ case 3:
 
 ## Assignment vs Equality Check
 
+
 ```C
 int answer = 3; // Will print out the answer.
 if (answer = 42) { printf("I've solved the answer! It's %d", answer); }
 ```
+----
 Compilers will usually warn you about this mistake. If you really want to perform an assignment, add an extra pair of parentheses to suppress these warnings.
+
 ```C
 ssize_t x;
 if ( (x = read(somefd, somebuf, somenum)) ){
@@ -198,11 +228,16 @@ int main(void){
   printf("%d\n", start);
 }
 ```
+
+----
+
 The library call `time` actually takes a parameter (a pointer to some memory that can receive the `time_t` structure). The compiler might not catch this error because the programmer did not provide a valid function prototype by including time.h. For this reason, calling undeclared functions is illegal in C99 and beyond.
 
 ## Extra Semicolons
 
 Semicolons after `for` and `while` statements will cause them to be interpreted as "empty loops".
+
+----
 
 ```C
 int i;
@@ -221,7 +256,6 @@ for (; i++ < 5;) { // i=1,2,3,4,5
 }
 ```
 
-# Other Gotchas
 ## C Preprocessor macros and precedence
 
 Preprocessing is an operation performed **before** the program is actually compiled. It is nothing but text substitution, i.e. copy-and-paste. Consider the following code.
@@ -229,6 +263,8 @@ Preprocessing is an operation performed **before** the program is actually compi
 #define BADD(x,y) x+y
 char buffer[BADD(5,5)*2];
 ```
+
+----
 
 After preprocessing, the code will look exactly like this.
 ```C
@@ -246,6 +282,8 @@ Notice that the buffer takes up 15 bytes instead of 20, since multiplication has
 int x = 4;
 if (min(x++, 100)) printf("%d is six", x);
 ```
+----
+
 The conditional expression effectively expands to `x++ < 100 ? x++ : 100`, which results in `x` being incremented twice. There is no good way to prevent these kinds of side effects when using Standard C macros. But [GNU C](https://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html) provides some workarounds (only works when using GCC).
 
 ## `sizeof(type[])` vs `sizeof(type *)`
@@ -254,6 +292,8 @@ The conditional expression effectively expands to `x++ < 100 ? x++ : 100`, which
 int fixed_length_array[10]; // ARRAY_LENGTH(fixed_length_array) = 10
 int *dynamic_array = malloc(10); // ARRAY_LENGTH(dynamic_array) = 2 or 1
 ```
+----
+
 If we have a declared array variable like `fixed_length_array`, the `sizeof` operator yields the bytes that array takes up, and dividing this size by the size of the first element yields the number of elements in the array. Unfortunately, the size of a pointer is always the same (8 or 4 bytes), no matter the size or type of the array to which it points. Only compile-time declared array variables (and [C99 variable-length arrays](https://gcc.gnu.org/onlinedocs/gcc/Variable-Length.html)) will expose the true array size through `sizeof`.
 
 ## `sizeof` and Side-Effects
@@ -267,13 +307,6 @@ This code prints out the following.
 ```C
 size: 4, a: 0
 ```
-The expression passed into `sizeof` is not actually evaluated at runtime in most cases, since the type (hence the size) of the expression can be calculated at compile time. Though there are exceptions in the case of [C99 variable-length arrays](http://port70.net/~nsz/c/c11/n1570.html#6.5.3.4p2), since their sizes are determined at runtime.
+----
 
-<div align="center">
-<a href="https://github.com/angrave/SystemProgramming/wiki/C-Programming,-Part-2:-Text-Input-And-Output">
-Back: C Programming, Part 2: Text Input And Output
-</a> |
-<a href="https://github.com/angrave/SystemProgramming/wiki/C-Programming%2C-Part-4%3A-Strings-and-Structs">
-Next: C Programming, Part 4: Strings and Structs
-</a>
-</div>
+The expression passed into `sizeof` is not actually evaluated at runtime in most cases, since the type (hence the size) of the expression can be calculated at compile time. Though there are exceptions in the case of [C99 variable-length arrays](http://port70.net/~nsz/c/c11/n1570.html#6.5.3.4p2), since their sizes are determined at runtime.

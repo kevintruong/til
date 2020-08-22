@@ -1,5 +1,8 @@
 ## What is IPC?
 
+
+----
+
 Inter process communication is any way for one process to talk to another process. You've already seen one form of this virtual memory! A piece of virtual memory can be shared between parent and child, leading to communication. You may want to wrap that memory in `pthread_mutexattr_setpshared(&attrmutex, PTHREAD_PROCESS_SHARED);` mutex (or a process wide mutex) to prevent race conditions.
 
 There are more standard ways of IPC, like pipes! Consider if you type the following into your terminal
@@ -17,6 +20,8 @@ The important part is that bash creates **5 separate processes** and connects th
 The numbers in the pipes are the file descriptors for each process and the arrow represents the redirect or where the output of the pipe is going.
 
 ## What is a pipe?
+
+----
 
 A POSIX pipe is almost like its real counterpart - you can stuff bytes down one end and they will appear at the other end in the same order. Unlike real pipes however, the flow is always in the same direction, one file descriptor is used for reading and the other for writing. The `pipe` system call is used to create a pipe.
 ```C
@@ -38,6 +43,9 @@ write(filedes[1], "Go!", 4);
 
 ## How can I use pipe to communicate with a child process?
 A common method of using pipes is to create the pipe before forking.
+
+----
+ 
 ```C
 int filedes[2];
 pipe (filedes);
@@ -56,6 +64,9 @@ if (child == 0) {
 }
 ```
 ## Can I use pipes inside a single process?
+
+----
+
 Short answer: Yes, but I'm not sure why you would want to LOL!
 
 Here's an example program that sends a message to itself:
@@ -100,4 +111,3 @@ int main() {
 }
 ```
 
-See [[Pipes, Part 2: Pipe programming secrets]]

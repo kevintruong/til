@@ -1,4 +1,8 @@
+# Using `getaddrinfo`
+
 ## How do I use `getaddrinfo` to convert the hostname into an IP address?
+
+----
 
 The function `getaddrinfo` can convert a human readable domain name (e.g. `www.illinois.edu`) into an IPv4 and IPv6 address. In fact it will return a linked-list of addrinfo structs:
 ```C
@@ -55,12 +59,21 @@ Typical output:
 
 ## How is www.cs.illinois.edu converted into an IP address?
 
+----
+
+
 Magic! No seriously, a system called "DNS" (Domain Name Service) is used. If a machine does not hold the answer locally then it sends a UDP packet to a local DNS server. This server in turn may query other upstream DNS servers.
 
 ## Is DNS secure?
+
+----
+
 DNS by itself is fast but not secure. DNS requests are not encrypted and susceptible to 'man-in-the-middle' attacks. For example, a coffee shop internet connection could easily subvert your DNS requests and send back different IP addresses for a particular domain
 
 ## How do I connect to a TCP server (e.g. web server?)
+
+----
+
 
 There are three basic system calls you need to connect to a remote machine:
 ```
@@ -82,12 +95,18 @@ connect(sockfd, p->ai_addr, p->ai_addrlen);
 
 ## How do I free the memory allocated for the linked-list of addrinfo structs?
 
+----
+
+
 As part of the clean up code call `freeaddrinfo` on the top-most `addrinfo` struct:
 ```C
 void freeaddrinfo(struct addrinfo *ai);
 ```
 
 ## If getaddrinfo fails can I use `strerror` to print out the error?
+
+----
+
 No. Error handling with `getaddrinfo` is a little different:
 *  The return value _is_ the error code (i.e. don't use `errno`)
 * Use `gai_strerror` to get the equivalent short English error text:
@@ -101,6 +120,9 @@ if (result) {
 ```
 
 ## Can I request only IPv4 or IPv6 connection? TCP only?
+
+----
+
 Yes! Use the addrinfo structure that is passed into `getaddrinfo` to define the kind of connection you'd like.
 
 For example, to specify stream-based protocols over IPv6:
@@ -111,13 +133,3 @@ memset(&hints, 0, sizeof (hints));
 hints.ai_family = AF_INET6; // Only want IPv6 (use AF_INET for IPv4)
 hints.ai_socktype = SOCK_STREAM; // Only want stream-based connection
 ```
-
-## What about code examples that use `gethostbyname`?
-
-The old function `gethostbyname` is deprecated; it's the old way convert a host name into an IP address. The port address still needs to be manually set using htons function. It's much easier to write code to support IPv4 AND IPv6 using the newer `getaddrinfo`
-
-## Is it that easy!?
-Yes and no. It's easy to create a simple TCP client - however network communications offers many different levels of abstraction and several attributes and options that can be set at each level of abstraction (for example we haven't talked about `setsockopt` which can manipulate options for the socket).
-
-## Further reading
-For more information see [Beej's guide](https://beej.us/guide/bgnet/html/multi/index.html).

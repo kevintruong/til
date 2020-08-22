@@ -1,4 +1,7 @@
 ## What is a Resource Allocation Graph?
+
+----
+
 A resource allocation graph tracks which resource is held by which process and which process is waiting for a resource of a particular type. It is very powerful and simple tool to illustrate how interacting  processes can deadlock. If a process is _using_ a resource, an arrow is drawn from the resource node to the process node. If a process is _requesting_ a resource, an arrow is drawn from the process node to the resource node.
 
 
@@ -8,8 +11,9 @@ Here's another example, that shows Processes 1 and 2 acquiring resources 1 and 2
 
 ![ResourceAllocationGraph-Ex1.png](https://raw.githubusercontent.com/wiki/angrave/SystemProgramming/ResourceAllocationGraph-Ex1.png)
 
-
 ## Deadlock!
+
+----
 
 A lot of times, we don't know the specific order that a resource may be acquired so we can draw the graph directed.
 

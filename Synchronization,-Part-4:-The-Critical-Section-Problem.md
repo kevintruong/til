@@ -1,6 +1,9 @@
-# Candidate Solutions
+# Candidate Solutions for critical section problem
 
 ## What is the Critical Section Problem?
+
+
+----
 
 As already discussed in [[Synchronization, Part 3: Working with Mutexes And Semaphores]], there are critical parts of our code that can only be executed by one thread at a time. We describe this requirement as 'mutual exclusion'; only one thread (or process) may have access to the shared resource.
 
@@ -19,12 +22,13 @@ pthread_mutex_unlock(p_mutex_t *m)   { m->lock = 0; }
 
 
 At first glance, the code appears to work; if one thread attempts to locks the mutex, a later thread must wait until the lock is cleared. However this implementation _does not satisfy Mutual Exclusion_. Let's take a close look at this 'implementation' from the point of view of two threads running around the same time. In the table below times runs from top to bottom-
-
-Time | Thread 1 | Thread 2
------|----------|---------
-1 | `while(lock) {}`
-2 | | `while(lock) {} ` | 
-3 | lock = 1 | lock = 1 |
+```
+Time | Thread 1         | Thread 2
+-----|------------------|---------
+1    | `while(lock) {}` |
+2    |                  | `while(lock) {} ` 
+3    | lock = 1         | lock = 1 |
+```
 Ooops! There is a race condition. In the unfortunate case both threads checked the lock and read a false value and so we are unable to continue. 
 
 ## Candidate solutions to the critical section problem.
@@ -42,6 +46,9 @@ raise my flag
 // Do Critical Section stuff
 lower my flag 
 ```
+
+----
+
 
 Answer: Candidate solution #1 also suffers a race condition i.e. it does not satisfy Mutual Exclusion because both threads/processes could read each other's flag value (=lowered) and continue. 
 
@@ -69,6 +76,9 @@ This suggests we should use a turn-based variable to try to resolve who should p
 ## Turn-based solutions
 The following candidate solution #3 uses a turn-based variable to politely allow one thread and then the other to continue
 
+----
+  
+
 ```
 // Candidate #3
 wait until my turn is myid
@@ -78,6 +88,9 @@ turn = yourid
 Candidate #3 satisfies mutual exclusion (each thread or process gets exclusive access to the Critical Section), however both threads/processes must take a strict turn-based approach to using the critical section; i.e. they are forced into an alternating critical section access pattern. For example, if thread 1 wishes to read a hashtable every millisecond but another thread writes to a hashtable every second, then the reading thread would have to wait another 999ms before being able to read from the hashtable again. This 'solution' is not effective, because our threads should be able to make progress and enter the critical section if no other thread is currently in the critical section.
 
 ## Desired properties for solutions to the Critical Section Problem?
+
+----
+
 There are three main desirable properties that we desire in a solution the critical section problem
 * Mutual Exclusion - the thread/process gets exclusive access; others must wait until it exits the critical section.
 * Bounded Wait - if the thread/process has to wait, then it should only have to wait for a finite,  amount of time (infinite waiting times are not allowed!). The exact definition of bounded wait is that there is an upper (non-infinite) bound on the number of times any other process can enter its critical section before the given process enters.
@@ -97,6 +110,9 @@ if your flag is raised, wait until my turn
 turn = yourid
 lower my flag
 ```
+
+----
+
 One instructor and another CS faculty member initially thought so! However, analyzing these solutions is tricky. Even peer-reviewed papers on this specific subject contain incorrect solutions! At first glance it appears to satisfy Mutual Exclusion, Bounded Wait and Progress: The turn-based flag is only used in the event of a tie (so Progress and Bounded Wait is allowed) and mutual exclusion appears to be satisfied. However.... Perhaps you can find a counter-example?
 
 Candidate #4 fails because a thread does not wait until the other thread lowers their flag. After some thought (or inspiration) the following scenario can be created to demonstrate how Mutual Exclusion is not satisfied.
@@ -110,11 +126,12 @@ Time | Turn | Thread #1 | Thread #2
 3| 2 | // Do Critical Section stuff | if your flag is raised, wait until my turn(TRUE!) 
 4| 2 | // Do Critical Section stuff | // Do Critical Section stuff - OOPS 
 
-# Working Solutions
-
-## What is Peterson's solution?
+## What is Peterson's solution for CSP ?
 Peterson published his novel and surprisingly simple solution in a 2 page paper in 1981. 
 A version of his algorithm is shown below that uses a shared variable `turn`: 
+
+----
+  
 
 ```
 \\ Candidate #5
@@ -145,7 +162,10 @@ A similar C-like version of Peterson's implementation is discussed at Wikipedia 
 Link to Peterson's original article pdf:
 [G. L. Peterson: "Myths About the Mutual Exclusion Problem", Information Processing Letters 12(3) 1981, 115–116](http://dl.acm.org/citation.cfm?id=945527)
 
-## Was Peterson's solution the first solution?
+## Was Peterson's solution the first solution for critical section problem?
+
+----
+
 
 No, Dekkers Algorithm (1962) was the first provably correct solution. A version of the algorithm is below.
 ```
@@ -163,6 +183,9 @@ lower my flag
 Notice how the process's flag is always raised during the critical section no matter if the loop is iterated zero, once or more times. Further the flag can be interpreted as an immediate intent to enter the critical section. Only if the other process has also raised the flag will one process defer, lower their intent flag and wait.
 
 ## Can I just implement Peterson's (or Dekkers) algorithm in C or assembler?
+
+----
+
 Yes - and with a bit searching it is possible even today to find it in production for specific simple mobile processors: Peterson's algorithm is used to implement low-level Linux Kernel locks for the Tegra mobile processor (a system-on-chip ARM process and GPU core by Nvidia)
 https://android.googlesource.com/kernel/tegra.git/+/android-tegra-3.10/arch/arm/mach-tegra/sleep.S#58
 
@@ -190,21 +213,26 @@ http://bartoszmilewski.com/2008/11/05/who-ordered-memory-fences-on-an-x86/
 
 https://elixir.bootlin.com/linux/latest/source/Documentation/memory-barriers.txt
 
-# Hardware Solutions
 
 ##  How would you implement the Critical Section Problem in hardware?
+
 On a simple single CPU machine, a process with access to all CPU instructions, could temporarily disable interrupts.
+
 ```C
 disable_interrupts
 // Critical section code
 enable_interrupts
 ```
+
+----
+
 If interrupts are disabled then the current thread cannot be interrupted! i.e. the CPU instructions of the critical section will complete.
 
 However most systems today have more than one CPU core and disabling interrupts is a privileged instruction - so the above technique is rarely appropriate.
 
 Instead, suppose the CPU provided us with a special atomic instruction `__exch` that swaps the values at two memory locations. We could support Critical sections by implementing mutex locks using the following pseudo code.
-````C
+
+```C
 my_mutex_init(int* m)  { *m= 0; }
 
 my_mutex_lock(int* m) {
@@ -213,9 +241,13 @@ my_mutex_lock(int* m) {
 
 // After you critical section is finished,call unlock...
 my_mutex_unlock(int* m)  { *m= 0; }
-````
+```
 
-The exchange instruction must be atomic i.e. it behaves as a single __uninterruptable__ and indivisible instruction. For example, if two threads both call `my_mutex_lock` (and then __exch) at the same time, then one thread _will_ receive a value of 0, and the other thread will loose and get the newer value of 1 (so will continue to poll).
+The exchange instruction must be atomic i.e. 
+it behaves as a single __uninterruptable__ and indivisible instruction. 
+
+For example, if two threads both call `my_mutex_lock` (and then __exch) at the same time, 
+then one thread _will_ receive a value of 0, and the other thread will loose and get the newer value of 1 (so will continue to poll).
 
 
 ## How do we really implement the Critical Section Problem on real hardware? (Advanced topic)
@@ -243,6 +275,9 @@ int mutex_init(mutex* mtx){
 ```
 
 This is the initialization code, nothing fancy here. We set the state of the mutex to unlocked and set the owner to locked.
+
+----
+  
 
 ```C
 int mutex_lock(mutex* mtx){

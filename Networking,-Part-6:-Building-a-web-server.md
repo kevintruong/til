@@ -1,4 +1,9 @@
+# building a webserver 
+
 ## How can you serve a simple static web page?
+
+
+----
 
 A web server needs to implement HTTP (Hypertext transfer protocol), which is a specification of how client machine can request resources from a server and how a server can respond to a client message.
 
@@ -50,6 +55,9 @@ Now call `accept` block until we have a client request to service. For each clie
 ```
 
 ## How can you serve a simple static image file?
+ 
+ ----
+  
 ```C
   FILE*file = fopen("apicture.jpg","r");
   if(file) {

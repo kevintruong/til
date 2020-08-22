@@ -1,7 +1,11 @@
+# Create Simple UDP server
+
 ## How do I create a UDP server?
 There are a variety of function calls available to send UDP sockets. We will use the newer getaddrinfo to help set up a socket structure.
 
 Remember that UDP is a simple packet-based ('data-gram') protocol ; there is no connection to set up between the two hosts.
+
+----
 
 First, initialize the hints addrinfo struct to request an IPv6, passive datagram socket.
 ```C
@@ -34,8 +38,10 @@ byte_count = recvfrom(sockfd, buf, sizeof(buf), 0, &addr, &addrlen);
 The addr struct will hold sender (source) information about the arriving packet.
 Note the `sockaddr_storage` type is a sufficiently large enough to hold all possible types of socket addresses (e.g. IPv4, IPv6 and other socket types).
 
-## Full Code
+## Full Code for simple UDP server
 
+----
+ 
 ```C
 #include <string.h>
 #include <stdio.h>

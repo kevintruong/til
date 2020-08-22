@@ -25,10 +25,16 @@ int main() {
 ```
 
 ## Can I call wait and post from different threads?
+
+----
+
 Yes! Unlike a mutex, the increment and decrement can be from different threads.
 Can there non global semaphores? What would be their use?
 
 ## Can I use a semaphore instead of a mutex?
+
+----
+
 Yes - though the overhead of a semaphore is greater. To use a semaphore:
 * Initialize the semaphore with a count of one. [ is the the max value or the initial value? ] 
 * Replace `...lock` with `sem_wait`
@@ -48,8 +54,10 @@ sem_wait(&s);
 sem_post(&s);
 ```
 
-## Can I use sem_post inside a signal handler?
 ## Can I increase the count of the counter in semaphore inside a signal handler?
+
+----
+
 Yes! `sem_post` is one of a handful of functions that can be correctly used inside a signal handler.
 _This means we can release a waiting thread which can now make all of the calls that we were not_
 _allowed to call inside the signal handler itself (e.g. `printf`)._ ??????
@@ -90,9 +98,3 @@ int main()
 ```
 Note robust programs do not use `signal()` in a multi-threaded program ("The effects of signal() in a multithreaded process are unspecified." - the signal man page); a more correct program will need to use `sigaction`.
 
-## How do I find out more?
-Read the man pages:
-* [sem_init](http://man7.org/linux/man-pages/man3/sem_init.3.html)
-* [sem_wait](http://man7.org/linux/man-pages/man3/sem_wait.3.html)
-* [sem_post](http://man7.org/linux/man-pages/man3/sem_post.3.html)
-* [sem_destroy](http://man7.org/linux/man-pages/man3/sem_destroy.3.html)
