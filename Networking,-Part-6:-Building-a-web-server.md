@@ -32,7 +32,7 @@ Now that we've bound to a port, we can find out the actual port number used. Not
   socklen_t socklen = sizeof(sin);
   getsockname(sock_fd, (struct sockaddr *)&sin, &socklen)
   printf("Listening on port %d\n", ntohs(sin.sin_port)) 
-````
+```
   
 Now call `accept` block until we have a client request to service. For each client, wait for the web browser's request then always send a friendly message back. This starts with the response header that includes the MIMETYPE - the type of data that is represented by the bytes that follow. The response header, like the request header is terminated by two blank lines together `\r\n\r\n`/ Note this code also demonstrates use of Linux's `dprintf` which allows printf-like formatting directly to a file descriptor.
 ```C

@@ -4,7 +4,13 @@
 
 ----
 
-Your process will contain three stacks - one for each thread. The first thread is created when the process starts, and you created two more. Actually there can be more stacks than this, but let's ignore that complication for now. The important idea is that each thread requires a stack because the stack contains automatic variables and the old CPU PC register, so that it can back to executing the calling function after the function is finished.
+Your process will contain three stacks - one for each thread. 
+
+* The first thread is created when the process starts, and you created two more. 
+* Actually there can be more stacks than this, but let's ignore that complication for now. 
+
+The important idea is that each thread requires a stack because the stack contains automatic variables and the old CPU PC register, 
+so that it can back to executing the calling function after the function is finished.
 
 ## What is the difference between a full process and a thread?
 
@@ -16,20 +22,32 @@ In addition, unlike processes, threads within the same process can share the sam
 
 ----
 
-Stops a thread. Note the thread may not actually be stopped immediately. For example it can be terminated when the thread makes an operating system call (e.g. `write`).
+* Stops a thread. Note the thread may not actually be stopped immediately. 
+
+For example it can be terminated when the thread makes an operating system call (e.g. `write`).
 
 In practice, `pthread_cancel` is rarely used because it does not give a thread an opportunity to clean up after itself (for example, it may have opened some files).
+
 An alternative implementation is to use a boolean (int) variable whose value is used to inform other threads that they should finish and clean up.
 
 ## What is the difference between `exit` and `pthread_exit`?
 
 ----
 
-`exit(42)` exits the entire process and sets the processes exit value.  This is equivalent to `return 42` in the main method. All threads inside the process are stopped.
+`exit(42)` exits the entire process and sets the processes exit value.  
+This is equivalent to `return 42` in the main method. All threads inside the process are stopped.
 
-`pthread_exit(void *)` only stops the calling thread i.e. the thread never returns after calling `pthread_exit`. The pthread library will automatically finish the process if there are no other threads running. `pthread_exit(...)` is equivalent to returning from the thread's function; both finish the thread and also set the return value (void *pointer) for the thread.
+* `pthread_exit(void *)` only stops the calling thread i.e. the thread never returns after calling `pthread_exit`. 
 
-Calling `pthread_exit` in the the `main` thread is a common way for simple programs to ensure that all threads finish. For example, in the following program, the  `myfunc` threads will probably not have time to get started.
+* The pthread library will automatically finish the process if there are no other threads running. 
+
+* `pthread_exit(...)` is equivalent to returning from the thread's function; 
+both finish the thread and also set the return value (void *pointer) for the thread.
+
+Calling `pthread_exit` in the the `main` thread is a common way for simple programs to ensure that all threads finish. 
+
+For example, in the following program, the  `myfunc` threads will probably not have time to get started.
+
 ```C
 int main() {
   pthread_t tid1, tid2;
@@ -65,7 +83,9 @@ int main() {
   return 42;
 }
 ```
-Note the pthread_exit version creates thread zombies, however this is not a long-running processes, so we don't care.
+
+Note the pthread_exit version creates thread zombies, 
+however this is not a long-running processes, so we don't care.
 
 ## How can a thread be terminated?
 
@@ -88,8 +108,11 @@ Note the pthread_exit version creates thread zombies, however this is not a long
 
 ----
 
-Finished threads will continue to consume resources. Eventually, if enough threads are created, `pthread_create` will fail.
-In practice, this is only an issue for long-running processes but is not an issue for simple, short-lived processes as all thread resources are automatically freed when the process exits.
+Finished threads will continue to consume resources. 
+Eventually, if enough threads are created, `pthread_create` will fail.
+
+In practice, this is only an issue for long-running processes but is not an issue for simple, 
+short-lived processes as all thread resources are automatically freed when the process exits.
 
 
 ## Should I use `pthread_exit` or `pthread_join`?
@@ -101,9 +124,9 @@ Both `pthread_exit` and `pthread_join` will let the other threads finish on thei
 
 ## Can you pass pointers to stack variables from one thread to another?
 
-----
 
 Yes. However you need to be very careful about the lifetime of stack variables.
+
 ```
 pthread_t start_threads() {
   int start = 42;
@@ -112,7 +135,14 @@ pthread_t start_threads() {
   return tid;
 }
 ```
-The above code is invalid because the function `start_threads` will likely return before `myfunc` even starts. The function passes the address-of `start`, however by the time `myfunc` is executed, `start` is no longer in scope and its address will re-used for another variable.
+
+What wrong with the above code ? 
+
+----
+
+The above code is invalid because the function `start_threads` will likely return before `myfunc` even starts. 
+
+The function passes the address-of `start`, however by the time `myfunc` is executed, `start` is no longer in scope and its address will re-used for another variable.
 
 The following code is valid because the lifetime of the stack variable is longer than the background thread.
 
@@ -127,8 +157,11 @@ void start_threads() {
 ```
 
 ## How can I create ten threads with different starting values.
+
 The following code is supposed to start ten threads with values 0,1,2,3,...9
+
 However, when run prints out `1 7 8 8 8 8 8 8 8 10`! Can you see why?
+
 ```C
 #include <pthread.h>
 void* myfunc(void* ptr) {
@@ -150,9 +183,13 @@ int main() {
 
 ----
 
-The above code suffers from a `race condition` - the value of i is changing. The new threads start later (in the example output the last thread starts after the loop has finished).
+The above code suffers from a `race condition` 
+* the value of i is changing. The new threads start later (in the example
+ output the last thread starts after the loop has finished).
 
-To overcome this race-condition, we will give each thread a pointer to it's own data area. For example, for each thread we may want to store the id, a starting value and an output value:
+To overcome this race-condition,
+we will give each thread a pointer to it's own data area. 
+For example, for each thread we may want to store the id, a starting value and an output value:
 ```C
 struct T {
   pthread_t id;
@@ -160,6 +197,7 @@ struct T {
   char result[100];
 };
 ```
+
 These can be stored in an array - 
 ```
 struct T *info = calloc(10 , sizeof(struct T)); // reserve enough bytes for ten T structures
@@ -170,6 +208,7 @@ pthread_create(&info[i].id, NULL, func, &info[i]);
 ```
 
 ## Why are some functions e.g.  asctime,getenv, strtok, strerror  not thread-safe? 
+
 To answer this, let's look at a simple function that is also not 'thread-safe'
 ```C
 char *to_message(int num) {
@@ -182,7 +221,10 @@ char *to_message(int num) {
 
 ----
 
-In the above code the result buffer is stored in global memory. This is good - we wouldn't want to return a pointer to an invalid address on the stack, but there's only one result buffer in the entire memory. If two threads were to use it at the same time then one would corrupt the other:
+In the above code the result buffer is stored in global memory. 
+
+This is good - we wouldn't want to return a pointer to an invalid address on the stack, 
+but there's only one result buffer in the entire memory. If two threads were to use it at the same time then one would corrupt the other:
 
 ```
 Time | Thread 1 | Thread 2| Comments 
@@ -197,7 +239,9 @@ Time | Thread 1 | Thread 2| Comments
 
 ----
 
-These are synchronization locks that are used to prevent race conditions and ensure proper synchronization between threads running in the same program. In addition, these locks are conceptually identical to the primitives used inside the kernel.
+These are synchronization locks that are used to prevent race conditions and ensure proper synchronization between threads running in the same program.
+
+In addition, these locks are conceptually identical to the primitives used inside the kernel.
 
 
 ## Are there any advantages of using threads over forking processes?
@@ -205,19 +249,23 @@ These are synchronization locks that are used to prevent race conditions and ens
 ----
 
 Yes! Sharing information between threads is easy because threads (of the same process) live inside the same virtual memory space.
+
 Also, creating a thread is significantly faster than creating(forking) a process.
 
 ## Are there any dis-advantages of using threads over forking processes?
 
 ----
 
-Yes! No- isolation! As threads live inside the same process, one thread has access to the same virtual memory as the other threads. A single thread can terminate the entire process (e.g. by trying to read address zero).
+Yes! No- isolation! As threads live inside the same process, one thread has access to the same virtual memory as the other threads.
+A single thread can terminate the entire process (e.g. by trying to read address zero).
 
 ## Can you fork a process with multiple threads?
 
 ----
 
-Yes! However the child process only has a single thread (which is a clone of the thread that called `fork`. We can see this as a simple example, where the background threads never print out a second message in the child process.
+Yes! However the child process only has a single thread (which is a clone of the thread that called `fork`.
+
+We can see this as a simple example, where the background threads never print out a second message in the child process.
 
 ```C
 #include <pthread.h>
@@ -262,7 +310,12 @@ int main() {
 8973:Main thread finished
 ```
 
-In practice, creating threads before forking can lead to unexpected errors because (as demonstrated above) the other threads are immediately terminated when forking. Another thread might have just lock a mutex (e.g. by calling malloc) and never unlock it again. Advanced users may find `pthread_atfork` useful however we suggest you usually try to avoid creating threads before forking unless you fully understand the limitations and difficulties of this approach.
+In practice, creating threads before forking can lead to unexpected errors because (as demonstrated above) the other threads are immediately terminated when forking. 
+
+Another thread might have just lock a mutex (e.g. by calling malloc) and never unlock it again. 
+
+Advanced users may find `pthread_atfork` useful however we suggest you usually try to avoid creating threads before forking unless you fully understand the limitations and difficulties of this approach.
+
 
 ## Are there other reasons where `fork` might be preferable to creating a thread.
 

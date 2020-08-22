@@ -89,14 +89,14 @@ If `write` returns -1 then immediately return -1 unless the `errno` is
 `EINTR` - in which case repeat the last `write` attempt.
 and You will need to use pointer arithmetic.
 
-````C
+```C
 // Returns -1 if write fails (unless EINTR in which case it recalls write
 // Repeated calls write until all of the buffer is written.
 ssize_t write_all(int fd, const char *buf, size_t nbyte) {
   ssize_t nb = write(fd, buf, nbyte);
   return nb;
 }
-````
+```
 
 ## Q 2.2 Implement a multithreaded TCP server that listens on port 2000. 
 

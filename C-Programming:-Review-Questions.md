@@ -2,7 +2,7 @@
 # Memory and Strings
 ## Q1.1
 In the example below, which variables are guaranteed to print the value of zero?
-````C
+```C
 int a;
 static int b;
 
@@ -11,10 +11,10 @@ void func() {
    int d;
    printf("%d %d %d %d\n",a,b,c,d);
 }
-````
+```
 ## Q 1.2
 In the example below, which variables are guaranteed to print the value of zero?
-````C
+```C
 void func() {
    int* ptr1 = malloc( sizeof(int) );
    int* ptr2 = realloc(NULL, sizeof(int) );
@@ -23,89 +23,89 @@ void func() {
    
    printf("%d %d %d %d\n",*ptr1,*ptr2,*ptr3,*ptr4);
 }
-````
+```
 ## Q 1.3
 Explain the error in the following attempt to copy a string.
-````C
+```C
 char* copy(char*src) {
  char*result = malloc( strlen(src) ); 
  strcpy(result, src); 
  return result;
 }
-````
+```
 ## Q 1.4
 Why does the following attempt to copy a string sometimes work and sometimes fail?
 
-````C
+```C
 char* copy(char*src) {
  char*result = malloc( strlen(src) +1 ); 
  strcat(result, src); 
  return result;
 }
-````
+```
 ## Q 1.4
 Explain the two errors in the following code that attempts to copy a string.
-````C
+```C
 char* copy(char*src) {
  char result[sizeof(src)]; 
  strcpy(result, src); 
  return result;
 }
-````
+```
 ## Q 1.5
 Which of the following is legal?
-````C
+```C
 char a[] = "Hello"; strcpy(a, "World");
 char b[] = "Hello"; strcpy(b, "World12345", b);
 char* c = "Hello"; strcpy(c, "World");
-````
+```
 
 ## Q 1.6
 Complete the function pointer typedef to declare a pointer to a function that takes a void* argument and returns a void*. Name your type 'pthread_callback'
-````C
+```C
 typedef ______________________;
-````
+```
 ## Q 1.7
 In addition to the function arguments what else is stored on a thread's stack?
 
 ## Q 1.8
 Implement a version of `char* strcat(char*dest, const char*src)` using only `strcpy`  `strlen` and pointer arithmetic
-````C
+```C
 char* mystrcat(char*dest, const char*src) {
 
   ? Use strcpy strlen here
 
   return dest;
 }
-````
+```
 ## Q 1.9
 Implement version of size_t strlen(const char*) using a loop and no function calls.
-````C
+```C
 size_t mystrlen(const char*s) {
 
 }
-````
+```
 ## Q 1.10
 Identify the three bugs in the following implementation of `strcpy`.
-````C
+```C
 char* strcpy(const char* dest, const char* src) {
   while(*src) { *dest++ = *src++; }
   return dest;
 }
-````
+```
 
 
 
 # Printing
 ## Q 2.1
 Spot the two errors!
-````
+```
 fprintf("You scored 100%");
-````
+```
 # Formatting and Printing to a file
 ## Q 3.1
 Complete the following code to print to a file. Print the name, a comma and the score to the file 'result.txt'
-````C
+```C
 char* name = .....;
 int score = ......
 FILE *f = fopen("result.txt",_____);
@@ -113,7 +113,7 @@ if(f) {
     _____
 }
 fclose(f);
-````
+```
 # Printing to a string
 ## Q 4.1
 

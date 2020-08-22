@@ -11,19 +11,36 @@ There are more standard ways of IPC, like pipes! Consider if you type the follow
 $ ls -1 | cut -d'.' -f1 | uniq | sort | tee dir_contents
 ```
 
-What does the following code do (It doesn't really matter so you can skip this if you want)? Well it `ls`'s the current directory (the -1 means that it outputs one entry per line). The `cut` command then takes everything before the first period. Uniq makes sure all the lines are uniq, sort sorts them and tee outputs to a file. 
+What does the following code do (It doesn't really matter so you can skip this if you want)?
+ 
+Well it `ls`'s the current directory (the -1 means that it outputs one entry per line). 
 
-The important part is that bash creates **5 separate processes** and connects their standard outs/stdins with pipes the trail looks something like this.
+The `cut` command then takes everything before the first period. 
 
+Uniq makes sure all the lines are uniq, sort sorts them and tee outputs to a file. 
+
+The important part is that bash creates 
+
+**5 separate processes** and connects their standard outs/stdins with pipes the trail looks something like this.
+
+```text
 (0) ls (1)------>(0) cut (1)------->(0) uniq (1)------>(0) sort (1)------>(0) tee (1)
+```
 
 The numbers in the pipes are the file descriptors for each process and the arrow represents the redirect or where the output of the pipe is going.
 
 ## What is a pipe?
 
+A POSIX pipe is almost like its real counterpart 
+you can stuff bytes down one end and they will appear at the other end in the same order. 
+Unlike real pipes however, 
+the flow is always in the same direction, 
+one file descriptor is used for reading and the other for writing. 
+
 ----
 
-A POSIX pipe is almost like its real counterpart - you can stuff bytes down one end and they will appear at the other end in the same order. Unlike real pipes however, the flow is always in the same direction, one file descriptor is used for reading and the other for writing. The `pipe` system call is used to create a pipe.
+The `pipe` system call is used to create a pipe.
+
 ```C
 int filedes[2];
 pipe (filedes);
@@ -31,17 +48,20 @@ printf("read from %d, write to %d\n", filedes[0], filedes[1]);
 ```
 
 These file descriptors can be used with `read` -
+
 ```C
 // To read...
 char buffer[80];
 int bytesread = read(filedes[0], buffer, sizeof(buffer));
 ```
-And `write` - 
+And `write`
+
 ```C
 write(filedes[1], "Go!", 4);
 ```
 
 ## How can I use pipe to communicate with a child process?
+
 A common method of using pipes is to create the pipe before forking.
 
 ----
@@ -63,6 +83,7 @@ if (child == 0) {
    write(filedes[1], "done", 4);
 }
 ```
+
 ## Can I use pipes inside a single process?
 
 ----
@@ -94,7 +115,11 @@ int main() {
 }
 ```
 
-The problem with using a pipe in this fashion is that writing to a pipe can block i.e. the pipe only has a limited buffering capacity. If the pipe is full the writing process will block! The maximum size of the buffer is system dependent; typical values from  4KB upto 128KB.
+The problem with using a pipe in this fashion is that writing to a pipe can block i.e. 
+
+The pipe only has a limited buffering capacity. If the pipe is full the writing process will block! 
+
+The maximum size of the buffer is system dependent; typical values from  4KB upto 128KB.
 
 ```C
 int main() {

@@ -6,14 +6,14 @@ In-Code Debugging
 
 ## Clean code
 
-Make your code modular using helper functions. If there is a repeated task (getting the pointers to contiguous blocks in the malloc MP, for example), make them helper functions. And make sure each function does one thing very well, so that you don't have to debug twice.
+Make your code modular using helper functions. 
+If there is a repeated task (getting the pointers to contiguous blocks in the malloc MP, for example), make them helper functions. 
+And make sure each function does one thing very well, so that you don't have to debug twice.
 
 Let's say that we are doing selection sort by finding the minimum element each iteration like so,
 
-
 ----
   
-
 ```C
 void selection_sort(int *a, long len){
      for(long i = len-1; i > 0; --i){
@@ -45,7 +45,12 @@ In the end, we are not a class about refactoring/debugging your code. In fact, m
 
 ## Asserts!
 
-Use assertions to make sure your code works up to a certain point -- and importantly, to make sure you don't break it later. For example, if your data structure is a doubly linked list, you can do something like `assert(node->size == node->next->prev->size)` to assert that the next node has a pointer to the current node. You can also check the pointer is pointing to an expected range of memory address, not null, ->size is reasonable etc.
+Use assertions to make sure your code works up to a certain point -- and importantly, 
+to make sure you don't break it later. 
+For example, if your data structure is a doubly linked list, 
+you can do something like `assert(node->size == node->next->prev->size)` to assert that the next node has a pointer to the current node. 
+You can also check the pointer is pointing to an expected range of memory address, not null, ->size is reasonable etc.
+
 The `NDEBUG` macro will disable all assertions, so don't forget to set that once you finish debugging. http://www.cplusplus.com/reference/cassert/assert/
 
 
@@ -65,14 +70,17 @@ This check can be turned off at compile time, but will save you **tons** of trou
 
 ----
 
-When all else fails, print like crazy! Each of your functions should have an idea of what it is going to do (ie find_min better find the minimum element). You want to test that each of your functions is doing what it set out to do and see exactly where your code breaks. In the case with race conditions, tsan may be able to help, but having each thread print out data at certain times could help you identify the race condition.
+When all else fails, print like crazy! 
+Each of your functions should have an idea of what it is going to do (ie find_min better find the minimum element). 
+You want to test that each of your functions is doing what it set out to do and see exactly where your code breaks. 
+In the case with race conditions, tsan may be able to help, but having each thread print out data at certain times could help you identify the race condition.
 
 # Valgrind
 
-
-
-
-Valgrind is a suite of tools designed to provide debugging and profiling tools to make your programs more correct and detect some runtime issues. The most used of these tools is Memcheck, which can detect many memory-related errors that are common in C and C++ programs and that can lead to crashes and unpredictable behaviour (for example, unfreed memory buffers).
+Valgrind is a suite of tools designed to provide debugging and profiling tools 
+to make your programs more correct and detect some runtime issues.
+The most used of these tools is Memcheck, which can detect many memory-related errors that are common in C and C++ programs 
+and that can lead to crashes and unpredictable behaviour (for example, unfreed memory buffers).
 
 ----
 
@@ -152,7 +160,10 @@ For more information, you can refer to the [official website](http://valgrind.or
 
 ## Tsan for debug thread
 
-ThreadSanitizer is a tool from Google, built into clang (and gcc), to help you detect race conditions in your code. For more information about the tool, see the Github wiki.
+ThreadSanitizer is a tool from Google, built into clang (and gcc), 
+to help you detect race conditions in your code. 
+
+For more information about the tool, see the Github wiki.
 
 Note that running with tsan will slow your code down a bit.
 

@@ -2,14 +2,14 @@
 
 ## Q1
 Write a function that uses fseek and ftell to replace the middle character of a file with an 'X'
-````C
+```C
 void xout(char* filename) {
   FILE *f = fopen(filename, ____ );
   
 
 
 }
-````
+```
 ## Q2
 In an `ext2` filesystem how many inodes are read from disk to access the first byte of the file `/dir1/subdirA/notes.txt` ? Assume the directory names and inode numbers in the root directory (but not the inodes themselves) are already in memory.
 
@@ -21,6 +21,6 @@ In an `ext2` filesystem with 32 bit addresses and 4KB disk blocks, an inodes tha
 
 ## Q5
 Fix the shell command `chmod` below to set the permission of a file `secret.txt`  so that the owner can read,write,and execute permissions the group can read and everyone else has no access.
-````
+```
 chmod 000 secret.txt
 ```

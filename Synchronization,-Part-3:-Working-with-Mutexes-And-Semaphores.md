@@ -5,15 +5,32 @@
  ----
  
 To paraphrase Wikipedia, 
-> An operation (or set of operations) is atomic or uninterruptible if it appears to the rest of the system to occur instantaneously.
-Without locks, only simple CPU instructions ("read this byte from memory") are atomic (indivisible). On a single CPU system, one could temporarily disable interrupts (so a sequence of operations cannot be interrupted) but in practice atomicity is achieved by using synchronization primitives, typically a mutex lock.
 
-Incrementing a variable (`i++`) is _not_ atomic because it requires three distinct steps: Copying the bit pattern from memory into the CPU; performing a calculation using the CPU's registers; copying the bit pattern back to memory. During this increment sequence, another thread or process can still read the old value and other writes to the same memory would also be over-written when the increment sequence completes.
+* An operation (or set of operations) is atomic or uninterruptible if it
+ appears to the rest of the system to occur instantaneously.
+* Without locks, only simple CPU instructions ("read this byte from memory
+") are atomic (indivisible). 
+
+* On a single CPU system, one could temporarily disable interrupts (so a sequence of operations cannot be interrupted) 
+but in practice atomicity is achieved by using synchronization primitives, typically a mutex lock.
+
+Incrementing a variable (`i++`) is _not_ atomic because it requires three distinct steps: 
+* Copying the bit pattern from memory into the CPU; 
+* Performing a calculation using the CPU's registers; 
+* Copying the bit pattern back to memory. 
+
+During this increment sequence another thread or process can still read the old value 
+and other writes to the same memory would also be over-written when the increment sequence completes.
 
 
-Why is code below is not thread-safe 
+## Why is code below is not thread-safe 
 
-Note, this is just an introduction - writing high-performance thread-safe data structures requires its own book! Here's a simple data structure (a stack) that is not thread-safe:
+Note, this is just an introduction - writing high-performance thread-safe data structures requires its own book! 
+
+----
+
+Here's a simple data structure (a stack) that is not thread-safe:
+
 ```C
 // A simple fixed-sized stack (version 1)
 #define STACK_SIZE 20
@@ -44,6 +61,7 @@ While `push` (and `pop`) is executing, the datastructure is an inconsistent stat
 ## How do I use mutex lock to make my data-structure thread-safe (version 2)?
 
 A candidate 'solution' is shown below. Is it correct? If not, how will it fail?
+
 ```C
 // An attempt at a thread-safe stack (version 2)
 #define STACK_SIZE 20
@@ -74,13 +92,18 @@ int is_empty() {
 }
 
 ```
+
 ---- 
 
-The above code ('version 2') contains at least one error. Take a moment to see if you can the error(s) and work out the consequence(s).
+The above code ('version 2') contains at least one error. 
+
+Take a moment to see if you can the error(s) and work out the consequence(s).
 
 If three threads called `push()` at the same time the lock `m1` ensures that only one thread at time manipulates the stack (two threads will need to wait until the first thread completes (calls unlock), then a second thread will be allowed to continue into the critical section and finally the third thread will be allowed to continue once the second thread has finished).
 
-A similar argument applies to concurrent calls (calls at the same time) to `pop`. However version 2 does not prevent push and pop from running at the same time because `push` and `pop` use two different mutex locks.
+A similar argument applies to concurrent calls (calls at the same time) to `pop`. 
+
+However version 2 does not prevent push and pop from running at the same time because `push` and `pop` use two different mutex locks.
 
 The fix is simple in this case - use the same mutex lock for both the push and pop functions.
 
@@ -115,16 +138,20 @@ int is_empty() {
 }
 ```
 
-
 ----
 
 Version 3 is thread-safe (we have ensured mutual exclusion for all of the critical sections) however there are two points of note:
+
 * `is_empty` is thread-safe but its result may already be out-of date i.e. the stack may no longer be empty by the time the thread gets the result!
 * There is no protection against underflow (popping on an empty stack) or overflow (pushing onto an already-full stack)
 
 The latter point can be fixed using counting semaphores.
 
-The implementation assumes a single stack.  A more general purpose version might include the mutex as part of the memory struct and use pthread_mutex_init to initialize the mutex. For example,
+The implementation assumes a single stack.  
+
+A more general purpose version might include the mutex as part of the memory struct and use pthread_mutex_init to initialize the mutex.
+ 
+For example,
 
 ```C
 // Support for multiple stacks (each one has a mutex)
@@ -167,7 +194,9 @@ int is_empty(stack_t *s) {
   return result;
 }
 ```
+
 Example use:
+
 ```C
 int main() {
     stack_t *s1 = stack_create(10 /* Max capacity*/);
@@ -183,7 +212,10 @@ int main() {
 
 example 1
 
-Use counting semaphores! Use a counting semaphore to keep track of how many spaces remain and another semaphore to keep to track the number of items in the stack. We will call these two semaphores 'sremain' and 'sitems'. Remember `sem_wait` will wait if the semaphore's count has been decremented to zero (by another thread calling sem_post).
+Use counting semaphores! Use a counting semaphore to keep track of how many spaces remain and
+ another semaphore to keep to track the number of items in the stack. We will call these two semaphores 'sremain' and 'sitems'. 
+ 
+Remember `sem_wait` will wait if the semaphore's count has been decremented to zero (by another thread calling sem_post).
 
 ----
   
@@ -213,7 +245,6 @@ void push(double v) {
 
 Sketch 2
 
-
 ```C
 // Sketch #2 (Error!)
 double pop() {
@@ -233,9 +264,13 @@ void push(double v) {
 
 ----
 
-Sketch #2  has implemented the `post` too early. Another thread waiting in push can erroneously attempt to write into a full stack (and similarly a thread waiting in the pop() is allowed to continue too early).
+Sketch #2  has implemented the `post` too early. 
+
+Another thread waiting in push can erroneously attempt to write into a full stack 
+(and similarly a thread waiting in the pop() is allowed to continue too early).
 
 ## How can I force my threads to wait if the stack is empty or full?
+
 sketch 3  solution 
 
 ```C
@@ -258,12 +293,19 @@ void push(double v) {
 ----
 
 
-sketch 3 correctly enforces buffer full and buffer empty conditions using semaphores. however there is no _mutual exclusion_: two threads can be in the _critical section_ at the same time, which would corrupt the data structure (or least lead to data loss). the fix is to wrap a mutex around the critical section:
+sketch 3 correctly enforces buffer full and buffer empty conditions using semaphores.
+
+However there is no _mutual exclusion_:
+
+two threads can be in the _critical section_ at the same time, which would corrupt the data structure (or least lead to data loss).
+
+The fix is to wrap a mutex around the critical section:
 
 
 ## How can I force my threads to wait if the stack is empty or full?
 
-full  solution 
+Full  solution 
+
 ```c
 double pop() {
   // Wait until there's at least one item
@@ -289,11 +331,15 @@ void push(double v) {
 }
 ```
 
-
-
 ----
 
-sketch 3 correctly enforces buffer full and buffer empty conditions using semaphores. however there is no _mutual exclusion_: two threads can be in the _critical section_ at the same time, which would corrupt the data structure (or least lead to data loss). the fix is to wrap a mutex around the critical section:
+sketch 3 correctly enforces buffer full and buffer empty conditions using semaphores. 
+
+However there is no _mutual exclusion_: two threads can be in the _critical section_ at the same time, 
+
+which would corrupt the data structure (or least lead to data loss). 
+
+The fix is to wrap a mutex around the critical section:
 
 ```C
 // Simple single stack - see above example on how to convert this into a multiple stacks.
@@ -335,7 +381,6 @@ void push(double v) {
 }
 // Note a robust solution will need to check sem_wait's result for EINTR (more about this later)
 ```
-
 
 ## What are the common Mutex Gotchas?
 

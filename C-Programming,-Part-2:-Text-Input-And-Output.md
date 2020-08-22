@@ -4,7 +4,7 @@
 
 ----
 
-Use `printf`. The first parameter is a format string that includes placeholders for the data to be printed. Common format specifiers are `%s` treat the argument as a c string pointer, keep printing all characters until the NULL-character is reached; `%d` print the argument as an integer; `%p` print the argument as a memory address. 
+Use `printf`. The first parameter is a format string that includes placeholders for the data to be printed. Common format specifiers are `%s` treat the argument as a c string pointer, keep printing all characters until the NULL-character is reached; `%d` print the argument as an integer; `%p` print the argument as a memory address.
 
 A simple example is shown below:
 ```C
@@ -28,13 +28,14 @@ Use `puts( name )` and `putchar( c )`  where name is a pointer to a C string and
 ----
 
 Use `fprintf( _file_ , "Hello %s, score: %d", name, score);`
-Where \_file\_ is either predefined 'stdout' 'stderr' or a FILE pointer that was returned by `fopen` or `fdopen`
+Where _file_ is either predefined 'stdout' 'stderr' or a FILE pointer that was returned by `fopen` or `fdopen`
 
 ## Can I use file descriptors?
 
 ----
 
-Yes! Just use `dprintf(int fd, char* format_string, ...);` Just remember the stream may be buffered, so you will need to assure that the data is written to the file descriptor.
+Yes!
+Just use `dprintf(int fd, char* format_string, ...);` Just remember the stream may be buffered, so you will need to assure that the data is written to the file descriptor.
 
 ## How do I print data into a C string?
 
@@ -58,7 +59,9 @@ Source: [this StackOverflow post](https://stackoverflow.com/questions/12746885/w
 
 ----
 
-Use `fflush( FILE* inp )`. The contents of the file will be written. If I wanted to write "Hello World" with no newline, I could write it like this.
+Use `fflush( FILE* inp )`.
+The contents of the file will be written.
+If I wanted to write "Hello World" with no newline, I could write it like this.
 
 ```C
 int main(){
@@ -87,6 +90,7 @@ int main(){
 ## How do I parse numbers from strings?
 
 ----
+
 Use `long int strtol(const char *nptr, char **endptr, int base);` or `long long int strtoll(const char *nptr, char **endptr, int base);`.
 
 What these functions do is take the pointer to your string `*nptr` and a `base` (ie binary, octal, decimal, hexadecimal etc) and an optional pointer `endptr` and returns a parsed value.
@@ -100,7 +104,11 @@ int main(){
 }
 ```
 
-Be careful though! Error handling is tricky because the function won't return an error code. If you give it a string that is not a number it will return 0. This means you cant differentiate between a valid "0" and an invalid string. See the man page for more details on strol behavior with invalid and out of bounds values. A safer alternative is use to `sscanf` (and check the return value).
+Be careful though!
+Error handling is tricky because the function won't return an error code.
+If you give it a string that is not a number it will return 0. This means you cant differentiate between a valid "0" and an invalid string.
+See the man page for more details on strol behavior with invalid and out of bounds values.
+A safer alternative is use to `sscanf` (and check the return value).
 
 ```C
 int main(){
@@ -137,11 +145,14 @@ However, we passed the address of the data pointer, not what the pointer is poin
 ----
 
 The following code assumes the scanf won't read more than 10 characters (including the terminating byte) into the buffer.
+
 ```C
 char buffer[10];
 scanf("%s",buffer);
 ```
+
 You can include an optional integer to specify how many characters EXCLUDING the terminating byte:
+
 ```C
 char buffer[10];
 scanf("%9s", buffer); // reads up to 9 charactes from input (leave room for the 10th byte to be the terminating byte)

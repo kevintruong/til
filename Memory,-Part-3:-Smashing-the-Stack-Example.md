@@ -6,7 +6,7 @@ The precise layout of the stack's contents and order of the automatic variables 
 The example below demonstrates how the return address is stored on the stack. For a particular 32 bit architecture [Live Linux Machine](http://cs-education.github.io/sys/), we determine that the return address is stored at an address two pointers (8 bytes) above the address of the automatic variable. The code deliberately changes the stack value so that when the input function returns, rather than continuing on inside the main method, it jumps to the exploit function instead.
 
 
-````C
+```C
 // Overwrites the return address on the following machine:
 // http://cs-education.github.io/sys/
 #include <stdio.h>
@@ -35,7 +35,7 @@ int main() {
 
     return 0;
 }
-````
+```
 
 There are [a lot](https://en.wikipedia.org/wiki/Stack_buffer_overflow) of ways that computers tend to get around this.
 

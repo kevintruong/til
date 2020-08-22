@@ -1,4 +1,8 @@
 ## How do I send a signal to a process from the shell?
+
+----
+
+
 You already know one way to send a `SIG_INT` just type `CTRL-C` 
 From the shell you can use `kill` (if you know the process id) and `killall` (if you know the process name)
 ```sh
@@ -23,6 +27,9 @@ $ killall -SIGINT myprogram
 $ killall -9 myprogram
 ```
 ## How do I send a signal to a process from the running C program?
+
+----
+
 Use `raise` or `kill`
 ```C
 int raise(int sig); // Send a signal to myself!
@@ -32,6 +39,9 @@ For non-root processes, signals can only be sent to processes of the same user i
  
 
 ## How do I send a signal to a specific thread?
+
+----
+
 Use `pthread_kill`
 ```C
 int pthread_kill(pthread_t thread, int sig)
@@ -46,10 +56,18 @@ pthread_kill(pthread_self(), SIGKILL); // send SIGKILL to myself
 ```
 
 ## Will `pthread_kill(threadid, SIGKILL)` kill the process or thread?
-It will kill the entire process. Though individual threads can set a signal mask, the signal disposition (the table of handlers/action performed for each signal) is *per-proces*s not *per-thread*. This means 
-`sigaction` can be called from any thread because you will be setting a signal handler for all threads in the process.
+
+----
+
+It will kill the entire process.
+Though individual threads can set a signal mask, the signal disposition (the table of handlers/action performed for each signal) is *per-proces*s not *per-thread*. 
+
+This means `sigaction` can be called from any thread because you will be setting a signal handler for all threads in the process.
 
 ## How do I catch (handle) a signal?
+
+----
+
 You can choose a handle pending signals asynchronously or synchronously.
 
 Install a signal handler to asynchronously handle signals use `sigaction` (or, for simple examples, `signal`).

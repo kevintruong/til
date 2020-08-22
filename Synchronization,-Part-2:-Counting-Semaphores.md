@@ -1,17 +1,39 @@
 ## What is a counting semaphore?
-A counting semaphore contains a value[ non negative ]  and supports two operations "wait" and "post". Post increments the semaphore and immediately returns. "wait" will _wait_ if the count is zero. If the count is non-zero the _wait_ call decrements the count and immediately returns.
 
-Why are they names as "wait"& "post"? 
+----
 
-An analogy is a count of the cookies in a cookie jar (or gold coins in the treasure chest). Before taking a cookie, call 'wait'. If there are no cookies left then `wait` will not return: It will `wait` until another thread increments the semaphore by calling post.
+A counting semaphore contains a value[ non negative ]  and supports two operations "wait" and "post". 
 
-In short, `post` increments and immediately returns whereas `wait` will wait if the count is zero. Before returning it will decrement count, meaning, there is one lesser cookie.
+* Post increments the semaphore and immediately returns. 
+* "wait" will _wait_ if the count is zero. If the count is non-zero the _wait_ call decrements the count and immediately returns.
+
+## Why are they names as "wait"& "post"? (A counting semaphore ) 
+
+----
+
+An analogy is a count of the cookies in a cookie jar (or gold coins in the treasure chest). 
+
+Before taking a cookie, call 'wait'. 
+
+If there are no cookies left then `wait` will not return: 
+
+It will `wait` until another thread increments the semaphore by calling post.
+
+In short, `post` increments and immediately returns whereas
+
+ `wait` will wait if the count is zero. 
+ 
+ Before returning it will decrement count, meaning, there is one lesser cookie.
 
 ## How do I create a semaphore?
+
 This page introduces unnamed semaphores. Unfortunately Mac OS X does not support these yet.
 
 First decide if the initial value should be zero or some other value (e.g. the number of remaining spaces in an array).
 Unlike pthread mutex there are not shortcuts to creating a semaphore - use `sem_init`
+
+----
+ 
 ```C
 #include <semaphore.h>
 
@@ -36,6 +58,7 @@ Can there non global semaphores? What would be their use?
 ----
 
 Yes - though the overhead of a semaphore is greater. To use a semaphore:
+
 * Initialize the semaphore with a count of one. [ is the the max value or the initial value? ] 
 * Replace `...lock` with `sem_wait`
 * Replace `...unlock` with `sem_post`
@@ -56,11 +79,12 @@ sem_post(&s);
 
 ## Can I increase the count of the counter in semaphore inside a signal handler?
 
-----
 
 Yes! `sem_post` is one of a handful of functions that can be correctly used inside a signal handler.
 _This means we can release a waiting thread which can now make all of the calls that we were not_
 _allowed to call inside the signal handler itself (e.g. `printf`)._ ??????
+
+----
 
 ```C
 #include <stdio.h>
@@ -96,5 +120,6 @@ int main()
     pthread_exit(NULL); /* Process will exit when there are no more threads */
 }
 ```
-Note robust programs do not use `signal()` in a multi-threaded program ("The effects of signal() in a multithreaded process are unspecified." - the signal man page); a more correct program will need to use `sigaction`.
+Note robust programs do not use `signal()` in a multi-threaded program ("The effects of signal() in a multithreaded process are unspecified." - the signal man page); 
+a more correct program will need to use `sigaction`.
 
