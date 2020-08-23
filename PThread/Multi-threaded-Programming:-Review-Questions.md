@@ -17,11 +17,11 @@ void *format(int v) {
 ```
 ## Q2
 Which one of the following does not cause a process to exit?
-* Returning from the pthread's starting function in the last running thread.
-* The original thread returning from main.
-* Any thread causing a segmentation fault.
-* Any thread calling `exit`.
-* Calling `pthread_exit` in the main thread with other threads still running.
+-Returning from the pthread's starting function in the last running thread.
+-The original thread returning from main.
+-Any thread causing a segmentation fault.
+-Any thread calling `exit`.
+-Calling `pthread_exit` in the main thread with other threads still running.
 
 
 ## Q3 Write a mathematical expression for the number of "W" characters that will be printed by the following program. 

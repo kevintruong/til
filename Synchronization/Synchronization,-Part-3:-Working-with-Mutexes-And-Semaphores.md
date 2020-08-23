@@ -1,23 +1,24 @@
 # Thread Safe Stack
 
-## What is an atomic operation?
- 
- ----
+
+## What is an atomic operation? 
+
+----
  
 To paraphrase Wikipedia, 
 
-* An operation (or set of operations) is atomic or uninterruptible if it
+-An operation (or set of operations) is atomic or uninterruptible if it
  appears to the rest of the system to occur instantaneously.
-* Without locks, only simple CPU instructions ("read this byte from memory
+-Without locks, only simple CPU instructions ("read this byte from memory
 ") are atomic (indivisible). 
 
-* On a single CPU system, one could temporarily disable interrupts (so a sequence of operations cannot be interrupted) 
+-On a single CPU system, one could temporarily disable interrupts (so a sequence of operations cannot be interrupted) 
 but in practice atomicity is achieved by using synchronization primitives, typically a mutex lock.
 
 Incrementing a variable (`i++`) is _not_ atomic because it requires three distinct steps: 
-* Copying the bit pattern from memory into the CPU; 
-* Performing a calculation using the CPU's registers; 
-* Copying the bit pattern back to memory. 
+-Copying the bit pattern from memory into the CPU; 
+-Performing a calculation using the CPU's registers; 
+-Copying the bit pattern back to memory. 
 
 During this increment sequence another thread or process can still read the old value 
 and other writes to the same memory would also be over-written when the increment sequence completes.
@@ -142,8 +143,8 @@ int is_empty() {
 
 Version 3 is thread-safe (we have ensured mutual exclusion for all of the critical sections) however there are two points of note:
 
-* `is_empty` is thread-safe but its result may already be out-of date i.e. the stack may no longer be empty by the time the thread gets the result!
-* There is no protection against underflow (popping on an empty stack) or overflow (pushing onto an already-full stack)
+-`is_empty` is thread-safe but its result may already be out-of date i.e. the stack may no longer be empty by the time the thread gets the result!
+-There is no protection against underflow (popping on an empty stack) or overflow (pushing onto an already-full stack)
 
 The latter point can be fixed using counting semaphores.
 
@@ -386,10 +387,10 @@ void push(double v) {
 
 ----
 
-* Locking/unlocking the wrong mutex (due to a silly typo)
-* Not unlocking a mutex (due to say an early return during an error condition)
-* Resource leak (not calling `pthread_mutex_destroy`)
-* Using an uninitialized mutex (or using a mutex that has already been destroyed)
-* Locking a mutex twice on a thread (without unlocking first)
-* Deadlock and Priority Inversion (we will talk about these later)
-* Assuming the sem_wait, sem_trywait, sem_timedwait succeeded instead of checking return code for EINTR or ETIMEDOUT
+-Locking/unlocking the wrong mutex (due to a silly typo)
+-Not unlocking a mutex (due to say an early return during an error condition)
+-Resource leak (not calling `pthread_mutex_destroy`)
+-Using an uninitialized mutex (or using a mutex that has already been destroyed)
+-Locking a mutex twice on a thread (without unlocking first)
+-Deadlock and Priority Inversion (we will talk about these later)
+-Assuming the sem_wait, sem_trywait, sem_timedwait succeeded instead of checking return code for EINTR or ETIMEDOUT

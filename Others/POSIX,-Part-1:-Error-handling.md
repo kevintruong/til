@@ -6,8 +6,8 @@ In other languages, you may see error handling implemented with exceptions.
 
 Although you technically can use them in C 
 
-* You keep a stack of very try/catch block and use `setjmp` and `longjmp` to go to those blocks, respectively 
-* Error handling in C is typically done with POSIX error handling the code typically looks like this.
+-You keep a stack of very try/catch block and use `setjmp` and `longjmp` to go to those blocks, respectively 
+-Error handling in C is typically done with POSIX error handling the code typically looks like this.
 
 ```C
 int ret = some_system_call()
@@ -173,16 +173,16 @@ From the linux signal 7 man page:
 
 "If a signal handler is invoked while a system call or library function call is blocked, then either:
 
-* the call is automatically restarted after the signal handler returns; or
-* the call fails with the error EINTR.
+-the call is automatically restarted after the signal handler returns; or
+-the call fails with the error EINTR.
 Which of these two behaviors occurs depends on the interface and whether or not the signal handler was established using the SA_RESTART flag (see sigaction(2)). The details vary across UNIX systems; below, the details for Linux.
 
 If a blocked call to one of the following interfaces is interrupted by a signal handler, then the call will be automatically restarted after the signal handler returns if the SA_RESTART flag was used; otherwise the call will fail with the error EINTR:
 
-* read(2), readv(2), write(2), writev(2), and ioctl(2) calls on "slow " devices. A "slow" device is one where the I/O call may block for an indefinite time
+-read(2), readv(2), write(2), writev(2), and ioctl(2) calls on "slow " devices. A "slow" device is one where the I/O call may block for an indefinite time
 for example, a terminal, pipe, or socket. (A disk is not a slow device according to this definition.).
 
-* If an I/O call on a slow device has already transferred some data by the time it is interrupted by a signal handler, 
+-If an I/O call on a slow device has already transferred some data by the time it is interrupted by a signal handler, 
 then the call will return a success status (normally, the number of bytes transferred).
 
 Note, it is easy to believe that setting 'SA_RESTART' flag is sufficient to make this whole problem disappear. 

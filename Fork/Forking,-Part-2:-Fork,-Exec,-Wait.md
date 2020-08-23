@@ -18,10 +18,10 @@ int main() {
 }
 ```
 There's no error checking in the above code (we assume close,open,chdir etc works as expected).
-* open: will use the lowest available file descriptor (i.e. 1) ; so standard out now goes to the log file.
-* chdir : Change the current directory to /usr/include
-* execl : Replace the program image with /bin/ls and call its main() method
-* perror : We don't expect to get here - if we did then exec failed.
+-open: will use the lowest available file descriptor (i.e. 1) ; so standard out now goes to the log file.
+-chdir : Change the current directory to /usr/include
+-execl : Replace the program image with /bin/ls and call its main() method
+-perror : We don't expect to get here - if we did then exec failed.
 
 ## Subtle forkbomb bug
 
@@ -59,10 +59,10 @@ int main(){
 We misspelled `ehco`, so we can't `exec` it. What does this mean? Instead of creating 10 processes we just created 2**10 processes, fork bombing our machine. How could we prevent this? Put an exit right after exec so in case exec fails we won't end up fork bombing our machine.
 
 ## What does the child inherit from the parent?
-* Open file handles. If the parent later seeks, say, to the back to the beginning of the file then this will affect the child too (and vice versa). 
-* Signal handlers
-* Current working directory
-* Environment variables
+-Open file handles. If the parent later seeks, say, to the back to the beginning of the file then this will affect the child too (and vice versa). 
+-Signal handlers
+-Current working directory
+-Environment variables
 
 See the [fork man page](http://linux.die.net/man/2/fork) for more details.
 
@@ -137,8 +137,8 @@ int main() {
 ```
 
 The above example however misses a couple of subtle points:
-* More than one child may have finished but the parent will only get one SIGCHLD signal (signals are not queued)
-* SIGCHLD signals can be sent for other reasons (e.g. a child process is temporarily stopped)
+-More than one child may have finished but the parent will only get one SIGCHLD signal (signals are not queued)
+-SIGCHLD signals can be sent for other reasons (e.g. a child process is temporarily stopped)
 
 A more robust code to reap zombies is shown below.
 ```C

@@ -66,7 +66,7 @@ The code does not stop two threads from reading-writing `sum` at the same time.
 For example both threads copy the current value of `sum` into CPU that runs each thread (let's pick 123). 
 Both threads increment one to their own copy. Both threads write back the value (124). 
 If the threads had accessed the sum at different times then the count would have been 125.
-* Can we provide an upper bound  and a lower bound on the output of the above program?
+-Can we provide an upper bound  and a lower bound on the output of the above program?
 
 ## How do I ensure only one thread at a time can access a global variable?
 
@@ -90,8 +90,8 @@ pthread_mutex_unlock(&m); // end of Critical Section
 Once we are finished with the mutex we should also call `pthread_mutex_destroy(&m)` too.
 Note:
 
-* You can only destroy an unlocked mutex._ Calling destroy on a destroyed lock
-* Initializing an initialized lock, locking an already locked lock, unlocking an unlocked lock etc are unsupported (at least for default mutexes) 
+-You can only destroy an unlocked mutex._ Calling destroy on a destroyed lock
+-Initializing an initialized lock, locking an already locked lock, unlocking an unlocked lock etc are unsupported (at least for default mutexes) 
 and usually result in undefined behavior.
 
 ## If I lock a mutex, does it stop all other threads?
@@ -122,9 +122,9 @@ pthread_mutex_destroy(lock);
 free(lock);
 ```
 Things to keep in mind about `init` and `destroy`:
-* Multiple threads doing init/destroy has undefined behavior
-* Destroying a locked mutex has undefined behavior
-* Basically try to keep to the pattern of one thread initializing a mutex and one and only one thread destroying a mutex.
+-Multiple threads doing init/destroy has undefined behavior
+-Destroying a locked mutex has undefined behavior
+-Basically try to keep to the pattern of one thread initializing a mutex and one and only one thread destroying a mutex.
 
 ## So `pthread_mutex_lock` stops the other threads when they read the same variable?
 

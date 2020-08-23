@@ -109,7 +109,7 @@ void freeaddrinfo(struct addrinfo *ai);
 
 No. Error handling with `getaddrinfo` is a little different:
 *  The return value _is_ the error code (i.e. don't use `errno`)
-* Use `gai_strerror` to get the equivalent short English error text:
+-Use `gai_strerror` to get the equivalent short English error text:
 
 ```C
 int result = getaddrinfo(...);

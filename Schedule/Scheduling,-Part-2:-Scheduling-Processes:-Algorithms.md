@@ -18,11 +18,11 @@ Process 5: Runtime 5000ms
 
 ![](http://i.imgur.com/jGLvjqT.png)
 
-* P1 Arrival: 0ms
-* P2 Arrival: 0ms
-* P3 Arrival: 0ms
-* P4 Arrival: 0ms
-* P5 Arrival: 0ms
+-P1 Arrival: 0ms
+-P2 Arrival: 0ms
+-P3 Arrival: 0ms
+-P4 Arrival: 0ms
+-P5 Arrival: 0ms
 
 The processes all arrive at the start and the scheduler schedules the job with the shortest total CPU time. 
 
@@ -35,10 +35,10 @@ The expected burst time can be estimated by using an exponentially decaying weig
 but for this exposition we will simplify this discussion to use the total running time of the process as a proxy for the burst time.
 
 **Advantages**
-* Shorter jobs tend to get run first
+-Shorter jobs tend to get run first
 
 **Disadvantages**
-* Needs algorithm to be omniscient
+-Needs algorithm to be omniscient
 
 ## Preemptive Shortest Job First (PSJF)
 
@@ -72,18 +72,18 @@ Then P4 runs, then P5 runs.
 
 ----
 
-* P2 at 0ms
-* P1 at 1000ms
-* P5 at 3000ms
-* P4 at 4000ms
-* P3 at 5000ms
+-P2 at 0ms
+-P1 at 1000ms
+-P5 at 3000ms
+-P4 at 4000ms
+-P3 at 5000ms
 
 
 **Advantages**
-* Ensures shorter jobs get run first
+-Ensures shorter jobs get run first
 
 **Disadvantages**
-* Need to know the runtime again
+-Need to know the runtime again
 
 ## First Come First Served (FCFS) Scheduler
 
@@ -102,11 +102,11 @@ Process 5: Runtime 5000ms
 
 ![](http://i.imgur.com/lcMpUZz.png)
 
-* P2 at 0ms
-* P1 at 1000ms
-* P5 at 3000ms
-* P4 at 4000ms
-* P3 at 5000ms
+-P2 at 0ms
+-P1 at 1000ms
+-P5 at 3000ms
+-P4 at 4000ms
+-P3 at 5000ms
 
 
 Processes are scheduled in the order of arrival. 
@@ -119,10 +119,10 @@ FCFS suffers from the Convoy effect.
 Here P2 Arrives, then P1 arrives, then P5, then P4, then P3. You can see the convoy effect for P5.
 
 **Advantages**
-* Simple implementation
+-Simple implementation
 
 **Disadvantages**
-* Long running processes could block all other processes
+-Long running processes could block all other processes
 
 ## Round Robin (RR)
 
@@ -150,11 +150,11 @@ In the limit of large time quanta (where the time quanta is longer than the runn
 
 ----
 
-* P1 Arrival: 0ms
-* P2 Arrival: 0ms
-* P3 Arrival: 0ms
-* P4 Arrival: 0ms
-* P5 Arrival: 0ms
+-P1 Arrival: 0ms
+-P2 Arrival: 0ms
+-P3 Arrival: 0ms
+-P4 Arrival: 0ms
+-P5 Arrival: 0ms
 
 Quantum = 1000ms
 
@@ -165,10 +165,10 @@ P2 for one quantum; then, it is stopped for P3.
 After all other processes run for a quantum we cycle back to P2 until all the processes are finished.
 
 **Advantages**
-* Ensures some notion of fairness
+-Ensures some notion of fairness
 
 **Disadvantages**
-* Large number of processes = Lots of switching
+-Large number of processes = Lots of switching
 
 ## Priority
 

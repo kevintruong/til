@@ -183,9 +183,9 @@ Note: The algorithm isn't actually O(N) because of how the system scheduler work
 
 ## What is different in the child process than the parent process?
 The key differences include:
-* The process id returned by `getpid()`. The parent process id returned by `getppid()`.
-* The parent is notified via a signal, SIGCHLD, when the child process finishes but not vice versa.
-* The child does not inherit pending signals or timer alarms.
+-The process id returned by `getpid()`. The parent process id returned by `getppid()`.
+-The parent is notified via a signal, SIGCHLD, when the child process finishes but not vice versa.
+-The child does not inherit pending signals or timer alarms.
 For a complete list see the [fork man page](http://man7.org/linux/man-pages/man2/fork.2.html)
 
 # Do child processes share open filehandles?
@@ -195,9 +195,9 @@ Both child and parent should `close` (or `fclose`) their file descriptors or fil
 
 ## How can I find out more?
 Read the man pages!
-* [fork](http://man7.org/linux/man-pages/man2/fork.2.html)
-* [exec](http://man7.org/linux/man-pages/man3/exec.3.html)
-* [wait](http://man7.org/linux/man-pages/man2/wait.2.html)
+-[fork](http://man7.org/linux/man-pages/man2/fork.2.html)
+-[exec](http://man7.org/linux/man-pages/man3/exec.3.html)
+-[wait](http://man7.org/linux/man-pages/man2/wait.2.html)
 
 <div align="center">
 <a href="https://github.com/angrave/SystemProgramming/wiki/Processes,-Part-1:-Introduction">

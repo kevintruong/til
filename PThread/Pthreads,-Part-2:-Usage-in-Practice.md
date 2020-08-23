@@ -6,8 +6,8 @@
 
 Your process will contain three stacks - one for each thread. 
 
-* The first thread is created when the process starts, and you created two more. 
-* Actually there can be more stacks than this, but let's ignore that complication for now. 
+-The first thread is created when the process starts, and you created two more. 
+-Actually there can be more stacks than this, but let's ignore that complication for now. 
 
 The important idea is that each thread requires a stack because the stack contains automatic variables and the old CPU PC register, 
 so that it can back to executing the calling function after the function is finished.
@@ -22,7 +22,7 @@ In addition, unlike processes, threads within the same process can share the sam
 
 ----
 
-* Stops a thread. Note the thread may not actually be stopped immediately. 
+-Stops a thread. Note the thread may not actually be stopped immediately. 
 
 For example it can be terminated when the thread makes an operating system call (e.g. `write`).
 
@@ -37,11 +37,11 @@ An alternative implementation is to use a boolean (int) variable whose value is 
 `exit(42)` exits the entire process and sets the processes exit value.  
 This is equivalent to `return 42` in the main method. All threads inside the process are stopped.
 
-* `pthread_exit(void *)` only stops the calling thread i.e. the thread never returns after calling `pthread_exit`. 
+-`pthread_exit(void *)` only stops the calling thread i.e. the thread never returns after calling `pthread_exit`. 
 
-* The pthread library will automatically finish the process if there are no other threads running. 
+-The pthread library will automatically finish the process if there are no other threads running. 
 
-* `pthread_exit(...)` is equivalent to returning from the thread's function; 
+-`pthread_exit(...)` is equivalent to returning from the thread's function; 
 both finish the thread and also set the return value (void *pointer) for the thread.
 
 Calling `pthread_exit` in the the `main` thread is a common way for simple programs to ensure that all threads finish. 
@@ -91,18 +91,18 @@ however this is not a long-running processes, so we don't care.
 
 ----
 
-* Returning from the thread function
-* Calling `pthread_exit`
-* Cancelling the thread with `pthread_cancel`
-* Terminating the process (e.g. SIGTERM); exit(); returning from `main`
+-Returning from the thread function
+-Calling `pthread_exit`
+-Cancelling the thread with `pthread_cancel`
+-Terminating the process (e.g. SIGTERM); exit(); returning from `main`
 
 ## What is the purpose of pthread_join?
 
 ----
 
-* Wait for a thread to finish
-* Clean up thread resources
-* Grabs the return value of the thread
+-Wait for a thread to finish
+-Clean up thread resources
+-Grabs the return value of the thread
 
 ## What happens if you don't call `pthread_join`?
 
@@ -184,7 +184,7 @@ int main() {
 ----
 
 The above code suffers from a `race condition` 
-* the value of i is changing. The new threads start later (in the example
+-the value of i is changing. The new threads start later (in the example
  output the last thread starts after the loop has finished).
 
 To overcome this race-condition,
@@ -322,7 +322,7 @@ Advanced users may find `pthread_atfork` useful however we suggest you usually t
 ----
 
 Creating separate processes is useful 
-* When more security is desired (for example, Chrome browser uses different processes for different tabs)
-* When running an existing and complete program then a new process is required (e.g. starting 'gcc')
-* When you are running into synchronization primitives and each process is operating on something in the system
+-When more security is desired (for example, Chrome browser uses different processes for different tabs)
+-When running an existing and complete program then a new process is required (e.g. starting 'gcc')
+-When you are running into synchronization primitives and each process is operating on something in the system
  

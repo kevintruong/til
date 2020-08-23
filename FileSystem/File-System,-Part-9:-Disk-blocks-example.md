@@ -1,6 +1,6 @@
 ## Under construction
 
-## Please can you explain a simple model of how the file's content is stored in a simple i-node based filesystem?
+## lease can you explain a simple model of how the file's content is stored in a simple i-node based filesystem?
 
 Sure! To answer this question, we'll build a virtual disk and then write some C code to access its contents. Our filesystem will divide the bytes available into space for inodes and a much larger space for disk blocks. Each disk block will be 4096 bytes- 
 
@@ -17,7 +17,9 @@ struct inode[MAX_INODE] inodes;
 block[MAX_BLOCK] blocks;
 ```
 
-Note for clarity we will not use 'unsigned' in this code example. Our fixed-sized inodes will contain the file's size in bytes, permission, user, group information, time meta-data. What is most relevant to the problem-at hand is that it will also include ten pointers to disk blocks that we will use to refer to the actual file's contents!
+Note for clarity we will not use 'unsigned' in this code example. 
+Our fixed-sized inodes will contain the file's size in bytes, permission, user, group information, time meta-data.
+What is most relevant to the problem-at hand is that it will also include ten pointers to disk blocks that we will use to refer to the actual file's contents!
 
 ```C
 struct inode {

@@ -247,8 +247,8 @@ that pipe write is not atomic -- be careful about that!
 ----
 
 Unnamed pipes (the kind we've seen up to this point):
-* live in memory (do not take up any disk space) 
-* are a simple and efficient form of inter-process communication (IPC) 
+-live in memory (do not take up any disk space) 
+-are a simple and efficient form of inter-process communication (IPC) 
 
 that is useful for streaming data and simple messages. 
 

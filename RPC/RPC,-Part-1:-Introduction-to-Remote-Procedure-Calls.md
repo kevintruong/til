@@ -68,10 +68,10 @@ The server stub code will receive the request, unmarshall the request into a val
 To implement RPC you need to decide (and document) which conventions you will use to serialize the data into a byte sequence. 
 Even a simple integer has several common choices:
 
-* Signed or unsigned?
-* ASCII
-* Fixed number of bytes or variable depending on magnitude
-* Little or Big endian binary format?
+-Signed or unsigned?
+-ASCII
+-Fixed number of bytes or variable depending on magnitude
+-Little or Big endian binary format?
 
 ----
 

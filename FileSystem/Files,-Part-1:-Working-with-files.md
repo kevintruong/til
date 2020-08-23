@@ -1,20 +1,20 @@
 ## Two types of files
 
 On linux, there are two abstractions with files. The first is the linux `fd` level abstraction that means you can use
-* `open`
-* `read`
-* `write`
-* `close`
-* `lseek`
-* `fcntl`
+-`open`
+-`read`
+-`write`
+-`close`
+-`lseek`
+-`fcntl`
 ...
 
 And so on. The linux interface is very powerful and expressive, but sometimes we need portability (for example if we are writing for a mac or windows). This is where C's abstraction comes into play. On different operating systems, C uses the low level functions to create a wrapper around files you can use everywhere, meaning that C on linux uses the above calls. C has a few of the following
-* `fopen`
-* `fread` or `fgetc/fgets` or `fscanf`
-* `fwrite` or `fprintf`
-* `fclose`
-* `fflush`
+-`fopen`
+-`fread` or `fgetc/fgets` or `fscanf`
+-`fwrite` or `fprintf`
+-`fclose`
+-`fflush`
 
 But you don't get the expressiveness that linux gives you with system calls you can convert back and forth between them with `int fileno(FILE* stream)` and `FILE* fdopen(int fd...)`.
 

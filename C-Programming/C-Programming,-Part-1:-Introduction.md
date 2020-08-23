@@ -1,18 +1,18 @@
 # Want a quick introduction to C?
-* Keep reading for the quick crash-course to C Programming below
-* Then see the [[C Gotchas wiki page|C Programming, Part 3: Common Gotchas]].
-* And learn about [[text I/O|C Programming, Part 2: Text Input And Output]].
-* Kick back relax with [Lawrence's intro videos](http://cs-education.github.io/sys/#) (Also there is a virtual machine-in-a-browser you can play with!)
+Keep reading for the quick crash-course to C Programming below
+Then see the [[C Gotchas wiki page|C Programming, Part 3: Common Gotchas]].
+And learn about [[text I/O|C Programming, Part 2: Text Input And Output]].
+Kick back relax with [Lawrence's intro videos](http://cs-education.github.io/sys/#) (Also there is a virtual machine-in-a-browser you can play with!)
 
 # External resources
-* [Learn X in Y](https://learnxinyminutes.com/docs/c/) (Highly recommended to skim through!)
-* [C for C++/Java Programmers](http://www.ccs.neu.edu/course/com3620/parent/C-for-Java-C++/c-for-c++-alt.html)
-* [C Tutorial by Brian Kernighan](http://www.lysator.liu.se/c/bwk-tutor.html)
-* [c faq](http://c-faq.com/)
-* [C Bootcamp](http://gribblelab.org/CBootCamp/index.html)
-* [C/C++ function reference](http://www.cplusplus.com/reference/clibrary/)
-* [gdb (Gnu debugger) tutorial](http://www.unknownroad.com/rtfm/gdbtut/gdbtoc.html) Tip: run gdb with the "-tui" command line argument to get a full-screen version of the debugger.
-* Add your favorite resources here
+[Learn X in Y](https://learnxinyminutes.com/docs/c/) (Highly recommended to skim through!)
+[C for C++/Java Programmers](http://www.ccs.neu.edu/course/com3620/parent/C-for-Java-C++/c-for-c++-alt.html)
+[C Tutorial by Brian Kernighan](http://www.lysator.liu.se/c/bwk-tutor.html)
+[c faq](http://c-faq.com/)
+[C Bootcamp](http://gribblelab.org/CBootCamp/index.html)
+[C/C++ function reference](http://www.cplusplus.com/reference/clibrary/)
+[gdb (Gnu debugger) tutorial](http://www.unknownroad.com/rtfm/gdbtut/gdbtoc.html) Tip: run gdb with the "-tui" command line argument to get a full-screen version of the debugger.
+Add your favorite resources here
 
 
 ## How do you write a complete hello world program in C?

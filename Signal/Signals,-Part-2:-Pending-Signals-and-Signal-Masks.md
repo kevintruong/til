@@ -16,23 +16,32 @@ man -s7 signal
 
 ----
 
-* Generated - The signal is being created in the kernel by the kill system call.
-* Pending - Not delivered yet but soon to be delivered
-* Blocked - Not delivered because no signal disposition lets the signal be delivered
-* Delivered - Delivered to the process, the action described is being taken
-* Caught - When the process stops a signal from destroying it and does something else with it instead
+Generated - The signal is being created in the kernel by the kill system call.
+Pending - Not delivered yet but soon to be delivered
+Blocked - Not delivered because no signal disposition lets the signal be delivered
+Delivered - Delivered to the process, the action described is being taken
+Caught - When the process stops a signal from destroying it and does something else with it instead
 
 ## What is a process's signal disposition?
 
+
+For each process, each signal has a disposition which means what action will occur when 
+a signal is delivered to the process.
+ 
 ----
 
-For each process, each signal has a disposition which means what action will occur when a signal is delivered to the process.
- 
 For example, the default disposition SIGINT is to terminate it. 
-The signal disposition can be changed by calling signal() (which is simple but not portable as there are subtle variations in its implementation on different POSIX architectures and also not recommended for multi-threaded programs) or `sigaction` (discussed later). 
-You can imagine the processes' disposition to all possible signals as a table of function pointers entries (one for each possible signal).
+The signal disposition can be changed by calling signal() 
+(which is simple but not portable as there are subtle variations in its implementation on different POSIX architectures and 
+also not recommended for multi-threaded programs) or `sigaction` (discussed later). 
+You can imagine the processes' disposition to all possible signals as 
+a table of function pointers entries (one for each possible signal).
 
-The default disposition for signals can be to ignore the signal, stop the process, continue a stopped process, terminate the process, or terminate the process and also dump a 'core' file. Note a core file is a representation of the processes' memory state that can be inspected using a debugger.
+The default disposition for signals can be to ignore the signal, 
+stop the process, continue a stopped process, terminate the process, 
+or terminate the process and also dump a 'core' file. 
+
+Note a core file is a representation of the processes' memory state that can be inspected using a debugger.
 
 ## Can multiple signals be queued?
 
@@ -53,7 +62,8 @@ For example SIGINT and SIGTERM signals may be pending (i.e. not yet delivered to
 
 ----
 
-Signals can be blocked (meaning they will stay in the pending state) by setting the process signal mask or, when you are writing a multi-threaded program, the thread signal mask.
+Signals can be blocked (meaning they will stay in the pending state) by setting the process signal mask or, 
+when you are writing a multi-threaded program, the thread signal mask.
 
 ## What happens with signals when creating a new thread?
 
@@ -71,7 +81,8 @@ pthread_create( ... ); // new thread will start with a copy of the same mask
 
 The child process inherits a copy of the parent's signal dispositions. 
 
-In other words, if you have installed a SIGINT handler before forking, then the child process will also call the handler if a SIGINT is delivered to the child.
+In other words, if you have installed a SIGINT handler before forking,
+ then the child process will also call the handler if a SIGINT is delivered to the child.
 
 Note pending signals for the child are _not_ inherited during forking.
 
@@ -96,7 +107,9 @@ Pending signals however are not inherited by the child.
 
 ----
 
-Use `sigprocmask`! With sigprocmask you can set the new mask, add new signals to be blocked to the process mask, and unblock currently blocked signals. You can also determine the existing mask (and use it for later) by passing in a non-null value for oldset.
+Use `sigprocmask`! With sigprocmask you can set the new mask, add new signals to be blocked to the process mask,
+and unblock currently blocked signals. You can also determine the existing mask (and use it for later) 
+by passing in a non-null value for oldset.
 
 ```
 int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);`
@@ -105,11 +118,12 @@ int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);`
 From the Linux man page of sigprocmask,
 ```
 SIG_BLOCK: The set of blocked signals is the union of the current set and the set argument.
-SIG_UNBLOCK: The signals in set are removed from the current set of blocked signals. It is permissible to attempt to unblock a signal which is not blocked.
+SIG_UNBLOCK: The signals in set are removed from the current set of blocked signals. 
+It is permissible to attempt to unblock a signal which is not blocked.
 SIG_SETMASK: The set of blocked signals is set to the argument set.
-
 ```
-The sigset type behaves as a bitmap, except functions are used rather than explicitly setting and unsetting bits using & and |. 
+The sigset type behaves as a bitmap, 
+except functions are used rather than explicitly setting and unsetting bits using `&` and `|`. 
 
 It is a common error to forget to initialize the signal set before modifying one bit. For example,
 ```C
@@ -132,10 +146,13 @@ sigprocmask(SIG_SETMASK, &set, NULL); // set the mask to be empty again
 ----
 
 Blocking signals is similar in multi-threaded programs to single-threaded programs:
-* Use pthread_sigmask instead of sigprocmask
-* Block a signal in all threads to prevent its asynchronous delivery
 
-The easiest method to ensure a signal is blocked in all threads is to set the signal mask in the main thread before new threads are created
+Use pthread_sigmask instead of sigprocmask
+
+Block a signal in all threads to prevent its asynchronous delivery
+
+The easiest method to ensure a signal is blocked in all threads is to set the signal mask in the main thread 
+before new threads are created
 
 ```C
 sigemptyset(&set);
@@ -147,7 +164,9 @@ pthread_sigmask(SIG_BLOCK, &set, NULL);
 pthread_create(&thread_id, NULL, myfunc, funcparam);
 ```
 
-Just as we saw with sigprocmask, pthread_sigmask includes a 'how' parameter that defines how the signal set is to be used:
+Just as we saw with sigprocmask, 
+pthread_sigmask includes a how parameter that defines how the signal set is to be used:
+
 ```C
 pthread_sigmask(SIG_SETMASK, &set, NULL); // replace the thread's mask with given signal set
 pthread_sigmask(SIG_BLOCK, &set, NULL);   // add the signal set to the thread's mask

@@ -1,18 +1,26 @@
 ## How and why do I use `sigaction` ?
 
-
 ----
 
-You should use `sigaction` instead of `signal` because it has better defined semantics. `signal` on different operating system does different things which is **bad**. `sigaction` is more portable and is better defined for threads if need be.
+You should use `sigaction` instead of `signal` because it has better defined semantics.
 
-To change the "signal disposition" of a process - i.e. what happens when a signal is delivered to your process - use `sigaction`
+-`signal` on different operating system does different things which is **bad**. 
+-`sigaction` is more portable and is better defined for threads if need be.
 
-You can use system call `sigaction` to set the current handler for a signal or read the current signal handler for a particular signal.
+To change the "signal disposition" of a process 
+
+i.e. what happens when a signal is delivered to your process - use `sigaction`
+
+You can use system call `sigaction` to set the current handler for a signal or 
+read the current signal handler for a particular signal.
 
 ```C
 int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);
 ```
-The sigaction struct includes two callback functions (we will only look at the 'handler' version), a signal mask and a flags field -
+
+The sigaction struct includes two callback functions (we will only look at the 'handler' version),
+ a signal mask and a flags field 
+ 
 ```C
 struct sigaction {
     void     (*sa_handler)(int);
@@ -25,12 +33,12 @@ struct sigaction {
 ## How do I convert a `signal` call into the equivalent `sigaction` call?
 
 
-----
-
 Suppose you installed a signal handler for the alarm signal,
 ```C
 signal(SIGALRM, myhandler);
 ```
+
+----
 
 The equivalent `sigaction` code is:
 
@@ -44,7 +52,10 @@ sigaction(SIGALRM, &sa, NULL)
 
 However, we typically may also set the mask and the flags field. 
 The mask is a temporary signal mask used during the signal handler execution. 
-The SA_RESTART flag will automatically restart some (but not all) system calls that otherwise would have returned early (with EINTR error). The latter means we can simplify the rest of code somewhat because a restart loop may no longer be required.
+
+The SA_RESTART flag will automatically restart some (but not all) system calls that 
+otherwise would have returned early (with EINTR error). 
+The latter means we can simplify the rest of code somewhat because a restart loop may no longer be required.
 
 ```C
 sigfillset(&sa.sa_mask);
@@ -53,11 +64,10 @@ sa.sa_flags = SA_RESTART; /* Restart functions if  interrupted by handler */
 
 ## How do I use sigwait?
 
-
-----
-
 Sigwait can be used to read one pending signal at a time. `sigwait` is used to synchronously wait for signals, 
 rather than handle them in a callback. 
+
+----
 
 A typical use of sigwait in a multi-threaded program is shown below.
 Notice that the thread signal mask is set first (and will be inherited by new threads). 

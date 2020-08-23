@@ -54,10 +54,10 @@ Since none of the elements depend on any other element, how would you go about p
 ----
 
 There are a few ways to split up the work.
-* static scheduling: break up the problems into fixed size chunks (predetermined) and have each thread work on each of the chunks. This works well when each of the subproblems take roughly the same time because there is no additional overhead. All you need to do is write a loop and give the map function to each subarray.
-* dynamic scheduling: as a new problem becomes available have a thread serve it. This is useful when you don't know how long the scheduling will take
-* guided scheduling: This is a mix of the above with a mix of the benefits and the tradeoffs. You start with a static scheduling and move slowly to dynamic if needed
-* runtime scheduling: You have absolutely no idea how long the problems are going to take. Instead of deciding it yourself, let the program decide what to do!
+static scheduling: break up the problems into fixed size chunks (predetermined) and have each thread work on each of the chunks. This works well when each of the subproblems take roughly the same time because there is no additional overhead. All you need to do is write a loop and give the map function to each subarray.
+-dynamic scheduling: as a new problem becomes available have a thread serve it. This is useful when you don't know how long the scheduling will take
+-guided scheduling: This is a mix of the above with a mix of the benefits and the tradeoffs. You start with a static scheduling and move slowly to dynamic if needed
+-runtime scheduling: You have absolutely no idea how long the problems are going to take. Instead of deciding it yourself, let the program decide what to do!
 
 [source](https://software.intel.com/en-us/articles/openmp-loop-scheduling), but no need to memorize.
 
@@ -73,17 +73,17 @@ You won't see the speedup right away because of things like cache coherency and 
 ----
 
 From [Wikipedia](https://en.wikipedia.org/wiki/Embarrassingly_parallel)
-* Serving static files on a webserver to multiple users at once.
-* The Mandelbrot set, Perlin noise and similar images, where each point is calculated independently.
-* Rendering of computer graphics. In computer animation, each frame may be rendered independently (see parallel rendering).
-* Brute-force searches in cryptography.[8] Notable real-world examples include distributed.net and proof-of-work systems used in cryptocurrency.
-* BLAST searches in bioinformatics for multiple queries (but not for individual large queries) [9]
-* Large scale facial recognition systems that compare thousands of arbitrary acquired faces (e.g., a security or surveillance video via closed-circuit television) with similarly large number of previously stored faces (e.g., a rogues gallery or similar watch list).[10]
-* Computer simulations comparing many independent scenarios, such as climate models.
-* Evolutionary computation metaheuristics such as genetic algorithms.
-* Ensemble calculations of numerical weather prediction.
-* Event simulation and reconstruction in particle physics.
-* The marching squares algorithm
-* Sieving step of the quadratic sieve and the number field sieve.
-* Tree growth step of the random forest machine learning technique.
-* Discrete Fourier Transform where each harmonic is independently calculated.
+-Serving static files on a webserver to multiple users at once.
+-The Mandelbrot set, Perlin noise and similar images, where each point is calculated independently.
+-Rendering of computer graphics. In computer animation, each frame may be rendered independently (see parallel rendering).
+-Brute-force searches in cryptography.[8] Notable real-world examples include distributed.net and proof-of-work systems used in cryptocurrency.
+-BLAST searches in bioinformatics for multiple queries (but not for individual large queries) [9]
+-Large scale facial recognition systems that compare thousands of arbitrary acquired faces (e.g., a security or surveillance video via closed-circuit television) with similarly large number of previously stored faces (e.g., a rogues gallery or similar watch list).[10]
+-Computer simulations comparing many independent scenarios, such as climate models.
+-Evolutionary computation metaheuristics such as genetic algorithms.
+-Ensemble calculations of numerical weather prediction.
+-Event simulation and reconstruction in particle physics.
+-The marching squares algorithm
+-Sieving step of the quadratic sieve and the number field sieve.
+-Tree growth step of the random forest machine learning technique.
+-Discrete Fourier Transform where each harmonic is independently calculated.

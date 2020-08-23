@@ -134,9 +134,9 @@ if no other thread is currently in the critical section.
 ----
 
 There are three main desirable properties that we desire in a solution the critical section problem
-* Mutual Exclusion - the thread/process gets exclusive access; others must wait until it exits the critical section.
-* Bounded Wait - if the thread/process has to wait, then it should only have to wait for a finite,  amount of time (infinite waiting times are not allowed!). The exact definition of bounded wait is that there is an upper (non-infinite) bound on the number of times any other process can enter its critical section before the given process enters.
-* Progress - if no thread/process is inside the critical section, then the thread/process should be able to proceed (make progress) without having to wait.
+-Mutual Exclusion - the thread/process gets exclusive access; others must wait until it exits the critical section.
+-Bounded Wait - if the thread/process has to wait, then it should only have to wait for a finite,  amount of time (infinite waiting times are not allowed!). The exact definition of bounded wait is that there is an upper (non-infinite) bound on the number of times any other process can enter its critical section before the given process enters.
+-Progress - if no thread/process is inside the critical section, then the thread/process should be able to proceed (make progress) without having to wait.
 
 
 With these ideas in mind let's examine another candidate solution that uses a turn-based flag only if two threads both required access at the same time.
@@ -400,8 +400,8 @@ What does the _weak_ part mean?
 Well atomic instructions are also prone to **spurious failures** meaning that 
 there are two versions to these atomic functions a _strong_ and a _weak_ part, 
 
-* Strong guarantee the success 
-* Failure while weak may fail. 
+-Strong guarantee the success 
+-Failure while weak may fail. 
 
 We are using weak because weak is faster and we are in a loop! 
 That means we are okay if it fails a little bit more often because we will just keep spinning around anyway.

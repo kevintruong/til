@@ -1,11 +1,13 @@
+# Counting semaphores 
+
 ## What is a counting semaphore?
 
 ----
 
 A counting semaphore contains a value[ non negative ]  and supports two operations "wait" and "post". 
 
-* Post increments the semaphore and immediately returns. 
-* "wait" will _wait_ if the count is zero. If the count is non-zero the _wait_ call decrements the count and immediately returns.
+-Post increments the semaphore and immediately returns. 
+-"wait" will _wait_ if the count is zero. If the count is non-zero the _wait_ call decrements the count and immediately returns.
 
 ## Why are they names as "wait"& "post"? (A counting semaphore ) 
 
@@ -59,9 +61,9 @@ Can there non global semaphores? What would be their use?
 
 Yes - though the overhead of a semaphore is greater. To use a semaphore:
 
-* Initialize the semaphore with a count of one. [ is the the max value or the initial value? ] 
-* Replace `...lock` with `sem_wait`
-* Replace `...unlock` with `sem_post`
+-Initialize the semaphore with a count of one. [ is the the max value or the initial value? ] 
+-Replace `...lock` with `sem_wait`
+-Replace `...unlock` with `sem_post`
 
 Why should the overhead of semaphore operations be higher? 
 

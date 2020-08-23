@@ -79,10 +79,10 @@ void *dequeue(){
 ## Analysis
 Before reading on, see how many mistakes you can find. Then determine what would happen if threads called the enqueue and dequeue methods.
 
-* The enqueue method waits and posts on the same semaphore (s1) and similarly with equeue and (s2) i.e. we decrement the value and then immediately increment the value, so by the end of the function the semaphore value is unchanged! 
-* The initial value of s1 is 16, so the semaphore will never be reduced to zero - enqueue will not block if the ring buffer is full - so overflow is possible.
-* The initial value of s2 is zero, so calls to dequeue will always block and never return!
-* The order of mutex lock and sem_wait will need to be swapped (however this example is so broken that this bug has no effect!)
+-The enqueue method waits and posts on the same semaphore (s1) and similarly with equeue and (s2) i.e. we decrement the value and then immediately increment the value, so by the end of the function the semaphore value is unchanged! 
+-The initial value of s1 is 16, so the semaphore will never be reduced to zero - enqueue will not block if the ring buffer is full - so overflow is possible.
+-The initial value of s2 is zero, so calls to dequeue will always block and never return!
+-The order of mutex lock and sem_wait will need to be swapped (however this example is so broken that this bug has no effect!)
 ## Checking a multi-threaded implementation for correctness (Example 1)
 
 The following code is an incorrect implementation. What will happen? Will `enqueue` and/or `dequeue` block? Is mutual exclusion satisfied? Can the buffer underflow? Can the buffer overflow?
@@ -121,9 +121,9 @@ void *dequeue(){
 ```
 
 ### Analysis
-* The initial value of s2 is 0. Thus enqueue will block on the first call to sem_wait even though the buffer is empty!
-* The initial value of s1 is 16. Thus dequeue will not block on the first call to sem_wait even though the buffer is empty - oops Underflow! The dequeue method will return invalid data.
-* The code does not satisfy Mutual Exclusion; two threads can modify `in` or `out` at the same time! The code appears to use  mutex lock. Unfortunately the lock was never initialized with `pthread_mutex_init()` or `PTHREAD_MUTEX_INITIALIZER` - so the lock may not work (`pthread_mutex_lock` may simply do nothing)
+-The initial value of s2 is 0. Thus enqueue will block on the first call to sem_wait even though the buffer is empty!
+-The initial value of s1 is 16. Thus dequeue will not block on the first call to sem_wait even though the buffer is empty - oops Underflow! The dequeue method will return invalid data.
+-The code does not satisfy Mutual Exclusion; two threads can modify `in` or `out` at the same time! The code appears to use  mutex lock. Unfortunately the lock was never initialized with `pthread_mutex_init()` or `PTHREAD_MUTEX_INITIALIZER` - so the lock may not work (`pthread_mutex_lock` may simply do nothing)
 
 ## Correct implementation of a ring buffer
 The pseudo-code (`pthread_mutex` shortened to `p_m` etc) is shown below.
@@ -148,8 +148,8 @@ void init() {
 ```
 
 The enqueue method is shown below. Notice:
-* The lock is only held during the critical section (access to the data structure).
-* A complete implementation would need to guard against early returns from `sem_wait` due to POSIX signals.
+-The lock is only held during the critical section (access to the data structure).
+-A complete implementation would need to guard against early returns from `sem_wait` due to POSIX signals.
 
 ```C
 enqueue(void *value){
@@ -184,6 +184,6 @@ void *dequeue(){
 ```
 
 ## Food for thought
-* What would happen if  the order of  `pthread_mutex_unlock` and `sem_post` calls were swapped?
-* What would happen if the order of `sem_wait` and `pthread_mutex_lock` calls were swapped?
+-What would happen if  the order of  `pthread_mutex_unlock` and `sem_post` calls were swapped?
+-What would happen if the order of `sem_wait` and `pthread_mutex_lock` calls were swapped?
 

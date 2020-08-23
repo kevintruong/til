@@ -6,10 +6,10 @@ The same mechanism can be used by programs to directly map files into memory.
 
 ## How do I map a file into memory?
 A simple program to map a file into memory is shown below. The key points to notice are:
-* `mmap` requires a file descriptor, so we need to `open` the file first
-* `mmap` only works on `lseek`able file descriptors, i.e. "true" files, not pipes or sockets
-* We seek to our desired size and write one byte to ensure that the file is sufficient length (failing to do so causes your program to receive SIGBUS upon trying to access the file). `ftruncate` would also work.
-* When finished, we call `munmap` to unmap the file from memory
+-`mmap` requires a file descriptor, so we need to `open` the file first
+-`mmap` only works on `lseek`able file descriptors, i.e. "true" files, not pipes or sockets
+-We seek to our desired size and write one byte to ensure that the file is sufficient length (failing to do so causes your program to receive SIGBUS upon trying to access the file). `ftruncate` would also work.
+-When finished, we call `munmap` to unmap the file from memory
 
 This example also shows the preprocessor constants "__LINE__" and "__FILE__" that hold the current line number and filename of the file currently being compiled.
 ```C

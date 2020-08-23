@@ -1,9 +1,9 @@
 # Remind Me What do Permissions mean again?
 
 Every file and directory has a set of 9 permission bits and a type field
-* r, permission to read the file
-* w, permission to write to the file
-* x, permission to execute the file
+-r, permission to read the file
+-w, permission to write to the file
+-x, permission to execute the file
 
 chmod 777 <file>
 
@@ -37,22 +37,22 @@ $ chmod o-rx file4
 The base-8 ('octal') digits describe the permissions for each role: The user who owns the file, the group and everyone else. The octal number is the sum of three values given to the three types of permission: read(4), write(2), execute(1)
 
 Example: chmod 755 myfile
-* r + w + x = digit
-* user has 4+2+1, full permission
-* group has 4+0+1, read and execute permission
-* all users have 4+0+1, read and execute permission
+-r + w + x = digit
+-user has 4+2+1, full permission
+-group has 4+0+1, read and execute permission
+-all users have 4+0+1, read and execute permission
 
 ## How do I read the permission string from ls?
 Use `ls -l'. 
 Note that the permissions will output in the format 'drwxrwxrwx'. The first character indicates the type of file type. 
 Possible values for the first character:
-* (-) regular file
-* (d) directory
-* (c) character device file
-* (l) symbolic link
-* (p) pipe
-* (b) block device
-* (s) socket
+-(-) regular file
+-(d) directory
+-(c) character device file
+-(l) symbolic link
+-(p) pipe
+-(b) block device
+-(s) socket
 
 ## What is sudo?
 Use `sudo` to become the admin on the machine.
@@ -86,10 +86,10 @@ $ ls -l /usr/bin/sudo
 The 's' bit means execute and set-uid; the effective userid of the process will be different from the parent process. In this example it will be root
 
 ## What's the difference between getuid() and geteuid()?
-* `getuid` returns the real user id (zero if logged in as root)
-* `geteuid` returns the effective userid (zero if acting as root, e.g. due to the setuid flag set on a program)
+-`getuid` returns the real user id (zero if logged in as root)
+-`geteuid` returns the effective userid (zero if acting as root, e.g. due to the setuid flag set on a program)
 
 ## How do I ensure only privileged users can run my code?
-* Check the effective permissions of the user by calling `geteuid()`. A return value of zero means the program is running effectively as root.
+-Check the effective permissions of the user by calling `geteuid()`. A return value of zero means the program is running effectively as root.
 
 [Go to File System: Part 4](https://github.com/angrave/SystemProgramming/wiki/File-System,-Part-4:-Working-with-directories)

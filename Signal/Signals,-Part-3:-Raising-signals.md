@@ -2,8 +2,8 @@
 
 ----
 
-
 You already know one way to send a `SIG_INT` just type `CTRL-C` 
+
 From the shell you can use `kill` (if you know the process id) and `killall` (if you know the process name)
 ```sh
 # First let's use ps and grep to find the process we want to send a signal to
@@ -35,7 +35,8 @@ Use `raise` or `kill`
 int raise(int sig); // Send a signal to myself!
 int kill(pid_t pid, int sig); // Send a signal to another process
 ```
-For non-root processes, signals can only be sent to processes of the same user i.e. you cant just SIGKILL my processes! See kill(2) i.e. man -s2 for more details.
+For non-root processes, signals can only be sent to processes of the same user i.e. 
+you cant just SIGKILL my processes! See kill(2) i.e. man -s2 for more details.
  
 
 ## How do I send a signal to a specific thread?
@@ -60,7 +61,8 @@ pthread_kill(pthread_self(), SIGKILL); // send SIGKILL to myself
 ----
 
 It will kill the entire process.
-Though individual threads can set a signal mask, the signal disposition (the table of handlers/action performed for each signal) is *per-proces*s not *per-thread*. 
+Though individual threads can set a signal mask,
+the signal disposition (the table of handlers/action performed for each signal) is *per-proces*s not *per-thread*. 
 
 This means `sigaction` can be called from any thread because you will be setting a signal handler for all threads in the process.
 
@@ -73,6 +75,4 @@ You can choose a handle pending signals asynchronously or synchronously.
 Install a signal handler to asynchronously handle signals use `sigaction` (or, for simple examples, `signal`).
 
 To synchronously catch a pending signal use `sigwait` (which blocks until a signal is delivered) or `signalfd` (which also blocks and provides a file descriptor that can be `read()` to retrieve pending signals).
-
-See `Signals, Part 4` for an example of using `sigwait`
 

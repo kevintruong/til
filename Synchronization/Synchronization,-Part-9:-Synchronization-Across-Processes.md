@@ -88,9 +88,9 @@ You can use all of the primitives that you were taught previously! Barriers, sem
 
 ## Okay, so when would I use this?
 
-* You don't have to worry about arbitrary memory addresses becoming race condition candidates. This means that only areas that you specifically `mmap` or outside system resources like files are ever in danger.
-* You get the nice isolation of a processes so if one process fails the system can maintain intact
-* When you have a lot of threads, creating a process might ease the system load
+-You don't have to worry about arbitrary memory addresses becoming race condition candidates. This means that only areas that you specifically `mmap` or outside system resources like files are ever in danger.
+-You get the nice isolation of a processes so if one process fails the system can maintain intact
+-When you have a lot of threads, creating a process might ease the system load
 
 ## Do I need to memorize the specifics?
 

@@ -176,10 +176,10 @@ void free() {/* Do nothing */}
 
 The above implementation suffers from two major drawbacks:
 
-* System calls are slow (compared to library calls). 
+-System calls are slow (compared to library calls). 
 We should reserve a large amount of memory and only occasionally ask for more from the system.
 
-* No reuse of freed memory. Our program never re-uses heap memory - it just keeps asking for a bigger heap.
+-No reuse of freed memory. Our program never re-uses heap memory - it just keeps asking for a bigger heap.
 
 If this allocator was used in a typical program, the process would quickly exhaust all available memory.
 Instead we need an allocator that can efficiently use heap space and only ask for more memory when necessary.
@@ -251,9 +251,9 @@ Hybrid approaches and many other alternatives exist (see implementing a memory a
 ## What are the challenges of writing a heap allocator?
 
 The main challenges are,
-* Need to minimize fragmentation (i.e. maximize memory utilization)
-* Need high performance
-* Fiddly implementation (lots of pointer manipulation using linked lists and pointer arithmetic)
+-Need to minimize fragmentation (i.e. maximize memory utilization)
+-Need high performance
+-Fiddly implementation (lots of pointer manipulation using linked lists and pointer arithmetic)
 
 Some additional comments:
 

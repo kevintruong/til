@@ -1,3 +1,6 @@
+# Implementation a barrier
+
+
 ## How do I wait for N threads to reach a certain point before continuing onto the next step?
 
 Suppose we wanted to perform a multi-threaded calculation that has two stages, 
@@ -16,6 +19,9 @@ Once they do, you'll all proceed.
 
 Pthreads has a function `pthread_barrier_wait()` that implements this.
 You'll need to declare a `pthread_barrier_t` variable and initialize it with `pthread_barrier_init()`.  `pthread_barrier_init()` takes the number of threads that will be participating in the barrier as an argument.  [Here's an example.](https://github.com/angrave/SystemProgramming/wiki/Sample-program-using-pthread-barriers)
+
+
+----
 
 
 Now let's implement our own barrier and use it to keep all the threads in sync in a large calculation.

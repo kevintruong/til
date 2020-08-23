@@ -63,9 +63,9 @@ lstat("myfile.txt", &s2); // stat info about the symbolic link
 
 
 ## Advantages of symbolic links
-* Can refer to files that don't exist yet
-* Unlike hard links, can refer to directories as well as regular files
-* Can refer to files (and directories) that exist outside of the current file system
+-Can refer to files that don't exist yet
+-Unlike hard links, can refer to directories as well as regular files
+-Can refer to files (and directories) that exist outside of the current file system
 
 Main disadvantage: Slower than regular files and directories. When the links contents are read, they must be interpreted as a new path to the target file.
 

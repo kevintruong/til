@@ -2,10 +2,10 @@
 
 ## Q1
 What are the following and what is their purpose?
-* Translation Lookaside Buffer
-* Physical Address
-* Memory Management Unit
-* The dirty bit
+-Translation Lookaside Buffer
+-Physical Address
+-Memory Management Unit
+-The dirty bit
 
 ## Q2
 How do you determine how many bits are used in the page offset?

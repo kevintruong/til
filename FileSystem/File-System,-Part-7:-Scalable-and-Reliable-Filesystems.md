@@ -81,8 +81,8 @@ Must survive failure of not just a disk, but a rack of servers or a whole data c
 
 Solutions:
 
-* Simple redundancy (2 or 3 copies of each file) e.g., Google GFS (2001)
-* More efficient redundancy (analogous to RAID 3++) e.g., [Google Colossus filesystem](http://goo.gl/LwFIy) (~2010)
-* customizable replication including Reed-Solomon codes with 1.5x redundancy
+-Simple redundancy (2 or 3 copies of each file) e.g., Google GFS (2001)
+-More efficient redundancy (analogous to RAID 3++) e.g., [Google Colossus filesystem](http://goo.gl/LwFIy) (~2010)
+-customizable replication including Reed-Solomon codes with 1.5x redundancy
 
 [Go to File System: Part 8](https://github.com/angrave/SystemProgramming/wiki/File-System%2C-Part-8%3A-Removing-preinstalled-malware-from-an-Android-device)

@@ -6,15 +6,15 @@ The design of a file system is difficult problem because there many high-level d
 
 ----
 
-* Reliable and robust (even with hardware failures or incomplete writes due to power loss)
-* Access (security) controls
-* Accounting and quotas
-* Indexing and search
-* Versioning and backup capabilities
-* Encryption
-* Automatic compression
-* High performance (e.g. Caching in-memory)
-* Efficient use of storage de-duplication
+-Reliable and robust (even with hardware failures or incomplete writes due to power loss)
+-Access (security) controls
+-Accounting and quotas
+-Indexing and search
+-Versioning and backup capabilities
+-Encryption
+-Automatic compression
+-High performance (e.g. Caching in-memory)
+-Efficient use of storage de-duplication
 
 Not all filesystems natively support all of these goals. For example, many filesystems do not automatically compress rarely-used files
 
@@ -24,9 +24,9 @@ Not all filesystems natively support all of these goals. For example, many files
 ----
 
 In standard unix file systems: 
-* `.` represents the current directory  
-* `..` represents the parent directory  
-* `...` is NOT a valid representation of any directory (this not the grandparent directory). It _could_ however be the name of a file on disk.
+-`.` represents the current directory  
+-`..` represents the parent directory  
+-`...` is NOT a valid representation of any directory (this not the grandparent directory). It _could_ however be the name of a file on disk.
 
 ## What are absolute and relative paths?
 
@@ -65,9 +65,9 @@ A filesystem is how information is organized on disk. Whenever you want to acces
 
 
 Whoa that's a lot let's break it down
-* Superblock: This block contains metadata about the filesystem, how large, last modified time, a journal, number of inodes and the first inode start, number of data block and the first data block start.
-* Inode: This is the key abstraction. An inode is a file. 
-* Disk Blocks: These are where the data is stored. The actual contents of the file
+-Superblock: This block contains metadata about the filesystem, how large, last modified time, a journal, number of inodes and the first inode start, number of data block and the first data block start.
+-Inode: This is the key abstraction. An inode is a file. 
+-Disk Blocks: These are where the data is stored. The actual contents of the file
 
 ## How does inode store the file contents?
 
@@ -97,25 +97,25 @@ To support virtual memory, so we can page stuff in and out of memory.
 
 ----
 
-* Filename
-* File size
-* Time created, last modified, last accessed
-* Permissions
-* Filepath
-* Checksum
-* File data (inode)
+-Filename
+-File size
+-Time created, last modified, last accessed
+-Permissions
+-Filepath
+-Checksum
+-File data (inode)
 
 ## What are the traditional permissions: user – group – other permissions for a file?
 
 ----
 
 Some common file permissions include:
-* 755: `rwx r-x r-x`
+-755: `rwx r-x r-x`
 
 user: `rwx`, group: `r-x`, others: `r-x`
 
 User can read, write and execute. Group and others can only read and execute.
-* 644: `rw- r-- r--`
+-644: `rw- r-- r--`
 
 user: `rw-`, group: `r--`, others: `r--`
 
@@ -125,9 +125,9 @@ User can read and write. Group and others can only read.
 
 ----
 
-* Read (most significant bit)  
-* Write (2nd bit)  
-* Execute (least significant bit)
+-Read (most significant bit)  
+-Write (2nd bit)  
+-Execute (least significant bit)
 
 ## What do "644" "755" mean?
 These are examples of permissions in octal format (base 8). Each octal digit corresponds to a different role (user, group, world).
@@ -136,8 +136,8 @@ These are examples of permissions in octal format (base 8). Each octal digit cor
 
 
 We can read permissions in octal format as follows:  
-* 644 - R/W user permissions, R group permissions, R world permissions  
-* 755 - R/W/X user permissions, R/X group permissions, R/X world permissions
+-644 - R/W user permissions, R group permissions, R world permissions  
+-755 - R/W/X user permissions, R/X group permissions, R/X world permissions
 
 ## How many pointers can you store in each indirection table? 
 

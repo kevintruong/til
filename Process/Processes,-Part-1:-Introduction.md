@@ -7,11 +7,11 @@ A process is program that is running, kinda. A process is also just one instance
 ----
 
 Programs usually contain the following
-* A binary format: This tells the operating system which set of bits in the binary are what -- which part is executable, which parts are constants, which libraries to include etc.
-* A set of machine instructions
-* A number denoting which instruction to start from
-* Constants
-* Libraries to link and where to fill in the address of those libraries
+-A binary format: This tells the operating system which set of bits in the binary are what -- which part is executable, which parts are constants, which libraries to include etc.
+-A set of machine instructions
+-A number denoting which instruction to start from
+-Constants
+-Libraries to link and where to fill in the address of those libraries
 
 ## what is at the beginning of a process
 
@@ -56,24 +56,24 @@ there would be no way to change another process' state (okay maybe [this](https:
 ![https://i.imgur.com/pl6K5cF.png][memory layout]
 
 When a process starts, it gets its own address space. Meaning that each process gets :
-* **A Stack**. The Stack is the place where automatic variable and function call return addresses are stored. 
+-**A Stack**. The Stack is the place where automatic variable and function call return addresses are stored. 
 Every time a new variable is declared, the program moves the stack pointer down to reserve space for the variable. This segment of the stack is Writable but not executable. 
 If the stack grows too far -- meaning that it either grows beyond a preset boundary or intersects the heap -- you will get a stackoverflow most likely resulting in a SEGFAULT or something similar. 
 **The stack is statically allocated by default meaning that there is only a certain amount of space to which one can write**
 
-* **A Heap**. The heap is an expanding region of memory. If you want to allocate a large object, it goes here. 
+-**A Heap**. The heap is an expanding region of memory. If you want to allocate a large object, it goes here. 
 The heap starts at the top of the text segment and grows upward (meaning sometimes when you call `malloc` that it asks the operating system to push the heap boundary upward). 
 This area is also Writable but not Executable. One can run out of heap memory if the system is constrained or if you run out of addresses (more common on a 32bit system).
 
-* **A Data Segment** This contains all of your globals. This section starts at the end of the text segment and is static in size because the amount of globals is known at compile time.
+-**A Data Segment** This contains all of your globals. This section starts at the end of the text segment and is static in size because the amount of globals is known at compile time.
 There are two areas to the data usually the **IBSS** and the **UBSS** which stand for the initialized basic service set and the uninitialized data segment respectively. 
 This section is Writable but not Executable and there isn't anything else too fancy here.
-* **A Text Segment**. This is, arguably, the most important section of the address. 
+-**A Text Segment**. This is, arguably, the most important section of the address. 
 This is where all your code is stored. Since assembly compiles to 1's and 0's, this is where the 1's and 0's get stored. 
 The program counter moves through this segment executing instructions and moving down the next instruction. 
 It is important to note that this is the only Executable section of the code. 
 If you try to change the code while it's running, most likely you will segfault (there are ways around it but just assume that it segfaults).
-* Why doesn't it start at zero? It is outside the [scope](https://en.wikipedia.org/wiki/Address_space_layout_randomization) of this class but it is for security.
+-Why doesn't it start at zero? It is outside the [scope](https://en.wikipedia.org/wiki/Address_space_layout_randomization) of this class but it is for security.
 
 ## Process ID (PID)
 
@@ -83,9 +83,9 @@ Processes also have a `ppid` which is short for parent process id. Every process
 ----
 
 Processes could also contain
-* Running State - Whether a process is getting ready, running, stopped, terminated etc.
-* File Descriptors - List of mappings from integers to real devices (files, usb sticks, sockets)
-* Permissions - What `user` the file is running on and what `group` the process belongs to. The process can then only do this admissible to the `user` or `group` like opening a file that the `user` has made exclusives. There are tricks to make a program not be the user who started the program i.e. `sudo` takes a program that a `user` starts and executes it as `root`.
-* Arguments - a list of strings that tell your program what parameters to run under
-* Environment List - a list of strings in the form `NAME=VALUE` that one can modify.
+-Running State - Whether a process is getting ready, running, stopped, terminated etc.
+-File Descriptors - List of mappings from integers to real devices (files, usb sticks, sockets)
+-Permissions - What `user` the file is running on and what `group` the process belongs to. The process can then only do this admissible to the `user` or `group` like opening a file that the `user` has made exclusives. There are tricks to make a program not be the user who started the program i.e. `sudo` takes a program that a `user` starts and executes it as `root`.
+-Arguments - a list of strings that tell your program what parameters to run under
+-Environment List - a list of strings in the form `NAME=VALUE` that one can modify.
 

@@ -48,9 +48,9 @@ and isn't ready to send more yet.
 ----
 
 Given three sets of file descriptors, `select()` will wait for any of those file descriptors to become 'ready'.
-* `readfds` - a file descriptor in `readfds` is ready when there is data that can be read or EOF has been reached.
-* `writefds` - a file descriptor in `writefds` is ready when a call to write() will succeed.
-* `exceptfds` - system-specific, not well-defined.  Just pass NULL for this.
+-`readfds` - a file descriptor in `readfds` is ready when there is data that can be read or EOF has been reached.
+-`writefds` - a file descriptor in `writefds` is ready when a call to write() will succeed.
+-`exceptfds` - system-specific, not well-defined.  Just pass NULL for this.
 
 `select()` returns the total number of file descriptors that are ready.  If none of them become
 ready during the time defined by *timeout*, it will return 0.  After `select()` returns, the 

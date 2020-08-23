@@ -10,13 +10,13 @@ The operating system kernel is a special piece of software. This is the piece of
 6. The kernel executes userland scripts, and you get to use your computer!
 
 You don't need to know the specifics of the booting process, but there it is. When you are executing in user space the kernel provides some important operations that programs don't have to worry about.
-* Scheduling Processes and threads; in addition, handling synchronization primitives
-* Providing System Calls like `write` or `read`
-* Manages virtual memory and low level binary devices like `usb` drivers
-* Handles reading and understanding a filesystem
-* Handles communicating over networks
-* Handles communications with other processes
-* Dynamically linking libraries
+-Scheduling Processes and threads; in addition, handling synchronization primitives
+-Providing System Calls like `write` or `read`
+-Manages virtual memory and low level binary devices like `usb` drivers
+-Handles reading and understanding a filesystem
+-Handles communicating over networks
+-Handles communications with other processes
+-Dynamically linking libraries
 
 The kernel handles all of this stuff in kernel mode. Kernel mode gets you greater power, like executing extra CPU instructions but at the cost of one failure crashes your entire computer -- ouch. That is what you are going to interacting with in this class.
 
@@ -56,10 +56,10 @@ $ /bin/ls
 You can always call through the full path. That is always why in past classes if you want to run something on the terminal you've had to do `./exe` because typically the directory that you are working in is not in the `PATH` variable. The `.` expands to your current directory and your shell executes `<current_dir>/exe` which is a valid command.
 
 ### Shell tricks and tips
-* The up arrow will get you your most recent command
-* `ctrl-r` will search commands that you previously ran
-* `ctrl-c` will interrupt your shell's process
-* Add more!
+-The up arrow will get you your most recent command
+-`ctrl-r` will search commands that you previously ran
+-`ctrl-c` will interrupt your shell's process
+-Add more!
 
 ## Alright then what's a terminal?
 
